@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("HappyTourManager")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("IT Services Hungary")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HappyTourManager")]
-[assembly: AssemblyCopyright("Copyright © IT Services Hungary 2018")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
