@@ -7,8 +7,14 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class Customer : ICrudFunctions
+    /// <summary>
+    /// Customer class has inherited properties from the base class "Person",
+    /// and implements the ICrudFunctions interface.
+    /// </summary>
+    public class Customer : Person, ICrudFunctions
     {
+        public int LoyaltyCard { get; set; }
+
         public void CreateEntry(object obj)
         {
             throw new NotImplementedException();
