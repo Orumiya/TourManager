@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\Person.cs" />
+    <Compile Include="Data\Tourguide.cs" />
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Interface\ICrudFunctions.cs" />
     <Compile Include="MainWindow.xaml.cs">
