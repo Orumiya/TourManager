@@ -64,8 +64,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\Customer.cs" />
     <Compile Include="Helper\Logger.cs" />
-    <Compile Include="Iinterface\ICrudFunctions.cs" />
+    <Compile Include="Interface\ICrudFunctions.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

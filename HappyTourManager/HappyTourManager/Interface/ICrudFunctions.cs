@@ -1,4 +1,4 @@
-﻿namespace HappyTourManager.Iinterface
+﻿namespace HappyTourManager.Interface
 {
     using System;
     using System.Collections.Generic;
