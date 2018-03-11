@@ -1,0 +1,821 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HappyDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="LoyaltyCard" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Language" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="TourguideID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Office">
+          <Key>
+            <PropertyRef Name="OfficeID" />
+          </Key>
+          <Property Name="OfficeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OfficeName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="TaxID" Type="numeric" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="AddressCity" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="AddressZip" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="AddressFree" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="AddressCountry" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OnHoliday">
+          <Key>
+            <PropertyRef Name="OnHolidayID" />
+          </Key>
+          <Property Name="OnHolidayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="TourguideID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="PersonCount" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="TotalSum" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="IsLoyalty" Type="char" MaxLength="1" />
+          <Property Name="IsPayed" Type="char" MaxLength="1" />
+          <Property Name="IsCancelled" Type="char" MaxLength="1" />
+          <Property Name="TourID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="Phone" Type="numeric" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="AddressCity" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="AddressZip" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="AddressFree" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="AddressCountry" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IDType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IDNumber" Type="numeric" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="ValidTo" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="PlaceID" />
+          </Key>
+          <Property Name="PlaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ORUMIYA\SOURCE\REPOS\OENIK_SZT2_2018TAVASZ_I4Q14R_OMS15U_IAPW0K\HAPPYTOURMANAGER\HAPPYTOURMANAGER\HAPPYDATABASE.MDF.dbo.PLTCON' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PLTCON">
+          <Key>
+            <PropertyRef Name="TourID" />
+            <PropertyRef Name="PlaceID" />
+          </Key>
+          <Property Name="TourID" Type="int" Nullable="false" />
+          <Property Name="PlaceID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ORUMIYA\SOURCE\REPOS\OENIK_SZT2_2018TAVASZ_I4Q14R_OMS15U_IAPW0K\HAPPYTOURMANAGER\HAPPYTOURMANAGER\HAPPYDATABASE.MDF.dbo.PRTCON' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PRTCON">
+          <Key>
+            <PropertyRef Name="TourID" />
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="TourID" Type="int" Nullable="false" />
+          <Property Name="ProgramID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportDate" Type="date" Nullable="false" />
+          <Property Name="ReportType" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReportText" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="TourID" />
+          </Key>
+          <Property Name="TourID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TravelName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="Transport" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MinNumber" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="MaxNumber" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="AdultPrice" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ChildPrice" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="TourguideID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tourguide">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="Taxidentification" Type="numeric" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="Dailyallowance" Type="numeric" Precision="15" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="customer_fk">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="language_fk">
+          <End Role="Tourguide" Type="Self.Tourguide" Multiplicity="1" />
+          <End Role="Language" Type="Self.Language" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tourguide">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Language">
+              <PropertyRef Name="TourguideID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="onholiday_fk">
+          <End Role="Tourguide" Type="Self.Tourguide" Multiplicity="1" />
+          <End Role="OnHoliday" Type="Self.OnHoliday" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tourguide">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="OnHoliday">
+              <PropertyRef Name="TourguideID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="order_fk1">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="order_fk2">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="TourID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="TourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pltcon_fk1">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+          <End Role="PLTCON" Type="Self.PLTCON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="TourID" />
+            </Principal>
+            <Dependent Role="PLTCON">
+              <PropertyRef Name="TourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pltcon_fk2">
+          <End Role="Place" Type="Self.Place" Multiplicity="1" />
+          <End Role="PLTCON" Type="Self.PLTCON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Place">
+              <PropertyRef Name="PlaceID" />
+            </Principal>
+            <Dependent Role="PLTCON">
+              <PropertyRef Name="PlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prtcon_fk1">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+          <End Role="PRTCON" Type="Self.PRTCON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="TourID" />
+            </Principal>
+            <Dependent Role="PRTCON">
+              <PropertyRef Name="TourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prtcon_fk2">
+          <End Role="Program" Type="Self.Program" Multiplicity="1" />
+          <End Role="PRTCON" Type="Self.PRTCON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="PRTCON">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tour_fk">
+          <End Role="Tourguide" Type="Self.Tourguide" Multiplicity="0..1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tourguide">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="TourguideID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tourguide_fk">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Tourguide" Type="Self.Tourguide" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Tourguide">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HappyDataBaseModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Office" EntityType="Self.Office" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OnHoliday" EntityType="Self.OnHoliday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Place" EntityType="Self.Place" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tourguide" EntityType="Self.Tourguide" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PLTCON" EntityType="Self.PLTCON" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PLTCON].[TourID] AS [TourID], 
+    [PLTCON].[PlaceID] AS [PlaceID]
+    FROM [dbo].[PLTCON] AS [PLTCON]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PRTCON" EntityType="Self.PRTCON" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PRTCON].[TourID] AS [TourID], 
+    [PRTCON].[ProgramID] AS [ProgramID]
+    FROM [dbo].[PRTCON] AS [PRTCON]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="customer_fk" Association="Self.customer_fk">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="language_fk" Association="Self.language_fk">
+            <End Role="Tourguide" EntitySet="Tourguide" />
+            <End Role="Language" EntitySet="Language" />
+          </AssociationSet>
+          <AssociationSet Name="onholiday_fk" Association="Self.onholiday_fk">
+            <End Role="Tourguide" EntitySet="Tourguide" />
+            <End Role="OnHoliday" EntitySet="OnHoliday" />
+          </AssociationSet>
+          <AssociationSet Name="order_fk1" Association="Self.order_fk1">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="order_fk2" Association="Self.order_fk2">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="pltcon_fk1" Association="Self.pltcon_fk1">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="PLTCON" EntitySet="PLTCON" />
+          </AssociationSet>
+          <AssociationSet Name="pltcon_fk2" Association="Self.pltcon_fk2">
+            <End Role="Place" EntitySet="Place" />
+            <End Role="PLTCON" EntitySet="PLTCON" />
+          </AssociationSet>
+          <AssociationSet Name="prtcon_fk1" Association="Self.prtcon_fk1">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="PRTCON" EntitySet="PRTCON" />
+          </AssociationSet>
+          <AssociationSet Name="prtcon_fk2" Association="Self.prtcon_fk2">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="PRTCON" EntitySet="PRTCON" />
+          </AssociationSet>
+          <AssociationSet Name="tour_fk" Association="Self.tour_fk">
+            <End Role="Tourguide" EntitySet="Tourguide" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+          <AssociationSet Name="tourguide_fk" Association="Self.tourguide_fk">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Tourguide" EntitySet="Tourguide" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HappyDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="LoyaltyCard" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Person" Relationship="Self.customer_fk" FromRole="Customer" ToRole="Person" />
+          <NavigationProperty Name="Order" Relationship="Self.order_fk1" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Language1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TourguideID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tourguide" Relationship="Self.language_fk" FromRole="Language" ToRole="Tourguide" />
+        </EntityType>
+        <EntityType Name="Office">
+          <Key>
+            <PropertyRef Name="OfficeID" />
+          </Key>
+          <Property Name="OfficeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OfficeName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaxID" Type="Decimal" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="AddressCity" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressZip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressFree" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressCountry" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OnHoliday">
+          <Key>
+            <PropertyRef Name="OnHolidayID" />
+          </Key>
+          <Property Name="OnHolidayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <Property Name="TourguideID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tourguide" Relationship="Self.onholiday_fk" FromRole="OnHoliday" ToRole="Tourguide" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+          <Property Name="PersonCount" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="TotalSum" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="IsLoyalty" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsPayed" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsCancelled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TourID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.order_fk1" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Tour" Relationship="Self.order_fk2" FromRole="Order" ToRole="Tour" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" />
+          <Property Name="Phone" Type="Decimal" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="AddressCity" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressZip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressFree" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressCountry" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDNumber" Type="Decimal" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="ValidTo" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.customer_fk" FromRole="Person" ToRole="Customer" />
+          <NavigationProperty Name="Tourguide" Relationship="Self.tourguide_fk" FromRole="Person" ToRole="Tourguide" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="PlaceID" />
+          </Key>
+          <Property Name="PlaceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tour" Relationship="Self.PLTCON" FromRole="Place" ToRole="Tour" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tour" Relationship="Self.PRTCON" FromRole="Program" ToRole="Tour" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportDate" Type="DateTime" Nullable="false" />
+          <Property Name="ReportType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReportText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="TourID" />
+          </Key>
+          <Property Name="TourID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TravelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Transport" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MinNumber" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="MaxNumber" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="AdultPrice" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ChildPrice" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="TourguideID" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="Self.order_fk2" FromRole="Tour" ToRole="Order" />
+          <NavigationProperty Name="Tourguide" Relationship="Self.tour_fk" FromRole="Tour" ToRole="Tourguide" />
+          <NavigationProperty Name="Place" Relationship="Self.PLTCON" FromRole="Tour" ToRole="Place" />
+          <NavigationProperty Name="Program" Relationship="Self.PRTCON" FromRole="Tour" ToRole="Program" />
+        </EntityType>
+        <EntityType Name="Tourguide">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="Taxidentification" Type="Decimal" Precision="15" Scale="0" Nullable="false" />
+          <Property Name="Dailyallowance" Type="Decimal" Precision="15" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Language" Relationship="Self.language_fk" FromRole="Tourguide" ToRole="Language" />
+          <NavigationProperty Name="OnHoliday" Relationship="Self.onholiday_fk" FromRole="Tourguide" ToRole="OnHoliday" />
+          <NavigationProperty Name="Person" Relationship="Self.tourguide_fk" FromRole="Tourguide" ToRole="Person" />
+          <NavigationProperty Name="Tour" Relationship="Self.tour_fk" FromRole="Tourguide" ToRole="Tour" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="customer_fk">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="order_fk1">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="language_fk">
+          <End Role="Tourguide" Type="Self.Tourguide" Multiplicity="1" />
+          <End Role="Language" Type="Self.Language" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tourguide">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Language">
+              <PropertyRef Name="TourguideID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="onholiday_fk">
+          <End Role="Tourguide" Type="Self.Tourguide" Multiplicity="1" />
+          <End Role="OnHoliday" Type="Self.OnHoliday" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tourguide">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="OnHoliday">
+              <PropertyRef Name="TourguideID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="order_fk2">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="TourID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="TourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tourguide_fk">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Tourguide" Type="Self.Tourguide" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Tourguide">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tour_fk">
+          <End Role="Tourguide" Type="Self.Tourguide" Multiplicity="0..1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tourguide">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="TourguideID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PLTCON">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+        </Association>
+        <Association Name="PRTCON">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <End Role="Program" Type="Self.Program" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="HappyDataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Language" EntityType="Self.Language" />
+          <EntitySet Name="Office" EntityType="Self.Office" />
+          <EntitySet Name="OnHoliday" EntityType="Self.OnHoliday" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="Place" EntityType="Self.Place" />
+          <EntitySet Name="Program" EntityType="Self.Program" />
+          <EntitySet Name="Report" EntityType="Self.Report" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" />
+          <EntitySet Name="Tourguide" EntityType="Self.Tourguide" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="customer_fk" Association="Self.customer_fk">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="order_fk1" Association="Self.order_fk1">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="language_fk" Association="Self.language_fk">
+            <End Role="Tourguide" EntitySet="Tourguide" />
+            <End Role="Language" EntitySet="Language" />
+          </AssociationSet>
+          <AssociationSet Name="onholiday_fk" Association="Self.onholiday_fk">
+            <End Role="Tourguide" EntitySet="Tourguide" />
+            <End Role="OnHoliday" EntitySet="OnHoliday" />
+          </AssociationSet>
+          <AssociationSet Name="order_fk2" Association="Self.order_fk2">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="tourguide_fk" Association="Self.tourguide_fk">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Tourguide" EntitySet="Tourguide" />
+          </AssociationSet>
+          <AssociationSet Name="tour_fk" Association="Self.tour_fk">
+            <End Role="Tourguide" EntitySet="Tourguide" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+          <AssociationSet Name="PLTCON" Association="Self.PLTCON">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="PRTCON" Association="Self.PRTCON">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="Program" EntitySet="Program" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HappyDataBaseModelStoreContainer" CdmEntityContainer="HappyDataBaseEntities">
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="LoyaltyCard" ColumnName="LoyaltyCard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Language">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Language1" ColumnName="Language" />
+                <ScalarProperty Name="TourguideID" ColumnName="TourguideID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Office">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Office">
+              <MappingFragment StoreEntitySet="Office">
+                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+                <ScalarProperty Name="OfficeName" ColumnName="OfficeName" />
+                <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
+                <ScalarProperty Name="AddressFree" ColumnName="AddressFree" />
+                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnHoliday">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.OnHoliday">
+              <MappingFragment StoreEntitySet="OnHoliday">
+                <ScalarProperty Name="OnHolidayID" ColumnName="OnHolidayID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="TourguideID" ColumnName="TourguideID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="PersonCount" ColumnName="PersonCount" />
+                <ScalarProperty Name="TotalSum" ColumnName="TotalSum" />
+                <ScalarProperty Name="IsLoyalty" ColumnName="IsLoyalty" />
+                <ScalarProperty Name="IsPayed" ColumnName="IsPayed" />
+                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+                <ScalarProperty Name="TourID" ColumnName="TourID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
+                <ScalarProperty Name="AddressFree" ColumnName="AddressFree" />
+                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
+                <ScalarProperty Name="IDType" ColumnName="IDType" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Place">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Place">
+              <MappingFragment StoreEntitySet="Place">
+                <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Program">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Program">
+              <MappingFragment StoreEntitySet="Program">
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="ProgramType" ColumnName="ProgramType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+                <ScalarProperty Name="ReportText" ColumnName="ReportText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tour">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Tour">
+              <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="TourID" ColumnName="TourID" />
+                <ScalarProperty Name="TravelName" ColumnName="TravelName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Transport" ColumnName="Transport" />
+                <ScalarProperty Name="MinNumber" ColumnName="MinNumber" />
+                <ScalarProperty Name="MaxNumber" ColumnName="MaxNumber" />
+                <ScalarProperty Name="AdultPrice" ColumnName="AdultPrice" />
+                <ScalarProperty Name="ChildPrice" ColumnName="ChildPrice" />
+                <ScalarProperty Name="TourguideID" ColumnName="TourguideID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tourguide">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.Tourguide">
+              <MappingFragment StoreEntitySet="Tourguide">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Taxidentification" ColumnName="Taxidentification" />
+                <ScalarProperty Name="Dailyallowance" ColumnName="Dailyallowance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="HappyDataBaseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PLTCON" TypeName="HappyDataBaseModel.PLTCON" StoreEntitySet="PLTCON">
+            <EndProperty Name="Tour">
+              <ScalarProperty Name="TourID" ColumnName="TourID" />
+            </EndProperty>
+            <EndProperty Name="Place">
+              <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PRTCON" TypeName="HappyDataBaseModel.PRTCON" StoreEntitySet="PRTCON">
+            <EndProperty Name="Tour">
+              <ScalarProperty Name="TourID" ColumnName="TourID" />
+            </EndProperty>
+            <EndProperty Name="Program">
+              <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

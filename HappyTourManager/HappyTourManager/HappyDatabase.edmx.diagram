@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c4f65c036e2644d8814e37005b5594d2" Name="Diagram1">
+        <EntityTypeShape EntityType="HappyDataBaseModel.Customer" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Language" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Office" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.OnHoliday" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Order" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Person" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Place" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Program" Width="1.5" PointX="7.5" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Report" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Tour" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.Tourguide" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HappyDataBaseModel.User" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="HappyDataBaseModel.customer_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="HappyDataBaseModel.order_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="HappyDataBaseModel.language_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="HappyDataBaseModel.onholiday_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="HappyDataBaseModel.order_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="HappyDataBaseModel.tourguide_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="HappyDataBaseModel.tour_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="HappyDataBaseModel.PLTCON" ManuallyRouted="false" />
+        <AssociationConnector Association="HappyDataBaseModel.PRTCON" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
