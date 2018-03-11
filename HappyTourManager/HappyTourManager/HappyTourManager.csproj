@@ -82,16 +82,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HappyDatabase.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HappyDatabase.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HappyDatabase.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HappyDatabase.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Interface\ICrudFunctions.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -117,13 +107,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="HappyDatabase.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HappyDatabase.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="HappyDatabase.edmx.diagram">
-      <DependentUpon>HappyDatabase.edmx</DependentUpon>
-    </None>
     <None Include="oenik.ruleset" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -140,10 +123,6 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HappyDatabase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HappyDatabase.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="HappyDataBase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
