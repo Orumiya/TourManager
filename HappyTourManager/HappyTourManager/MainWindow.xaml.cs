@@ -19,6 +19,7 @@ namespace HappyTourManager
     using System.Windows.Media.Imaging;
     using System.Windows.Navigation;
     using System.Windows.Shapes;
+    using HappyTourManager.VM;
     using Helper;
 
     /// <summary>
@@ -26,9 +27,15 @@ namespace HappyTourManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// a főmenü page-t indítja
+        /// </summary>
         public MainWindow()
         {
             this.InitializeComponent();
+            Menu page1 = new Menu(this.mainFrame);
+            this.mainFrame.Content = page1;
         }
     }
 }

@@ -91,6 +91,10 @@
     <Compile Include="Language.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CustomerHandler.cs" />
     <Compile Include="Office.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
@@ -127,6 +131,7 @@
     <Compile Include="User.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="VM\CustomerModulPageViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -151,6 +156,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -199,7 +208,7 @@
       <DependentUpon>HappyDatabase.edmx</DependentUpon>
     </Content>
     <Content Include="HappyDataBase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="HappyDatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -207,8 +216,8 @@
       <LastGenOutput>HappyDatabase.cs</LastGenOutput>
     </Content>
     <Content Include="HappyDataBase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>HappyDataBase.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
