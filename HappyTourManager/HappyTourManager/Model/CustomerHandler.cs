@@ -22,14 +22,14 @@ namespace HappyTourManager.Model
 
         public void CreateEntry(object obj)
         {
-            // var Customer = new Customer()
-            // {
-            var person = new Person()
+            var customer = new Customer()
             {
+                Person = new Person()
+                {
                     PersonID = 6,
-                    FirstName = "Pamela",
-                    LastName = "Parker",
-                    BirthDate = new DateTime(1978, 10, 4),
+                    FirstName = "Benny",
+                    LastName = "Bell",
+                    BirthDate = new DateTime(1934,10,10),
                     Phone = 06201231232,
                     AddressCity = "Budapest",
                     AddressZip = "1222",
@@ -38,12 +38,12 @@ namespace HappyTourManager.Model
                     IDType = "passport",
                     IDNumber = 234567898,
                     ValidTo = new DateTime(2023, 10, 10)
+               },
 
-               // },
-
-                // LoyaltyCard = "Y"
+               LoyaltyCard = "Y"
             };
-            this.database.People.Add(person);
+            this.database.People.Add(customer.Person);
+            this.database.Customers.Add(customer);
             this.database.SaveChanges();
         }
 
