@@ -1,21 +1,20 @@
-﻿using HappyTourManager.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HappyTourManager.VM
+﻿namespace HappyTourManager.VM
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using HappyTourManager.Model;
+
     class CustomerModulPageViewModel
     {
-        public Customer Customer { get; set; }
-        public CustomerHandler handler;
-
         public CustomerModulPageViewModel()
         {
-            handler = new CustomerHandler();
-            Customer = new Customer()
+            this.Handler = new CustomerHandler();
+
+            // dummy customer
+            this.Customer = new Customer()
             {
                 Person = new Person()
                 {
@@ -35,14 +34,33 @@ namespace HappyTourManager.VM
             };
         }
 
+        public Customer Customer { get; set; }
+
+        public CustomerHandler Handler { get; set; }
+
         public void Save()
         {
-            handler.CreateEntry(Customer);
+            this.Handler.CreateEntry(this.Customer);
         }
 
-        public void Read()
+        public void Search()
         {
-            handler.SearchEntry(Customer);
+            this.Handler.SearchEntry(this.Customer);
+        }
+
+        public void ListAll()
+        {
+            this.Handler.ListAllEntry();
+        }
+
+        public void Delete()
+        {
+            this.Handler.DeleteEntry(this.Customer);
+        }
+
+        public void NewCustomer()
+        {
+            this.Handler.CreateEntry(this.Customer);
         }
     }
  }
