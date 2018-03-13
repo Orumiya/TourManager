@@ -1,4 +1,9 @@
-﻿namespace HappyTourManager.Interface
+﻿// <copyright file="ICrudFunctions.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Interface
+#pragma warning restore SA1652 // Enable XML documentation output
 {
     using System;
     using System.Collections.Generic;

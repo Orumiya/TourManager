@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager.VM
+﻿// <copyright file="CustomerModulPageViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.VM
 {
     using System;
     using System.Collections.Generic;
