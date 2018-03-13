@@ -45,5 +45,4 @@ namespace HappyTourManager.VM
             handler.SearchEntry(Customer);
         }
     }
-    }
-}
+ }
