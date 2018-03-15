@@ -1,0 +1,10 @@
+CREATE TABLE [dbo].[Office](
+[OfficeID] int IDENTITY(1,1),
+[OfficeName] VARCHAR(40) NOT NULL, 
+[TaxID] NUMERIC(15) NOT NULL,
+[AddressCity] VARCHAR(40) NOT NULL, 
+[AddressZip] VARCHAR(10) NOT NULL,
+[AddressFree] VARCHAR(40) NOT NULL,
+[AddressCountry] VARCHAR(40) NOT NULL,
+CONSTRAINT office_pk
+PRIMARY KEY CLUSTERED ([OfficeID]ASC));

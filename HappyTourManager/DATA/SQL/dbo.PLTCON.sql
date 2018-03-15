@@ -1,0 +1,12 @@
+CREATE TABLE [dbo].[PLTCON](
+[PLTCONID] int IDENTITY(1,1),
+[TourID] int NOT NULL,
+[PlaceID] int NOT NULL,
+CONSTRAINT pltcon_pk
+PRIMARY KEY CLUSTERED ([PLTCONID] ASC),  
+CONSTRAINT pltcon_fk1
+FOREIGN KEY ([TourID])
+REFERENCES [dbo].[Tour]([TourID]),
+CONSTRAINT pltcon_fk2
+FOREIGN KEY ([PlaceID])
+REFERENCES [dbo].[Place] ([PlaceID]));

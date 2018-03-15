@@ -1,0 +1,6 @@
+CREATE TABLE [dbo].[Place](
+[PlaceID] int IDENTITY(1,1),
+[Country] VARCHAR(50) NOT NULL,
+[City] VARCHAR(50) NOT NULL,
+CONSTRAINT place_pk
+PRIMARY KEY CLUSTERED ([PlaceID] ASC));
