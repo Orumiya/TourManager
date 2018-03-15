@@ -62,15 +62,23 @@ namespace HappyTourManager.Model
             throw new NotImplementedException();
         }
 
-        public object SearchEntry(object obj)
+        public object SearchEntry(DateTime birthDate)
         {
-            var person = this.database.People.Single(e => e.PersonID == 2);
-            person.FirstName = "Kankalin";
-            Console.WriteLine(person.FirstName);
-            this.database.SaveChanges();
-            Person persn = this.database.People.Single(e => e.PersonID == 2);
-            Console.WriteLine(persn.FirstName);
-            return persn;
+            var person = this.database.People.Where(e => e.BirthDate.Equals(birthDate));
+            return person;
+        }
+
+        public object SearchEntry(string paramtype, object obj)
+        {
+            //var person = this.database.People.Single(e => e.PersonID == 2);
+            //person.FirstName = "Kankalin";
+            //Console.WriteLine(person.FirstName);
+            //this.database.SaveChanges();
+            //Person persn = this.database.People.Single(e => e.PersonID == 2);
+            //Console.WriteLine(persn.FirstName);
+            //return persn;
+
+            return this.SearchEntry((DateTime)obj);
         }
     }
 }
