@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BL">
+      <HintPath>..\BL\bin\Debug\BL.dll</HintPath>
+    </Reference>
+    <Reference Include="DATA">
+      <HintPath>..\DATA\bin\Debug\DATA.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
