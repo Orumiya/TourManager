@@ -80,6 +80,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\TourGuideMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\TourMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -91,6 +95,9 @@
     </Compile>
     <Compile Include="Pages\OrderMainPage.xaml.cs">
       <DependentUpon>OrderMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TourGuideMainPage.xaml.cs">
+      <DependentUpon>TourGuideMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TourMainPage.xaml.cs">
       <DependentUpon>TourMainPage.xaml</DependentUpon>
