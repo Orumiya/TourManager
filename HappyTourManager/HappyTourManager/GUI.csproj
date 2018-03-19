@@ -64,6 +64,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OfficeMainViewModel.cs" />
     <Compile Include="ViewModels\OrderMainViewModel.cs" />
+    <Compile Include="ViewModels\ReportMainViewModel.cs" />
     <Compile Include="ViewModels\TourGuideMainViewModel.cs" />
     <Compile Include="ViewModels\TourMainViewModel.cs" />
     <Page Include="MainWindow.xaml">
