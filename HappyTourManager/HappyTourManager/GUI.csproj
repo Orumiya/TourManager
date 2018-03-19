@@ -84,6 +84,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ReportMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\TourGuideMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,6 +106,9 @@
     </Compile>
     <Compile Include="Pages\OrderMainPage.xaml.cs">
       <DependentUpon>OrderMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReportMainPage.xaml.cs">
+      <DependentUpon>ReportMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TourGuideMainPage.xaml.cs">
       <DependentUpon>TourGuideMainPage.xaml</DependentUpon>
