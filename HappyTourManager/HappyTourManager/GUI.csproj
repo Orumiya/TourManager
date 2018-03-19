@@ -62,6 +62,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\CustomerMainViewModel.cs" />
     <Compile Include="ViewModels\OrderMainViewModel.cs" />
+    <Compile Include="ViewModels\TourGuideMainViewModel.cs" />
     <Compile Include="ViewModels\TourMainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
