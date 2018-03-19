@@ -62,6 +62,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\CustomerMainViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\OfficeMainViewModel.cs" />
     <Compile Include="ViewModels\OrderMainViewModel.cs" />
     <Compile Include="ViewModels\TourGuideMainViewModel.cs" />
     <Compile Include="ViewModels\TourMainViewModel.cs" />
