@@ -68,7 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
@@ -106,6 +105,7 @@
     <Compile Include="Place.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositoriees\PlaceRepository.cs" />
     <Compile Include="PLTCON.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
@@ -188,6 +188,9 @@
       <Project>{6119387b-2b6d-40ee-9bed-995fffc636c1}</Project>
       <Name>GUI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
