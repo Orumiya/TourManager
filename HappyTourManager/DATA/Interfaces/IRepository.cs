@@ -11,10 +11,15 @@
         IQueryable<T> GetAll();
 
         /// <summary>
-        /// Save data (generic method)
+        /// create new dataobject
         /// </summary>
         /// <param name="dataobject"></param>
-        void Save(T dataobject);
+        void Create(T dataobject);
+
+        /// <summary>
+        /// Update data (generic method)
+        /// </summary>
+        void Update();
 
         /// <summary>
         /// Delete dataobject (generic method)
@@ -27,5 +32,14 @@
         /// </summary>
         /// <param name="dataobject"></param>
         void ThrowIfExists(T dataobject);
+
+        /// <summary>
+        /// searches for a dataobject with specified searchterm and value
+        /// </summary>
+        /// <param name="searchterm"></param>
+        /// <param name="searchvalue"></param>
+        /// <returns></returns>
+        IQueryable<T> Search(object searchterm, object searchvalue);
+
     }
 }
