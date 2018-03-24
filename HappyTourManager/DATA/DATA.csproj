@@ -83,6 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HappyDatabase.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Language.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
