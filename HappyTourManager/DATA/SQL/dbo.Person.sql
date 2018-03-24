@@ -1,0 +1,15 @@
+﻿CREATE TABLE [dbo].[Person](
+[PersonID] int IDENTITY(1,1),
+[LastName] VARCHAR(40) NOT NULL, 
+[FirstName] VARCHAR(40) NOT NULL, 
+[BirthDate] DATE NOT NULL,
+[Phone] NUMERIC(15) NOT NULL,
+[AddressCity] VARCHAR(40) NOT NULL, 
+[AddressZip] VARCHAR(10) NOT NULL,
+[AddressFree] VARCHAR(40) NOT NULL,
+[AddressCountry] VARCHAR(40) NOT NULL,
+[IDType] VARCHAR(20) NOT NULL,
+[IDNumber] NUMERIC(15) NOT NULL,
+[ValidTo] DATE NOT NULL, 
+CONSTRAINT person_pk
+PRIMARY KEY CLUSTERED ([PersonID] ASC));
