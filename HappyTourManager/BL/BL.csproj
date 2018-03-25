@@ -61,11 +61,5 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HappyTourManager\GUI.csproj">
-      <Project>{6119387b-2b6d-40ee-9bed-995fffc636c1}</Project>
-      <Name>GUI</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
