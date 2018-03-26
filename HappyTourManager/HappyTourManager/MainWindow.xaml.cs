@@ -22,6 +22,8 @@ namespace HappyTourManager
     //using HappyTourManager.VM;
     //using Helper;
     using DATA;
+    using DATA.Repositories;
+    using DATA.Interfaces;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -37,7 +39,20 @@ namespace HappyTourManager
             this.InitializeComponent();
             //Menu page1 = new Menu(this.mainFrame);
             //this.mainFrame.Content = page1;
+            PlaceRepository repo = new PlaceRepository();
+            
+            repo.Create(new Place()
+            {
+                Country = "Hungary",
+                City = "Sopron"
+            });
+            IQueryable<Place> list = repo.GetAll();
+            foreach (Place item in list)
+            {
+                Console.WriteLine(item.PlaceID + " "+ item.Country + " " + item.City);
+            }
 
+            Console.Read();
         }
     }
 }
