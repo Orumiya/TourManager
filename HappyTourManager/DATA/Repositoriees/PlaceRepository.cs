@@ -35,6 +35,7 @@
         /// <param name="dataobject"></param>
         public void Create(Place dataobject)
         {
+            ThrowIfExists(dataobject);
             entities.Places.Add(dataobject);
             entities.SaveChanges();
         }
@@ -89,7 +90,14 @@
         /// <param name="dataobject"></param>
         public void ThrowIfExists(Place dataobject)
         {
-            throw new NotImplementedException();
+            
+            bool exist = entities.Places.Any(
+                e => e.City.Equals(dataobject.City) &&
+                e.Country.Equals(dataobject.Country));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
 
         /// <summary>
@@ -99,5 +107,6 @@
         {
             entities.SaveChanges();
         }
+
     }
 }

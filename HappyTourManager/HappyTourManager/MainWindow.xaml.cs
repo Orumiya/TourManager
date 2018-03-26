@@ -39,20 +39,7 @@ namespace HappyTourManager
             this.InitializeComponent();
             //Menu page1 = new Menu(this.mainFrame);
             //this.mainFrame.Content = page1;
-            PlaceRepository repo = new PlaceRepository();
-            
-            repo.Create(new Place()
-            {
-                Country = "Hungary",
-                City = "Sopron"
-            });
-            IQueryable<Place> list = repo.GetAll();
-            foreach (Place item in list)
-            {
-                Console.WriteLine(item.PlaceID + " "+ item.Country + " " + item.City);
-            }
 
-            Console.Read();
         }
     }
 }
