@@ -105,6 +105,7 @@
     <Compile Include="Place.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositoriees\CustomerRepository.cs" />
     <Compile Include="Repositoriees\PlaceRepository.cs" />
     <Compile Include="PLTCON.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
