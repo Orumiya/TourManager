@@ -120,6 +120,7 @@
     <Compile Include="Report.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositoriees\TourRepository.cs" />
     <Compile Include="Tour.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
