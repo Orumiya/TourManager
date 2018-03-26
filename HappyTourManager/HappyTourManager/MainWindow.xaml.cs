@@ -21,6 +21,7 @@ namespace HappyTourManager
     using System.Windows.Shapes;
     //using HappyTourManager.VM;
     //using Helper;
+    using DATA;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -36,6 +37,7 @@ namespace HappyTourManager
             this.InitializeComponent();
             //Menu page1 = new Menu(this.mainFrame);
             //this.mainFrame.Content = page1;
+
         }
     }
 }
