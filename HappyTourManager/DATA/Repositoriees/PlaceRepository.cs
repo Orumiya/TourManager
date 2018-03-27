@@ -24,9 +24,9 @@
         /// creates the repository
         /// </summary>
         /// <param name="entities"></param>
-        public PlaceRepository()
+        public PlaceRepository(HappyTourDatabaseEntities entities)
         {
-            this.entities = new HappyTourDatabaseEntities();
+            this.entities = entities;
         }
 
         /// <summary>
