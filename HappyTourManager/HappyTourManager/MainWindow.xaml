@@ -10,8 +10,10 @@
         Icon=" Images/travel_icon.ico"
         Title="Happy Tour Manager" Height="350" Width="525">
     <Grid>
-        
-        
+        <StackPanel>
+        <TextBlock Text="Welcome!" FontSize="40" FontFamily="TimesNewRoman"/>
+        <TextBlock Text="WELCOME!" FontSize="40" FontFamily="{StaticResource Cityscape}"/>
+        </StackPanel>
     </Grid>
     
     </Window>
