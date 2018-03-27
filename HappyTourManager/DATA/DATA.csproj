@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Repositoriees\CustomerRepository.cs" />
     <Compile Include="Repositoriees\LanguageRepository.cs" />
+    <Compile Include="Repositoriees\OfficeRepository.cs" />
     <Compile Include="Repositoriees\OnholidayRepository.cs" />
     <Compile Include="Repositoriees\PlaceRepository.cs" />
     <Compile Include="PLTCON.cs">
