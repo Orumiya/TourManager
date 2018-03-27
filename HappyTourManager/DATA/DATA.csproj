@@ -109,6 +109,7 @@
     <Compile Include="Repositoriees\LanguageRepository.cs" />
     <Compile Include="Repositoriees\OfficeRepository.cs" />
     <Compile Include="Repositoriees\OnholidayRepository.cs" />
+    <Compile Include="Repositoriees\OrderRepository.cs" />
     <Compile Include="Repositoriees\PlaceRepository.cs" />
     <Compile Include="PLTCON.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
