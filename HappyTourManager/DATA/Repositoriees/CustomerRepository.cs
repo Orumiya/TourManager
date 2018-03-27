@@ -30,19 +30,36 @@
             this.entities = entities;
         }
 
+        /// <summary>
+        /// adds a new Customer object to the database
+        /// </summary>
+        /// <param name="dataobject"></param>
         public void Create(Customer dataobject)
         {
-            throw new NotImplementedException();
+            //ThrowIfExists(dataobject);
+            entities.People.Add(dataobject.Person);
+            entities.Customers.Add(dataobject);
+            entities.SaveChanges();
         }
 
+        /// <summary>
+        /// removes a Customer from the database
+        /// </summary>
+        /// <param name="dataobject"></param>
         public void Delete(Customer dataobject)
         {
-            throw new NotImplementedException();
+            entities.Customers.Remove(dataobject);
+            //entities.People.Remove(dataobject.Person);
+            entities.SaveChanges();
         }
 
+        /// <summary>
+        /// returns all Customers from the database
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<Customer> GetAll()
         {
-            throw new NotImplementedException();
+            return entities.Customers;
         }
 
         public IQueryable<Customer> Search(object searchterm, object searchvalue)
@@ -55,9 +72,12 @@
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// updates an entry in the database
+        /// </summary>
         public void Update()
         {
-            throw new NotImplementedException();
+            entities.SaveChanges();
         }
     }
 }
