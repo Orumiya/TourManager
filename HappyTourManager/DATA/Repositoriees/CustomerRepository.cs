@@ -6,7 +6,13 @@
 
     public enum CustomerTerms
     {
-
+        LoyaltyCard,
+        LastName,
+        FirstName,
+        BirthDate,
+        AddressCity,
+        IDNumber,
+        ValidTo
     }
     public class CustomerRepository : IRepository<Customer>
     {
@@ -21,7 +27,7 @@
         /// <param name="entities"></param>
         public CustomerRepository(HappyTourDatabaseEntities entities)
         {
-            this.entities = new HappyTourDatabaseEntities();
+            this.entities = entities;
         }
 
         public void Create(Customer dataobject)
