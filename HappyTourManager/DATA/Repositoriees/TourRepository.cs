@@ -22,5 +22,35 @@
         {
             this.entities = entities;
         }
+
+        public void Create(Tour dataobject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Tour dataobject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Tour> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Tour> Search(object searchterm, object searchvalue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ThrowIfExists(Tour dataobject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
