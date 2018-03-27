@@ -22,5 +22,35 @@ namespace DATA.Repositoriees
         {
             this.entities = entities;
         }
+
+        public void Create(Tourguide dataobject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Tourguide dataobject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Tourguide> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Tourguide> Search(object searchterm, object searchvalue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ThrowIfExists(Tourguide dataobject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
