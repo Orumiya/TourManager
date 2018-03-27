@@ -125,6 +125,7 @@
     <Compile Include="Repositoriees\ProgramRepository.cs" />
     <Compile Include="Repositoriees\TourguideRepository.cs" />
     <Compile Include="Repositoriees\TourRepository.cs" />
+    <Compile Include="Repositoriees\UserRepository.cs" />
     <Compile Include="Tour.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
