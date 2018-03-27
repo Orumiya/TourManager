@@ -5,4 +5,5 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HappyTourManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"/>
+        Icon=" Images/travel_icon.ico"
+        Title="Happy Tour Manager" Height="350" Width="525"/>
