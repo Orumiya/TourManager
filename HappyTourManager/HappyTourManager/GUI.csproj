@@ -99,6 +99,7 @@
     <Compile Include="ViewModels\ReportMainViewModel.cs" />
     <Compile Include="ViewModels\TourGuideMainViewModel.cs" />
     <Compile Include="ViewModels\TourMainViewModel.cs" />
+    <Compile Include="ViewModels\WindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

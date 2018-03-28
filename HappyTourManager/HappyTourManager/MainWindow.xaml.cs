@@ -40,6 +40,7 @@ namespace HappyTourManager
             //Menu page1 = new Menu(this.mainFrame);
             //this.mainFrame.Content = page1;
 
+            this.DataContext = new WindowViewModel(this);
         }
     }
 }
