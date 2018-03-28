@@ -1,7 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:HappyTourManager">
-    
-    
-    
+
+    <Color x:Key="BackgroundBlue">#62B7F7</Color>
+    <SolidColorBrush x:Key="BGBlueBrush" Color="{StaticResource BackgroundBlue}" />
+
+    <Color x:Key="LightBG">#efefef</Color>
+    <SolidColorBrush x:Key="LightBGBrush" Color="{StaticResource LightBG}" />
+
+    <Color x:Key="ForegroundColor">#474747</Color>
+    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}" />
+
+    <Color x:Key="ForegroundLightColor">#ffffff</Color>
+    <SolidColorBrush x:Key="ForegroundLight" Color="{StaticResource ForegroundLightColor}" />
+
+
 </ResourceDictionary>
