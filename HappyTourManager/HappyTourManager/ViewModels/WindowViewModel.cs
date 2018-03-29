@@ -70,7 +70,9 @@ namespace HappyTourManager
 
             window.StateChanged += Window_StateChanged;
 
-
+            MinimizeCommand = new RelayCommand(() => window.WindowState = WindowState.Maximized);
+            MaximizeCommand = new RelayCommand(() => window.WindowState ^= WindowState.Maximized);
+            CloseCommand = new RelayCommand(() => window.Close());
 
         }
 
@@ -83,6 +85,23 @@ namespace HappyTourManager
             OnPropertyChanged("WCornerRadius");
         }
 
-        
+        //Commands
+
+        /// <summary>
+        /// Minimize Window
+        /// </summary>
+        public ICommand MinimizeCommand { get; set; }
+
+
+        /// <summary>
+        /// Maximize Window
+        /// </summary>
+        public ICommand MaximizeCommand { get; set; }
+
+        /// <summary>
+        /// Close Window
+        /// </summary>
+        public ICommand CloseCommand { get; set; }
+
     }
 }
