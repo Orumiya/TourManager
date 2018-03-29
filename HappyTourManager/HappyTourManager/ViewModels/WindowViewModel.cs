@@ -70,7 +70,7 @@ namespace HappyTourManager
 
             window.StateChanged += Window_StateChanged;
 
-            MinimizeCommand = new RelayCommand(() => window.WindowState = WindowState.Maximized);
+            MinimizeCommand = new RelayCommand(() => window.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => window.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => window.Close());
 

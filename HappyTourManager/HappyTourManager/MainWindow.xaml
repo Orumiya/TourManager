@@ -41,9 +41,21 @@
                                         </Grid.ColumnDefinitions>
                                         
                                         <!--Icon-->
-                                        <Button Style="{StaticResource SystemButton}" Command="{Binding MenuCommand}">
+                                        <Button Style="{StaticResource SystemButton}" >
                                             <Image Source="Images/travel_icon.png" />
                                         </Button>
+                                        
+                                        <!--Title-->
+                                        <Viewbox Grid.Column="1" Margin="0">
+                                            <TextBlock Style="{StaticResource HeaderStyle}" Padding="5" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Happy Tour Manager'}" />
+                                        </Viewbox>
+                                        
+                                        <!--Buttons-->
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                            <Button Command="{Binding MinimizeCommand}" Style="{StaticResource ControlButton}" Content="_" />
+                                            <Button Command="{Binding MaximizeCommand}" Style="{StaticResource ControlButton}" Content="[ ]" />
+                                            <Button Command="{Binding CloseCommand}" Style="{StaticResource ControlButton}" Content="X" />
+                                        </StackPanel>
                                         
                                     </Grid>
                                 </Grid>
