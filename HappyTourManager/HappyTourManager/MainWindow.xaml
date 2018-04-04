@@ -59,8 +59,13 @@
 
                                     </Grid>
 
-                                    <Border Grid.Row="1" Padding="5">
-                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                    <Border Grid.Row="1" Background="{StaticResource BGBlueBrush}">
+                                        <Border>
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="Images/travel_sillouette.png" ViewportUnits="RelativeToBoundingBox" Viewport="0 0.6 1 0.4" />
+                                            </Border.Background>
+                                            <ContentPresenter Content="{TemplateBinding Content}" />
+                                        </Border>                                        
                                     </Border>
                                 </Grid>
                             </Grid>
@@ -86,7 +91,8 @@
         
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{StaticResource BGBlueBrush}">
+    <Grid>
+        
         <Frame x:Name="MainFrame" Content="{Binding ActualPage, Converter={local:PageConverter}}" />
     </Grid>
     
