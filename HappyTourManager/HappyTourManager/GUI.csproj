@@ -92,6 +92,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bindable.cs" />
+    <Compile Include="Converters\PageConverter.cs" />
+    <Compile Include="Converters\ValueConverter.cs" />
+    <Compile Include="Pages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CustomerMainViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OfficeMainViewModel.cs" />
@@ -166,9 +171,6 @@
     <Compile Include="Pages\CustomerMainPage.xaml.cs">
       <DependentUpon>CustomerMainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\OfficeMainPage.xaml.cs">
       <DependentUpon>OfficeMainPage.xaml</DependentUpon>
     </Compile>
@@ -239,6 +241,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BL\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
