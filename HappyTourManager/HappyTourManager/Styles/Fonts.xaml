@@ -6,11 +6,11 @@
     <FontFamily x:Key="Cityscape">pack://application:,,,/Fonts/#cityscape font cityscape font</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
-        <Setter Property="FontFamily" Value="{StaticResource SugarCubesRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource SugarcubesRegular}" />
     </Style>
 
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
-        <Setter Property="FontFamily" Value="{StaticResource SugarCubesRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource SugarcubesRegular}" />
     </Style>
 
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />

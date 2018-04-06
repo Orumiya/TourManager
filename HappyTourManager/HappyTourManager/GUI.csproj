@@ -95,6 +95,7 @@
     <Compile Include="Bindable.cs" />
     <Compile Include="Converters\PageConverter.cs" />
     <Compile Include="Converters\ValueConverter.cs" />
+    <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

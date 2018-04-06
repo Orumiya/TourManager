@@ -11,7 +11,7 @@ namespace HappyTourManager
     /// <summary>
     /// For data binding
     /// </summary>
-    class Bindable : INotifyPropertyChanged
+    public class Bindable : INotifyPropertyChanged
     {
         protected void OnPropertyChanged(string propertyName)
         {
