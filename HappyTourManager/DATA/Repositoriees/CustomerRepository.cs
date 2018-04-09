@@ -36,7 +36,7 @@
         /// <param name="dataobject"></param>
         public void Create(Customer dataobject)
         {
-            //ThrowIfExists(dataobject);
+            ThrowIfExists(dataobject);
             entities.People.Add(dataobject.Person);
             entities.Customers.Add(dataobject);
             entities.SaveChanges();
@@ -49,7 +49,6 @@
         public void Delete(Customer dataobject)
         {
             entities.Customers.Remove(dataobject);
-            //entities.People.Remove(dataobject.Person);
             entities.SaveChanges();
         }
 
@@ -64,12 +63,57 @@
 
         public IQueryable<Customer> Search(object searchterm, object searchvalue)
         {
-            throw new NotImplementedException();
+            if ((CustomerTerms)searchterm == CustomerTerms.FirstName)
+            {
+                var customers = entities.Customers.Where(e => e.Person.FirstName.Equals((string)searchvalue));
+                return customers;
+            }
+            else if ((CustomerTerms)searchterm == CustomerTerms.LastName)
+            {
+                var customers = entities.Customers.Where(e => e.Person.LastName.Equals((string)searchvalue));
+                return customers;
+            }
+            else if ((CustomerTerms)searchterm == CustomerTerms.BirthDate)
+            {
+                var customers = entities.Customers.Where(e => e.Person.BirthDate.Equals((string)searchvalue));
+                return customers;
+            }
+            else if ((CustomerTerms)searchterm == CustomerTerms.AddressCity)
+            {
+                var customers = entities.Customers.Where(e => e.Person.AddressCity.Equals((string)searchvalue));
+                return customers;
+            }
+            else if ((CustomerTerms)searchterm == CustomerTerms.IDNumber)
+            {
+                var customers = entities.Customers.Where(e => e.Person.IDNumber.Equals((string)searchvalue));
+                return customers;
+            }
+            else if ((CustomerTerms)searchterm == CustomerTerms.LoyaltyCard)
+            {
+                var customers = entities.Customers.Where(e => e.LoyaltyCard.Equals((string)searchvalue));
+                return customers;
+            }
+            else if ((CustomerTerms)searchterm == CustomerTerms.ValidTo)
+            {
+                var customers = entities.Customers.Where(e => e.Person.ValidTo.Equals((string)searchvalue));
+                return customers;
+            }
+            else
+            {
+                throw new InvalidOperationException("Not found");
+            }
         }
 
         public void ThrowIfExists(Customer dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = entities.Customers.Any(
+                e => e.Person.FirstName.Equals(dataobject.Person.FirstName) &&
+                e.Person.LastName.Equals(dataobject.Person.LastName) && 
+                e.Person.BirthDate.Equals(dataobject.Person.BirthDate));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
 
         /// <summary>
