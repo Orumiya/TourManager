@@ -111,19 +111,5 @@
         {
             this.TourguideListChanged?.Invoke(this, EventArgs.Empty);
         }
-
-        //public IList<Tourguide> GetHolidays()
-        //{
-        //    //var holidaylist = this.tourguideRepository.GetAll()
-        //    //    .Join(
-        //    //    this.onHolidayRepository.GetAll(),
-        //    //    persID => persID.PersonID,
-        //    //    tourgID => tourgID.TourguideID,
-        //    //    (persID, tourgID) => new { Tourguide = persID, OnHoliday = tourgID });
-        //    var tourguideList = this.tourguideRepository.GetAll();
-        //    tourguideList = tourguideList.Where();
-        //    //IQueryable<Tourguide> tourgList = (IQueryable<Tourguide>)holidaylist;
-        //    //return tourgList.ToList<Tourguide>();
-        //}
     }
 }
