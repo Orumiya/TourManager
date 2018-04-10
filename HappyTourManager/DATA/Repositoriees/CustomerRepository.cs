@@ -4,16 +4,6 @@
     using System.Linq;
     using DATA.Interfaces;
 
-    public enum CustomerTerms
-    {
-        LoyaltyCard,
-        LastName,
-        FirstName,
-        BirthDate,
-        AddressCity,
-        IDNumber,
-        ValidTo
-    }
     public class CustomerRepository : IRepository<Customer>
     {
         /// <summary>
@@ -59,49 +49,6 @@
         public IQueryable<Customer> GetAll()
         {
             return entities.Customers;
-        }
-
-        public IQueryable<Customer> Search(object searchterm, object searchvalue)
-        {
-            if ((CustomerTerms)searchterm == CustomerTerms.FirstName)
-            {
-                var customers = entities.Customers.Where(e => e.Person.FirstName.Equals((string)searchvalue));
-                return customers;
-            }
-            else if ((CustomerTerms)searchterm == CustomerTerms.LastName)
-            {
-                var customers = entities.Customers.Where(e => e.Person.LastName.Equals((string)searchvalue));
-                return customers;
-            }
-            else if ((CustomerTerms)searchterm == CustomerTerms.BirthDate)
-            {
-                var customers = entities.Customers.Where(e => e.Person.BirthDate.Equals((string)searchvalue));
-                return customers;
-            }
-            else if ((CustomerTerms)searchterm == CustomerTerms.AddressCity)
-            {
-                var customers = entities.Customers.Where(e => e.Person.AddressCity.Equals((string)searchvalue));
-                return customers;
-            }
-            else if ((CustomerTerms)searchterm == CustomerTerms.IDNumber)
-            {
-                var customers = entities.Customers.Where(e => e.Person.IDNumber.Equals((string)searchvalue));
-                return customers;
-            }
-            else if ((CustomerTerms)searchterm == CustomerTerms.LoyaltyCard)
-            {
-                var customers = entities.Customers.Where(e => e.LoyaltyCard.Equals((string)searchvalue));
-                return customers;
-            }
-            else if ((CustomerTerms)searchterm == CustomerTerms.ValidTo)
-            {
-                var customers = entities.Customers.Where(e => e.Person.ValidTo.Equals((string)searchvalue));
-                return customers;
-            }
-            else
-            {
-                throw new InvalidOperationException("Not found");
-            }
         }
 
         public void ThrowIfExists(Customer dataobject)
