@@ -1,14 +1,12 @@
-﻿using BL.Interfaces;
-using DATA;
-using DATA.Repositoriees;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BL
+﻿namespace BL
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BL.Interfaces;
+    using DATA;
+    using DATA.Repositoriees;
+
     /// <summary>
     /// searchterms for Tourguide entities
     /// </summary>
@@ -26,7 +24,14 @@ namespace BL
     {
         private readonly TourguideRepository tourguideRepository;
         private readonly LanguageRepository languageRepository;
-        private readonly OnHolidayRepository onHolidayRepository;
+        private readonly OnholidayRepository onHolidayRepository;
+
+        public TourguideBL(TourguideRepository tourguideRepository, LanguageRepository languageRepository, OnholidayRepository onHolidayRepository)
+        {
+            this.tourguideRepository = tourguideRepository;
+            this.languageRepository = languageRepository;
+            this.onHolidayRepository = onHolidayRepository;
+        }
 
         /// <inheritdoc />
         public event EventHandler TourguideListChanged;
@@ -47,6 +52,10 @@ namespace BL
         public IList<Tourguide> Search(object searchterm, object searchvalue)
         {
             var tourguideList = this.tourguideRepository.GetAll();
+            foreach (var item in tourguideList)
+            {
+                Console.WriteLine(item.Person.LastName + " " + item.OnHolidays.ToString());
+            }
             if ((TourguideTerms)searchterm == TourguideTerms.LastName)
             {
                 tourguideList = tourguideList.Where(e => e.Person.LastName.Equals((string)searchvalue));
@@ -62,10 +71,22 @@ namespace BL
             else if ((TourguideTerms)searchterm == TourguideTerms.IsOnHoliday)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
-                //tourguideList = tourguideList.Where(i => (i.StartDate >= interval[0] && i.StartDate <= interval[1])
-                   // || i.EndDate >= interval[1] && i.EndDate <= interval[1]);
+                DateTime startInterval = interval[0];
+                DateTime endInterval = interval[1];
+                var onholidayList = this.onHolidayRepository.GetAll();
+                onholidayList = onholidayList.Where(
+                    i => (i.StartDate >= startInterval && i.StartDate <= endInterval)
+                    || (i.EndDate >= startInterval && i.EndDate <= endInterval));
+                foreach (var item in onholidayList)
+                {
+                    Console.WriteLine(item.StartDate + " " + item.EndDate);
+                }
+                var query = tourguideList.Where(e => onholidayList.Select(s => s.TourguideID).Contains(e.PersonID));
+
+                return query.ToList();
+
             }
-            else if ((CustomerTerms)searchterm == CustomerTerms.Default)
+            else if ((TourguideTerms)searchterm == TourguideTerms.Default)
             {
                 return tourguideList.ToList<Tourguide>();
             }
@@ -90,5 +111,19 @@ namespace BL
         {
             this.TourguideListChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        //public IList<Tourguide> GetHolidays()
+        //{
+        //    //var holidaylist = this.tourguideRepository.GetAll()
+        //    //    .Join(
+        //    //    this.onHolidayRepository.GetAll(),
+        //    //    persID => persID.PersonID,
+        //    //    tourgID => tourgID.TourguideID,
+        //    //    (persID, tourgID) => new { Tourguide = persID, OnHoliday = tourgID });
+        //    var tourguideList = this.tourguideRepository.GetAll();
+        //    tourguideList = tourguideList.Where();
+        //    //IQueryable<Tourguide> tourgList = (IQueryable<Tourguide>)holidaylist;
+        //    //return tourgList.ToList<Tourguide>();
+        //}
     }
 }
