@@ -58,6 +58,10 @@
       <Project>{d10289d7-6fb7-4678-953f-8e86a38e4413}</Project>
       <Name>BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DATA\DATA.csproj">
+      <Project>{AFBB22BD-BC31-44A0-A18B-9A9C8819A0DC}</Project>
+      <Name>DATA</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HappyTourManager\GUI.csproj">
       <Project>{6119387b-2b6d-40ee-9bed-995fffc636c1}</Project>
       <Name>GUI</Name>
