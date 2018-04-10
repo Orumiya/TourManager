@@ -1,10 +1,10 @@
 ﻿namespace DATA.Repositoriees
 {
-    using DATA.Interfaces;
     using System;
     using System.Linq;
+    using DATA.Interfaces;
 
-    class LanguageRepository : IRepository<Language>
+    public class LanguageRepository : IRepository<Language>
     {
         /// <summary>
         /// field to Database
@@ -12,42 +12,66 @@
         private HappyTourDatabaseEntities entities;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LanguageRepository"/> class.
         /// creates the repository
         /// </summary>
-        /// <param name="entities"></param>
+        /// <param name="entities">database</param>
         public LanguageRepository(HappyTourDatabaseEntities entities)
         {
             this.entities = entities;
         }
 
+        /// <summary>
+        /// adds a new Language object to the database
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void Create(Language dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.Languages.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
+        /// <summary>
+        /// removes a Language from the database
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void Delete(Language dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.Languages.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
+        /// <summary>
+        /// returns all Languages from the database
+        /// </summary>
+        /// <returns>input param</returns>
         public IQueryable<Language> GetAll()
         {
-            throw new NotImplementedException();
+            return this.entities.Languages;
         }
 
-        public IQueryable<Language> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// throws an exception if a Tourguide-language pair already exists -
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void ThrowIfExists(Language dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = this.entities.Languages.Any(
+                e => e.TourguideID.Equals(dataobject.TourguideID) &&
+                e.Language1.Equals(dataobject.Language1));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
 
+        /// <summary>
+        /// updates an entry in the database
+        /// </summary>
         public void Update()
         {
-            throw new NotImplementedException();
+            this.entities.SaveChanges();
         }
     }
 }
