@@ -1,10 +1,10 @@
 ﻿namespace DATA.Repositoriees
 {
-    using DATA.Interfaces;
     using System;
     using System.Linq;
+    using DATA.Interfaces;
 
-    class OnholidayRepository : IRepository<OnHoliday>
+    public class OnholidayRepository : IRepository<OnHoliday>
     {
         /// <summary>
         /// field to Database
@@ -12,41 +12,68 @@
         private HappyTourDatabaseEntities entities;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="OnholidayRepository"/> class.
         /// creates the repository
         /// </summary>
-        /// <param name="entities"></param>
+        /// <param name="entities">database</param>
         public OnholidayRepository(HappyTourDatabaseEntities entities)
         {
            this.entities = entities;
         }
+
+        /// <summary>
+        /// adds a new Holiday object to the database
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void Create(OnHoliday dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.OnHolidays.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
+        /// <summary>
+        /// removes a Customer from the database
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void Delete(OnHoliday dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.OnHolidays.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
+        /// <summary>
+        /// returns all Customers from the database
+        /// </summary>
+        /// <returns>input param</returns>
         public IQueryable<OnHoliday> GetAll()
         {
-            throw new NotImplementedException();
+            return this.entities.OnHolidays;
         }
 
-        public IQueryable<OnHoliday> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// throws an exception if a Holiday already exists -
+        /// same Holiday = same StartDate, same EndDate, same tourguide
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void ThrowIfExists(OnHoliday dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = this.entities.OnHolidays.Any(
+                e => e.TourguideID.Equals(dataobject.TourguideID)
+                && e.StartDate.Equals(dataobject.StartDate)
+                && e.EndDate.Equals(dataobject.EndDate));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
 
+        /// <summary>
+        /// updates an entry in the database
+        /// </summary>
         public void Update()
         {
-            throw new NotImplementedException();
+             this.entities.SaveChanges();
         }
     }
 }
