@@ -7,6 +7,9 @@
     using DATA;
     using DATA.Repositoriees;
 
+    /// <summary>
+    /// searchterms for Customer entities
+    /// </summary>
     public enum CustomerTerms
     {
         LoyaltyCard,
@@ -18,12 +21,31 @@
         ValidTo
     }
 
-    public class CustomerBL : ISearcheable<Customer>
+    public class CustomerBL : ISearcheable<Customer>, ICustomerList
     {
         private readonly CustomerRepository customerRepository;
 
+        /// <inheritdoc />
         public event EventHandler CustomerListChanged;
 
+        /// <inheritdoc />
+        public void Delete(Customer customer)
+        {
+            this.customerRepository.Delete(customer);
+        }
+
+        /// <inheritdoc />
+        public void Save(Customer customer)
+        {
+            this.customerRepository.Create(customer);
+        }
+
+        /// <summary>
+        /// implementing the searches in the CustomerList
+        /// </summary>
+        /// <param name="searchterm">searching param</param>
+        /// <param name="searchvalue">searching value</param>
+        /// <returns>returns a List of Customers</returns>
         public IList<Customer> Search(object searchterm, object searchvalue)
         {
             var customerList = this.customerRepository.GetAll();
@@ -63,6 +85,15 @@
             return customerList.ToList<Customer>();
         }
 
+        /// <inheritdoc />
+        public void ThrowIfExists(Customer customer)
+        {
+            this.customerRepository.ThrowIfExists(customer);
+        }
+
+        /// <summary>
+        /// notifies the outside about any collection change manually
+        /// </summary>
         private void OnCustomerListChanged()
         {
             this.CustomerListChanged?.Invoke(this, EventArgs.Empty);
