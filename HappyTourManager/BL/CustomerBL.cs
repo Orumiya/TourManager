@@ -1,11 +1,11 @@
 ﻿namespace BL
 {
-    using BL.Interfaces;
-    using DATA;
-    using DATA.Repositoriees;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using BL.Interfaces;
+    using DATA;
+    using DATA.Repositoriees;
 
     public enum CustomerTerms
     {
@@ -14,6 +14,7 @@
         FirstName,
         AddressCity,
         IDNumber,
+        Default,
         ValidTo
     }
 
@@ -21,9 +22,11 @@
     {
         private readonly CustomerRepository customerRepository;
 
-      public IList<Customer> Search(object searchterm, object searchvalue)
+        public event EventHandler CustomerListChanged;
+
+        public IList<Customer> Search(object searchterm, object searchvalue)
         {
-            var customerList = customerRepository.GetAll();
+            var customerList = this.customerRepository.GetAll();
             if ((CustomerTerms)searchterm == CustomerTerms.FirstName)
             {
                 customerList = customerList.Where(e => e.Person.FirstName.Equals((string)searchvalue));
@@ -38,7 +41,7 @@
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.IDNumber)
             {
-                customerList = customerList.Where(e => e.Person.IDNumber == (decimal)searchvalue));
+                customerList = customerList.Where(e => e.Person.IDNumber == (decimal)searchvalue);
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.LoyaltyCard)
             {
@@ -48,12 +51,21 @@
             {
                 customerList = customerList.Where(e => e.Person.ValidTo <= (DateTime)searchvalue);
             }
+            else if ((CustomerTerms)searchterm == CustomerTerms.Default)
+            {
+                return customerList.ToList<Customer>();
+            }
             else
             {
                 throw new InvalidOperationException("Not found");
             }
 
             return customerList.ToList<Customer>();
+        }
+
+        private void OnCustomerListChanged()
+        {
+            this.CustomerListChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
