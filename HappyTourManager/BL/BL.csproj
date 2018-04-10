@@ -60,6 +60,7 @@
     <Compile Include="CustomerBL.cs" />
     <Compile Include="Interfaces\ICustomerList.cs" />
     <Compile Include="Interfaces\ISearcheable.cs" />
+    <Compile Include="Interfaces\ITourguideList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
