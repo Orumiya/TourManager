@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="TourguideBL.cs" />
     <Compile Include="CustomerBL.cs" />
     <Compile Include="Interfaces\ICustomerList.cs" />
     <Compile Include="Interfaces\ISearcheable.cs" />
