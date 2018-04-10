@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DATA.Interfaces;
-
-namespace DATA.Repositoriees
+﻿namespace DATA.Repositoriees
 {
-    class TourguideRepository : IRepository<Tourguide>
+    using System;
+    using System.Linq;
+    using DATA.Interfaces;
+
+    public class TourguideRepository : IRepository<Tourguide>
     {
         /// <summary>
         /// field to Database
@@ -15,42 +12,59 @@ namespace DATA.Repositoriees
         private HappyTourDatabaseEntities entities;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TourguideRepository"/> class.
         /// creates the repository
         /// </summary>
-        /// <param name="entities"></param>
+        /// <param name="entities">input param database</param>
         public TourguideRepository(HappyTourDatabaseEntities entities)
         {
             this.entities = entities;
         }
 
+        /// <inheritdoc />
         public void Create(Tourguide dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.People.Add(dataobject.Person);
+            this.entities.Tourguides.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
+        /// <inheritdoc />
         public void Delete(Tourguide dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.Tourguides.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
+        /// <inheritdoc />
         public IQueryable<Tourguide> GetAll()
         {
-            throw new NotImplementedException();
+            return this.entities.Tourguides;
         }
 
-        public IQueryable<Tourguide> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// throws exception if Tourguide is already exists
+        /// comparing FistName & Lastname & BirthDate & Taxidentification
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void ThrowIfExists(Tourguide dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = this.entities.Tourguides.Any(
+                e => e.Person.FirstName.Equals(dataobject.Person.FirstName) &&
+                e.Person.LastName.Equals(dataobject.Person.LastName) &&
+                e.Person.BirthDate.Equals(dataobject.Person.BirthDate) &&
+                e.Taxidentification.Equals(dataobject.Taxidentification));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
 
+        /// <inheritdoc />
         public void Update()
         {
-            throw new NotImplementedException();
+            this.entities.SaveChanges();
         }
     }
 }
