@@ -52,6 +52,11 @@
             return this.entities.Customers;
         }
 
+        /// <summary>
+        /// throws an exception if a Customer already exists -
+        /// same Customer = same FirstName, same LastName, same BirthDate
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void ThrowIfExists(Customer dataobject)
         {
             bool exist = this.entities.Customers.Any(
