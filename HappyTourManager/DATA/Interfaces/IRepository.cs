@@ -7,13 +7,13 @@
         /// <summary>
         /// returns all data objects
         /// </summary>
-        /// <returns></returns>
+        /// <returns>output</returns>
         IQueryable<T> GetAll();
 
         /// <summary>
         /// create new dataobject
         /// </summary>
-        /// <param name="dataobject"></param>
+        /// <param name="dataobject">input param</param>
         void Create(T dataobject);
 
         /// <summary>
@@ -24,14 +24,13 @@
         /// <summary>
         /// Delete dataobject (generic method)
         /// </summary>
-        /// <param name="dataobject"></param>
+        /// <param name="dataobject">input param</param>
         void Delete(T dataobject);
 
         /// <summary>
         /// throws exception, if same object exists
         /// </summary>
-        /// <param name="dataobject"></param>
+        /// <param name="dataobject">input param</param>
         void ThrowIfExists(T dataobject);
-
     }
 }
