@@ -12,9 +12,10 @@
         private HappyTourDatabaseEntities entities;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CustomerRepository"/> class.
         /// creates the repository
         /// </summary>
-        /// <param name="entities"></param>
+        /// <param name="entities">input param</param>
         public CustomerRepository(HappyTourDatabaseEntities entities)
         {
             this.entities = entities;
@@ -23,39 +24,39 @@
         /// <summary>
         /// adds a new Customer object to the database
         /// </summary>
-        /// <param name="dataobject"></param>
+        /// <param name="dataobject">input param</param>
         public void Create(Customer dataobject)
         {
-            ThrowIfExists(dataobject);
-            entities.People.Add(dataobject.Person);
-            entities.Customers.Add(dataobject);
-            entities.SaveChanges();
+            this.ThrowIfExists(dataobject);
+            this.entities.People.Add(dataobject.Person);
+            this.entities.Customers.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
         /// removes a Customer from the database
         /// </summary>
-        /// <param name="dataobject"></param>
+        /// <param name="dataobject">input param</param>
         public void Delete(Customer dataobject)
         {
-            entities.Customers.Remove(dataobject);
-            entities.SaveChanges();
+            this.entities.Customers.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
         /// returns all Customers from the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>input param</returns>
         public IQueryable<Customer> GetAll()
         {
-            return entities.Customers;
+            return this.entities.Customers;
         }
 
         public void ThrowIfExists(Customer dataobject)
         {
-            bool exist = entities.Customers.Any(
+            bool exist = this.entities.Customers.Any(
                 e => e.Person.FirstName.Equals(dataobject.Person.FirstName) &&
-                e.Person.LastName.Equals(dataobject.Person.LastName) && 
+                e.Person.LastName.Equals(dataobject.Person.LastName) &&
                 e.Person.BirthDate.Equals(dataobject.Person.BirthDate));
             if (exist)
             {
@@ -68,7 +69,7 @@
         /// </summary>
         public void Update()
         {
-            entities.SaveChanges();
+            this.entities.SaveChanges();
         }
     }
 }
