@@ -17,11 +17,6 @@
         void Create(T dataobject);
 
         /// <summary>
-        /// Update data (generic method)
-        /// </summary>
-        void Update();
-
-        /// <summary>
         /// Delete dataobject (generic method)
         /// </summary>
         /// <param name="dataobject">input param</param>
