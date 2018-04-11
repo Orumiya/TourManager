@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fakes\FakeRepository.cs" />
+    <Compile Include="Fakes\FakeRepositoryImpl.cs" />
     <Compile Include="TourguideBLTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

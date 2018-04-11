@@ -5,6 +5,7 @@
     using System.Linq;
     using BL.Interfaces;
     using DATA;
+    using DATA.Interfaces;
     using DATA.Repositoriees;
 
     /// <summary>
@@ -22,11 +23,11 @@
 
     public class TourguideBL : ISearcheable<Tourguide>, ITourguideList
     {
-        private readonly TourguideRepository tourguideRepository;
-        private readonly LanguageRepository languageRepository;
-        private readonly OnholidayRepository onHolidayRepository;
+        private readonly IRepository<Tourguide> tourguideRepository;
+        private readonly IRepository<Language> languageRepository;
+        private readonly IRepository<OnHoliday> onHolidayRepository;
 
-        public TourguideBL(TourguideRepository tourguideRepository, LanguageRepository languageRepository, OnholidayRepository onHolidayRepository)
+        public TourguideBL(IRepository<Tourguide> tourguideRepository, IRepository<Language> languageRepository, IRepository<OnHoliday> onHolidayRepository)
         {
             this.tourguideRepository = tourguideRepository;
             this.languageRepository = languageRepository;
