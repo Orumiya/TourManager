@@ -4,10 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "HappyTourManager\GUI.csproj", "{6119387B-2B6D-40EE-9BED-995FFFC636C1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AFBB22BD-BC31-44A0-A18B-9A9C8819A0DC} = {AFBB22BD-BC31-44A0-A18B-9A9C8819A0DC}
+		{D10289D7-6FB7-4678-953F-8E86A38E4413} = {D10289D7-6FB7-4678-953F-8E86A38E4413}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DATA", "DATA\DATA.csproj", "{AFBB22BD-BC31-44A0-A18B-9A9C8819A0DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{D10289D7-6FB7-4678-953F-8E86A38E4413}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AFBB22BD-BC31-44A0-A18B-9A9C8819A0DC} = {AFBB22BD-BC31-44A0-A18B-9A9C8819A0DC}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{B7B5F1C2-B919-4C0F-906C-E1B1BF06A589}"
 	ProjectSection(SolutionItems) = preProject

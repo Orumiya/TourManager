@@ -22,17 +22,18 @@ namespace TEST
         //private Place[] places;
         //private PLTCON[] pltcon;
         //private PRTCON[] prtcon;
+        public TourguideBLTest()
+        {
+            CreateTestdataArrays();
+        }
 
         [Test]
         public void WhenCreatingTourguideBL_ThenTourguideBLIsNotNull()
         {
             // ARRANGE - ACT
-
-            CreateTestdataArrays();
             var tourguideRepository = new FakeRepository<Tourguide>(tourguides);
             var onHolidayRepository = new FakeRepository<OnHoliday>(onholidays);
             var languageRepository = new FakeRepository<Language>(languages);
-            
             TourguideBL bl = new TourguideBL(tourguideRepository, languageRepository, onHolidayRepository);
 
             // ASSERT
@@ -41,67 +42,6 @@ namespace TEST
 
         private void CreateTestdataArrays()
         {
-            //places = new[] { 
-            //    new Place{
-            //    PlaceID = 1,
-            //    Country = "Egypt",
-            //    City = "Cairo"},
-            //    new Place{PlaceID = 2,
-            //    Country = "Egypt",
-            //    City = "Luxor"},
-            //    new Place{
-            //    PlaceID = 3,
-            //    Country = "France",
-            //    City = "Paris"},
-            //    new Place{
-            //    PlaceID = 4,
-            //    Country = "France",
-            //    City = "Marseilles"}
-            //};
-            //programs = new[] {
-            //    new Program{
-            //        ProgramID = 1,
-            //        ProgramType = "gourmet"
-            //    },
-            //    new Program{
-            //        ProgramID = 2,
-            //        ProgramType = "museum"
-            //    },
-            //    new Program{
-            //        ProgramID = 3,
-            //        ProgramType = "extreme sport"
-            //    },
-            //};
-            //tours = new[]
-            //{
-            //    new Tour{
-            //        TourID = 1,
-            //        TravelName = "wonderful east",
-            //        Description = "loremipsum",
-            //        AdultPrice = 121000,
-            //        ChildPrice = 89000,
-            //        MinNumber = 6,
-            //        MaxNumber = 20,
-            //        StartDate = new DateTime(2018,09,10),
-            //        EndDate = new DateTime(2018,9,23),
-            //        Transport = "bus",
-            //        TourguideID = 0
-            //    },
-            //    new Tour{
-            //        TourID = 2,
-            //        TravelName = "french travel",
-            //        Description = "loremipsum",
-            //        AdultPrice = 89000,
-            //        ChildPrice = 67000,
-            //        MinNumber = 10,
-            //        MaxNumber = 45,
-            //        StartDate = new DateTime(2018,06,30),
-            //        EndDate = new DateTime(2018,07,10),
-            //        Transport = "bus",
-            //        TourguideID = 0
-            //    }
-            //};
-            
             tourguides = new[] {
             new Tourguide{
 
@@ -174,31 +114,41 @@ namespace TEST
                     Tourguide = tourguides[0]
                 }
             };
-            //prtcon = new[]
-            //{
-            //    new PRTCON{PRTCONID = 1, ProgramID=2, TourID = 1},
-            //    new PRTCON{PRTCONID = 2, ProgramID=3, TourID = 1},
-            //    new PRTCON{PRTCONID = 3, ProgramID=1, TourID = 2},
-            //    new PRTCON{PRTCONID = 4, ProgramID=2, TourID = 2}
-            //};
         }
-
-        //private void ConnectTours(Tourguide guide, Tour tour)
-        //{
-        //    guide.Tours.Add(tour);
-        //    tour.Tourguide = guide;
-        //}
-        //private void ConnectPrograms(Program program, Tour tour)
-        //{
-            
-        //}
 
         [Test]
         public void WhenCreatingNewTourguide_ThenTourguideIsSaved()
         {
             // ARRANGE 
-            //TourguideBL bl = new TourguideBL(tourguideRepository, languageRepository, onHolidayRepository);
+            var tourguideRepository = new FakeRepository<Tourguide>(tourguides);
+            var onHolidayRepository = new FakeRepository<OnHoliday>(onholidays);
+            var languageRepository = new FakeRepository<Language>(languages);
+            TourguideBL bl = new TourguideBL(tourguideRepository, languageRepository, onHolidayRepository);
+            Tourguide tg = new Tourguide
+            {
+                PersonID = 3,
+                Person = new Person()
+                {
+                    FirstName = "Mirabella",
+                    LastName = "Nemesis",
+                    BirthDate = new DateTime(1997, 10, 02),
+                    IDNumber = 333333338,
+                    IDType = "identity card",
+                    AddressCity = "Wien",
+                    AddressCountry = "Austria",
+                    AddressFree = "Neumann u 34",
+                    AddressZip = "3200",
+                    Phone = 063099912333,
+                    ValidTo = new DateTime(2024, 02, 02)
+                },
+                Dailyallowance = 25000,
+                Taxidentification = 198600555
+            };
             ///ACT
+            bl.Save(tg);
+
+            ///ASSERT
+            Assert.That(tourguideRepository.SavedObjects.Count, Is.EqualTo(1));
         }
     }
 }

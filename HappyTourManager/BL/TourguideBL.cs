@@ -84,6 +84,18 @@
                 }
                 var query = tourguideList.Where(e => onholidayList.Select(s => s.TourguideID).Contains(e.PersonID));
 
+                //        var query = tourguideList.
+                //Join(onholidayList, u => u.PersonID, uir => uir.TourguideID, (u, uir) => new { u, uir })
+                //.Where(m => m.u.PersonID == m.uir.TourguideID);
+                //.Select(m => new Tourguide {
+                //    Person = m.u.Person,
+                // PersonID = m.u.PersonID,
+                // Dailyallowance = m.u.Dailyallowance,
+                // Taxidentification = m.u.Taxidentification
+                //}
+
+
+
                 return query.ToList();
 
             }
