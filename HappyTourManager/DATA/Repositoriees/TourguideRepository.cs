@@ -60,11 +60,5 @@
                 throw new InvalidOperationException("Already exists!");
             }
         }
-
-        /// <inheritdoc />
-        public void Update()
-        {
-            this.entities.SaveChanges();
-        }
     }
 }

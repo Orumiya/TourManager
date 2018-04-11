@@ -44,10 +44,5 @@
         {
             throw new NotImplementedException();
         }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

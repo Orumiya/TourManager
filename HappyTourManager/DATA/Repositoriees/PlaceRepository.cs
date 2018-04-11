@@ -99,14 +99,5 @@
                 throw new InvalidOperationException("Already exists!");
             }
         }
-
-        /// <summary>
-        /// updates an entry in the database
-        /// </summary>
-        public void Update()
-        {
-            entities.SaveChanges();
-        }
-
     }
 }
