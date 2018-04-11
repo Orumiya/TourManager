@@ -29,7 +29,7 @@ namespace TEST
             // ARRANGE - ACT
 
             CreateTestdataArrays();
-            var tourguideRepository = new FakeRepositoryImpl(tourguides);
+            var tourguideRepository = new FakeRepository<Tourguide>(tourguides);
             var onHolidayRepository = new FakeRepository<OnHoliday>(onholidays);
             var languageRepository = new FakeRepository<Language>(languages);
             
