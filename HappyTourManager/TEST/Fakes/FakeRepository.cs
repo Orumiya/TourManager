@@ -61,17 +61,12 @@
         }
 
         /// <summary>
-        /// 
+        /// fakes the exception throwing method
         /// </summary>
-        /// <param name="dataobject"></param>
+        /// <param name="dataobject">input param</param>
         public void ThrowIfExists(T dataobject)
         {
             ThrowCalls.Add(dataobject);
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
         }
     }
 }
