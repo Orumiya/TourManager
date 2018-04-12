@@ -1,10 +1,10 @@
 ﻿namespace DATA.Repositoriees
 {
-    using DATA.Interfaces;
     using System;
     using System.Linq;
+    using DATA.Interfaces;
 
-    class UserRepository : IRepository<User>
+    public class UserRepository : IRepository<User>
     {
         /// <summary>
         /// field to Database
@@ -12,36 +12,45 @@
         private HappyTourDatabaseEntities entities;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="UserRepository"/> class.
         /// creates the repository
         /// </summary>
-        /// <param name="entities"></param>
+        /// <param name="entities">database</param>
         public UserRepository(HappyTourDatabaseEntities entities)
         {
             this.entities = entities;
         }
+
         public void Create(User dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.Users.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
         public void Delete(User dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.Users.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
         public IQueryable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return this.entities.Users;
         }
 
-        public IQueryable<User> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// throws exception if user is already exists
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void ThrowIfExists(User dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = this.entities.Users.Any(
+                e => e.Username.Equals(dataobject.Username));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
     }
 }
