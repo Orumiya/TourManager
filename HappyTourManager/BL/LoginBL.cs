@@ -4,12 +4,26 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using DATA;
+using DATA.Interfaces;
 using DATA.Repositoriees;
 
 namespace BL
 {
     public class LoginBL
     {
+        private readonly IRepository<User> userRepository;
+        private User whichUser;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginBL"/> class.
+        /// </summary>
+        /// <param name="userRepository">input param</param>
+        public LoginBL(IRepository<User> userRepository)
+        {
+            this.userRepository = userRepository;
+        }
+
         /// <summary>
         /// Encrypts the password
         /// </summary>
@@ -23,25 +37,35 @@ namespace BL
             return password;
         }
 
-        public void Login(string username, string password)
+        public bool Login(string username, string password)
         {
+            if (this.IsTheUserExists(username))
+            {
+                if (this.PasswordEncoder(password).Equals(this.whichUser.Password))
+                {
+                    return true;
+                }
+            }
 
+            return false;
         }
 
         private bool IsTheUserExists(string username)
         {
-            UserRepository userrepo = new UserRepository();
+            var query = this.userRepository.GetAll();
+            bool exist = false;
+
             try
             {
-
+                this.whichUser = query.Single(e => e.Username.Equals(username));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                exist = false;
+                return exist;
             }
+
+            return exist = true;
         }
-
-
     }
 }
