@@ -63,6 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default\HappyDate.cs" />
+    <Compile Include="LoginBL.cs" />
     <Compile Include="TourguideBL.cs" />
     <Compile Include="CustomerBL.cs" />
     <Compile Include="Interfaces\ICustomerList.cs" />

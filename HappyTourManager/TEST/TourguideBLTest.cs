@@ -17,29 +17,34 @@ namespace TEST
         private Tourguide[] tourguides;
         private Language[] languages;
         private OnHoliday[] onholidays;
+        private TourguideBL bl;
+        private FakeRepository<Tourguide> tourguideRepository;
+        private FakeRepository<OnHoliday> onHolidayRepository;
+        private FakeRepository<Language> languageRepository;
         //private Tour[] tours;
         //private Program[] programs;
         //private Place[] places;
         //private PLTCON[] pltcon;
         //private PRTCON[] prtcon;
+
         public TourguideBLTest()
         {
             CreateTestdataArrays();
+            tourguideRepository = new FakeRepository<Tourguide>(tourguides);
+            onHolidayRepository = new FakeRepository<OnHoliday>(onholidays);
+            languageRepository = new FakeRepository<Language>(languages);
+            bl = new TourguideBL(tourguideRepository, languageRepository, onHolidayRepository);
         }
 
         [Test]
         public void WhenCreatingTourguideBL_ThenTourguideBLIsNotNull()
         {
             // ARRANGE - ACT
-            var tourguideRepository = new FakeRepository<Tourguide>(tourguides);
-            var onHolidayRepository = new FakeRepository<OnHoliday>(onholidays);
-            var languageRepository = new FakeRepository<Language>(languages);
-            TourguideBL bl = new TourguideBL(tourguideRepository, languageRepository, onHolidayRepository);
-
+            
             // ASSERT
             Assert.That(bl, Is.Not.Null);
         }
-
+        
         private void CreateTestdataArrays()
         {
             tourguides = new[] {
@@ -114,16 +119,15 @@ namespace TEST
                     Tourguide = tourguides[0]
                 }
             };
+
+            Connect(tourguides[0], onholidays[1]);
+            Connect(tourguides[1], onholidays[0]);
         }
 
         [Test]
         public void WhenCreatingNewTourguide_ThenTourguideIsSaved()
         {
             // ARRANGE 
-            var tourguideRepository = new FakeRepository<Tourguide>(tourguides);
-            var onHolidayRepository = new FakeRepository<OnHoliday>(onholidays);
-            var languageRepository = new FakeRepository<Language>(languages);
-            TourguideBL bl = new TourguideBL(tourguideRepository, languageRepository, onHolidayRepository);
             Tourguide tg = new Tourguide
             {
                 PersonID = 3,
@@ -149,6 +153,23 @@ namespace TEST
 
             ///ASSERT
             Assert.That(tourguideRepository.SavedObjects.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void WhenSearchingForTourguidesOnHolidayBetween2Dates_ThenGetTourguidesOnHoliday()
+        {
+            //ARRANGE
+
+            //ACT
+            IList<Tourguide> list = bl.Search(TourguideTerms.IsOnHoliday, new DateTime[] { new DateTime(2018,05,18), new DateTime(2018,05,24) });
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(1));
+        }
+
+        private void Connect(Tourguide guide, OnHoliday holiday)
+        {
+            guide.OnHolidays.Add(holiday);
+            holiday.Tourguide = guide;
         }
     }
 }

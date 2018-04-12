@@ -40,17 +40,6 @@ namespace HappyTourManager
             this.InitializeComponent();
             //Menu page1 = new Menu(this.mainFrame);
             //this.mainFrame.Content = page1;
-            HappyTourDatabaseEntities entities = new HappyTourDatabaseEntities();
-            TourguideRepository tourguideRepository = new TourguideRepository(entities);
-            LanguageRepository languageRepository = new LanguageRepository(entities);
-            OnholidayRepository onHolidayRepository = new OnholidayRepository(entities);
-            TourguideBL bl = new TourguideBL(tourguideRepository, languageRepository, onHolidayRepository);
-            //var lista = bl.Search(TourguideTerms.Default, null);
-            var lista = bl.Search(TourguideTerms.IsOnHoliday, new DateTime[] { new DateTime(2000,07,22), new DateTime(2000,07,30)});
-            foreach (var item in lista)
-            {
-                Console.WriteLine("LastName "+item.Person.LastName + " ");
-            }
         }
     }
 }

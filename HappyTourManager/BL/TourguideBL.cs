@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using BL.Default;
     using BL.Interfaces;
     using DATA;
     using DATA.Interfaces;
@@ -53,10 +54,6 @@
         public IList<Tourguide> Search(object searchterm, object searchvalue)
         {
             var tourguideList = this.tourguideRepository.GetAll();
-            foreach (var item in tourguideList)
-            {
-                Console.WriteLine(item.Person.LastName + " " + item.OnHolidays.ToString());
-            }
             if ((TourguideTerms)searchterm == TourguideTerms.LastName)
             {
                 tourguideList = tourguideList.Where(e => e.Person.LastName.Equals((string)searchvalue));
@@ -78,26 +75,16 @@
                 onholidayList = onholidayList.Where(
                     i => (i.StartDate >= startInterval && i.StartDate <= endInterval)
                     || (i.EndDate >= startInterval && i.EndDate <= endInterval));
+                IList<Tourguide> tglist = new List<Tourguide>();
                 foreach (var item in onholidayList)
                 {
-                    Console.WriteLine(item.StartDate + " " + item.EndDate);
+                    if (!tglist.Contains(item.Tourguide))
+                    {
+                        tglist.Add(item.Tourguide);
+                    }
                 }
-                var query = tourguideList.Where(e => onholidayList.Select(s => s.TourguideID).Contains(e.PersonID));
 
-                //        var query = tourguideList.
-                //Join(onholidayList, u => u.PersonID, uir => uir.TourguideID, (u, uir) => new { u, uir })
-                //.Where(m => m.u.PersonID == m.uir.TourguideID);
-                //.Select(m => new Tourguide {
-                //    Person = m.u.Person,
-                // PersonID = m.u.PersonID,
-                // Dailyallowance = m.u.Dailyallowance,
-                // Taxidentification = m.u.Taxidentification
-                //}
-
-
-
-                return query.ToList();
-
+                return tglist;
             }
             else if ((TourguideTerms)searchterm == TourguideTerms.Default)
             {
@@ -124,5 +111,28 @@
         {
             this.TourguideListChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        //private DateTime[] DetermineDate(object searchvalue)
+        //{
+        //    DateTime[] interval = (DateTime[])searchvalue;
+        //    DateTime startInterval = HappyDate.MINDATE;
+        //    if (interval[0] > HappyDate.MINDATE)
+        //    {
+        //        startInterval = interval[0];
+        //    }
+        //    else
+        //    {
+        //        interval[0] = startInterval;
+        //    }
+
+
+        //    DateTime endInterval = HappyDate.MAXDATE;
+        //    if (interval[1] < HappyDate.MAXDATE)
+        //    {
+        //        endInterval = interval[1];
+        //    }
+
+        //    return interval;
+        //}
     }
 }
