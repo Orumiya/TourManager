@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using DATA.Repositoriees;
 
 namespace BL
 {
@@ -20,6 +21,25 @@ namespace BL
             byte[] hashResult = HashAlgorithm.Create("SHA256").ComputeHash(raw);
             string password = Convert.ToBase64String(hashResult);
             return password;
+        }
+
+        public void Login(string username, string password)
+        {
+
+        }
+
+        private bool IsTheUserExists(string username)
+        {
+            UserRepository userrepo = new UserRepository();
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
 
