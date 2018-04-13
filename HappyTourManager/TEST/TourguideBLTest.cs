@@ -108,7 +108,7 @@ namespace TEST
                 {
                     OnHolidayID = 1,
                     StartDate = new DateTime(2018,05,15),
-                    EndDate = new DateTime(2018,08,20),
+                    EndDate = new DateTime(2018,06,20),
                     Tourguide = tourguides[1]
                 },
                 new OnHoliday
@@ -155,15 +155,24 @@ namespace TEST
             Assert.That(tourguideRepository.SavedObjects.Count, Is.EqualTo(1));
         }
 
-        [Test]
-        public void WhenSearchingForTourguidesOnHolidayBetween2Dates_ThenGetTourguidesOnHoliday()
+        [TestCase(2018,04,10, 2018,05,10,0)] //before
+        [TestCase(2018, 07, 21, 2018, 08, 09, 0)] //after
+        [TestCase(2018, 06, 25, 2018, 07, 05, 0)] //between, in a gap
+        [TestCase(2018, 04, 16, 2018, 05, 20, 1)] //start inside
+        [TestCase(2018, 05, 18, 2018, 05, 29, 1)] //inside
+        [TestCase(2018, 06, 10, 2018, 06, 30, 1)] //end inside
+        [TestCase(2018, 06, 20, 2018, 07, 15, 2)] //start touching + end touching
+        [TestCase(2018, 06, 18, 2018, 07, 18, 2)] //start inside + end inside
+        [TestCase(2018, 05, 10, 2018, 07, 25, 2)] //enclosing
+        public void WhenSearchingForTourguidesOnHolidayBetween2Dates_ThenGetTourguidesOnHoliday(
+            int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, int result)
         {
             //ARRANGE
-
+            
             //ACT
-            IList<Tourguide> list = bl.Search(TourguideTerms.IsOnHoliday, new DateTime[] { new DateTime(2018,05,18), new DateTime(2018,05,24) });
+            IList<Tourguide> list = bl.Search(TourguideTerms.IsOnHoliday, new DateTime[] { new DateTime(startYear,startMonth,startDay), new DateTime(endYear,endMonth,endDay) });
             //ASSERT
-            Assert.That(list.Count, Is.EqualTo(1));
+            Assert.That(list.Count, Is.EqualTo(result));
         }
 
         private void Connect(Tourguide guide, OnHoliday holiday)
