@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using DATA;
-using DATA.Interfaces;
-using DATA.Repositoriees;
-
-namespace BL
+﻿namespace BL
 {
+    using System;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
+    using DATA;
+    using DATA.Interfaces;
+
     public class LoginBL
     {
         private readonly IRepository<User> userRepository;
@@ -25,7 +22,7 @@ namespace BL
         }
 
         /// <summary>
-        /// Encrypts the password
+        /// Encrypts the password with SHA256
         /// </summary>
         /// <param name="rawPassword">raw password</param>
         /// <returns>encrypted password</returns>
@@ -37,6 +34,13 @@ namespace BL
             return password;
         }
 
+        /// <summary>
+        /// decides whether the user with the correct password exists
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="password">string password</param>
+        /// <returns>true, if user can be logged in
+        /// false, if not</returns>
         public bool Login(string username, string password)
         {
             if (this.IsTheUserExists(username))
@@ -50,10 +54,74 @@ namespace BL
             return false;
         }
 
+        /// <summary>
+        /// decides whether the user with the password can be registered,
+        /// if yes, the user is saved
+        /// </summary>
+        /// /// <param name="username">username</param>
+        /// <param name="password">string password</param>
+        /// <returns>returns true, if the user is saved,
+        /// throws exceptions, if the user can't be created</returns>
+        public bool RegisterUser(string username, string password)
+        {
+            bool alreadyExist = this.IsTheUserExists(username);
+            try
+            {
+                if (!alreadyExist)
+                {
+                    if (this.UsernamePasswordConstraints(username) && this.UsernamePasswordConstraints(password))
+                    {
+                        string encriptedPassword = this.PasswordEncoder(password);
+                        this.userRepository.Create(new User { Username = username, Password = encriptedPassword });
+                        return true;
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("user already exists");
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new InvalidOperationException(e.Message);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// checks if the username/password contain atleast 5 chars and less than 15 chars,
+        /// must contain only numbers and letters, and cannot contain special characters
+        /// </summary>
+        /// <param name="userpass">desired username or password</param>
+        /// <returns>returns true, if the username/password is valid</returns>
+        public bool UsernamePasswordConstraints(string userpass)
+        {
+            if (userpass.Length >= 5 && userpass.Length < 15)
+            {
+                if (userpass.Any(c => char.IsDigit(c)) && !userpass.Any(ch => !char.IsLetterOrDigit(ch)))
+                {
+                    return true;
+                }
+                else
+                {
+                    throw new InvalidOperationException("username/password must contain only numbers and letters, and cannot contain special characters");
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("username/password must be atleast 5 characters and less than 15 characters");
+            }
+        }
+
+        /// <summary>
+        /// returns true, if the username has been found
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <returns>returns false, if the username not exists</returns>
         private bool IsTheUserExists(string username)
         {
             var query = this.userRepository.GetAll();
-            bool exist = false;
 
             try
             {
@@ -61,11 +129,10 @@ namespace BL
             }
             catch (Exception e)
             {
-                exist = false;
-                return exist;
+                return false;
             }
 
-            return exist = true;
+            return true;
         }
     }
 }
