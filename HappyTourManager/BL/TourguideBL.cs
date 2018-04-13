@@ -67,7 +67,18 @@ namespace BL
             }
             else if ((TourguideTerms)searchterm == TourguideTerms.Language)
             {
-                tourguideList = tourguideList.Where(e => e.Languages.Equals((string)searchvalue));
+                var languages = this.languageRepository.GetAll();
+                languages = languages.Where(i => i.Language1 == (string)searchvalue);
+                IList<Tourguide> tglist = new List<Tourguide>();
+                foreach (var item in languages)
+                {
+                    if (!tglist.Contains(item.Tourguide))
+                    {
+                        tglist.Add(item.Tourguide);
+                    }
+                }
+
+                return tglist;
             }
 
             // searching for tourguides who are on holiday between 2 dates
