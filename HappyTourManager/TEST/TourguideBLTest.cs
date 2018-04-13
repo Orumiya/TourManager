@@ -221,5 +221,15 @@ namespace TEST
             Assert.That(list.Contains(tourguides[0]), Is.True);
         }
 
+        [Test]
+        public void WhenSearchingForLanguage_ThenDoesntGetTourguidesNoOneSpeaksThisLanguage()
+        {
+            //ARRANGE
+            //arranged in  CreateTestdataArrays();
+            //ACT
+            IList<Tourguide> list = bl.Search(TourguideTerms.Language, "persian");
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(0));
+        }
     }
 }
