@@ -122,6 +122,8 @@ namespace TEST
 
             Connect(tourguides[0], onholidays[1]);
             Connect(tourguides[1], onholidays[0]);
+            Connect(tourguides[1], languages[1]);
+            Connect(tourguides[0], languages[0]);
         }
 
         [Test]
@@ -179,6 +181,12 @@ namespace TEST
         {
             guide.OnHolidays.Add(holiday);
             holiday.Tourguide = guide;
+        }
+
+        private void Connect(Tourguide guide, Language language)
+        {
+            guide.Languages.Add(language);
+            language.Tourguide = guide;
         }
 
         [TestCase(2018, 04, 10, 2018, 05, 10, 2)] //before
