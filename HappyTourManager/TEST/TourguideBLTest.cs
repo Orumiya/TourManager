@@ -201,5 +201,17 @@ namespace TEST
             Assert.That(list.Count, Is.EqualTo(result));
 
         }
+
+        [Test]
+        public void WhenSearchingForLanguage_ThenGetsTourguidesWhoSpeaksThisLanguage()
+        {
+            //ARRANGE
+            //arranged in  CreateTestdataArrays();
+            //ACT
+            IList<Tourguide> list = bl.Search(TourguideTerms.Language, "english");
+            //ASSERT
+            Assert.That(list.Contains(tourguides[0]), Is.True);
+        }
+
     }
 }
