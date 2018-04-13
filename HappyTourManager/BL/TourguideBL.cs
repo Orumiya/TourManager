@@ -73,8 +73,26 @@
                 DateTime endInterval = interval[1];
                 var onholidayList = this.onHolidayRepository.GetAll();
                 onholidayList = onholidayList.Where(
-                    i => (i.StartDate >= startInterval && i.StartDate <= endInterval)
-                    || (i.EndDate >= startInterval && i.EndDate <= endInterval));
+                    i => (i.StartDate <= endInterval) && (startInterval <= i.EndDate));
+                IList<Tourguide> tglist = new List<Tourguide>();
+                foreach (var item in onholidayList)
+                {
+                    if (!tglist.Contains(item.Tourguide))
+                    {
+                        tglist.Add(item.Tourguide);
+                    }
+                }
+
+                return tglist;
+            }
+            else if ((TourguideTerms)searchterm == TourguideTerms.IsAvailable)
+            {
+                DateTime[] interval = (DateTime[])searchvalue;
+                DateTime startInterval = interval[0];
+                DateTime endInterval = interval[1];
+                var onholidayList = this.onHolidayRepository.GetAll();
+                onholidayList = onholidayList.Where(
+                    i => !((i.StartDate <= endInterval) && (startInterval <= i.EndDate)));
                 IList<Tourguide> tglist = new List<Tourguide>();
                 foreach (var item in onholidayList)
                 {
@@ -111,28 +129,5 @@
         {
             this.TourguideListChanged?.Invoke(this, EventArgs.Empty);
         }
-
-        //private DateTime[] DetermineDate(object searchvalue)
-        //{
-        //    DateTime[] interval = (DateTime[])searchvalue;
-        //    DateTime startInterval = HappyDate.MINDATE;
-        //    if (interval[0] > HappyDate.MINDATE)
-        //    {
-        //        startInterval = interval[0];
-        //    }
-        //    else
-        //    {
-        //        interval[0] = startInterval;
-        //    }
-
-
-        //    DateTime endInterval = HappyDate.MAXDATE;
-        //    if (interval[1] < HappyDate.MAXDATE)
-        //    {
-        //        endInterval = interval[1];
-        //    }
-
-        //    return interval;
-        //}
     }
 }
