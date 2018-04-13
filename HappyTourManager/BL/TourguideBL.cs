@@ -59,11 +59,11 @@ namespace BL
             var tourguideList = this.tourguideRepository.GetAll();
             if ((TourguideTerms)searchterm == TourguideTerms.LastName)
             {
-                tourguideList = tourguideList.Where(e => e.Person.LastName.Equals((string)searchvalue));
+                tourguideList = tourguideList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
             }
             else if ((TourguideTerms)searchterm == TourguideTerms.Taxidentification)
             {
-                tourguideList = tourguideList.Where(e => e.Taxidentification == (decimal)searchvalue);
+                tourguideList = tourguideList.Where(e => e.Taxidentification == (int)searchvalue);
             }
             else if ((TourguideTerms)searchterm == TourguideTerms.Language)
             {
