@@ -22,19 +22,6 @@
         }
 
         /// <summary>
-        /// Encrypts the password with SHA256
-        /// </summary>
-        /// <param name="rawPassword">raw password</param>
-        /// <returns>encrypted password</returns>
-        public string PasswordEncoder(string rawPassword)
-        {
-            byte[] raw = Encoding.Unicode.GetBytes(rawPassword);
-            byte[] hashResult = HashAlgorithm.Create("SHA256").ComputeHash(raw);
-            string password = Convert.ToBase64String(hashResult);
-            return password;
-        }
-
-        /// <summary>
         /// decides whether the user with the correct password exists
         /// </summary>
         /// <param name="username">username</param>
@@ -90,12 +77,25 @@
         }
 
         /// <summary>
+        /// Encrypts the password with SHA256
+        /// </summary>
+        /// <param name="rawPassword">raw password</param>
+        /// <returns>encrypted password</returns>
+        private string PasswordEncoder(string rawPassword)
+        {
+            byte[] raw = Encoding.Unicode.GetBytes(rawPassword);
+            byte[] hashResult = HashAlgorithm.Create("SHA256").ComputeHash(raw);
+            string password = Convert.ToBase64String(hashResult);
+            return password;
+        }
+
+        /// <summary>
         /// checks if the username/password contain atleast 5 chars and less than 15 chars,
         /// must contain only numbers and letters, and cannot contain special characters
         /// </summary>
         /// <param name="userpass">desired username or password</param>
         /// <returns>returns true, if the username/password is valid</returns>
-        public bool UsernamePasswordConstraints(string userpass)
+        private bool UsernamePasswordConstraints(string userpass)
         {
             if (userpass.Length >= 5 && userpass.Length < 15)
             {
