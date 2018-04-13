@@ -231,5 +231,39 @@ namespace TEST
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(0));
         }
+
+        [TestCase("Cirmos")]
+        [TestCase("cIRMOS")]
+        public void WhenSearchingForLastName_ThenWeFindATourguide(string lastName)
+        {
+            //ARRANGE
+            //arranged in  CreateTestdataArrays();
+            //ACT
+            IList<Tourguide> list = bl.Search(TourguideTerms.LastName, lastName);
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void WhenSearchingForTaxID_ThenWeFindATourguide()
+        {
+            //ARRANGE
+            //arranged in  CreateTestdataArrays();
+            //ACT
+            IList<Tourguide> list = bl.Search(TourguideTerms.Taxidentification, 198600023);
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void WhenSearchingForDefault_ThenWeGetAllTourguides()
+        {
+            //ARRANGE
+            //arranged in  CreateTestdataArrays();
+            //ACT
+            IList<Tourguide> list = bl.Search(TourguideTerms.Default, null);
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(2));
+        }
     }
 }
