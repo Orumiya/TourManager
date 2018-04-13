@@ -66,6 +66,8 @@
             {
                 tourguideList = tourguideList.Where(e => e.Languages.Equals((string)searchvalue));
             }
+
+            // searching for tourguides who are on holiday between 2 dates
             else if ((TourguideTerms)searchterm == TourguideTerms.IsOnHoliday)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
@@ -85,6 +87,8 @@
 
                 return tglist;
             }
+
+            // searching for tourguides who are not on holiday between 2 dates
             else if ((TourguideTerms)searchterm == TourguideTerms.IsAvailable)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
