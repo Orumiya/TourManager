@@ -40,7 +40,7 @@ namespace TEST
         public void WhenCreatingTourguideBL_ThenTourguideBLIsNotNull()
         {
             // ARRANGE - ACT
-            
+            //arranged in constructor
             // ASSERT
             Assert.That(bl, Is.Not.Null);
         }
@@ -168,7 +168,7 @@ namespace TEST
             int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, int result)
         {
             //ARRANGE
-            
+            //arranged in  CreateTestdataArrays();
             //ACT
             IList<Tourguide> list = bl.Search(TourguideTerms.IsOnHoliday, new DateTime[] { new DateTime(startYear,startMonth,startDay), new DateTime(endYear,endMonth,endDay) });
             //ASSERT
@@ -179,6 +179,27 @@ namespace TEST
         {
             guide.OnHolidays.Add(holiday);
             holiday.Tourguide = guide;
+        }
+
+        [TestCase(2018, 04, 10, 2018, 05, 10, 2)] //before
+        [TestCase(2018, 07, 21, 2018, 08, 09, 2)] //after
+        [TestCase(2018, 06, 25, 2018, 07, 05, 2)] //between, in a gap
+        [TestCase(2018, 04, 16, 2018, 05, 20, 1)] //start inside
+        [TestCase(2018, 05, 18, 2018, 05, 29, 1)] //inside
+        [TestCase(2018, 06, 10, 2018, 06, 30, 1)] //end inside
+        [TestCase(2018, 06, 20, 2018, 07, 15, 0)] //start touching + end touching
+        [TestCase(2018, 06, 18, 2018, 07, 18, 0)] //start inside + end inside
+        [TestCase(2018, 05, 10, 2018, 07, 25, 0)] //enclosing
+        public void WhenSearchingForAvailableTourguidesBetween2Dates_ThenGetTourguidesWhoAreNotOnHoliday(
+            int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, int result)
+        {
+            //ARRANGE
+            //arranged in  CreateTestdataArrays();
+            //ACT
+            IList<Tourguide> list = bl.Search(TourguideTerms.IsAvailable, new DateTime[] { new DateTime(startYear, startMonth, startDay), new DateTime(endYear, endMonth, endDay) });
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(result));
+
         }
     }
 }

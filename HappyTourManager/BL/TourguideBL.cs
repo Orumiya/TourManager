@@ -1,9 +1,12 @@
-﻿namespace BL
+﻿// <copyright file="TourguideBL.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace BL
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using BL.Default;
     using BL.Interfaces;
     using DATA;
     using DATA.Interfaces;
