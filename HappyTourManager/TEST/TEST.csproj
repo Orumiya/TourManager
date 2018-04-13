@@ -50,6 +50,7 @@
     <Compile Include="Fakes\FakeRepository.cs" />
     <Compile Include="TourguideBLTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LoginBLTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
