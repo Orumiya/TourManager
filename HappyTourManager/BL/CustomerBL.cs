@@ -1,10 +1,15 @@
-﻿namespace BL
+﻿// <copyright file="CustomerBL.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace BL
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using BL.Interfaces;
     using DATA;
+    using DATA.Interfaces;
     using DATA.Repositoriees;
 
     /// <summary>
@@ -14,7 +19,6 @@
     {
         LoyaltyCard,
         LastName,
-        FirstName,
         AddressCity,
         IDNumber,
         Default,
@@ -23,7 +27,12 @@
 
     public class CustomerBL : ISearcheable<Customer>, ICustomerList
     {
-        private readonly CustomerRepository customerRepository;
+        private readonly IRepository<Customer> customerRepository;
+
+        public CustomerBL(IRepository<Customer> customerRepository)
+        {
+            this.customerRepository = customerRepository;
+        }
 
         /// <inheritdoc />
         public event EventHandler CustomerListChanged;
@@ -49,25 +58,24 @@
         public IList<Customer> Search(object searchterm, object searchvalue)
         {
             var customerList = this.customerRepository.GetAll();
-            if ((CustomerTerms)searchterm == CustomerTerms.FirstName)
+
+            if ((CustomerTerms)searchterm == CustomerTerms.LastName)
             {
-                customerList = customerList.Where(e => e.Person.FirstName.Equals((string)searchvalue));
-            }
-            else if ((CustomerTerms)searchterm == CustomerTerms.LastName)
-            {
-                customerList = customerList.Where(e => e.Person.LastName.Equals((string)searchvalue));
+                customerList = customerList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.AddressCity)
             {
-                customerList = customerList.Where(e => e.Person.AddressCity.Equals((string)searchvalue));
+                customerList = customerList.Where(e => e.Person.AddressCity.ToLower().Equals(((string)searchvalue).ToLower()));
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.IDNumber)
             {
-                customerList = customerList.Where(e => e.Person.IDNumber == (decimal)searchvalue);
+                customerList = customerList.Where(e => e.Person.IDNumber == (int)searchvalue);
             }
+
+            // LoyaltyCard is a char in DB, values can be 1 for true and 0 for false
             else if ((CustomerTerms)searchterm == CustomerTerms.LoyaltyCard)
             {
-                customerList = customerList.Where(e => e.LoyaltyCard.Equals((string)searchvalue));
+                customerList = customerList.Where(e => e.LoyaltyCard.Equals((char)searchvalue));
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.ValidTo)
             {

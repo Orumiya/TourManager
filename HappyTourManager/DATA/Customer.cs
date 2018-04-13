@@ -21,7 +21,7 @@ namespace DATA
         }
     
         public int PersonID { get; set; }
-        public string LoyaltyCard { get; set; }
+        public char LoyaltyCard { get; set; }
     
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
