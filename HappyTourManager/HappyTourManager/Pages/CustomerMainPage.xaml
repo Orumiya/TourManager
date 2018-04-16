@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HappyTourManager.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="CustomerMainPage">
+      Title="Customer">
 
     <Grid>
         

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HappyTourManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,19 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
+        
+
         public LoginPage()
         {
             InitializeComponent();
+
+            this.DataContext = new LoginViewModel();
+
+        }
+
+        private void btnSignIn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
