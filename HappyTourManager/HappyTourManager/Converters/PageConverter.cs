@@ -16,6 +16,8 @@ namespace HappyTourManager
             {
                 case "LoginPage":
                     return new LoginPage();
+                case "CustomerPage":
+                    return new CustomerMainPage();
                 default:
                     return null;
             }
