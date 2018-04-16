@@ -148,6 +148,7 @@
         </Grid>
         
         <Frame Grid.Row="1" x:Name="MainFrame" Content="{Binding ActualPage, Converter={local:PageConverter}}" />
+       
     </Grid>
     
     </Window>
