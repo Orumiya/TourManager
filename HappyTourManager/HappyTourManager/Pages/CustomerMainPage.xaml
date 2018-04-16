@@ -3,12 +3,80 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HappyTourManager.Pages"
+      xmlns:local="clr-namespace:HappyTourManager"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="600" d:DesignWidth="900"
       Title="Customer">
 
-    <Grid>
-        
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Menu-->
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="0"  >
+                <StackPanel>
+                    <Image Source="/Images/customer.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="1">
+                <StackPanel>
+                    <Image Source="/Images/tours.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="2">
+                <StackPanel>
+                    <Image Source="/Images/orders.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="3">
+                <StackPanel>
+                    <Image Source="/Images/tourguide.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="4">
+                <StackPanel>
+                    <Image Source="/Images/office.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="5">
+                <StackPanel>
+                    <Image Source="/Images/reports.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="6">
+                <StackPanel>
+                    <Image Source="/Images/exit.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <local:UserControl1 Height="75"/>
+                <local:UserControl1 Height="75"/>
+                <local:UserControl1 Height="75"/>
+                <local:UserControl1 Height="75"/>
+            </StackPanel>
+            
+        </Grid>
     </Grid>
 </Page>
