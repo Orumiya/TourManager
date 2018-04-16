@@ -247,5 +247,18 @@
   <ItemGroup>
     <Folder Include="BL\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\customer.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\edit.png" />
+    <Resource Include="Images\exit.png" />
+    <Resource Include="Images\filter.png" />
+    <Resource Include="Images\office.png" />
+    <Resource Include="Images\orders.png" />
+    <Resource Include="Images\reports.png" />
+    <Resource Include="Images\tourguide.png" />
+    <Resource Include="Images\tours.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

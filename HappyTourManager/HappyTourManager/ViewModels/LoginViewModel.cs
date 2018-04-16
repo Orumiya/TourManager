@@ -15,7 +15,7 @@ namespace HappyTourManager.ViewModels
 
         public SecureString Password { get; set; }
 
-        public ICommand LoginCommand { get; set; }
+        
 
 
 

@@ -10,7 +10,7 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Icon=" Images/travel_icon.ico"
-        MinHeight="300" MinWidth="500"
+        MinHeight="400" MinWidth="600"
         Title="Happy Tour Manager" Height="600" Width="900">
 
     <Window.Resources>
@@ -92,8 +92,62 @@
     </WindowChrome.WindowChrome>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <!--Menu-->
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="0"  >
+                <StackPanel>
+                    <Image Source="Images/customer.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="1">
+                <StackPanel>
+                    <Image Source="Images/tours.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="2">
+                <StackPanel>
+                    <Image Source="Images/orders.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="3">
+                <StackPanel>
+                    <Image Source="Images/tourguide.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="4">
+                <StackPanel>
+                    <Image Source="Images/office.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="5">
+                <StackPanel>
+                    <Image Source="Images/reports.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource Iconbtn}" Grid.Column="6">
+                <StackPanel>
+                    <Image Source="Images/exit.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+
+        </Grid>
         
-        <Frame x:Name="MainFrame" Content="{Binding ActualPage, Converter={local:PageConverter}}" />
+        <Frame Grid.Row="1" x:Name="MainFrame" Content="{Binding ActualPage, Converter={local:PageConverter}}" />
     </Grid>
     
     </Window>
