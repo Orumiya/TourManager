@@ -10,7 +10,7 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Icon=" Images/travel_icon.ico"
-        MinHeight="400" MinWidth="600"
+        MinHeight="500" MinWidth="700"
         Title="Happy Tour Manager" Height="600" Width="900">
 
     <Window.Resources>
