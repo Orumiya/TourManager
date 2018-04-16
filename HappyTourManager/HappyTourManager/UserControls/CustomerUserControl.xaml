@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="75" d:DesignWidth="300">
 
-    <Grid Background="{StaticResource LightBGBrush}">
+    <Grid Background="{StaticResource LightBGBrush}" Opacity="0.6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
