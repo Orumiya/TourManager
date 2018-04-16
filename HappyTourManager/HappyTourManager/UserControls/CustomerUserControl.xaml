@@ -36,19 +36,23 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Column="2">
-            <Button Style="{StaticResource Iconbtn}">
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Style="{StaticResource EIconbtn}">
                 <StackPanel>
-                    <Image Source="HappyTourManager/Images/edit.png" Stretch="Uniform"/>
+                    <Image Source="/Images/edit.png" Stretch="Uniform"/>
                 </StackPanel>
 
             </Button>
-            <Button Style="{StaticResource Iconbtn}">
+            <Button Grid.Row="1" Style="{StaticResource EIconbtn}">
                 <StackPanel>
-                    <Image Source="HappyTourManager/Images/delete.png" Stretch="Uniform"/>
+                    <Image Source="/Images/delete.png" Stretch="Uniform"/>
                 </StackPanel>
             </Button>
-        </StackPanel>
+        </Grid>
 
 
     </Grid>
