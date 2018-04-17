@@ -13,6 +13,12 @@ namespace HappyTourManager
         {
             var stackPanel = new StackPanel();
             parent.Children.Add(stackPanel);
+            BuildGUI(stackPanel, content);
+        }
+
+        private void BuildGUI(StackPanel stackPanel, object content)
+        {
+            Type t = content.GetType();
         }
     }
 }
