@@ -37,7 +37,16 @@ namespace HappyTourManager
 
         private Panel CreateContainer(PropertyInfo propInfo, UIElement editor)
         {
-            throw new NotImplementedException();
+            DockPanel dockPanel = new DockPanel();
+            dockPanel.Margin = new Thickness(5);
+
+            Label label = new Label();
+            label.Content = propInfo.Name + ":";
+            dockPanel.Children.Add(label);
+
+            dockPanel.Children.Add(editor);
+
+            return dockPanel;
         }
 
         private UIElement CreateEditor(PropertyInfo propInfo, object content)
@@ -74,5 +83,7 @@ namespace HappyTourManager
 
             return editor;
         }
+
+
     }
 }
