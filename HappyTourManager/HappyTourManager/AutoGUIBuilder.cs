@@ -39,6 +39,9 @@ namespace HappyTourManager
             throw new NotImplementedException();
         }
 
-
+        private UIElement CreateEditor(PropertyInfo propInfo, object content)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
