@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace HappyTourManager
 {
@@ -34,14 +35,44 @@ namespace HappyTourManager
             }
         }
 
-        private Panel CreateContainer(PropertyInfo propInfo, object editor)
+        private Panel CreateContainer(PropertyInfo propInfo, UIElement editor)
         {
             throw new NotImplementedException();
         }
 
         private UIElement CreateEditor(PropertyInfo propInfo, object content)
         {
-            throw new NotImplementedException();
+            UIElement editor = null;
+
+            if (propInfo.PropertyType == typeof(string) || propInfo.PropertyType == typeof(int))
+            {
+                TextBox txtBox = new TextBox();
+
+                Binding binding = new Binding(propInfo.Name);
+                binding.Source = content;
+
+                if (propInfo.SetMethod == null || propInfo.SetMethod.IsPublic == false) 
+                {
+                    txtBox.IsEnabled = false;
+                    binding.Mode = BindingMode.OneWay;
+                }
+
+                txtBox.SetBinding(TextBox.TextProperty, binding);
+
+                editor = txtBox;
+            }
+            else if (propInfo.PropertyType == typeof(DateTime))
+            {
+                DatePicker datePicker = new DatePicker();
+
+                Binding binding = new Binding(propInfo.Name);
+                binding.Source = content;
+                datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
+
+                editor = datePicker;
+            }
+
+            return editor;
         }
     }
 }
