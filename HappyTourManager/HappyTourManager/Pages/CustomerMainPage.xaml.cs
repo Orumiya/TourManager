@@ -20,6 +20,8 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class CustomerMainPage : Page
     {
+        Bindable viewModel;
+
         public CustomerMainPage()
         {
             InitializeComponent();
