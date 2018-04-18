@@ -20,7 +20,7 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class CustomerMainPage : Page
     {
-        Bindable viewModel;
+        
 
         public CustomerMainPage()
         {
@@ -31,7 +31,37 @@ namespace HappyTourManager.Pages
 
         private void btnCustomer_Click(object sender, RoutedEventArgs e)
         {
+            var viewModel = new CustomerMainViewModel();
+        }
 
+        private void btnTour_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new TourMainViewModel();
+        }
+
+        private void btnOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new OrderMainViewModel();
+        }
+
+        private void btnTGuide_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new TourGuideMainViewModel();
+        }
+
+        private void btnOffice_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new OfficeMainViewModel();
+        }
+
+        private void btnReports_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new ReportMainViewModel();
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

@@ -32,32 +32,32 @@
                     <Image Source="/Images/customer.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnTour" Style="{StaticResource Iconbtn}" Grid.Column="1">
+            <Button Name="btnTour" Style="{StaticResource Iconbtn}" Grid.Column="1" Click="btnTour_Click">
                 <StackPanel>
                     <Image Source="/Images/tours.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnOrder" Style="{StaticResource Iconbtn}" Grid.Column="2">
+            <Button Name="btnOrder" Style="{StaticResource Iconbtn}" Grid.Column="2" Click="btnOrder_Click">
                 <StackPanel>
                     <Image Source="/Images/orders.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnTGuide" Style="{StaticResource Iconbtn}" Grid.Column="3">
+            <Button Name="btnTGuide" Style="{StaticResource Iconbtn}" Grid.Column="3" Click="btnTGuide_Click">
                 <StackPanel>
                     <Image Source="/Images/tourguide.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnOffice" Style="{StaticResource Iconbtn}" Grid.Column="4">
+            <Button Name="btnOffice" Style="{StaticResource Iconbtn}" Grid.Column="4" Click="btnOffice_Click">
                 <StackPanel>
                     <Image Source="/Images/office.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnReports" Style="{StaticResource Iconbtn}" Grid.Column="5">
+            <Button Name="btnReports" Style="{StaticResource Iconbtn}" Grid.Column="5" Click="btnReports_Click">
                 <StackPanel>
                     <Image Source="/Images/reports.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Style="{StaticResource Iconbtn}" Grid.Column="6">
+            <Button x:Name="btnExit" Style="{StaticResource Iconbtn}" Grid.Column="6" Click="btnExit_Click">
                 <StackPanel>
                     <Image Source="/Images/exit.png" Stretch="None"/>
                 </StackPanel>
