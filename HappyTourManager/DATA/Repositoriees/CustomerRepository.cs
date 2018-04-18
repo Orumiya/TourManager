@@ -1,15 +1,9 @@
 ﻿namespace DATA.Repositoriees
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using DATA.Interfaces;
 
-    public enum CustomerTerms
-    {
-
-    }
     public class CustomerRepository : IRepository<Customer>
     {
         /// <summary>
@@ -18,42 +12,61 @@
         private HappyTourDatabaseEntities entities;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CustomerRepository"/> class.
         /// creates the repository
         /// </summary>
-        /// <param name="entities"></param>
+        /// <param name="entities">input param</param>
         public CustomerRepository(HappyTourDatabaseEntities entities)
         {
-            this.entities = new HappyTourDatabaseEntities();
+            this.entities = entities;
         }
 
+        /// <summary>
+        /// adds a new Customer object to the database
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void Create(Customer dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.People.Add(dataobject.Person);
+            this.entities.Customers.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
+        /// <summary>
+        /// removes a Customer from the database
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void Delete(Customer dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.Customers.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
+        /// <summary>
+        /// returns all Customers from the database
+        /// </summary>
+        /// <returns>input param</returns>
         public IQueryable<Customer> GetAll()
         {
-            throw new NotImplementedException();
+            return this.entities.Customers;
         }
 
-        public IQueryable<Customer> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// throws an exception if a Customer already exists -
+        /// same Customer = same FirstName, same LastName, same BirthDate
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void ThrowIfExists(Customer dataobject)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
+            bool exist = this.entities.Customers.Any(
+                e => e.Person.FirstName.Equals(dataobject.Person.FirstName) &&
+                e.Person.LastName.Equals(dataobject.Person.LastName) &&
+                e.Person.BirthDate.Equals(dataobject.Person.BirthDate));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
     }
 }
