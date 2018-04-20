@@ -8,15 +8,6 @@ namespace DATA.Repositories
     using System.Linq;
     using DATA.Interfaces;
 
-    /// <summary>
-    /// enums as searching terms
-    /// </summary>
-    public enum PlaceTerms
-    {
-        COUNTRY,
-        CITY
-    }
-
     public class PlaceRepository : IRepository<Place>
     {
         /// <summary>
@@ -62,30 +53,6 @@ namespace DATA.Repositories
         public IQueryable<Place> GetAll()
         {
             return this.entities.Places;
-        }
-
-        /// <summary>
-        /// searches for an object with attribut and value pair
-        /// </summary>
-        /// <param name="searchterm">searchattribut</param>
-        /// <param name="searchvalue">searchvalue</param>
-        /// <returns>place list</returns>
-        public IQueryable<Place> Search(object searchterm, object searchvalue)
-        {
-            if ((PlaceTerms)searchterm == PlaceTerms.COUNTRY)
-            {
-                var places = this.entities.Places.Where(e => e.Country.Equals((string)searchvalue));
-                return places;
-            }
-            else if ((PlaceTerms)searchterm == PlaceTerms.CITY)
-            {
-                var places = this.entities.Places.Where(e => e.City.Equals((string)searchvalue));
-                return places;
-            }
-            else
-            {
-                throw new InvalidOperationException("Not found");
-            }
         }
 
         /// <summary>
