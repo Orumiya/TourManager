@@ -153,20 +153,20 @@ namespace TEST
             Assert.That(list.Count, Is.EqualTo(1));
         }
 
-        [TestCase(1,1)]
-        public void WhenSearchingForLoyaltyCardHolders_ThenWeFindACustomer(string loyalty)
+        [TestCase('1',1)]
+        public void WhenSearchingForLoyaltyCardHolders_ThenWeFindACustomer(char loyalty, int result)
         {
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Customer> list = bl.Search(CustomerTerms.LoyaltyCard, 1);
+            IList<Customer> list = bl.Search(CustomerTerms.LoyaltyCard, loyalty);
             //ASSERT
-            Assert.That(list.Count, Is.EqualTo(1));
+            Assert.That(list.Count, Is.EqualTo(result));
         }
 
         [TestCase(2018, 04, 10, 2018, 05, 10, 0)] //before
         [TestCase(2026, 07, 21, 2026, 08, 09, 0)] //after
-        [TestCase(2024, 06, 25, 2024, 07, 05, 1)] //1 after, 1 before
+        [TestCase(2024, 06, 25, 2024, 07, 05, 0)] //1 after, 1 before
         [TestCase(2018, 04, 16, 2026, 05, 20, 2)] //2 inside
         public void WhenSearchingForValidToDateBetween2Dates_ThenGetCustomerWithValidToPassport(
             int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, int result)
