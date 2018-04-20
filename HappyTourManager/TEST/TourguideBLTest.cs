@@ -21,11 +21,6 @@ namespace TEST
         private FakeRepository<Tourguide> tourguideRepository;
         private FakeRepository<OnHoliday> onHolidayRepository;
         private FakeRepository<Language> languageRepository;
-        //private Tour[] tours;
-        //private Program[] programs;
-        //private Place[] places;
-        //private PLTCON[] pltcon;
-        //private PRTCON[] prtcon;
 
         public TourguideBLTest()
         {
