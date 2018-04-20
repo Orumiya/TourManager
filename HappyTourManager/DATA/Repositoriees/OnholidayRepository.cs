@@ -1,4 +1,8 @@
-﻿namespace DATA.Repositoriees
+﻿// <copyright file="OnholidayRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace DATA.Repositoriees
 {
     using System;
     using System.Linq;
@@ -33,7 +37,7 @@
         }
 
         /// <summary>
-        /// removes a Customer from the database
+        /// removes a Holiday from the database
         /// </summary>
         /// <param name="dataobject">input param</param>
         public void Delete(OnHoliday dataobject)
@@ -43,9 +47,9 @@
         }
 
         /// <summary>
-        /// returns all Customers from the database
+        /// returns all holidays from the database
         /// </summary>
-        /// <returns>input param</returns>
+        /// <returns>holidaylist</returns>
         public IQueryable<OnHoliday> GetAll()
         {
             return this.entities.OnHolidays;
