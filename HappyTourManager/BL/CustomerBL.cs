@@ -79,7 +79,10 @@ namespace BL
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.ValidTo)
             {
-                customerList = customerList.Where(e => e.Person.ValidTo <= (DateTime)searchvalue);
+                DateTime[] interval = (DateTime[])searchvalue;
+                DateTime startInterval = interval[0];
+                DateTime endInterval = interval[1];
+                customerList = customerList.Where(e => e.Person.ValidTo <= endInterval && e.Person.ValidTo >= startInterval);
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.Default)
             {
