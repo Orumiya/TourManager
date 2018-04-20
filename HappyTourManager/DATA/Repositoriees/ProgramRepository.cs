@@ -31,7 +31,9 @@ namespace DATA.Repositoriees
         /// <param name="dataobject">input param</param>
         public void Create(Program dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.Programs.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
@@ -40,7 +42,8 @@ namespace DATA.Repositoriees
         /// <param name="dataobject">input param</param>
         public void Delete(Program dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.Programs.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
@@ -49,13 +52,7 @@ namespace DATA.Repositoriees
         /// <returns>ProgramList</returns>
         public IQueryable<Program> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-
-        public IQueryable<Program> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
+            return this.entities.Programs;
         }
 
         /// <summary>
@@ -64,7 +61,12 @@ namespace DATA.Repositoriees
         /// <param name="dataobject">input param</param>
         public void ThrowIfExists(Program dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = this.entities.Programs.Any(
+                e => e.ProgramType.Equals(dataobject.ProgramType));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
     }
 }
