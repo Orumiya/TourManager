@@ -1,4 +1,8 @@
-﻿namespace DATA.Repositoriees
+﻿// <copyright file="TourRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace DATA.Repositoriees
 {
     using System;
     using System.Collections.Generic;
@@ -30,7 +34,9 @@
         /// <param name="dataobject">input param</param>
         public void Create(Tour dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.Tours.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
@@ -39,7 +45,8 @@
         /// <param name="dataobject">input param</param>
         public void Delete(Tour dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.Tours.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
@@ -48,21 +55,24 @@
         /// <returns>TourList</returns>
         public IQueryable<Tour> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Tour> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
+            return this.entities.Tours;
         }
 
         /// <summary>
-        /// throws an exception if the new Tour exists
+        /// throws an exception if the new Tour already exists:
+        /// same start and end date & same min and max number & same TravelName
         /// </summary>
         /// <param name="dataobject">input param</param>
         public void ThrowIfExists(Tour dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = this.entities.Tours.Any(
+                e => e.StartDate.Equals(dataobject.StartDate) &&
+                e.EndDate.Equals(dataobject.EndDate) && e.MinNumber.Equals(dataobject.MinNumber) &&
+                e.MaxNumber.Equals(dataobject.MaxNumber) && e.TravelName.Equals(dataobject.TravelName));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
     }
 }
