@@ -72,10 +72,10 @@ namespace BL
                 customerList = customerList.Where(e => e.Person.IDNumber == (int)searchvalue);
             }
 
-            // LoyaltyCard is a char in DB, values can be 1 for true and 0 for false
+            // LoyaltyCard is a string in DB, values can be 1 for true and 0 for false
             else if ((CustomerTerms)searchterm == CustomerTerms.LoyaltyCard)
             {
-                customerList = customerList.Where(e => e.LoyaltyCard.Equals((char)searchvalue));
+                customerList = customerList.Where(e => e.LoyaltyCard.Equals((string)searchvalue));
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.ValidTo)
             {

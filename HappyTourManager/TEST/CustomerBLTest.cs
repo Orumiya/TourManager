@@ -30,7 +30,7 @@ namespace TEST
             {
                 new Customer()
                 {
-                LoyaltyCard = '1',
+                LoyaltyCard = "1",
                 Person = new Person()
                     {
                         FirstName = "Marcus",
@@ -48,7 +48,7 @@ namespace TEST
                 },
                 new Customer()
                 {
-                    LoyaltyCard = '0',
+                    LoyaltyCard = "0",
                     Person = new Person()
                     {
                         FirstName = "Vanessa",
@@ -97,7 +97,7 @@ namespace TEST
                     Phone = 063099912333,
                     ValidTo = new DateTime(2024, 02, 02)
                 },
-                LoyaltyCard = '1',
+                LoyaltyCard = "1",
                 Orders = null
             };
             ///ACT
@@ -153,8 +153,8 @@ namespace TEST
             Assert.That(list.Count, Is.EqualTo(1));
         }
 
-        [TestCase('1',1)]
-        public void WhenSearchingForLoyaltyCardHolders_ThenWeFindACustomer(char loyalty, int result)
+        [TestCase("1",1)]
+        public void WhenSearchingForLoyaltyCardHolders_ThenWeFindACustomer(string loyalty, int result)
         {
             //ARRANGE
             //arranged in  CreateTestdataArrays();
