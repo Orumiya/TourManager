@@ -23,7 +23,9 @@ namespace BL
         ADULTPRICE,
         CHILDPRICE,
         STARTDATE,
-        ENDDATE
+        ENDDATE,
+        PROGRAM
+
     }
 
     public class TourBL : ITourList, ISearcheable<Tour>
@@ -70,17 +72,21 @@ namespace BL
             if ((TourTerms)searchterm == TourTerms.COUNTRY)
             {
                 var countries = this.placeRepository.GetAll();
-                countries = countries.Where(i => i.Country == (string)searchvalue);
-                var conns = this.pltconRepository.GetAll().Where(e => e.PlaceID.Equals(countries.Select(f => f.PlaceID)));
+                string searchedCountry = (string)searchvalue;
+                tourList = tourList.Where(e => e.PLTCONs.Select(s => s.Place).Select(r => r.Country).Contains(searchedCountry));
                 IList<Tour> tlist = new List<Tour>();
-                foreach (var item in conns)
+                if (tourList.Count() != 0)
                 {
-                    if (!tlist.Contains(item.Tour))
+                    foreach (var item in tourList)
                     {
-                        tlist.Add(item.Tour);
+                        if (!tlist.Contains(item))
+                        {
+                            tlist.Add(item);
+                            Console.WriteLine(item.TravelName);
+                        }
                     }
                 }
-                
+
                 return tlist;
             }
             else if ((TourTerms)searchterm == TourTerms.CITY)
