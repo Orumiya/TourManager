@@ -30,6 +30,10 @@ namespace TEST
         {
             CreateTestdataArrays();
             this.tourRepository = new FakeRepository<Tour>(tours);
+            this.programRepository = new FakeRepository<Program>(programs);
+            this.placeRepository = new FakeRepository<Place>(places);
+            this.pltconRepository = new FakeRepository<PLTCON>(pltcons);
+            this.prtconRepository = new FakeRepository<PRTCON>(prtcons);
             bl = new TourBL(tourRepository, programRepository, placeRepository, pltconRepository, prtconRepository);
         }
 
@@ -192,6 +196,17 @@ namespace TEST
             //arranged in constructor
             // ASSERT
             Assert.That(bl, Is.Not.Null);
+        }
+
+        [Test]
+        public void WhenSearchingForACountry_ThenGetsToursToThatCountry()
+        {
+            //ARRANGE --> Testarray
+            //ACT
+            IList<Tour> list = bl.Search(TourTerms.COUNTRY, "France");
+
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(1));
         }
     }
 }
