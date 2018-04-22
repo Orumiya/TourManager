@@ -29,13 +29,27 @@ namespace BL
         /// <inheritdoc />
         public void Delete(Order order)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.orderRepository.Delete(order);
+            }
+            finally
+            {
+                this.OnOrderListChanged();
+            }
         }
 
         /// <inheritdoc />
         public void Save(Order order)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.orderRepository.Create(order);
+            }
+            finally
+            {
+                this.OnOrderListChanged();
+            }
         }
 
         /// <inheritdoc />
