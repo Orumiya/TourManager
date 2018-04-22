@@ -31,6 +31,13 @@ namespace BL
         private readonly IRepository<Language> languageRepository;
         private readonly IRepository<OnHoliday> onHolidayRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TourguideBL"/> class.
+        /// creates a TourguideBL
+        /// </summary>
+        /// <param name="tourguideRepository">input param</param>
+        /// <param name="languageRepository">input param - lang repo</param>
+        /// <param name="onHolidayRepository">input param - onHoliday repo</param>
         public TourguideBL(IRepository<Tourguide> tourguideRepository, IRepository<Language> languageRepository, IRepository<OnHoliday> onHolidayRepository)
         {
             this.tourguideRepository = tourguideRepository;
@@ -57,14 +64,23 @@ namespace BL
         public IList<Tourguide> Search(object searchterm, object searchvalue)
         {
             var tourguideList = this.tourguideRepository.GetAll();
+
+            // returns tourguides with this last name
+            // searchvalue must be a string
             if ((TourguideTerms)searchterm == TourguideTerms.LastName)
             {
                 tourguideList = tourguideList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
             }
+
+            // returns tourguides with this taxID
+            // searchvalue must be int
             else if ((TourguideTerms)searchterm == TourguideTerms.Taxidentification)
             {
                 tourguideList = tourguideList.Where(e => e.Taxidentification == (int)searchvalue);
             }
+
+            // returns tourguides who speaks this language
+            // searchvalue must be a string
             else if ((TourguideTerms)searchterm == TourguideTerms.Language)
             {
                 var languages = this.languageRepository.GetAll();
@@ -82,6 +98,7 @@ namespace BL
             }
 
             // searching for tourguides who are on holiday between 2 dates
+            // searchvalue must be a DateTime[]
             else if ((TourguideTerms)searchterm == TourguideTerms.IsOnHoliday)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
@@ -103,6 +120,7 @@ namespace BL
             }
 
             // searching for tourguides who are not on holiday between 2 dates
+            // searchvalue must be a DateTime[]
             else if ((TourguideTerms)searchterm == TourguideTerms.IsAvailable)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
