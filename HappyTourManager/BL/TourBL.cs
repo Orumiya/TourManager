@@ -162,7 +162,7 @@ namespace BL
 
             // returns the tours to the searched country
             // searchvalue must be a string
-            if ((TourTerms)searchterm == TourTerms.PROGRAM)
+            else if ((TourTerms)searchterm == TourTerms.PROGRAM)
             {
                 var programs = this.programRepository.GetAll();
                 string searchedProgram = ((string)searchvalue).ToLower();

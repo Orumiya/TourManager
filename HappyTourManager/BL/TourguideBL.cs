@@ -51,13 +51,27 @@ namespace BL
         /// <inheritdoc />
         public void Delete(Tourguide guide)
         {
-            this.tourguideRepository.Delete(guide);
+            try
+            {
+                this.tourguideRepository.Delete(guide);
+            }
+            finally
+            {
+                this.OnTourguideListChanged();
+            }
         }
 
         /// <inheritdoc />
         public void Save(Tourguide guide)
         {
-            this.tourguideRepository.Create(guide);
+            try
+            {
+                this.tourguideRepository.Create(guide);
+            }
+            finally
+            {
+                this.OnTourguideListChanged();
+            }
         }
 
         /// <inheritdoc />
@@ -149,7 +163,7 @@ namespace BL
                 throw new InvalidOperationException("Not found");
             }
 
-            return tourguideList.ToList<Tourguide>();
+            throw new InvalidOperationException("Not found");
         }
 
         /// <inheritdoc />

@@ -45,13 +45,28 @@ namespace BL
         /// <inheritdoc />
         public void Delete(Customer customer)
         {
-            this.customerRepository.Delete(customer);
+            try
+            {
+                this.customerRepository.Delete(customer);
+            }
+            finally
+            {
+                this.OnCustomerListChanged();
+            }
+
         }
 
         /// <inheritdoc />
         public void Save(Customer customer)
         {
-            this.customerRepository.Create(customer);
+            try
+            {
+                this.customerRepository.Create(customer);
+            }
+            finally
+            {
+                this.OnCustomerListChanged();
+            }
         }
 
         /// <summary>
@@ -110,7 +125,7 @@ namespace BL
                 throw new InvalidOperationException("Not found");
             }
 
-            return customerList.ToList<Customer>();
+            throw new InvalidOperationException("Not found");
         }
 
         /// <inheritdoc />
