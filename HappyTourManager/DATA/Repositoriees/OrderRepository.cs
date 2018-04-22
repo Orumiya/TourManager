@@ -31,7 +31,9 @@ namespace DATA.Repositoriees
         /// <param name="dataobject">input param</param>
         public void Create(Order dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.Orders.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
@@ -40,7 +42,8 @@ namespace DATA.Repositoriees
         /// <param name="dataobject">input param</param>
         public void Delete(Order dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.Orders.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
@@ -49,21 +52,23 @@ namespace DATA.Repositoriees
         /// <returns>orderlist</returns>
         public IQueryable<Order> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Order> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
+            return this.entities.Orders;
         }
 
         /// <summary>
         /// throws an exception if an order already exists -
+        /// same order = same Customer + same Tour + same OrderDate + same Personcount
         /// </summary>
         /// <param name="dataobject">input param</param>
         public void ThrowIfExists(Order dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = this.entities.Orders.Any(
+               e => e.CustomerID.Equals(dataobject.CustomerID) && e.TourID.Equals(dataobject.TourID)
+               && e.OrderDate.Equals(dataobject.OrderDate) && e.PersonCount.Equals(dataobject.PersonCount));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
     }
 }
