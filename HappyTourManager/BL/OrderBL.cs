@@ -1,15 +1,30 @@
-﻿using BL.Interfaces;
-using DATA;
-using DATA.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="OrderBL.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BL
 {
-    public class OrderBL : ISearcheable<Order>, IOrderList
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BL.Interfaces;
+    using DATA;
+    using DATA.Interfaces;
+
+    /// <summary>
+    /// searchterms for Order entities
+    /// </summary>
+    public enum OrderTerms
+    {
+        ORDERDATE,
+        PERSONCOUNT,
+        TOTALSUM,
+        ISLOYALTY,
+        ISCANCELLED,
+        ISPAYED
+    }
+
+    public class OrderBL : IOrderList //, ISearcheable<Order>
     {
         private readonly IRepository<Order> orderRepository;
 
@@ -52,11 +67,21 @@ namespace BL
             }
         }
 
-        /// <inheritdoc />
-        public IList<Order> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
-        }
+        ///// <inheritdoc />
+        //public IList<Order> Search(object searchterm, object searchvalue)
+        //{
+        //    var orders = this.orderRepository.GetAll();
+        //    Order order = new Order
+        //    {
+                
+        //    }
+        //    //if ((OrderTerms)searchterm == OrderTerms.LastName)
+        //    //{
+
+        //    //}
+        //    throw new NotImplementedException();
+
+        //}
 
         /// <inheritdoc />
         public void ThrowIfExists(Order order)
