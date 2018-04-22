@@ -5,12 +5,10 @@
 namespace BL
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using BL.Interfaces;
     using DATA;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using DATA.Interfaces;
 
     /// <summary>
@@ -22,10 +20,8 @@ namespace BL
         CITY,
         ADULTPRICE,
         CHILDPRICE,
-        STARTDATE,
-        ENDDATE,
+        TOURDATE,
         PROGRAM
-
     }
 
     public class TourBL : ITourList, ISearcheable<Tour>
@@ -56,7 +52,14 @@ namespace BL
         /// <inheritdoc />
         public void Delete(Tour tour)
         {
-            this.tourRepository.Delete(tour);
+            try
+            {
+                this.tourRepository.Delete(tour);
+            }
+            finally
+            {
+                this.OnTourListChanged();
+            }
         }
 
         /// <inheritdoc />
@@ -69,11 +72,14 @@ namespace BL
         public IList<Tour> Search(object searchterm, object searchvalue)
         {
             var tourList = this.tourRepository.GetAll();
+
+            // returns the tours to the searched country
+            // searchvalue must be a string
             if ((TourTerms)searchterm == TourTerms.COUNTRY)
             {
                 var countries = this.placeRepository.GetAll();
-                string searchedCountry = (string)searchvalue;
-                tourList = tourList.Where(e => e.PLTCONs.Select(s => s.Place).Select(r => r.Country).Contains(searchedCountry));
+                string searchedCountry = ((string)searchvalue).ToLower();
+                tourList = tourList.Where(e => e.PLTCONs.Select(s => s.Place).Select(r => r.Country.ToLower()).Contains(searchedCountry));
                 IList<Tour> tlist = new List<Tour>();
                 if (tourList.Count() != 0)
                 {
@@ -82,22 +88,99 @@ namespace BL
                         if (!tlist.Contains(item))
                         {
                             tlist.Add(item);
-                            Console.WriteLine(item.TravelName);
                         }
                     }
                 }
 
                 return tlist;
             }
+
+            // returns the tours to the searched city
+            // searchvalue must be a string
             else if ((TourTerms)searchterm == TourTerms.CITY)
             {
-                //var places = this.entities.Places.Where(e => e.City.Equals((string)searchvalue));
-                //return places;
+                var cities = this.placeRepository.GetAll();
+                string searchedCity = ((string)searchvalue).ToLower();
+                tourList = tourList.Where(e => e.PLTCONs.Select(s => s.Place).Select(r => r.City.ToLower()).Contains(searchedCity));
+                IList<Tour> tlist = new List<Tour>();
+                if (tourList.Count() != 0)
+                {
+                    foreach (var item in tourList)
+                    {
+                        if (!tlist.Contains(item))
+                        {
+                            tlist.Add(item);
+                        }
+                    }
+                }
+
+                return tlist;
+            }
+
+            // returns tours with adultprice in the search range
+            // searchvalue must be int[]
+            else if ((TourTerms)searchterm == TourTerms.ADULTPRICE)
+            {
+                int[] priceRange = (int[])searchvalue;
+                int minValue = priceRange[0];
+                int maxValue = priceRange[1];
+                var tours = this.tourRepository.GetAll();
+                tours = tours.Where(e => e.AdultPrice >= minValue && e.AdultPrice <= maxValue);
+                return tours.ToList();
+            }
+
+            // returns tours with childprice in the search range
+            // searchvalue must be int[]
+            else if ((TourTerms)searchterm == TourTerms.CHILDPRICE)
+            {
+                int[] priceRange = (int[])searchvalue;
+                int minValue = priceRange[0];
+                int maxValue = priceRange[1];
+                var tours = this.tourRepository.GetAll();
+                tours = tours.Where(e => e.ChildPrice >= minValue && e.ChildPrice <= maxValue);
+                return tours.ToList();
+            }
+
+            // searching for tours which are between 2 dates
+            // searchvalue must be a DateTime[]
+            else if ((TourTerms)searchterm == TourTerms.TOURDATE)
+            {
+                DateTime[] interval = (DateTime[])searchvalue;
+                DateTime startInterval = interval[0];
+                DateTime endInterval = interval[1];
+                tourList = tourList.Where(
+                    i => (i.StartDate <= endInterval) && (startInterval <= i.EndDate));
+                return tourList.ToList();
+            }
+
+            // returns the tours to the searched country
+            // searchvalue must be a string
+            if ((TourTerms)searchterm == TourTerms.PROGRAM)
+            {
+                var programs = this.programRepository.GetAll();
+                string searchedProgram = ((string)searchvalue).ToLower();
+
+                // programs = programs.Where(r => r.ProgramType.ToLower().Contains(searchedProgram));
+                tourList = tourList.Where(e => e.PRTCONs.Select(s => s.Program).Select(r => r.ProgramType.ToLower()).Contains(searchedProgram));
+                IList<Tour> tlist = new List<Tour>();
+                if (tourList.Count() != 0)
+                {
+                    foreach (var item in tourList)
+                    {
+                        if (!tlist.Contains(item))
+                        {
+                            tlist.Add(item);
+                        }
+                    }
+                }
+
+                return tlist;
             }
             else
             {
                 throw new InvalidOperationException("Not found");
             }
+
             throw new InvalidOperationException("Not found");
         }
 
