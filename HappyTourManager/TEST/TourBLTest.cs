@@ -198,15 +198,46 @@ namespace TEST
             Assert.That(bl, Is.Not.Null);
         }
 
-        [Test]
-        public void WhenSearchingForACountry_ThenGetsToursToThatCountry()
+        [TestCase("France", 1)]
+        [TestCase("franCE", 1)]
+        [TestCase("USA", 0)]
+        [TestCase("fra", 0)] //can't search for substring yet
+        public void WhenSearchingForACountry_ThenGetsToursToThatCountry(string country, int result)
         {
             //ARRANGE --> Testarray
             //ACT
-            IList<Tour> list = bl.Search(TourTerms.COUNTRY, "France");
+            IList<Tour> list = bl.Search(TourTerms.COUNTRY, country);
 
             //ASSERT
-            Assert.That(list.Count, Is.EqualTo(1));
+            Assert.That(list.Count, Is.EqualTo(result));
+        }
+
+        [TestCase("Cairo", 1)]
+        [TestCase("caIRO", 1)]
+        [TestCase("Bukarest", 0)]
+        [TestCase("cai", 0)] //can't search for substring yet
+        public void WhenSearchingForACity_ThenGetsToursToThatCity(string city, int result)
+        {
+            //ARRANGE --> Testarray
+            //ACT
+            IList<Tour> list = bl.Search(TourTerms.CITY, city);
+
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(result));
+        }
+
+        [TestCase("museum", 2)]
+        [TestCase("MUseUM", 2)]
+        [TestCase("beach", 0)]
+        [TestCase("mus", 0)] //can't search for substring yet
+        public void WhenSearchingForAProgram_ThenGetsToursWithThisProgram(string program, int result)
+        {
+            //ARRANGE --> Testarray
+            //ACT
+            IList<Tour> list = bl.Search(TourTerms.PROGRAM, program);
+
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(result));
         }
     }
 }
