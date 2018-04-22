@@ -5,8 +5,8 @@
 namespace BL
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
     using BL.Interfaces;
     using DATA;
     using DATA.Interfaces;
@@ -65,7 +65,14 @@ namespace BL
         /// <inheritdoc />
         public void Save(Tour tour)
         {
+            try
+            {
             this.tourRepository.Create(tour);
+            }
+            finally
+            {
+                this.OnTourListChanged();
+            }
         }
 
         /// <inheritdoc />
