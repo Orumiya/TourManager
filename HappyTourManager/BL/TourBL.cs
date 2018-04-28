@@ -21,7 +21,8 @@ namespace BL
         ADULTPRICE,
         CHILDPRICE,
         TOURDATE,
-        PROGRAM
+        PROGRAM,
+        DEFAULT
     }
 
     public class TourBL : ITourList, ISearcheable<Tour>
@@ -208,6 +209,12 @@ namespace BL
 
                 return tlist;
             }
+
+            // searches for all Tours
+            else if ((TourTerms)searchterm == TourTerms.DEFAULT)
+            {
+                return tourList.ToList<Tour>();
+            }
             else
             {
                 throw new InvalidOperationException("Not found");
@@ -220,6 +227,14 @@ namespace BL
         public void ThrowIfExists(Tour tour)
         {
             this.tourRepository.ThrowIfExists(tour);
+        }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.tourRepository.Update();
         }
 
         /// <summary>
