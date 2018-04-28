@@ -9,6 +9,6 @@ namespace BL.Interfaces
         /// <summary>
         /// updates an entry
         /// </summary>
-        void Update(); 
+        void Update();
     }
 }
