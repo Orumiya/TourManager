@@ -8,7 +8,7 @@ namespace DATA.Repositoriees
     using System.Linq;
     using DATA.Interfaces;
 
-    public class OnholidayRepository : IRepository<OnHoliday>, IUpdateRepo
+    public class OnholidayRepository : IRepository<OnHoliday>
     {
         /// <summary>
         /// field to Database

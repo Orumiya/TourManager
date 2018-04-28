@@ -27,5 +27,10 @@
         /// </summary>
         /// <param name="dataobject">input param</param>
         void ThrowIfExists(T dataobject);
+
+        /// <summary>
+        /// updates a repository
+        /// </summary>
+        void Update();
     }
 }

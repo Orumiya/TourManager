@@ -8,7 +8,7 @@ namespace DATA.Repositoriees
     using System.Linq;
     using DATA.Interfaces;
 
-    public class CustomerRepository : IRepository<Customer>, IUpdateRepo
+    public class CustomerRepository : IRepository<Customer>
     {
         /// <summary>
         /// field to Database

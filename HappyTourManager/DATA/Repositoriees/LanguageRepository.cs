@@ -8,7 +8,7 @@ namespace DATA.Repositoriees
     using System.Linq;
     using DATA.Interfaces;
 
-    public class LanguageRepository : IRepository<Language>, IUpdateRepo
+    public class LanguageRepository : IRepository<Language>
     {
         /// <summary>
         /// field to Database

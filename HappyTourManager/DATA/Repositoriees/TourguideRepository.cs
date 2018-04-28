@@ -8,7 +8,7 @@ namespace DATA.Repositoriees
     using System.Linq;
     using DATA.Interfaces;
 
-    public class TourguideRepository : IRepository<Tourguide>, IUpdateRepo
+    public class TourguideRepository : IRepository<Tourguide>
     {
         /// <summary>
         /// field to Database

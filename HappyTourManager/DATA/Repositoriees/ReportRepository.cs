@@ -65,5 +65,13 @@ namespace DATA.Repositoriees
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.entities.SaveChanges();
+        }
     }
 }

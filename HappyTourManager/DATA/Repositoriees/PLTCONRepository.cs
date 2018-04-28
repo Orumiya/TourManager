@@ -8,7 +8,7 @@ namespace DATA.Repositoriees
     using System.Linq;
     using DATA.Interfaces;
 
-    public class PLTCONRepository : IRepository<PLTCON>, IUpdateRepo
+    public class PLTCONRepository : IRepository<PLTCON>
     {
         /// <summary>
         /// field to Database

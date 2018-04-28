@@ -11,7 +11,7 @@ namespace DATA.Repositoriees
     using System.Threading.Tasks;
     using DATA.Interfaces;
 
-    public class TourRepository : IRepository<Tour>, IUpdateRepo
+    public class TourRepository : IRepository<Tour>
     {
         /// <summary>
         /// field to Database
