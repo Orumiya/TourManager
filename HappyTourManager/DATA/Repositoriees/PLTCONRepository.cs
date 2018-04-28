@@ -8,7 +8,7 @@ namespace DATA.Repositoriees
     using System.Linq;
     using DATA.Interfaces;
 
-    public class PLTCONRepository : IRepository<PLTCON>
+    public class PLTCONRepository : IRepository<PLTCON>, IUpdateRepo
     {
         /// <summary>
         /// field to Database
@@ -69,6 +69,14 @@ namespace DATA.Repositoriees
             {
                 throw new InvalidOperationException("Already exists!");
             }
+        }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.entities.SaveChanges();
         }
     }
 }

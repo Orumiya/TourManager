@@ -8,7 +8,7 @@ namespace DATA.Repositoriees
     using System.Linq;
     using DATA.Interfaces;
 
-    public class OnholidayRepository : IRepository<OnHoliday>
+    public class OnholidayRepository : IRepository<OnHoliday>, IUpdateRepo
     {
         /// <summary>
         /// field to Database
@@ -70,6 +70,14 @@ namespace DATA.Repositoriees
             {
                 throw new InvalidOperationException("Already exists!");
             }
+        }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.entities.SaveChanges();
         }
     }
 }

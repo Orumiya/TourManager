@@ -71,5 +71,13 @@ namespace DATA.Repositoriees
                 throw new InvalidOperationException("Already exists!");
             }
         }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.entities.SaveChanges();
+        }
     }
 }

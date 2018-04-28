@@ -8,7 +8,7 @@ namespace DATA.Repositoriees
     using System.Linq;
     using DATA.Interfaces;
 
-    public class CustomerRepository : IRepository<Customer>
+    public class CustomerRepository : IRepository<Customer>, IUpdateRepo
     {
         /// <summary>
         /// field to Database
@@ -71,6 +71,14 @@ namespace DATA.Repositoriees
             {
                 throw new InvalidOperationException("Already exists!");
             }
+        }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.entities.SaveChanges();
         }
     }
 }
