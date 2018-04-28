@@ -195,5 +195,21 @@ namespace TEST
             int newSum = bl.CalculateOrderPriceWithLoyaltyCounted(sum, isLoyalty);
             Assert.That(newSum, Is.EqualTo(result));
         }
+
+        [Test]
+        public void WhenSelectingATour_ThenCountsTheBookedSeatsToThisTourFromOneOrder()
+        {
+            int count = bl.BookedTourActualPersonCount(tours[0]);
+
+            Assert.That(count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void WhenSelectingATour_ThenCountsTheBookedSeatsToThisTourFromMoreOrders()
+        {
+            int count = bl.BookedTourActualPersonCount(tours[1]);
+
+            Assert.That(count, Is.EqualTo(10));
+        }
     }
 }
