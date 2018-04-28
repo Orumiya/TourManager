@@ -235,7 +235,7 @@ namespace BL
         }
 
         /// <summary>
-        /// decides, whether the min number of the travellers is reached for a tour
+        /// decides, whether the min number of travellers is reached for a tour
         /// </summary>
         /// <param name="tour">selected tour</param>
         /// <returns>true, if min number reached</returns>
@@ -243,6 +243,24 @@ namespace BL
         {
             int actualPersonCount = this.BookedTourActualPersonCount(tour);
             if (actualPersonCount >= tour.MinNumber)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// checks whether a Customer's passport is valid till the end of
+        /// the travel + another 6 months
+        /// </summary>
+        /// <param name="order">current order</param>
+        /// <returns>true, if the passport/ID is valid</returns>
+        public bool PassportValidityCheck(Order order)
+        {
+            if (order.Customer.Person.ValidTo >= order.Tour.EndDate + new TimeSpan(180, 0, 0, 0))
             {
                 return true;
             }
