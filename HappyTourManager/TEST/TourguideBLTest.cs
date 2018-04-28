@@ -167,7 +167,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Tourguide> list = bl.Search(TourguideTerms.IsOnHoliday, new DateTime[] { new DateTime(startYear,startMonth,startDay), new DateTime(endYear,endMonth,endDay) });
+            IList<Tourguide> list = bl.Search(TourguideTerms.ISONHOLIDAY, new DateTime[] { new DateTime(startYear,startMonth,startDay), new DateTime(endYear,endMonth,endDay) });
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(result));
         }
@@ -199,7 +199,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Tourguide> list = bl.Search(TourguideTerms.IsAvailable, new DateTime[] { new DateTime(startYear, startMonth, startDay), new DateTime(endYear, endMonth, endDay) });
+            IList<Tourguide> list = bl.Search(TourguideTerms.ISAVAILABLE, new DateTime[] { new DateTime(startYear, startMonth, startDay), new DateTime(endYear, endMonth, endDay) });
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(result));
 
@@ -211,7 +211,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Tourguide> list = bl.Search(TourguideTerms.Language, "english");
+            IList<Tourguide> list = bl.Search(TourguideTerms.LANGUAGE, "english");
             //ASSERT
             Assert.That(list.Contains(tourguides[0]), Is.True);
         }
@@ -222,7 +222,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Tourguide> list = bl.Search(TourguideTerms.Language, "persian");
+            IList<Tourguide> list = bl.Search(TourguideTerms.LANGUAGE, "persian");
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(0));
         }
@@ -234,7 +234,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Tourguide> list = bl.Search(TourguideTerms.LastName, lastName);
+            IList<Tourguide> list = bl.Search(TourguideTerms.LASTNAME, lastName);
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(1));
         }
@@ -245,7 +245,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Tourguide> list = bl.Search(TourguideTerms.Taxidentification, 198600023);
+            IList<Tourguide> list = bl.Search(TourguideTerms.TAXIDENTIFICATION, 198600023);
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(1));
         }
@@ -256,7 +256,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Tourguide> list = bl.Search(TourguideTerms.Default, null);
+            IList<Tourguide> list = bl.Search(TourguideTerms.DEFAULT, null);
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(2));
         }

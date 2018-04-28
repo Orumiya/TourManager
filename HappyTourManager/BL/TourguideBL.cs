@@ -17,12 +17,12 @@ namespace BL
     /// </summary>
     public enum TourguideTerms
     {
-        Taxidentification,
-        LastName,
-        Default,
-        Language,
-        IsOnHoliday,
-        IsAvailable
+        TAXIDENTIFICATION,
+        LASTNAME,
+        DEFAULT,
+        LANGUAGE,
+        ISONHOLIDAY,
+        ISAVAILABLE
     }
 
     public class TourguideBL : ISearcheable<Tourguide>, ITourguideList
@@ -81,21 +81,21 @@ namespace BL
 
             // returns tourguides with this last name
             // searchvalue must be a string
-            if ((TourguideTerms)searchterm == TourguideTerms.LastName)
+            if ((TourguideTerms)searchterm == TourguideTerms.LASTNAME)
             {
                 tourguideList = tourguideList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
             }
 
             // returns tourguides with this taxID
             // searchvalue must be int
-            else if ((TourguideTerms)searchterm == TourguideTerms.Taxidentification)
+            else if ((TourguideTerms)searchterm == TourguideTerms.TAXIDENTIFICATION)
             {
                 tourguideList = tourguideList.Where(e => e.Taxidentification == (int)searchvalue);
             }
 
             // returns tourguides who speaks this language
             // searchvalue must be a string
-            else if ((TourguideTerms)searchterm == TourguideTerms.Language)
+            else if ((TourguideTerms)searchterm == TourguideTerms.LANGUAGE)
             {
                 var languages = this.languageRepository.GetAll();
                 languages = languages.Where(i => i.Language1 == (string)searchvalue);
@@ -113,7 +113,7 @@ namespace BL
 
             // searching for tourguides who are on holiday between 2 dates
             // searchvalue must be a DateTime[]
-            else if ((TourguideTerms)searchterm == TourguideTerms.IsOnHoliday)
+            else if ((TourguideTerms)searchterm == TourguideTerms.ISONHOLIDAY)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -135,7 +135,7 @@ namespace BL
 
             // searching for tourguides who are not on holiday between 2 dates
             // searchvalue must be a DateTime[]
-            else if ((TourguideTerms)searchterm == TourguideTerms.IsAvailable)
+            else if ((TourguideTerms)searchterm == TourguideTerms.ISAVAILABLE)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -154,7 +154,7 @@ namespace BL
 
                 return tglist;
             }
-            else if ((TourguideTerms)searchterm == TourguideTerms.Default)
+            else if ((TourguideTerms)searchterm == TourguideTerms.DEFAULT)
             {
                 return tourguideList.ToList<Tourguide>();
             }
