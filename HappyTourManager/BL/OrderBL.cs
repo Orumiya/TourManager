@@ -215,7 +215,24 @@ namespace BL
             return actualPersoncount;
         }
 
-        
+        /// <summary>
+        /// Checks if there are enough seats for the new order
+        /// </summary>
+        /// <param name="tour">selected tour</param>
+        /// <param name="newOrderPersonCount">people in the order</param>
+        /// <returns>true, if there are enough seats</returns>
+        public bool MaxAllowedSeatCheck(Tour tour, int newOrderPersonCount)
+        {
+            int actualPersonCount = this.BookedTourActualPersonCount(tour);
+            if (actualPersonCount + newOrderPersonCount <= tour.MaxNumber)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         /// <inheritdoc />
         public void Update()
