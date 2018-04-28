@@ -134,6 +134,14 @@ namespace BL
         }
 
         /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.customerRepository.Update();
+        }
+
+        /// <summary>
         /// notifies the outside about any collection change manually
         /// </summary>
         private void OnCustomerListChanged()
