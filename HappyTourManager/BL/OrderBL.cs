@@ -198,6 +198,25 @@ namespace BL
             return DateTime.Now;
         }
 
+        /// <summary>
+        /// counts the booked seats to a selected tour
+        /// </summary>
+        /// <param name="tour">selected tour</param>
+        /// <returns>ordered seats</returns>
+        public int BookedTourActualPersonCount(Tour tour)
+        {
+            var orders = tour.Orders.AsQueryable();
+            int actualPersoncount = 0;
+            foreach (var item in orders)
+            {
+                actualPersoncount += (int)item.PersonCount;
+            }
+
+            return actualPersoncount;
+        }
+
+        
+
         /// <inheritdoc />
         public void Update()
         {
