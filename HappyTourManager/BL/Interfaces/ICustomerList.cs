@@ -1,4 +1,8 @@
-﻿namespace BL.Interfaces
+﻿// <copyright file="ICustomerList.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace BL.Interfaces
 {
     using System;
     using DATA;
