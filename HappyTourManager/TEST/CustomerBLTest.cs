@@ -114,7 +114,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Customer> list = bl.Search(CustomerTerms.LastName, lastName);
+            IList<Customer> list = bl.Search(CustomerTerms.LASTNAME, lastName);
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(1));
         }
@@ -125,7 +125,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Customer> list = bl.Search(CustomerTerms.IDNumber, 999234567);
+            IList<Customer> list = bl.Search(CustomerTerms.IDNUMBER, 999234567);
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(1));
         }
@@ -136,7 +136,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Customer> list = bl.Search(CustomerTerms.Default, null);
+            IList<Customer> list = bl.Search(CustomerTerms.DEFAULT, null);
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(2));
         }
@@ -148,7 +148,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Customer> list = bl.Search(CustomerTerms.AddressCity, city);
+            IList<Customer> list = bl.Search(CustomerTerms.ADDRESSCITY, city);
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(1));
         }
@@ -159,7 +159,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Customer> list = bl.Search(CustomerTerms.LoyaltyCard, loyalty);
+            IList<Customer> list = bl.Search(CustomerTerms.LOYALTYCARD, loyalty);
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(result));
         }
@@ -174,7 +174,7 @@ namespace TEST
             //ARRANGE
             //arranged in  CreateTestdataArrays();
             //ACT
-            IList<Customer> list = bl.Search(CustomerTerms.ValidTo, new DateTime[] { new DateTime(startYear, startMonth, startDay), new DateTime(endYear, endMonth, endDay) });
+            IList<Customer> list = bl.Search(CustomerTerms.VALIDTO, new DateTime[] { new DateTime(startYear, startMonth, startDay), new DateTime(endYear, endMonth, endDay) });
             //ASSERT
             Assert.That(list.Count, Is.EqualTo(result));
 

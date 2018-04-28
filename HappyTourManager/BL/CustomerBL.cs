@@ -17,12 +17,12 @@ namespace BL
     /// </summary>
     public enum CustomerTerms
     {
-        LoyaltyCard,
-        LastName,
-        AddressCity,
-        IDNumber,
-        Default,
-        ValidTo
+        LOYALTYCARD,
+        LASTNAME,
+        ADDRESSCITY,
+        IDNUMBER,
+        DEFAULT,
+        VALIDTO
     }
 
     public class CustomerBL : ISearcheable<Customer>, ICustomerList
@@ -53,7 +53,6 @@ namespace BL
             {
                 this.OnCustomerListChanged();
             }
-
         }
 
         /// <inheritdoc />
@@ -81,42 +80,42 @@ namespace BL
 
             // returns customers with this last name
             // searchvalue must be a string
-            if ((CustomerTerms)searchterm == CustomerTerms.LastName)
+            if ((CustomerTerms)searchterm == CustomerTerms.LASTNAME)
             {
                 customerList = customerList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
             }
 
             // returns customers  with this city
             // searchvalue must be a string
-            else if ((CustomerTerms)searchterm == CustomerTerms.AddressCity)
+            else if ((CustomerTerms)searchterm == CustomerTerms.ADDRESSCITY)
             {
                 customerList = customerList.Where(e => e.Person.AddressCity.ToLower().Equals(((string)searchvalue).ToLower()));
             }
 
             // returns customers with this IDNumber
             // searchvalue must be int
-            else if ((CustomerTerms)searchterm == CustomerTerms.IDNumber)
+            else if ((CustomerTerms)searchterm == CustomerTerms.IDNUMBER)
             {
                 customerList = customerList.Where(e => e.Person.IDNumber == (int)searchvalue);
             }
 
             // LoyaltyCard is a string in DB, values can be 1 for true and 0 for false
             // searchvalue must be a string
-            else if ((CustomerTerms)searchterm == CustomerTerms.LoyaltyCard)
+            else if ((CustomerTerms)searchterm == CustomerTerms.LOYALTYCARD)
             {
                 customerList = customerList.Where(e => e.LoyaltyCard.Equals((string)searchvalue));
             }
 
             // returns customers with ValidTo date of their ID between these 2 dates
             // searchvalue must be a DateTime[]
-            else if ((CustomerTerms)searchterm == CustomerTerms.ValidTo)
+            else if ((CustomerTerms)searchterm == CustomerTerms.VALIDTO)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
                 DateTime endInterval = interval[1];
                 customerList = customerList.Where(e => e.Person.ValidTo <= endInterval && e.Person.ValidTo >= startInterval);
             }
-            else if ((CustomerTerms)searchterm == CustomerTerms.Default)
+            else if ((CustomerTerms)searchterm == CustomerTerms.DEFAULT)
             {
                 return customerList.ToList<Customer>();
             }
