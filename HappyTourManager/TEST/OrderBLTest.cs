@@ -159,6 +159,41 @@ namespace TEST
             order.Customer = customer;
         }
 
+        [Test]
+        public void WhenCreatingOrderBL_ThenOrderBLIsNotNull()
+        {
+            // ARRANGE - ACT
+            //arranged in constructor
+            // ASSERT
+            Assert.That(bl, Is.Not.Null);
+        }
 
+        [TestCase(2,10000,3,8000,44000)]
+        [TestCase(0, 10000, 3, 8000, 24000)]
+        [TestCase(2, 10000, 0, 8000, 20000)]
+        public void WhenAdultAndChildCountGiven_ThenCalculatesTheTotalFullPrice(int adultCount, int adultPrice, int childCount, int childPrice, int result)
+        {
+            //ACT
+            int sum = bl.CalculateOrderPriceBeforeLoyaltyCounted(adultCount,adultPrice, childCount, childPrice);
+
+            // ASSERT
+            Assert.That(sum, Is.EqualTo(result));
+        }
+
+        [TestCase(-1, 10000, 3, 8000)]
+        [TestCase(1, 10000, -3, 8000)]
+        public void WhenFalseAdultAndChildCountGiven_ThenThrowsAnExceptionAndNotCalculatingPrice(int adultCount, int adultPrice, int childCount, int childPrice)
+        {
+            // ASSERT
+            Assert.That(() => bl.CalculateOrderPriceBeforeLoyaltyCounted(adultCount, adultPrice, childCount, childPrice), Throws.InvalidOperationException);
+        }
+
+        [TestCase(10000,true, 9500)]
+        [TestCase(10000, false, 10000)]
+        public void WhenCalculatingPriceWithLoyalty_ThenGetsADiscountOrNot(int sum, bool isLoyalty, int result)
+        {
+            int newSum = bl.CalculateOrderPriceWithLoyaltyCounted(sum, isLoyalty);
+            Assert.That(newSum, Is.EqualTo(result));
+        }
     }
 }

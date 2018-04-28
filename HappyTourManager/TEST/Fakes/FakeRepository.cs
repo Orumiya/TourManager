@@ -23,6 +23,11 @@
         public IList<T> SavedObjects { get; } = new List<T>();
 
         /// <summary>
+        /// list of updated objects
+        /// </summary>
+        public IList<T> UpdatedObjects { get; } = new List<T>();
+
+        /// <summary>
         /// list for faking exceptions
         /// </summary>
         public IList<T> ThrowCalls { get; } = new List<T>();
@@ -67,6 +72,11 @@
         public void ThrowIfExists(T dataobject)
         {
             ThrowCalls.Add(dataobject);
+        }
+
+        public void Update()
+        {
+            //UpdatedObjects.Add();
         }
     }
 }
