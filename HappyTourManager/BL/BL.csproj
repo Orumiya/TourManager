@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IOrderList.cs" />
     <Compile Include="Interfaces\ITourList.cs" />
+    <Compile Include="Interfaces\IUpdateable.cs" />
     <Compile Include="LoginBL.cs" />
     <Compile Include="OrderBL.cs" />
     <Compile Include="TourBL.cs" />
