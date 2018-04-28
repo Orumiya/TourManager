@@ -75,6 +75,31 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Calculates the AdultPrice of the Tour
+        /// </summary>
+        /// <param name="startDate">startDate of the Tour</param>
+        /// <param name="endDate">endDate of the Tour</param>
+        /// <param name="priceProNight">price per one night</param>
+        /// <returns>the calculated sum of AdultPrice</returns>
+        public int AdultPriceCalculator(DateTime startDate, DateTime endDate, int priceProNight)
+        {
+            TimeSpan timeSpan = startDate - endDate;
+            int days = timeSpan.Days;
+            return priceProNight * days;
+        }
+
+        /// <summary>
+        /// calculates the ChildPrice which is the 70 % of the adultPrice
+        /// </summary>
+        /// <param name="adultPrice">adultPrice</param>
+        /// <returns>childPrice</returns>
+        public int ChildPriceCalculator(int adultPrice)
+        {
+            int childPrice = (int)(adultPrice * 0.7);
+            return childPrice;
+        }
+
         /// <inheritdoc />
         public IList<Tour> Search(object searchterm, object searchvalue)
         {
