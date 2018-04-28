@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="CustomerBLTest.cs" />
     <Compile Include="Fakes\FakeRepository.cs" />
+    <Compile Include="OrderBLTest.cs" />
     <Compile Include="TourBLTest.cs" />
     <Compile Include="TourguideBLTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
