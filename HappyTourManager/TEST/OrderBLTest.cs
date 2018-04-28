@@ -67,7 +67,7 @@ namespace TEST
                         AddressFree = "Kossuth u 34",
                         AddressZip = "3200",
                         Phone = 063012312312,
-                        ValidTo = new DateTime(2020, 02, 02)
+                        ValidTo = new DateTime(2018, 09, 02)
                     }
                 }
             };
@@ -210,6 +210,20 @@ namespace TEST
             int count = bl.BookedTourActualPersonCount(tours[1]);
 
             Assert.That(count, Is.EqualTo(10));
+        }
+
+        [Test]
+        public void WhenCustomerOrdersATour_ThenChecksIfCustomerPassportIsValid()
+        {
+            bool isValid = bl.PassportValidityCheck(orders[0]);
+            Assert.That(isValid, Is.True);
+        }
+
+        [Test]
+        public void WhenCustomerOrdersATour_ThenChecksAndCustomerPassportIsNotValid()
+        {
+            bool isValid = bl.PassportValidityCheck(orders[1]);
+            Assert.That(isValid, Is.False);
         }
     }
 }
