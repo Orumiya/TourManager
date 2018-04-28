@@ -27,5 +27,10 @@
         /// </summary>
         /// <param name="guide">input param</param>
         void ThrowIfExists(Tourguide guide);
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        void Update();
     }
 }

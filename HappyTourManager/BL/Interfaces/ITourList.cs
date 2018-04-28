@@ -31,5 +31,10 @@ namespace BL.Interfaces
         /// </summary>
         /// <param name="tour">input param</param>
         void ThrowIfExists(Tour tour);
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        void Update();
     }
 }

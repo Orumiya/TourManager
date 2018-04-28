@@ -31,5 +31,10 @@ namespace BL.Interfaces
         /// </summary>
         /// <param name="order">input param</param>
         void ThrowIfExists(Order order);
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        void Update();
     }
 }

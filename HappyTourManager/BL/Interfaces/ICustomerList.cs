@@ -31,5 +31,10 @@ namespace BL.Interfaces
         /// </summary>
         /// <param name="customer">input param</param>
         void ThrowIfExists(Customer customer);
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        void Update();
     }
 }
