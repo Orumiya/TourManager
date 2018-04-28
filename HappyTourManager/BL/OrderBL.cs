@@ -137,7 +137,59 @@ namespace BL
             this.orderRepository.ThrowIfExists(order);
         }
 
-        
+        /// <summary>
+        /// calculates the order sum before the loyaltyCard is taken into account
+        /// </summary>
+        /// <param name="adultCount">adult</param>
+        /// <param name="adultPrice">price per adult of the tour</param>
+        /// <param name="childCount">child</param>
+        /// <param name="childPrice">price per child of the tour</param>
+        /// <returns>totel sum of the order</returns>
+        public int CalculateOrderPriceBeforeLoyaltyCounted(int adultCount, int adultPrice, int childCount, int childPrice)
+        {
+            return (adultCount * adultPrice) + (childCount * childPrice);
+        }
+
+        /// <summary>
+        /// calculates the order sum, when loyaltyCard is taken into account
+        /// </summary>
+        /// <param name="sumPrice">raw sumPrice</param>
+        /// <param name="isLoyalty">true, if a customer has a loyaltyCard</param>
+        /// <returns>total sum of the order</returns>
+        public int CalculateOrderPriceWithLoyaltyCounted(int sumPrice, bool isLoyalty)
+        {
+            if (isLoyalty)
+            {
+                sumPrice = (int)(sumPrice * 0.05);
+                return sumPrice;
+            }
+            else
+            {
+                return sumPrice;
+            }
+        }
+
+        /// <summary>
+        /// determines if a Customer has a LoyaltyCard or not
+        /// </summary>
+        /// <param name="cust">customer</param>
+        /// <returns>returns true, if has a loyaltycard</returns>
+        public bool DoesHaveACustomerLoyaltyCard(Customer cust)
+        {
+            if (cust.LoyaltyCard.Equals("1"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public DateTime DetermineTheOrderDate()
+        {
+            return DateTime.Now;
+        }
 
         /// <inheritdoc />
         public void Update()
