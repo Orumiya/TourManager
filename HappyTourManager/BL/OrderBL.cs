@@ -147,7 +147,14 @@ namespace BL
         /// <returns>totel sum of the order</returns>
         public int CalculateOrderPriceBeforeLoyaltyCounted(int adultCount, int adultPrice, int childCount, int childPrice)
         {
-            return (adultCount * adultPrice) + (childCount * childPrice);
+            if (adultCount < 0 || childCount < 0)
+            {
+                throw new InvalidOperationException("Can't be negative.");
+            }
+            else
+            {
+                return (adultCount * adultPrice) + (childCount * childPrice);
+            }
         }
 
         /// <summary>
@@ -160,7 +167,7 @@ namespace BL
         {
             if (isLoyalty)
             {
-                sumPrice = (int)(sumPrice * 0.05);
+                sumPrice = (int)(sumPrice * 0.95);
                 return sumPrice;
             }
             else
