@@ -219,8 +219,6 @@ namespace BL
             {
                 throw new InvalidOperationException("Not found");
             }
-
-            throw new InvalidOperationException("Not found");
         }
 
         /// <inheritdoc />

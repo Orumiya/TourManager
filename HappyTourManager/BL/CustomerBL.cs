@@ -83,6 +83,7 @@ namespace BL
             if ((CustomerTerms)searchterm == CustomerTerms.LASTNAME)
             {
                 customerList = customerList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
+                return customerList.ToList<Customer>();
             }
 
             // returns customers  with this city
@@ -90,6 +91,7 @@ namespace BL
             else if ((CustomerTerms)searchterm == CustomerTerms.ADDRESSCITY)
             {
                 customerList = customerList.Where(e => e.Person.AddressCity.ToLower().Equals(((string)searchvalue).ToLower()));
+                return customerList.ToList<Customer>();
             }
 
             // returns customers with this IDNumber
@@ -97,6 +99,7 @@ namespace BL
             else if ((CustomerTerms)searchterm == CustomerTerms.IDNUMBER)
             {
                 customerList = customerList.Where(e => e.Person.IDNumber == (int)searchvalue);
+                return customerList.ToList<Customer>();
             }
 
             // LoyaltyCard is a string in DB, values can be 1 for true and 0 for false
@@ -104,6 +107,7 @@ namespace BL
             else if ((CustomerTerms)searchterm == CustomerTerms.LOYALTYCARD)
             {
                 customerList = customerList.Where(e => e.LoyaltyCard.Equals((string)searchvalue));
+                return customerList.ToList<Customer>();
             }
 
             // returns customers with ValidTo date of their ID between these 2 dates
@@ -114,6 +118,7 @@ namespace BL
                 DateTime startInterval = interval[0];
                 DateTime endInterval = interval[1];
                 customerList = customerList.Where(e => e.Person.ValidTo <= endInterval && e.Person.ValidTo >= startInterval);
+                return customerList.ToList<Customer>();
             }
             else if ((CustomerTerms)searchterm == CustomerTerms.DEFAULT)
             {
@@ -123,8 +128,6 @@ namespace BL
             {
                 throw new InvalidOperationException("Not found");
             }
-
-            throw new InvalidOperationException("Not found");
         }
 
         /// <inheritdoc />

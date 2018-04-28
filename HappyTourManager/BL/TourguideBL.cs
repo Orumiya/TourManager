@@ -84,6 +84,7 @@ namespace BL
             if ((TourguideTerms)searchterm == TourguideTerms.LASTNAME)
             {
                 tourguideList = tourguideList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
+                return tourguideList.ToList<Tourguide>();
             }
 
             // returns tourguides with this taxID
@@ -91,6 +92,7 @@ namespace BL
             else if ((TourguideTerms)searchterm == TourguideTerms.TAXIDENTIFICATION)
             {
                 tourguideList = tourguideList.Where(e => e.Taxidentification == (int)searchvalue);
+                return tourguideList.ToList<Tourguide>();
             }
 
             // returns tourguides who speaks this language
@@ -162,8 +164,6 @@ namespace BL
             {
                 throw new InvalidOperationException("Not found");
             }
-
-            throw new InvalidOperationException("Not found");
         }
 
         /// <inheritdoc />
