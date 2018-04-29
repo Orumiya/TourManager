@@ -13,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HappyTourManager.Pages
+namespace HappyTourManager
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class UserControl1 : UserControl
     {
-        
-
-        public LoginPage()
+        public UserControl1()
         {
             InitializeComponent();
-
-            this.DataContext = new LoginViewModel();
-
-        }
-
-        private void btnSignIn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -5,4 +5,94 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HappyTourManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"/>
+        x:Name="AppWindow"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Icon=" Images/travel_icon.ico"
+        MinHeight="500" MinWidth="700"
+        Title="Happy Tour Manager" Height="600" Width="900">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <Border Padding="{Binding OuterMarginThickness, FallbackValue=10}">
+                            <Grid>
+                                <Border CornerRadius="{Binding WCornerRadius, FallbackValue=5}" Background="{Binding ForegroundLight, FallbackValue=White}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2" />
+                                    </Border.Effect>
+                                </Border>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="{Binding TitleHeightGL, FallbackValue=40}" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <!--Header-->
+                                    <Grid Grid.Column="0" Panel.ZIndex="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Icon-->
+                                        <Button Style="{StaticResource SystemButton}" >
+                                            <Image Source="Images/travel_icon.png" />
+                                        </Button>
+
+                                        <!--Title-->
+                                        <Viewbox Grid.Column="1" Margin="0">
+                                            <TextBlock Style="{StaticResource HeaderStyle}" Padding="5" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Happy Tour Manager'}" />
+                                        </Viewbox>
+
+                                        <!--Buttons-->
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                            <Button Command="{Binding MinimizeCommand}" Style="{StaticResource ControlButton}" Content="_" />
+                                            <Button Command="{Binding MaximizeCommand}" Style="{StaticResource ControlButton}" Content="[ ]" />
+                                            <Button Command="{Binding CloseCommand}" Style="{StaticResource ControlButton}" Content="X" />
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                    <Border Grid.Row="1" Background="{StaticResource BGBlueBrush}">
+                                        <Border>
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="Images/travel_sillouette.png" ViewportUnits="RelativeToBoundingBox" Viewport="0 0.6 1 0.4" />
+                                            </Border.Background>
+                                            <ContentPresenter Content="{TemplateBinding Content}" />
+                                        </Border>                                        
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                            
+                        </Border>
+                        
+                    </ControlTemplate>
+                    
+                </Setter.Value>
+                
+            </Setter>
+            
+        </Style>
+    </Window.Resources>
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            />
+        
+    </WindowChrome.WindowChrome>
+
+
+
+    <Frame Grid.Row="1" x:Name="MainFrame" Content="{Binding ActualPage, Converter={local:PageConverter}}" />
+
+</Window>

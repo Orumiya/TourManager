@@ -19,12 +19,11 @@ namespace HappyTourManager
     using System.Windows.Media.Imaging;
     using System.Windows.Navigation;
     using System.Windows.Shapes;
-    using BL;
     //using HappyTourManager.VM;
     //using Helper;
     using DATA;
+    using DATA.Repositories;
     using DATA.Interfaces;
-    using DATA.Repositoriees;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -40,6 +39,8 @@ namespace HappyTourManager
             this.InitializeComponent();
             //Menu page1 = new Menu(this.mainFrame);
             //this.mainFrame.Content = page1;
+
+            this.DataContext = new WindowViewModel(this);
         }
     }
 }

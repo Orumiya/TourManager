@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace HappyTourManager
 {
-    class OfficeMainViewModel
+    public enum DataTypes
     {
+        Customer,
+        Tour,
+        Tourguide,
+        Order
     }
 }
