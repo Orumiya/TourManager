@@ -14,8 +14,12 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -62,29 +66,232 @@
                     <Image Source="/Images/exit.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-
         </Grid>
-        <Grid Grid.Row="1" Background="{StaticResource ForegroundBrush}">
+        <!--Menu ends-->
+
+        <Grid Grid.Row="1" Background="{StaticResource ForegroundBrush}" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="26"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Background="{StaticResource FGMidBrush}" Grid.Column="0" Content="+ Add instance" FontFamily="{StaticResource SugarcubesBold}" FontSize="18" Height="50" Width="300" HorizontalAlignment="Center" Margin="5,5,0,5"/>
+            <!-- <Button Background="{StaticResource FGMidBrush}" Grid.Column="0" Content="+ Add instance" FontFamily="{StaticResource SugarcubesBold}" FontSize="18" Height="50" Width="300" HorizontalAlignment="Center" Margin="5,5,0,5"/> -->
             <StackPanel Background="Transparent" Grid.Column="1">
                 <TextBlock Text="Search for: " Foreground="{StaticResource ForegroundLight}" FontSize="18" VerticalAlignment="Center" Padding="10" FontWeight="ExtraBold"/>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="457"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <ListBox ItemsSource="{Binding OrderList}">
-               
+            <!-- OrderList-->
+            <ListBox ItemsSource="{Binding OrderList}" SelectedItem="{Binding SelectedOrder}" Margin="0,0,3,0" Background="Transparent">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="{StaticResource LightBGBrush}" Opacity="0.6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Background="Black" Width="5"/>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Top">
+                                <Label Padding="2" ContentStringFormat="OrderID: {0}" Content="{Binding OrderID}" FontFamily="{StaticResource SugarcubesBold}" FontSize="14" FontWeight="Bold"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Padding="3" ContentStringFormat="Order date: {0}" Content="{Binding OrderDate}" FontFamily="{StaticResource SugarcubesRegular}" />
+                                    <Label Grid.Column="1" Padding="3" ContentStringFormat="Customer name: {0}" Content="{Binding Customer.Person.LastName}" FontFamily="{StaticResource SugarcubesRegular}" />
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Padding="3" Text="ID Number" FontFamily="{StaticResource SugarcubesRegular}" />
+                                    <TextBlock Grid.Column="1" Padding="3"  Text="Valid To" FontFamily="{StaticResource SugarcubesRegular}" />
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
+            <!-- OrderList ends-->
 
         </Grid>
+        
+        <!-- Tab Control-->
+        <TabControl  Grid.Row="2" Grid.Column="1" Background="Transparent">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Background="LightBlue">
+                        <TextBlock Background="Transparent" Text="New order" FontSize="18" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="#33F7F7F7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+
+
+                    <Button Grid.Row="13" Grid.Column="0" x:Name="newOrder" Content="Save..."  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,10,10,10" FontSize="20" Click="newOrder_Click"/>
+
+                    <!--Order details-->
+                        <Label Grid.Row="0" Grid.Column="1" Content="Order details"  FontFamily="{StaticResource SugarcubesRegular}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="148" />
+
+                        <Label  Content="OrderID" Grid.Column="0" Grid.Row="2" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                        <Label x:Name="orderID" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" Content="{Binding SelectedOrder.OrderID}" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                        <Label  Content="Order date: " Grid.Column="0" Grid.Row="3" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                        <DatePicker x:Name="orderDate" Grid.Row="3" Grid.Column="1" SelectedDate="{Binding SelectedOrder.OrderDate}" Margin="0,0,0,0" FontSize="12" FontFamily="{StaticResource SugarcubesRegular}"/>
+                    <Label  Grid.Column="0" Grid.Row="4" Content="Customer: " FontFamily="{StaticResource SugarcubesRegular}" FontSize="14" Margin="0,0,50,0"/>
+                    <ComboBox x:Name="customerNew" SelectedItem="{Binding SelectedCustomer}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
+                        <ComboBoxItem Content="{Binding CustomerList}"/>
+                    </ComboBox>
+
+                    <Label  Grid.Column="0" Grid.Row="5" Content="Tour: " FontFamily="{StaticResource SugarcubesRegular}" FontSize="14" Margin="0,0,50,0"/>
+                        
+                    <ComboBox x:Name="tourNew" SelectedItem="{Binding Selected}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
+                        <ComboBoxItem Content="{Binding TourList}"/>
+                    </ComboBox>
+                        <Label Content="Adult: " Grid.Column="0" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <ComboBox x:Name="adultCountNew" SelectedItem="{Binding AdultCountNew}" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
+                            <ComboBoxItem>0</ComboBoxItem>
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                        </ComboBox>
+                        <Label ContentStringFormat="Adultprice: {0} HUF" Content="{Binding Tour.AdultPrice}" Grid.Column="2" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0"/>
+
+                        <Label Content="Child: " Grid.Column="0" Grid.Row="7" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <ComboBox x:Name="childCountNew" SelectedItem="{Binding ChildCountNew}" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14">
+                            <ComboBoxItem>0</ComboBoxItem>
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                        </ComboBox>
+                        <Label ContentStringFormat="Childprice: {0} HUF" Content="{Binding Tour.ChildPrice}" Grid.Column="2" Grid.Row="7" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0"/>
+
+                        <Label Content="Price: " Grid.Column="0" Grid.Row="8" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                        <Label Content="x" Grid.Column="1" Grid.Row="8" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+
+
+                        <Label Content="Loyaltycard" Grid.Column="0" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                        <Label Content="{Binding SelectedOrder.Customer.LoyaltyCard}" Grid.Column="1" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                        <Label Content="Total price: " Grid.Column="0" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                        <Label Content="" Grid.Column="1" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                        <CheckBox Content="Payed" Grid.Column="1" Grid.Row="11" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"></CheckBox>
+                        <CheckBox Content="Cancelled" Grid.Column="2" Grid.Row="11" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"></CheckBox>
+                    </Grid>
+            </TabItem>
+            <!-- NEW ORDER TAB finished-->
+            
+            <!-- EDIT TAB -->
+            <TabItem >
+                <TabItem.Header >
+                    <StackPanel Orientation="Horizontal" Background="LightBlue" >
+                        <TextBlock Text="Edit..." FontSize="18"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Background="#33F7F7F7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                   
+                    <Button Grid.Row="13" Grid.Column="1" x:Name="saveEdited" Content="Edit..." HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" FontSize="20"/>
+                    <Button Grid.Row="13" Grid.Column="2" x:Name="deleteOrder" Content="Delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" FontSize="20"/>
+                    <!--Order details-->
+                    <Label Grid.Row="0" Grid.Column="1" Content="Order details"  FontFamily="{StaticResource SugarcubesRegular}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="148" />
+
+                    <Label  Content="OrderID" Grid.Column="0" Grid.Row="2" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <Label x:Name="orderIDEdit" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" Content="{Binding SelectedOrder.OrderID}" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                    <Label  Content="Order date: " Grid.Column="0" Grid.Row="3" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <DatePicker x:Name="orderDateEdit" Grid.Row="3" Grid.Column="1" SelectedDate="{Binding SelectedOrder.OrderDate}" Margin="0,0,0,0" FontSize="12" FontFamily="{StaticResource SugarcubesRegular}"/>
+                    <Label  Grid.Column="0" Grid.Row="4" Content="Customer: " FontFamily="{StaticResource SugarcubesRegular}" FontSize="14" Margin="0,0,50,0"/>
+                    <TextBox x:Name="customerEdit" Grid.ColumnSpan="2"  Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Height="22" Grid.Row="4"  Text="{Binding SelectedOrder.Customer.Person.LastName}" FontSize="12" Margin="0,0,0,0"  />
+
+                    <Label  Grid.Column="0" Grid.Row="5" Content="Tour: " FontFamily="{StaticResource SugarcubesRegular}" FontSize="14" Margin="0,0,50,0"/>
+                    <TextBox x:Name="tourEdit" Grid.ColumnSpan="2"  Grid.Column="1" HorizontalAlignment="Stretch" Height="22" Grid.Row="5" VerticalAlignment="Center"  Margin="0,0,0,0" Text="{Binding SelectedOrder.Tour.TravelName}" FontSize="12" />
+                    
+                    <Label Content="Adult: " Grid.Column="0" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <ComboBox x:Name="adultCountEdit" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" SelectedItem="{Binding SelectedOrder.PersonCount}">
+                        <ComboBoxItem>0</ComboBoxItem>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
+                    </ComboBox>
+                    <Label ContentStringFormat="Adultprice: {0} HUF" Content="{Binding Tour.AdultPrice}" Grid.Column="2" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0"/>
+
+                    <Label Content="Child: " Grid.Column="0" Grid.Row="7" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <ComboBox x:Name="childCountEdit" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14">
+                        <ComboBoxItem>0</ComboBoxItem>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
+                    </ComboBox>
+                    <Label ContentStringFormat="Childprice: {0} HUF" Content="{Binding Tour.ChildPrice}" Grid.Column="2" Grid.Row="7" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0"/>
+
+                    <Label Content="Price: " Grid.Column="0" Grid.Row="8" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <Label Content="x" Grid.Column="1" Grid.Row="8" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+
+
+                    <Label Content="Loyaltycard" Grid.Column="0" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <Label Content="{Binding SelectedOrder.Customer.LoyaltyCard}" Grid.Column="1" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                    <Label Content="Total price: " Grid.Column="0" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <Label Content="{Binding SelectedOrder.TotalSum}" Grid.Column="1" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                    <CheckBox Content="Payed" Grid.Column="1" Grid.Row="11" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"></CheckBox>
+                    <CheckBox Content="Cancelled" Grid.Column="2" Grid.Row="11" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"></CheckBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
     </Grid>
 </Page>

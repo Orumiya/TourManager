@@ -41,7 +41,7 @@ namespace HappyTourManager.Pages
 
         private void btnOrder_Click(object sender, RoutedEventArgs e)
         {
-            var viewModel = new OrderMainViewModel();
+            //var viewModel = new OrderMainViewModel();
         }
 
         private void btnTGuide_Click(object sender, RoutedEventArgs e)

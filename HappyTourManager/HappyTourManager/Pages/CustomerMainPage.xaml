@@ -87,7 +87,7 @@
                 <local:UserControl1 Height="75"/>
                 <local:UserControl1 Height="75"/>
             </StackPanel>
-            
+
         </Grid>
     </Grid>
 </Page>
