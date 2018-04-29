@@ -21,6 +21,17 @@ namespace BL
         DEFAULT
     }
 
+    /// <summary>
+    /// defines the type of reports which can be generated
+    /// </summary>
+    public enum ReportTypes
+    {
+        TOURREPORT,
+        GUIDEREPORT,
+        CUSTOMERREPORT,
+        ORDERREPORT,
+        HOLIDAYREPORT
+    }
 
     public class ReportBL : ISearcheable<Report>, IReportList
     {
