@@ -25,6 +25,20 @@ namespace BL
         private readonly IRepository<PLTCON> pltconRepository;
         private readonly IRepository<PRTCON> prtconRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReportBL"/> class.
+        /// </summary>
+        /// <param name="reportRepository">reporitory of report</param>
+        /// <param name="orderRepository">reporitory of </param>
+        /// <param name="customerRepository">reporitory of customers</param>
+        /// <param name="tourRepository">reporitory of tours</param>
+        /// <param name="tourguideRepository">reporitory of tourguides</param>
+        /// <param name="languageRepository">reporitory of languages</param>
+        /// <param name="onHolidayRepository">reporitory of holidays</param>
+        /// <param name="programRepository">reporitory of programs</param>
+        /// <param name="placeRepository">reporitory of places</param>
+        /// <param name="pltconRepository">reporitory of pltcons</param>
+        /// <param name="prtconRepository">reporitory of prtcons</param>
         public ReportBL(
             IRepository<Report> reportRepository,
             IRepository<Order> orderRepository,
