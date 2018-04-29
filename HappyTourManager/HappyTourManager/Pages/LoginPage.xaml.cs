@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DATA;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,19 +21,31 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        
+        LoginViewModel loginVM;
+        HappyTourDatabaseEntities entities;
+        MainWindow win;
 
-        public LoginPage()
+        public LoginPage(HappyTourDatabaseEntities entities, MainWindow parentWin)
         {
             InitializeComponent();
-
-            this.DataContext = new LoginViewModel();
+            win = parentWin;
+            this.entities = entities;
+            loginVM = new LoginViewModel(entities);
+            this.DataContext = loginVM;
 
         }
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
+            if (loginVM.SignIn())
+            {
+                win.SetPage("MainPage");
+            }
+        }
 
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            loginVM.SignUp();
         }
     }
 }
