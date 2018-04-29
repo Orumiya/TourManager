@@ -11,12 +11,41 @@ namespace BL
     using DATA;
     using DATA.Interfaces;
 
-    public class ReportBL : ISearcheable<Report>
+    public class ReportBL : ISearcheable<Report>, IReportList
     {
+        
+
+        /// <inheritdoc />
+        public event EventHandler ReportListChanged;
+
+        /// <inheritdoc />
+        public void Delete(Report report)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public void Save(Report report)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public IList<Report> Search(object searchterm, object searchvalue)
         {
             throw new NotImplementedException();
         }
+
+        /// <inheritdoc />
+        public void ThrowIfExists(Report report)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
-}
 }
