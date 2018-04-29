@@ -21,6 +21,7 @@ namespace BL
         DEFAULT
     }
 
+
     public class ReportBL : ISearcheable<Report>, IReportList
     {
         private readonly IRepository<Report> reportRepository;
@@ -81,13 +82,27 @@ namespace BL
         /// <inheritdoc />
         public void Delete(Report report)
         {
-            this.reportRepository.Delete(report);
+            try
+            {
+                this.reportRepository.Delete(report);
+            }
+            finally
+            {
+                this.OnReportListChanged();
+            }
         }
 
         /// <inheritdoc />
         public void Save(Report report)
         {
-            this.reportRepository.Create(report);
+            try
+            {
+                this.reportRepository.Create(report);
+            }
+            finally
+            {
+                this.OnReportListChanged();
+            }
         }
 
         /// <inheritdoc />
@@ -137,6 +152,14 @@ namespace BL
         public void Update()
         {
             this.reportRepository.Update();
+        }
+
+        /// <summary>
+        /// notifies the outside about any collection change manually
+        /// </summary>
+        private void OnReportListChanged()
+        {
+            this.ReportListChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
