@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DATA;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,20 @@ using System.Windows.Shapes;
 
 namespace HappyTourManager.Pages
 {
+    
+    
     /// <summary>
     /// Interaction logic for TourMainPage.xaml
     /// </summary>
+    /// 
     public partial class TourMainPage : Page
     {
-        public TourMainPage()
+        HappyTourDatabaseEntities entities;
+
+        public TourMainPage(HappyTourDatabaseEntities entities)
         {
             InitializeComponent();
+
         }
     }
 }
