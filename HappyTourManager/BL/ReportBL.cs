@@ -11,10 +11,14 @@ namespace BL
     using DATA;
     using DATA.Interfaces;
 
+    /// <summary>
+    /// searchterms for Report entities
+    /// </summary>
     public enum ReportTerms
     {
         REPORTDATE,
-        REPORTTYPE
+        REPORTTYPE,
+        DEFAULT
     }
 
     public class ReportBL : ISearcheable<Report>, IReportList
@@ -89,7 +93,38 @@ namespace BL
         /// <inheritdoc />
         public IList<Report> Search(object searchterm, object searchvalue)
         {
-            throw new NotImplementedException();
+            var reports = this.reportRepository.GetAll();
+
+            // searching for reports which are created between 2 dates
+            // searchvalue must be a DateTime[]
+            if ((ReportTerms)searchterm == ReportTerms.REPORTDATE)
+            {
+                DateTime[] interval = (DateTime[])searchvalue;
+                DateTime startInterval = interval[0];
+                DateTime endInterval = interval[1];
+                reports = reports.Where(
+                    i => (i.ReportDate <= endInterval) && (startInterval <= i.ReportDate));
+                return reports.ToList();
+            }
+
+            // returns the reports of the searched type
+            // searchvalue must be a string
+            else if ((ReportTerms)searchterm == ReportTerms.REPORTTYPE)
+            {
+                string reporttype = (string)searchvalue;
+                reports = reports.Where(e => e.ReportType.Equals(reporttype));
+                return reports.ToList<Report>();
+            }
+
+            // searches for all Reports
+            else if ((ReportTerms)searchterm == ReportTerms.DEFAULT)
+            {
+                return reports.ToList<Report>();
+            }
+            else
+            {
+                throw new InvalidOperationException("Not found");
+            }
         }
 
         /// <inheritdoc />
