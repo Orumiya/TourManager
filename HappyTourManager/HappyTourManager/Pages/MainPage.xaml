@@ -1,0 +1,68 @@
+﻿<Page x:Class="HappyTourManager.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HappyTourManager"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="Customer">
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Menu-->
+            <Button Name="btnCustomer" Style="{StaticResource Iconbtn}" Grid.Column="0" Click="btnCustomer_Click"  >
+                <StackPanel>
+                    <Image Source="/Images/customer.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnTour" Style="{StaticResource Iconbtn}" Grid.Column="1" Click="btnTour_Click">
+                <StackPanel>
+                    <Image Source="/Images/tours.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnOrder" Style="{StaticResource Iconbtn}" Grid.Column="2" Click="btnOrder_Click">
+                <StackPanel>
+                    <Image Source="/Images/orders.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnTGuide" Style="{StaticResource Iconbtn}" Grid.Column="3" Click="btnTGuide_Click">
+                <StackPanel>
+                    <Image Source="/Images/tourguide.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnOffice" Style="{StaticResource Iconbtn}" Grid.Column="4" Click="btnOffice_Click">
+                <StackPanel>
+                    <Image Source="/Images/office.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnReports" Style="{StaticResource Iconbtn}" Grid.Column="5" Click="btnReports_Click">
+                <StackPanel>
+                    <Image Source="/Images/reports.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnExit" Style="{StaticResource Iconbtn}" Grid.Column="6" Click="btnExit_Click">
+                <StackPanel>
+                    <Image Source="/Images/exit.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+        <Frame Grid.Row="1" Name="mFrame" />
+    </Grid>
+</Page>
