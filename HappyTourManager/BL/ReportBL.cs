@@ -11,6 +11,12 @@ namespace BL
     using DATA;
     using DATA.Interfaces;
 
+    public enum ReportTerms
+    {
+        REPORTDATE,
+        REPORTTYPE
+    }
+
     public class ReportBL : ISearcheable<Report>, IReportList
     {
         private readonly IRepository<Report> reportRepository;
