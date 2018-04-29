@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         Icon=" Images/travel_icon.ico"
         MinHeight="500" MinWidth="700"
-        Title="Happy Tour Manager" Height="600" Width="900">
+        Title="Happy Tour Manager" Height="600" Width="900" Loaded="AppWindow_Loaded">
 
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
