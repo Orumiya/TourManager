@@ -71,13 +71,13 @@ namespace BL
         /// <inheritdoc />
         public void Delete(Report report)
         {
-            throw new NotImplementedException();
+            this.reportRepository.Delete(report);
         }
 
         /// <inheritdoc />
         public void Save(Report report)
         {
-            throw new NotImplementedException();
+            this.reportRepository.Create(report);
         }
 
         /// <inheritdoc />
@@ -89,13 +89,13 @@ namespace BL
         /// <inheritdoc />
         public void ThrowIfExists(Report report)
         {
-            throw new NotImplementedException();
+            this.reportRepository.ThrowIfExists(report);
         }
 
         /// <inheritdoc />
         public void Update()
         {
-            throw new NotImplementedException();
+            this.reportRepository.Update();
         }
     }
 }
