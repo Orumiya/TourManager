@@ -5,10 +5,86 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HappyTourManager.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="OrderMainPage">
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="OrderMainPage" Loaded="Page_Loaded">
 
-    <Grid>
-        
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Menu-->
+            <Button Name="btnCustomer" Style="{StaticResource Iconbtn}" Grid.Column="0" Click="btnCustomer_Click"  >
+                <StackPanel>
+                    <Image Source="/Images/customer.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnTour" Style="{StaticResource Iconbtn}" Grid.Column="1" Click="btnTour_Click">
+                <StackPanel>
+                    <Image Source="/Images/tours.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnOrder" Style="{StaticResource Iconbtn}" Grid.Column="2" Click="btnOrder_Click">
+                <StackPanel>
+                    <Image Source="/Images/orders.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnTGuide" Style="{StaticResource Iconbtn}" Grid.Column="3" Click="btnTGuide_Click">
+                <StackPanel>
+                    <Image Source="/Images/tourguide.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnOffice" Style="{StaticResource Iconbtn}" Grid.Column="4" Click="btnOffice_Click">
+                <StackPanel>
+                    <Image Source="/Images/office.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnReports" Style="{StaticResource Iconbtn}" Grid.Column="5" Click="btnReports_Click">
+                <StackPanel>
+                    <Image Source="/Images/reports.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnExit" Style="{StaticResource Iconbtn}" Grid.Column="6" Click="btnExit_Click">
+                <StackPanel>
+                    <Image Source="/Images/exit.png" Stretch="None"/>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+        <Grid Grid.Row="1" Background="{StaticResource ForegroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Background="{StaticResource FGMidBrush}" Grid.Column="0" Content="+ Add instance" FontFamily="{StaticResource SugarcubesBold}" FontSize="18" Height="50" Width="300" HorizontalAlignment="Center" Margin="5,5,0,5"/>
+            <StackPanel Background="Transparent" Grid.Column="1">
+                <TextBlock Text="Search for: " Foreground="{StaticResource ForegroundLight}" FontSize="18" VerticalAlignment="Center" Padding="10" FontWeight="ExtraBold"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ListBox ItemsSource="{Binding OrderList}">
+               
+            </ListBox>
+
+        </Grid>
     </Grid>
 </Page>

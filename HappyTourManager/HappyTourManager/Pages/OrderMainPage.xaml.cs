@@ -20,9 +20,17 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class OrderMainPage : Page
     {
+        OrderMainViewModel vm;
+
         public OrderMainPage()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            vm = new OrderMainViewModel();
+            this.DataContext = vm;
         }
     }
 }
