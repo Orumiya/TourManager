@@ -24,6 +24,7 @@ namespace HappyTourManager
     using DATA;
     using DATA.Repositories;
     using DATA.Interfaces;
+    using Pages;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -34,13 +35,33 @@ namespace HappyTourManager
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// a főmenü page-t indítja
         /// </summary>
+        /// 
+
+        LoginPage loginPage;
+        MainPage mainPage;
+
+        HappyTourDatabaseEntities entities;
         public MainWindow()
         {
             this.InitializeComponent();
-            //Menu page1 = new Menu(this.mainFrame);
-            //this.mainFrame.Content = page1;
+            this.entities = new HappyTourDatabaseEntities();
+            SetPage("MainPage");
 
             this.DataContext = new WindowViewModel(this);
+        }
+
+        public void SetPage(string pagetype)
+        {
+            if (pagetype == "LoginPage")
+            {
+                loginPage = new LoginPage(entities, this);
+                this.MainFrame.Content = loginPage;
+            }
+            else
+            {
+                mainPage = new MainPage(entities, this);
+                this.MainFrame.Content = mainPage;
+            }
         }
     }
 }
