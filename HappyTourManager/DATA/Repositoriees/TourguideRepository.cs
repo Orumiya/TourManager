@@ -1,4 +1,8 @@
-﻿namespace DATA.Repositoriees
+﻿// <copyright file="TourguideRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace DATA.Repositoriees
 {
     using System;
     using System.Linq;
@@ -59,6 +63,14 @@
             {
                 throw new InvalidOperationException("Already exists!");
             }
+        }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.entities.SaveChanges();
         }
     }
 }

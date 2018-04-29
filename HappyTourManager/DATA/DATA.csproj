@@ -133,7 +133,9 @@
     <Compile Include="Report.cs">
       <DependentUpon>HappyDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositoriees\PLTCONRepository.cs" />
     <Compile Include="Repositoriees\ProgramRepository.cs" />
+    <Compile Include="Repositoriees\PRTCONRepository.cs" />
     <Compile Include="Repositoriees\ReportRepository.cs" />
     <Compile Include="Repositoriees\TourguideRepository.cs" />
     <Compile Include="Repositoriees\TourRepository.cs" />

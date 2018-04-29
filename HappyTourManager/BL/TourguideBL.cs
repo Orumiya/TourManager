@@ -17,12 +17,12 @@ namespace BL
     /// </summary>
     public enum TourguideTerms
     {
-        Taxidentification,
-        LastName,
-        Default,
-        Language,
-        IsOnHoliday,
-        IsAvailable
+        TAXIDENTIFICATION,
+        LASTNAME,
+        DEFAULT,
+        LANGUAGE,
+        ISONHOLIDAY,
+        ISAVAILABLE
     }
 
     public class TourguideBL : ISearcheable<Tourguide>, ITourguideList
@@ -31,6 +31,13 @@ namespace BL
         private readonly IRepository<Language> languageRepository;
         private readonly IRepository<OnHoliday> onHolidayRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TourguideBL"/> class.
+        /// creates a TourguideBL
+        /// </summary>
+        /// <param name="tourguideRepository">input param</param>
+        /// <param name="languageRepository">input param - lang repo</param>
+        /// <param name="onHolidayRepository">input param - onHoliday repo</param>
         public TourguideBL(IRepository<Tourguide> tourguideRepository, IRepository<Language> languageRepository, IRepository<OnHoliday> onHolidayRepository)
         {
             this.tourguideRepository = tourguideRepository;
@@ -44,28 +51,53 @@ namespace BL
         /// <inheritdoc />
         public void Delete(Tourguide guide)
         {
-            this.tourguideRepository.Delete(guide);
+            try
+            {
+                this.tourguideRepository.Delete(guide);
+            }
+            finally
+            {
+                this.OnTourguideListChanged();
+            }
         }
 
         /// <inheritdoc />
         public void Save(Tourguide guide)
         {
-            this.tourguideRepository.Create(guide);
+            try
+            {
+                this.tourguideRepository.Create(guide);
+            }
+            finally
+            {
+                this.OnTourguideListChanged();
+            }
         }
 
         /// <inheritdoc />
         public IList<Tourguide> Search(object searchterm, object searchvalue)
         {
             var tourguideList = this.tourguideRepository.GetAll();
-            if ((TourguideTerms)searchterm == TourguideTerms.LastName)
+
+            // returns tourguides with this last name
+            // searchvalue must be a string
+            if ((TourguideTerms)searchterm == TourguideTerms.LASTNAME)
             {
                 tourguideList = tourguideList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
+                return tourguideList.ToList<Tourguide>();
             }
-            else if ((TourguideTerms)searchterm == TourguideTerms.Taxidentification)
+
+            // returns tourguides with this taxID
+            // searchvalue must be int
+            else if ((TourguideTerms)searchterm == TourguideTerms.TAXIDENTIFICATION)
             {
                 tourguideList = tourguideList.Where(e => e.Taxidentification == (int)searchvalue);
+                return tourguideList.ToList<Tourguide>();
             }
-            else if ((TourguideTerms)searchterm == TourguideTerms.Language)
+
+            // returns tourguides who speaks this language
+            // searchvalue must be a string
+            else if ((TourguideTerms)searchterm == TourguideTerms.LANGUAGE)
             {
                 var languages = this.languageRepository.GetAll();
                 languages = languages.Where(i => i.Language1 == (string)searchvalue);
@@ -82,7 +114,8 @@ namespace BL
             }
 
             // searching for tourguides who are on holiday between 2 dates
-            else if ((TourguideTerms)searchterm == TourguideTerms.IsOnHoliday)
+            // searchvalue must be a DateTime[]
+            else if ((TourguideTerms)searchterm == TourguideTerms.ISONHOLIDAY)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -103,7 +136,8 @@ namespace BL
             }
 
             // searching for tourguides who are not on holiday between 2 dates
-            else if ((TourguideTerms)searchterm == TourguideTerms.IsAvailable)
+            // searchvalue must be a DateTime[]
+            else if ((TourguideTerms)searchterm == TourguideTerms.ISAVAILABLE)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -122,7 +156,7 @@ namespace BL
 
                 return tglist;
             }
-            else if ((TourguideTerms)searchterm == TourguideTerms.Default)
+            else if ((TourguideTerms)searchterm == TourguideTerms.DEFAULT)
             {
                 return tourguideList.ToList<Tourguide>();
             }
@@ -130,14 +164,20 @@ namespace BL
             {
                 throw new InvalidOperationException("Not found");
             }
-
-            return tourguideList.ToList<Tourguide>();
         }
 
         /// <inheritdoc />
         public void ThrowIfExists(Tourguide guide)
         {
             this.tourguideRepository.ThrowIfExists(guide);
+        }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.tourguideRepository.Update();
         }
 
         /// <summary>

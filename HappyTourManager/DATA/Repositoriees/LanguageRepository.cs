@@ -1,4 +1,8 @@
-﻿namespace DATA.Repositoriees
+﻿// <copyright file="LanguageRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace DATA.Repositoriees
 {
     using System;
     using System.Linq;
@@ -45,7 +49,7 @@
         /// <summary>
         /// returns all Languages from the database
         /// </summary>
-        /// <returns>input param</returns>
+        /// <returns>language list</returns>
         public IQueryable<Language> GetAll()
         {
             return this.entities.Languages;
@@ -64,6 +68,14 @@
             {
                 throw new InvalidOperationException("Already exists!");
             }
+        }
+
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.entities.SaveChanges();
         }
     }
 }

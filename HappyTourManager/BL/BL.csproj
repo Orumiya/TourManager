@@ -63,7 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IOrderList.cs" />
+    <Compile Include="Interfaces\ITourList.cs" />
     <Compile Include="LoginBL.cs" />
+    <Compile Include="OrderBL.cs" />
+    <Compile Include="TourBL.cs" />
     <Compile Include="TourguideBL.cs" />
     <Compile Include="CustomerBL.cs" />
     <Compile Include="Interfaces\ICustomerList.cs" />

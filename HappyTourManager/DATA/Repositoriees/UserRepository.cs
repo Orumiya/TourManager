@@ -1,4 +1,8 @@
-﻿namespace DATA.Repositoriees
+﻿// <copyright file="UserRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace DATA.Repositoriees
 {
     using System;
     using System.Linq;
@@ -21,6 +25,10 @@
             this.entities = entities;
         }
 
+        /// <summary>
+        /// adds a user object to the database
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void Create(User dataobject)
         {
             this.ThrowIfExists(dataobject);
@@ -28,19 +36,27 @@
             this.entities.SaveChanges();
         }
 
+        /// <summary>
+        /// removes a user from the database
+        /// </summary>
+        /// <param name="dataobject">input param</param>
         public void Delete(User dataobject)
         {
             this.entities.Users.Remove(dataobject);
             this.entities.SaveChanges();
         }
 
+        /// <summary>
+        /// returns all users from the database
+        /// </summary>
+        /// <returns>userlist</returns>
         public IQueryable<User> GetAll()
         {
             return this.entities.Users;
         }
 
         /// <summary>
-        /// throws exception if user is already exists
+        /// throws exception if the new user is already exists
         /// </summary>
         /// <param name="dataobject">input param</param>
         public void ThrowIfExists(User dataobject)
@@ -52,5 +68,13 @@
                 throw new InvalidOperationException("Already exists!");
             }
         }
+        /// <summary>
+        /// updates an entry
+        /// </summary>
+        public void Update()
+        {
+            this.entities.SaveChanges();
+        }
+
     }
 }
