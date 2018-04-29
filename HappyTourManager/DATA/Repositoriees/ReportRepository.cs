@@ -31,7 +31,9 @@ namespace DATA.Repositoriees
         /// <param name="dataobject">input param</param>
         public void Create(Report dataobject)
         {
-            throw new NotImplementedException();
+            this.ThrowIfExists(dataobject);
+            this.entities.Reports.Add(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
@@ -40,7 +42,8 @@ namespace DATA.Repositoriees
         /// <param name="dataobject">input param</param>
         public void Delete(Report dataobject)
         {
-            throw new NotImplementedException();
+            this.entities.Reports.Remove(dataobject);
+            this.entities.SaveChanges();
         }
 
         /// <summary>
@@ -49,12 +52,7 @@ namespace DATA.Repositoriees
         /// <returns>reportlist</returns>
         public IQueryable<Report> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Report> Search(object searchterm, object searchvalue)
-        {
-            throw new NotImplementedException();
+            return this.entities.Reports;
         }
 
         /// <summary>
@@ -63,7 +61,12 @@ namespace DATA.Repositoriees
         /// <param name="dataobject">input param</param>
         public void ThrowIfExists(Report dataobject)
         {
-            throw new NotImplementedException();
+            bool exist = this.entities.Reports.Any(
+               e => e.ReportType.Equals(dataobject.ReportType) && e.ReportText.Equals(dataobject.ReportText));
+            if (exist)
+            {
+                throw new InvalidOperationException("Already exists!");
+            }
         }
 
         /// <summary>
