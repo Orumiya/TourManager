@@ -69,7 +69,7 @@ namespace HappyTourManager.Pages
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(custVM.SelectedValue);
+            custVM.GetSearchResult();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

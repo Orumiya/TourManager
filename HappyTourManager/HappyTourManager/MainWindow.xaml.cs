@@ -95,7 +95,7 @@ namespace HappyTourManager
             tourRepo = new TourRepository(entities);
             userRepo = new UserRepository(entities);
 
-            SetPage("LoginPage");
+            SetPage("MainPage");
 
             this.DataContext = new WindowViewModel(this);
         }
