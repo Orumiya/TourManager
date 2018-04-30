@@ -117,16 +117,40 @@
                         <Label  Content="Order date: " Grid.Column="0" Grid.Row="3" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                         <DatePicker x:Name="orderDate" Grid.Row="3" Grid.Column="1" Margin="0,0,0,0" FontSize="12" FontFamily="{StaticResource SugarcubesRegular}"/>
                     <Label  Grid.Column="0" Grid.Row="4" Content="Customer: " FontFamily="{StaticResource SugarcubesRegular}" FontSize="14" Margin="0,0,50,0"/>
-                    <ComboBox x:Name="customerNew" SelectedItem="{Binding SelectedCustomer}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
-                        <ComboBoxItem Content="{Binding CustomerList.Customer}"/>
+                    <ComboBox x:Name="customerNewCombo" ItemsSource="{Binding CustomerList}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}, {2}">
+                                            <Binding Path="LastName"/>
+                                            <Binding Path="FirstName"/>
+                                            <Binding Path="IDNumber"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
 
+                    <!--Tour Combobox-->
                     <Label  Grid.Column="0" Grid.Row="5" Content="Tour: " FontFamily="{StaticResource SugarcubesRegular}" FontSize="14" Margin="0,0,50,0"/>
-                        
-                    <ComboBox x:Name="tourNew" SelectedItem="{Binding Selected}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
-                        <ComboBoxItem Content="{Binding TourList}"/>
+                    <ComboBox x:Name="tourNewCombo" ItemsSource="{Binding TourList}" SelectedItem="{Binding SelectedTour}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
+                        <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} - {1:dd.MM.yyyy}">
+                                        <Binding Path="TravelName"/>
+                                        <Binding Path="StartDate"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                     </ComboBox>
-                        <Label Content="Adult: " Grid.Column="0" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <!--Tour Combobox ends-->
+                    <Label Content="Adult: " Grid.Column="0" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                     <ComboBox x:Name="adultCountNew" SelectedItem="{Binding AdultCountNew}" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
                             <ComboBoxItem>0</ComboBoxItem>
                             <ComboBoxItem>1</ComboBoxItem>
