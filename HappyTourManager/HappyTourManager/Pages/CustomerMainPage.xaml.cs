@@ -1,4 +1,5 @@
 ﻿using DATA;
+using DATA.Interfaces;
 using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,10 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class CustomerMainPage : Page
     {
-        CustomerRepository custRepository;
+        private IRepository<Customer> custRepository;
         CustomerMainViewModel custVM;
 
-        public CustomerMainPage(CustomerRepository custRepository)
+        public CustomerMainPage(IRepository<Customer> custRepository)
         {
             InitializeComponent();
             this.custRepository = custRepository;

@@ -1,5 +1,6 @@
 ﻿using BL;
 using DATA;
+using DATA.Interfaces;
 using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace HappyTourManager
 {
     class CustomerMainViewModel : Bindable
     {
-        private CustomerRepository custRepository;
+        private IRepository<Customer> custRepository;
         private CustomerBL custBL;
 
         private List<string> searchCategories;
@@ -121,7 +122,7 @@ namespace HappyTourManager
         private IList<Customer> resultList;
         private Customer selectedCustomer;
 
-        public CustomerMainViewModel(CustomerRepository custRepository)
+        public CustomerMainViewModel(IRepository<Customer> custRepository)
         {
             this.custRepository = custRepository;
             custBL = new CustomerBL(custRepository);

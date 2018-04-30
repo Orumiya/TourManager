@@ -1,4 +1,5 @@
 ﻿using DATA;
+using DATA.Interfaces;
 using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,27 @@ namespace HappyTourManager.Pages
     /// 
     public partial class TourMainPage : Page
     {
-        TourRepository tourRepo;
+        private IRepository<Place> placeRepo;
+        private IRepository<PLTCON> pltconRepo;
+        private IRepository<Program> programRepo;
+        private IRepository<PRTCON> prtconRepo;
+        private IRepository<Tourguide> tourguideRepo;
+        private IRepository<Tour> tourRepo;
 
-        public TourMainPage(TourRepository tourRepo)
+        public TourMainPage(IRepository<Tour> tourRepo,
+            IRepository<Place> placeRepo,
+            IRepository<PLTCON> pltconRepo,
+            IRepository<Program> programRepo,
+            IRepository<PRTCON> prtconRepo,
+            IRepository<Tourguide> tourguideRepo)
         {
             InitializeComponent();
             this.tourRepo = tourRepo;
+            this.placeRepo = placeRepo;
+            this.pltconRepo = pltconRepo;
+            this.programRepo = programRepo;
+            this.prtconRepo = prtconRepo;
+            this.tourguideRepo = tourguideRepo;
         }
     }
 }
