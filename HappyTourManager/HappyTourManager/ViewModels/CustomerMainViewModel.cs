@@ -4,6 +4,7 @@ using DATA.Interfaces;
 using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace HappyTourManager
         private CustomerBL custBL;
 
         private List<string> searchCategories;
+
+        public IEnumerable<string> countryList;
 
         public List<string> SearchCategories
         {
@@ -127,6 +130,7 @@ namespace HappyTourManager
         {
             this.custRepository = custRepository;
             custBL = new CustomerBL(custRepository);
+            CreateCountryList();
 
             searchCategories = new List<string>();
             foreach (CustomerTerms item in Enum.GetValues(typeof(CustomerTerms)))
@@ -151,7 +155,19 @@ namespace HappyTourManager
             }
         }
 
+        private void CreateCountryList()
+        {
+            RegionInfo country = new RegionInfo(new CultureInfo("en-US", false).LCID);
+            List<string> countryNames = new List<string>();
+            foreach (CultureInfo cul in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                country = new RegionInfo(new CultureInfo(cul.Name, false).LCID);
 
+                countryNames.Add(country.DisplayName.ToString());
+            }
+
+            countryList = countryNames.OrderBy(names => names).Distinct();
+        }
 
     }
 }
