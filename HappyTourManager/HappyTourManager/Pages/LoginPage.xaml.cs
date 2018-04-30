@@ -1,4 +1,5 @@
 ﻿using DATA;
+using DATA.Interfaces;
 using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,10 @@ namespace HappyTourManager.Pages
     public partial class LoginPage : Page
     {
         LoginViewModel loginVM;
-        UserRepository userRepo;
+        IRepository<User> userRepo;
         MainWindow win;
 
-        public LoginPage(UserRepository userRepo, MainWindow parentWin)
+        public LoginPage(IRepository<User> userRepo, MainWindow parentWin)
         {
             InitializeComponent();
             win = parentWin;

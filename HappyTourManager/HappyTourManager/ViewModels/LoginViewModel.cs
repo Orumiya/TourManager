@@ -1,21 +1,21 @@
-﻿using BL;
-using DATA;
-using DATA.Interfaces;
-using DATA.Repositoriees;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace HappyTourManager
+﻿namespace HappyTourManager
 {
+    using DATA.Repositoriees;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Common;
+    using System.Linq;
+    using System.Security;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+    using BL;
+    using DATA;
+    using DATA.Interfaces;
+
     class LoginViewModel : Bindable
     {
-        private UserRepository userRepository;
+        private IRepository<User> userRepository;
         private string userName;
         private string password;
         public LoginBL loginBL;
@@ -40,7 +40,7 @@ namespace HappyTourManager
 
         }
 
-        public LoginViewModel(UserRepository userRepo)
+        public LoginViewModel(IRepository<User> userRepo)
         {
             this.userRepository = userRepo;
             loginBL = new LoginBL(userRepository);
