@@ -108,7 +108,7 @@ namespace BL
 
             // returns the tours to the searched country
             // searchvalue must be a string
-            if ((TourTerms)searchterm == TourTerms.COUNTRY)
+            if ((TourTerms)Enum.Parse(typeof(TourTerms), (string)searchterm) == TourTerms.COUNTRY)
             {
                 var countries = this.placeRepository.GetAll();
                 string searchedCountry = ((string)searchvalue).ToLower();
@@ -130,7 +130,7 @@ namespace BL
 
             // returns the tours to the searched city
             // searchvalue must be a string
-            else if ((TourTerms)searchterm == TourTerms.CITY)
+            else if ((TourTerms)Enum.Parse(typeof(TourTerms), (string)searchterm) == TourTerms.CITY)
             {
                 var cities = this.placeRepository.GetAll();
                 string searchedCity = ((string)searchvalue).ToLower();
@@ -152,7 +152,7 @@ namespace BL
 
             // returns tours with adultprice in the search range
             // searchvalue must be int[]
-            else if ((TourTerms)searchterm == TourTerms.ADULTPRICE)
+            else if ((TourTerms)Enum.Parse(typeof(TourTerms), (string)searchterm) == TourTerms.ADULTPRICE)
             {
                 int[] priceRange = (int[])searchvalue;
                 int minValue = priceRange[0];
@@ -164,7 +164,7 @@ namespace BL
 
             // returns tours with childprice in the search range
             // searchvalue must be int[]
-            else if ((TourTerms)searchterm == TourTerms.CHILDPRICE)
+            else if ((TourTerms)Enum.Parse(typeof(TourTerms), (string)searchterm) == TourTerms.CHILDPRICE)
             {
                 int[] priceRange = (int[])searchvalue;
                 int minValue = priceRange[0];
@@ -176,7 +176,7 @@ namespace BL
 
             // searching for tours which are between 2 dates
             // searchvalue must be a DateTime[]
-            else if ((TourTerms)searchterm == TourTerms.TOURDATE)
+            else if ((TourTerms)Enum.Parse(typeof(TourTerms), (string)searchterm) == TourTerms.TOURDATE)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -188,7 +188,7 @@ namespace BL
 
             // returns the tours to the searched country
             // searchvalue must be a string
-            else if ((TourTerms)searchterm == TourTerms.PROGRAM)
+            else if ((TourTerms)Enum.Parse(typeof(TourTerms), (string)searchterm) == TourTerms.PROGRAM)
             {
                 var programs = this.programRepository.GetAll();
                 string searchedProgram = ((string)searchvalue).ToLower();
@@ -211,7 +211,7 @@ namespace BL
             }
 
             // searches for all Tours
-            else if ((TourTerms)searchterm == TourTerms.DEFAULT)
+            else if ((TourTerms)Enum.Parse(typeof(TourTerms), (string)searchterm) == TourTerms.DEFAULT)
             {
                 return tourList.ToList<Tour>();
             }
