@@ -1,4 +1,5 @@
 ﻿using DATA;
+using DATA.Interfaces;
 using DATA.Repositoriees;
 using DATA.Repositories;
 using System;
@@ -24,36 +25,36 @@ namespace HappyTourManager.Pages
     public partial class MainPage : Page
     {
 
-        CustomerRepository customerRepo;
-        LanguageRepository languageRepo;
-        OfficeRepository officeRepo;
-        OnholidayRepository onHolidayRepo;
-        OrderRepository orderRepo;
-        PlaceRepository placeRepo;
-        PLTCONRepository pltconRepo;
-        ProgramRepository programRepo;
-        PRTCONRepository prtconRepo;
-        ReportRepository reportRepo;
-        TourguideRepository tourguideRepo;
-        TourRepository tourRepo;
-        UserRepository userRepo;
+        IRepository<Customer> customerRepo;
+        IRepository<Language> languageRepo;
+        IRepository<Office> officeRepo;
+        IRepository<OnHoliday> onHolidayRepo;
+        IRepository<Order> orderRepo;
+        IRepository<Place> placeRepo;
+        IRepository<PLTCON> pltconRepo;
+        IRepository<Program> programRepo;
+        IRepository<PRTCON> prtconRepo;
+        IRepository<Report> reportRepo;
+        IRepository<Tourguide> tourguideRepo;
+        IRepository<Tour> tourRepo;
+        IRepository<User> userRepo;
         private string selectedPage;
         MainWindow win;
 
-        public MainPage(CustomerRepository customerRepo,
-                            LanguageRepository languageRepo,
-                            OfficeRepository officeRepo,
-                            OnholidayRepository onHolidayRepo,
-                            OrderRepository orderRepo,
-                            PlaceRepository placeRepo,
-                            PLTCONRepository pltconRepo,
-                            ProgramRepository programRepo,
-                            PRTCONRepository prtconRepo,
-                            ReportRepository reportRepo,
-                            TourguideRepository tourguideRepo,
-                            TourRepository tourRepo,
-                            UserRepository userRepo,
-                            MainWindow parentWin)
+        public MainPage(IRepository<Customer> customerRepo,
+                IRepository<Language> languageRepo,
+                IRepository<Office> officeRepo,
+                IRepository<OnHoliday> onHolidayRepo,
+                IRepository<Order> orderRepo,
+                IRepository<Place> placeRepo,
+                IRepository<PLTCON> pltconRepo,
+                IRepository<Program> programRepo,
+                IRepository<PRTCON> prtconRepo,
+                IRepository<Report> reportRepo,
+                IRepository<Tourguide> tourguideRepo,
+                IRepository<Tour> tourRepo,
+                IRepository<User> userRepo,
+                MainWindow parentWin)
         {
             InitializeComponent();
             this.customerRepo = customerRepo;
@@ -81,12 +82,12 @@ namespace HappyTourManager.Pages
 
         private void btnTour_Click(object sender, RoutedEventArgs e)
         {
-            this.mFrame.Content = new TourMainPage(tourRepo);
+            this.mFrame.Content = new TourMainPage(tourRepo, placeRepo, pltconRepo, programRepo, prtconRepo, tourguideRepo);
         }
 
         private void btnOrder_Click(object sender, RoutedEventArgs e)
         {
-            this.mFrame.Content = new OrderMainPage();
+            this.mFrame.Content = new OrderMainPage(orderRepo, customerRepo, tourRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
         }
 
         private void btnTGuide_Click(object sender, RoutedEventArgs e)
