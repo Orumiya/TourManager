@@ -40,9 +40,9 @@ namespace HappyTourManager
 
         }
 
-        public LoginViewModel(HappyTourDatabaseEntities entities)
+        public LoginViewModel(UserRepository userRepo)
         {
-            userRepository = new UserRepository(entities);
+            this.userRepository = userRepo;
             loginBL = new LoginBL(userRepository);
         }
 
