@@ -7,6 +7,7 @@ namespace BL
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Xml.Linq;
     using BL.Interfaces;
     using DATA;
     using DATA.Interfaces;
@@ -163,6 +164,118 @@ namespace BL
         public void Update()
         {
             this.reportRepository.Update();
+        }
+
+        public void GenerateNewReport(ReportTypes type)
+        {
+            if (type.Equals(ReportTypes.CUSTOMERREPORT))
+            {
+                this.GenerateCustomerReport();
+            }
+            else if (type.Equals(ReportTypes.TOURREPORT))
+            {
+                this.GenerateTourReport();
+            }
+            else if (type.Equals(ReportTypes.ORDERREPORT))
+            {
+                this.GenerateOrderReport();
+            }
+            else if (type.Equals(ReportTypes.GUIDEREPORT))
+            {
+                this.GenerateGuideReport();
+            }
+            else if (type.Equals(ReportTypes.HOLIDAYREPORT))
+            {
+                this.GenerateHolidayReport();
+            }
+            else
+            {
+                throw new InvalidOperationException("unknown reporting type");
+            }
+        }
+
+        private void GenerateHolidayReport()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GenerateGuideReport()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GenerateOrderReport()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GenerateTourReport()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// generates a CustomerXMLreport and returns 2 parameters for the chart
+        /// </summary>
+        /// <returns>Tuple item1 = customersWithLoyaltyCount, Tuple item2 = customersWithoutLoyaltyCount </returns>
+        private Tuple<int, int> GenerateCustomerReport()
+        {
+            // pie or doughnut chart needed
+            Tuple<int, int, IQueryable<Customer>, IQueryable<Customer>> info = this.CollectCustomerInfo();
+            this.CreateXMLCustomerReport(info.Item3, info.Item4);
+            return new Tuple<int, int>(info.Item1, info.Item2);
+        }
+
+        private Tuple<int, int, IQueryable<Customer>, IQueryable<Customer>> CollectCustomerInfo()
+        {
+            var customers = this.customerRepository.GetAll();
+            var customersWithLoyalty = customers.Where(e => e.LoyaltyCard.Equals("1"));
+            int customersWithLoyaltyCount = customersWithLoyalty.Count();
+            var customersWithoutLoyalty = customers.Where(e => e.LoyaltyCard.Equals("0") || e.LoyaltyCard.Equals(null));
+            int customersWithoutLoyaltyCount = customersWithoutLoyalty.Count();
+
+            Tuple<int, int, IQueryable<Customer>, IQueryable<Customer>> result = new Tuple<int, int, IQueryable<Customer>, IQueryable<Customer>>(customersWithLoyaltyCount, customersWithoutLoyaltyCount, customersWithLoyalty, customersWithoutLoyalty);
+            return result;
+        }
+
+        private void CreateXMLCustomerReport(IQueryable<Customer> customersWithLoyalty, IQueryable<Customer> customersWithoutLoyalty)
+        {
+            XDocument customerReport = new XDocument(
+#pragma warning disable SA1118 // Parameter must not span multiple lines
+            new XDeclaration("1.0", "utf-8", "yes"),
+            new XElement(
+                "CustomerReport",
+                from custL in customersWithLoyalty
+                select
+                new XElement(
+                    "CustomersWithLoyaltyCard",
+                new XAttribute(
+                    "ID", custL.PersonID),
+                new XElement(
+                    "LastName", custL.Person.LastName),
+                new XElement(
+                    "FirstName", custL.Person.FirstName),
+                new XElement(
+                    "AddressCity", custL.Person.AddressCity),
+                new XElement(
+                    "BirthDate", custL.Person.BirthDate)),
+                from custN in customersWithoutLoyalty
+                select
+                new XElement(
+                    "CustomersWithoutLoyaltyCard",
+                new XAttribute(
+                    "ID", custN.PersonID),
+                new XElement(
+                    "LastName", custN.Person.LastName),
+                new XElement(
+                    "FirstName", custN.Person.FirstName),
+                new XElement(
+                    "AddressCity", custN.Person.AddressCity),
+                new XElement(
+                    "BirthDate", custN.Person.BirthDate))));
+#pragma warning restore SA1118 // Parameter must not span multiple lines
+
+            customerReport.Save("CustomerReport.xml");
         }
 
         /// <summary>
