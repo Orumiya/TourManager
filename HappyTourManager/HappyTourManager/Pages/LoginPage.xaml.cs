@@ -1,4 +1,5 @@
 ﻿using DATA;
+using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +23,15 @@ namespace HappyTourManager.Pages
     public partial class LoginPage : Page
     {
         LoginViewModel loginVM;
-        HappyTourDatabaseEntities entities;
+        UserRepository userRepo;
         MainWindow win;
 
-        public LoginPage(HappyTourDatabaseEntities entities, MainWindow parentWin)
+        public LoginPage(UserRepository userRepo, MainWindow parentWin)
         {
             InitializeComponent();
             win = parentWin;
-            this.entities = entities;
-            loginVM = new LoginViewModel(entities);
-            this.DataContext = loginVM;
+            this.userRepo = userRepo;
+            
 
         }
 
@@ -46,6 +46,12 @@ namespace HappyTourManager.Pages
         private void btnSignUp_Click(object sender, RoutedEventArgs e)
         {
             loginVM.SignUp();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            loginVM = new LoginViewModel(userRepo);
+            this.DataContext = loginVM;
         }
     }
 }

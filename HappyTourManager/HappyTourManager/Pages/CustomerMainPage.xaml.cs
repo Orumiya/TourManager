@@ -1,4 +1,5 @@
 ﻿using DATA;
+using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +22,14 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class CustomerMainPage : Page
     {
+        CustomerRepository custRepository;
         CustomerMainViewModel custVM;
-        HappyTourDatabaseEntities entities;
 
-        public CustomerMainPage(HappyTourDatabaseEntities entities)
+        public CustomerMainPage(CustomerRepository custRepository)
         {
             InitializeComponent();
-            this.entities = entities;
+            this.custRepository = custRepository;
 
-            custVM = new CustomerMainViewModel(entities);
-            this.searchCat.ItemsSource = custVM.SearchCategories;
-            this.searchCat.Visibility = Visibility.Visible;
-            this.searchCat.SelectedItem = "DEFAULT";
-            this.DataContext = custVM;
         }
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -72,6 +68,15 @@ namespace HappyTourManager.Pages
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(custVM.SelectedValue);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            custVM = new CustomerMainViewModel(custRepository);
+            this.searchCat.ItemsSource = custVM.SearchCategories;
+            this.searchCat.Visibility = Visibility.Visible;
+            this.searchCat.SelectedItem = "DEFAULT";
+            this.DataContext = custVM;
         }
     }
 }
