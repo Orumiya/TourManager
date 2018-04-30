@@ -25,6 +25,7 @@ namespace HappyTourManager
     using DATA.Repositories;
     using DATA.Interfaces;
     using Pages;
+    using DATA.Repositoriees;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -41,27 +42,62 @@ namespace HappyTourManager
         MainPage mainPage;
 
         HappyTourDatabaseEntities entities;
+        CustomerRepository customerRepo;
+        LanguageRepository languageRepo;
+        OfficeRepository officeRepo;
+        OnholidayRepository onHolidayRepo;
+        OrderRepository orderRepo;
+        PlaceRepository placeRepo;
+        PLTCONRepository pltconRepo;
+        ProgramRepository programRepo;
+        PRTCONRepository prtconRepo;
+        ReportRepository reportRepo;
+        TourguideRepository tourguideRepo;
+        TourRepository tourRepo;
+        UserRepository userRepo;
+
+
         public MainWindow()
         {
             this.InitializeComponent();
-            this.entities = new HappyTourDatabaseEntities();
-            SetPage("MainPage");
-
-            this.DataContext = new WindowViewModel(this);
+            
         }
 
         public void SetPage(string pagetype)
         {
             if (pagetype == "LoginPage")
             {
-                loginPage = new LoginPage(entities, this);
+                loginPage = new LoginPage(userRepo, this);
                 this.MainFrame.Content = loginPage;
             }
             else
             {
-                mainPage = new MainPage(entities, this);
+                mainPage = new MainPage(customerRepo,languageRepo,officeRepo,onHolidayRepo,orderRepo,placeRepo,pltconRepo,programRepo,prtconRepo,reportRepo,
+                    tourguideRepo,tourRepo,userRepo, this);
                 this.MainFrame.Content = mainPage;
             }
+        }
+
+        private void AppWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.entities = new HappyTourDatabaseEntities();
+            customerRepo = new CustomerRepository(entities);
+            languageRepo = new LanguageRepository(entities);
+            officeRepo = new OfficeRepository(entities);
+            onHolidayRepo = new OnholidayRepository(entities);
+            orderRepo = new OrderRepository(entities);
+            placeRepo = new PlaceRepository(entities);
+            pltconRepo = new PLTCONRepository(entities);
+            programRepo = new ProgramRepository(entities);
+            prtconRepo = new PRTCONRepository(entities);
+            reportRepo = new ReportRepository(entities);
+            tourguideRepo = new TourguideRepository(entities);
+            tourRepo = new TourRepository(entities);
+            userRepo = new UserRepository(entities);
+
+            SetPage("MainPage");
+
+            this.DataContext = new WindowViewModel(this);
         }
     }
 }
