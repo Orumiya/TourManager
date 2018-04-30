@@ -52,6 +52,7 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
+            <ContentControl Name="contCustDetails" />
 
         </Grid>
     </Grid>
