@@ -121,6 +121,7 @@ namespace HappyTourManager
         private DateTime selectedDateTo = DateTime.Today;
         private IList<Customer> resultList;
         private Customer selectedCustomer;
+        
 
         public CustomerMainViewModel(IRepository<Customer> custRepository)
         {
