@@ -8,19 +8,24 @@ using System.Windows.Data;
 
 namespace HappyTourManager.Converters
 {
-    class TrueFalseConverter : IMultiValueConverter
+    class TrueFalseConverter : IValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var trueText = (string)values[0];
-            var falseText = (string)values[1];
-            var showTrueText = (bool)values[2];
-            return showTrueText ? trueText : falseText;
+            return value.ToString() == "1";
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            bool bValue = (bool)value;
+            if (bValue)
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
         }
     }
 }

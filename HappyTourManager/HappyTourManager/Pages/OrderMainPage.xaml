@@ -11,7 +11,8 @@
     <Grid Background="Transparent">
 
         <Grid.Resources>
-            <Converters:TrueFalseConverter x:Key="truefalse"/>
+            <Converters:TrueFalseConverter x:Key="truefalse" />
+
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -183,7 +184,7 @@
 
 
                         <Label Content="Loyaltycard" Grid.Column="0" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
-                        <Label ContentStringFormat="" Content="{Binding SelectedCustomer.LoyaltyCard}" Grid.Column="1" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                        <CheckBox IsChecked="{Binding SelectedCustomer.LoyaltyCard, UpdateSourceTrigger=PropertyChanged ,Converter={StaticResource truefalse}}" Grid.Column="1" Grid.Row="9"/>
                         <Label Content="Total price: " Grid.Column="0" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                         <Label Content="" Grid.Column="1" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
                         <CheckBox Content="Payed" Grid.Column="1" Grid.Row="11" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"></CheckBox>
@@ -265,7 +266,9 @@
 
 
                     <Label Content="Loyaltycard" Grid.Column="0" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
-                    <Label Content="{Binding SelectedOrder.Customer.LoyaltyCard}" Grid.Column="1" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                    <CheckBox IsChecked="{Binding SelectedOrder.Customer.LoyaltyCard, UpdateSourceTrigger=PropertyChanged ,Converter={StaticResource truefalse}}" Grid.Column="1" Grid.Row="9"/>
+
+                    <!--<Label Content="{Binding SelectedOrder.Customer.LoyaltyCard}" Grid.Column="1" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>-->
                     <Label Content="Total price: " Grid.Column="0" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                     <Label Content="{Binding SelectedOrder.TotalSum}" Grid.Column="1" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
                     <CheckBox Content="Payed" Grid.Column="1" Grid.Row="11" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"></CheckBox>
