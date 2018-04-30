@@ -24,5 +24,40 @@ namespace HappyTourManager.Pages
         {
             InitializeComponent();
         }
+
+        private void btnCustomer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnTour_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnTGuide_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnOffice_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnReports_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
