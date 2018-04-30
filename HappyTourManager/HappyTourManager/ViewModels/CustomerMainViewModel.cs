@@ -86,10 +86,40 @@ namespace HappyTourManager
             }
         }
 
+        public IList<Customer> ResultList
+        {
+            get
+            {
+                return resultList;
+            }
+
+            set
+            {
+                resultList = value;
+                OnPropertyChanged(nameof(ResultList));
+            }
+        }
+
+        public Customer SelectedCustomer
+        {
+            get
+            {
+                return selectedCustomer;
+            }
+
+            set
+            {
+                selectedCustomer = value;
+                OnPropertyChanged(nameof(ResultList));
+            }
+        }
+
         private string selectedCtegory = "DEFAULT";
         private string selectedValue;
         private DateTime selectedDateFrom = DateTime.Today;
         private DateTime selectedDateTo = DateTime.Today;
+        private IList<Customer> resultList;
+        private Customer selectedCustomer;
 
         public CustomerMainViewModel(HappyTourDatabaseEntities entities)
         {
@@ -100,6 +130,22 @@ namespace HappyTourManager
             foreach (CustomerTerms item in Enum.GetValues(typeof(CustomerTerms)))
             {
                 searchCategories.Add(item.ToString());
+            }
+        }
+
+        public void GetSearchResult()
+        {
+            if (SelectedCtegory == "VALIDTO")
+            {
+                DateTime[] dt = new DateTime[1];
+                dt[0] = SelectedDateFrom;
+                dt[1] = SelectedDateTo;
+
+                ResultList = custBL.Search(SelectedCtegory, dt);
+            }
+            else
+            {
+                ResultList = custBL.Search(SelectedCtegory, SelectedValue);
             }
         }
 
