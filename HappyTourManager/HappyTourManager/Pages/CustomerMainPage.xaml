@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Background="{StaticResource FGMidBrush}" Grid.Column="0" Content="+ Add instance" FontFamily="{StaticResource SugarcubesBold}" FontSize="18" Height="50" Width="300" HorizontalAlignment="Center" Margin="5,5,0,5"/>
+            <Button Background="{StaticResource FGMidBrush}" Grid.Column="0" Content="+ Add instance" FontFamily="{StaticResource SugarcubesBold}" FontSize="18" Height="50" Width="300" HorizontalAlignment="Center" Margin="5,5,0,5" Click="Button_Click"/>
             <TextBlock Grid.Column="1" Text="Search for: " Foreground="{StaticResource ForegroundLight}" FontSize="14" VerticalAlignment="Center" Padding="10" FontWeight="ExtraBold"/>
             <ComboBox Name="searchCat" SelectedItem="{Binding SelectedCtegory}" Margin="10" Grid.Column="2" Visibility="Hidden" SelectionChanged="searchCat_SelectionChanged"/>
             <TextBlock Grid.Column="3" Text="Value: " Foreground="{StaticResource ForegroundLight}" FontSize="14" VerticalAlignment="Center" Padding="10" FontWeight="ExtraBold"/>
@@ -52,7 +52,7 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
-            <ContentControl Name="contCustDetails" />
+            <ContentControl Grid.Column="1" Name="contCustDetails" Margin="5"/>
 
         </Grid>
     </Grid>
