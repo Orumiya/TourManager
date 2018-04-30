@@ -90,7 +90,9 @@ namespace HappyTourManager
         public Customer SelectedCustomer
         {
             get { return selectedCustomer; }
-            set { selectedCustomer = value; }
+            set { selectedCustomer = value;
+                OnPropertyChanged(nameof(this.SelectedCustomer));
+            }
         }
 
 
@@ -133,7 +135,8 @@ namespace HappyTourManager
         public IList<Customer> CustomerList
         {
             get { return customerList; }
-            set { customerList = GetAllCustomers();
+            set {
+                customerList = value;
                 OnPropertyChanged(nameof(CustomerList));
             }
         }
@@ -143,7 +146,7 @@ namespace HappyTourManager
         public IList<Tour> TourList
         {
             get { return tourList; }
-            set { tourList = GetAllTours();
+            set { tourList = value;
                 OnPropertyChanged(nameof(TourList));
             }
         }
@@ -153,7 +156,7 @@ namespace HappyTourManager
 
         //}
 
-        private IList<Tour> GetAllTours()
+        public IList<Tour> GetAllTours()
         {
             tourBL = new TourBL(tourRepository,programRepository,placeRepository,pltconRepository,prtconRepository);
             IList<Tour> tglist = tourBL.Search(TourTerms.DEFAULT, null);
@@ -161,10 +164,11 @@ namespace HappyTourManager
             return tglist;
         }
 
-        private IList<Customer> GetAllCustomers()
+        public IList<Customer> GetAllCustomers()
         {
             customerBL = new CustomerBL(customerRepository);
             IList<Customer> custList = customerBL.Search(CustomerTerms.DEFAULT, null);
+            
             return custList;
         }
 

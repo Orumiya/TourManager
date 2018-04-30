@@ -3,14 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HappyTourManager.Pages"
+      xmlns:Converters="clr-namespace:HappyTourManager.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="900"
       Title="OrderMainPage" Loaded="Page_Loaded">
-
+    
     <Grid Background="Transparent">
+
+        <Grid.Resources>
+            <Converters:TrueFalseConverter x:Key="truefalse" />
+
+        </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -19,57 +23,9 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        
 
-            <!--Menu-->
-            <Button Name="btnCustomer" Style="{StaticResource Iconbtn}" Grid.Column="0" Click="btnCustomer_Click"  >
-                <StackPanel>
-                    <Image Source="/Images/customer.png" Stretch="None"/>
-                </StackPanel>
-            </Button>
-            <Button Name="btnTour" Style="{StaticResource Iconbtn}" Grid.Column="1" Click="btnTour_Click">
-                <StackPanel>
-                    <Image Source="/Images/tours.png" Stretch="None"/>
-                </StackPanel>
-            </Button>
-            <Button Name="btnOrder" Style="{StaticResource Iconbtn}" Grid.Column="2" Click="btnOrder_Click">
-                <StackPanel>
-                    <Image Source="/Images/orders.png" Stretch="None"/>
-                </StackPanel>
-            </Button>
-            <Button Name="btnTGuide" Style="{StaticResource Iconbtn}" Grid.Column="3" Click="btnTGuide_Click">
-                <StackPanel>
-                    <Image Source="/Images/tourguide.png" Stretch="None"/>
-                </StackPanel>
-            </Button>
-            <Button Name="btnOffice" Style="{StaticResource Iconbtn}" Grid.Column="4" Click="btnOffice_Click">
-                <StackPanel>
-                    <Image Source="/Images/office.png" Stretch="None"/>
-                </StackPanel>
-            </Button>
-            <Button Name="btnReports" Style="{StaticResource Iconbtn}" Grid.Column="5" Click="btnReports_Click">
-                <StackPanel>
-                    <Image Source="/Images/reports.png" Stretch="None"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnExit" Style="{StaticResource Iconbtn}" Grid.Column="6" Click="btnExit_Click">
-                <StackPanel>
-                    <Image Source="/Images/exit.png" Stretch="None"/>
-                </StackPanel>
-            </Button>
-        </Grid>
-        <!--Menu ends-->
-
-        <Grid Grid.Row="1" Background="{StaticResource ForegroundBrush}" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Background="{StaticResource ForegroundBrush}" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="26"/>
                 <ColumnDefinition/>
@@ -80,7 +36,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="2" Grid.Column="0">
+        <Grid Grid.Row="1" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="457"/>
                 <ColumnDefinition />
@@ -125,7 +81,7 @@
         </Grid>
         
         <!-- Tab Control-->
-        <TabControl  Grid.Row="2" Grid.Column="1" Background="Transparent">
+        <TabControl  Grid.Row="1" Grid.Column="1" Background="Transparent">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Background="LightBlue">
@@ -162,20 +118,46 @@
                         <Label Grid.Row="0" Grid.Column="1" Content="Order details"  FontFamily="{StaticResource SugarcubesRegular}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="148" />
 
                         <Label  Content="OrderID" Grid.Column="0" Grid.Row="2" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
-                        <Label x:Name="orderID" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" Content="{Binding SelectedOrder.OrderID}" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                        <Label x:Name="orderID" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" Content="" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
                         <Label  Content="Order date: " Grid.Column="0" Grid.Row="3" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
-                        <DatePicker x:Name="orderDate" Grid.Row="3" Grid.Column="1" SelectedDate="{Binding SelectedOrder.OrderDate}" Margin="0,0,0,0" FontSize="12" FontFamily="{StaticResource SugarcubesRegular}"/>
+                        <DatePicker x:Name="orderDate" Grid.Row="3" Grid.Column="1" Margin="0,0,0,0" FontSize="12" FontFamily="{StaticResource SugarcubesRegular}"/>
+                    <!--Customer combobox-->
                     <Label  Grid.Column="0" Grid.Row="4" Content="Customer: " FontFamily="{StaticResource SugarcubesRegular}" FontSize="14" Margin="0,0,50,0"/>
-                    <ComboBox x:Name="customerNew" SelectedItem="{Binding SelectedCustomer}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
-                        <ComboBoxItem Content="{Binding CustomerList}"/>
+                    <ComboBox x:Name="customerNewCombo" Width="250" ItemsSource="{Binding CustomerList}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Person.LastName"/>
+                                            <Binding Path="Person.FirstName"/>
+                                            
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
-
+                    <!--Customer combobox ends-->
+                    
+                    <!--Tour Combobox-->
                     <Label  Grid.Column="0" Grid.Row="5" Content="Tour: " FontFamily="{StaticResource SugarcubesRegular}" FontSize="14" Margin="0,0,50,0"/>
-                        
-                    <ComboBox x:Name="tourNew" SelectedItem="{Binding Selected}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
-                        <ComboBoxItem Content="{Binding TourList}"/>
+                    <ComboBox Width="250" x:Name="tourNewCombo" ItemsSource="{Binding TourList}" SelectedItem="{Binding SelectedTour}" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
+                        <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} - {1:dd.MM.yyyy}">
+                                        <Binding Path="TravelName"/>
+                                        <Binding Path="StartDate"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                     </ComboBox>
-                        <Label Content="Adult: " Grid.Column="0" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
+                    <!--Tour Combobox ends-->
+                    <Label Content="Adult: " Grid.Column="0" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                     <ComboBox x:Name="adultCountNew" SelectedItem="{Binding AdultCountNew}" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0" >
                             <ComboBoxItem>0</ComboBoxItem>
                             <ComboBoxItem>1</ComboBoxItem>
@@ -184,7 +166,7 @@
                             <ComboBoxItem>4</ComboBoxItem>
                             <ComboBoxItem>5</ComboBoxItem>
                         </ComboBox>
-                        <Label ContentStringFormat="Adultprice: {0} HUF" Content="{Binding Tour.AdultPrice}" Grid.Column="2" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0"/>
+                        <Label ContentStringFormat="Adultprice: {0} HUF" Content="{Binding SelectedTour.AdultPrice}" Grid.Column="2" Grid.Row="6" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0"/>
 
                         <Label Content="Child: " Grid.Column="0" Grid.Row="7" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                     <ComboBox x:Name="childCountNew" SelectedItem="{Binding ChildCountNew}" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14">
@@ -195,14 +177,14 @@
                             <ComboBoxItem>4</ComboBoxItem>
                             <ComboBoxItem>5</ComboBoxItem>
                         </ComboBox>
-                        <Label ContentStringFormat="Childprice: {0} HUF" Content="{Binding Tour.ChildPrice}" Grid.Column="2" Grid.Row="7" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0"/>
+                    <Label ContentStringFormat="Childprice: {0} HUF" Content="{Binding SelectedTour.ChildPrice}" Grid.Column="2" Grid.Row="7" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12" Margin="0,0,0,0"/>
 
                         <Label Content="Price: " Grid.Column="0" Grid.Row="8" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                         <Label Content="x" Grid.Column="1" Grid.Row="8" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
 
 
                         <Label Content="Loyaltycard" Grid.Column="0" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
-                        <Label Content="{Binding SelectedOrder.Customer.LoyaltyCard}" Grid.Column="1" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                        <CheckBox IsChecked="{Binding SelectedCustomer.LoyaltyCard, UpdateSourceTrigger=PropertyChanged ,Converter={StaticResource truefalse}}" Grid.Column="1" Grid.Row="9"/>
                         <Label Content="Total price: " Grid.Column="0" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                         <Label Content="" Grid.Column="1" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
                         <CheckBox Content="Payed" Grid.Column="1" Grid.Row="11" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"></CheckBox>
@@ -284,7 +266,9 @@
 
 
                     <Label Content="Loyaltycard" Grid.Column="0" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
-                    <Label Content="{Binding SelectedOrder.Customer.LoyaltyCard}" Grid.Column="1" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
+                    <CheckBox IsChecked="{Binding SelectedOrder.Customer.LoyaltyCard, UpdateSourceTrigger=PropertyChanged ,Converter={StaticResource truefalse}}" Grid.Column="1" Grid.Row="9"/>
+
+                    <!--<Label Content="{Binding SelectedOrder.Customer.LoyaltyCard}" Grid.Column="1" Grid.Row="9" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>-->
                     <Label Content="Total price: " Grid.Column="0" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"/>
                     <Label Content="{Binding SelectedOrder.TotalSum}" Grid.Column="1" Grid.Row="10" FontFamily="{StaticResource SugarcubesRegular}" FontSize="12"/>
                     <CheckBox Content="Payed" Grid.Column="1" Grid.Row="11" FontFamily="{StaticResource SugarcubesRegular}" FontSize="14"></CheckBox>

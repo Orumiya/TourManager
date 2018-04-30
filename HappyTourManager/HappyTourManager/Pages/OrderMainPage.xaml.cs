@@ -31,6 +31,9 @@ namespace HappyTourManager.Pages
         private IRepository<PLTCON> pltconRepository;
         private IRepository<PRTCON> prtconRepository;
 
+        IList<Tour> tourList = new List<Tour>();
+        IList<Customer> customerList = new List<Customer>();
+
         public OrderMainPage(IRepository<Order> orderRepository, 
             IRepository<Customer> customerRepository,
             IRepository<Tour> tourRepository,
@@ -46,12 +49,20 @@ namespace HappyTourManager.Pages
             this.placeRepository = placeRepository;
             this.pltconRepository = pltconRepository;
             this.prtconRepository = prtconRepository;
+            
             InitializeComponent();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             vm = new OrderMainViewModel(orderRepository,customerRepository, tourRepository, programRepository,placeRepository,pltconRepository, prtconRepository);
+            tourList = vm.GetAllTours();
+            customerList = vm.GetAllCustomers();
+            tourNewCombo.ItemsSource = tourList;
+            customerNewCombo.ItemsSource = customerList;
+
+
+
             this.DataContext = vm;
         }
 
