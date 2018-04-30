@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="{StaticResource ForegroundBrush}">
@@ -43,17 +44,27 @@
 
             <Grid Grid.Column="0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding ResultList}">
-                        <ItemsControl.ItemTemplate>
+                    <ListBox ItemsSource="{Binding ResultList}" Background="Transparent">
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <local:UserControl1 />
+                                <local:UserControl1/>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </ListBox.ItemTemplate>                        
+                    </ListBox>
+  
                 </ScrollViewer>
             </Grid>
             <ContentControl Grid.Column="1" Name="contCustDetails" Margin="5"/>
 
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button></Button>
         </Grid>
     </Grid>
 </Page>
