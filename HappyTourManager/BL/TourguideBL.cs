@@ -89,7 +89,7 @@ namespace BL
 
             // returns tourguides with this taxID
             // searchvalue must be int
-            else if ((TourguideTerms)searchterm == TourguideTerms.TAXIDENTIFICATION)
+            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.TAXIDENTIFICATION)
             {
                 tourguideList = tourguideList.Where(e => e.Taxidentification == (int)searchvalue);
                 return tourguideList.ToList<Tourguide>();
@@ -97,7 +97,7 @@ namespace BL
 
             // returns tourguides who speaks this language
             // searchvalue must be a string
-            else if ((TourguideTerms)searchterm == TourguideTerms.LANGUAGE)
+            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.LANGUAGE)
             {
                 var languages = this.languageRepository.GetAll();
                 languages = languages.Where(i => i.Language1 == (string)searchvalue);
@@ -115,7 +115,7 @@ namespace BL
 
             // searching for tourguides who are on holiday between 2 dates
             // searchvalue must be a DateTime[]
-            else if ((TourguideTerms)searchterm == TourguideTerms.ISONHOLIDAY)
+            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.ISONHOLIDAY)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -137,7 +137,7 @@ namespace BL
 
             // searching for tourguides who are not on holiday between 2 dates
             // searchvalue must be a DateTime[]
-            else if ((TourguideTerms)searchterm == TourguideTerms.ISAVAILABLE)
+            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.ISAVAILABLE)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -156,7 +156,7 @@ namespace BL
 
                 return tglist;
             }
-            else if ((TourguideTerms)searchterm == TourguideTerms.DEFAULT)
+            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.DEFAULT)
             {
                 return tourguideList.ToList<Tourguide>();
             }
