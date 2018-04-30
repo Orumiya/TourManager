@@ -59,7 +59,7 @@ namespace HappyTourManager
 
         public GridLength TitleHeightGL { get { return new GridLength(TitleHeight + ResizeBorder); } }
 
-        public string ActualPage { get; set; } = "OrderPage";
+        public string ActualPage { get; set; } = "LoginPage";
 
         /// <summary>
         /// Construnctor

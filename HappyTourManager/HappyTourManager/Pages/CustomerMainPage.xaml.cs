@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DATA;
+using DATA.Repositoriees;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,48 +22,61 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class CustomerMainPage : Page
     {
-        
+        CustomerRepository custRepository;
+        CustomerMainViewModel custVM;
 
-        public CustomerMainPage()
+        public CustomerMainPage(CustomerRepository custRepository)
         {
             InitializeComponent();
+            this.custRepository = custRepository;
+
         }
 
-        
-
-        private void btnCustomer_Click(object sender, RoutedEventArgs e)
+        private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var viewModel = new CustomerMainViewModel();
+            if (custVM.SelectedCtegory == "VALIDTO")
+            {
+                DatePicker datePicker = new DatePicker();
+                
+                Binding binding = new Binding("SelectedDateFrom");
+                datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
+                this.contSearch1.Content = datePicker;
+
+                DatePicker datePicker2 = new DatePicker();
+                Binding binding2 = new Binding("SelectedDateTo");
+                datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
+                this.contSearch2.Content = datePicker2;
+
+            }
+            else if (custVM.SelectedCtegory == "DEFAULT")
+            {
+                this.contSearch1.Content = null;
+                this.contSearch2.Content = null;
+                custVM.SelectedValue = default(string);
+            }
+            else
+            {
+                TextBox textbox = new TextBox();
+                Binding binding = new Binding("SelectedValue");
+                textbox.SetBinding(TextBox.TextProperty, binding);
+                this.contSearch1.Content = textbox;
+                this.contSearch2.Content = null;
+            }
+
         }
 
-        private void btnTour_Click(object sender, RoutedEventArgs e)
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            var viewModel = new TourMainViewModel();
+            MessageBox.Show(custVM.SelectedValue);
         }
 
-        private void btnOrder_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //var viewModel = new OrderMainViewModel();
-        }
-
-        private void btnTGuide_Click(object sender, RoutedEventArgs e)
-        {
-            var viewModel = new TourGuideMainViewModel();
-        }
-
-        private void btnOffice_Click(object sender, RoutedEventArgs e)
-        {
-            var viewModel = new OfficeMainViewModel();
-        }
-
-        private void btnReports_Click(object sender, RoutedEventArgs e)
-        {
-            var viewModel = new ReportMainViewModel();
-        }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            
+            custVM = new CustomerMainViewModel(custRepository);
+            this.searchCat.ItemsSource = custVM.SearchCategories;
+            this.searchCat.Visibility = Visibility.Visible;
+            this.searchCat.SelectedItem = "DEFAULT";
+            this.DataContext = custVM;
         }
     }
 }

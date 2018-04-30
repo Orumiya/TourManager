@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       
       d:DesignHeight="400" d:DesignWidth="400"
-      Title="LoginPage">
+      Title="LoginPage" Loaded="Page_Loaded">
 
 
     <Grid>
@@ -17,9 +17,11 @@
                 <Border Background="{StaticResource LightBGBrush}" Padding="10 30 10 10" Width="300" Margin="30 30 30 30" CornerRadius="5">
                     <StackPanel>
                         <TextBlock Text="Sign in" FontFamily="{StaticResource SugarcubesBold}" FontSize="40" FontWeight="ExtraBold" Foreground="{StaticResource BGBlueBrush}" Margin="0 0 0 20"/>
-                        <TextBox Tag="Username" Text="{Binding UserName}"/>
-                        <TextBox Tag="Password" Text="{Binding Password}"/>
+                        <TextBox Style="{StaticResource loginTB}" Tag="Username" Text="{Binding Username}"/>
+                        <TextBox Style="{StaticResource loginTB}" Tag="Password" Text="{Binding Password}"/>
                         <Button Name="btnSignIn" Content="Sign in" HorizontalAlignment="Center" Click="btnSignIn_Click"/>
+
+                        <Button Name="btnSignUp" Style="{StaticResource SignUpbtn}" Content="Sign Up" Click="btnSignUp_Click" />
                     </StackPanel>
                 </Border>
             </StackPanel>

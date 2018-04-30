@@ -99,7 +99,7 @@
         {
             if (userpass.Length >= 5 && userpass.Length < 15)
             {
-                if (userpass.Any(c => char.IsDigit(c)) && !userpass.Any(ch => !char.IsLetterOrDigit(ch)))
+                if (userpass.Any(c => char.IsLetterOrDigit(c)) && !userpass.Any(ch => !char.IsLetterOrDigit(ch)))
                 {
                     return true;
                 }
