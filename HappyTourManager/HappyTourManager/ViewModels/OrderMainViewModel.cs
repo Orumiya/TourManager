@@ -90,7 +90,9 @@ namespace HappyTourManager
         public Customer SelectedCustomer
         {
             get { return selectedCustomer; }
-            set { selectedCustomer = value; }
+            set { selectedCustomer = value;
+                OnPropertyChanged(nameof(this.SelectedCustomer));
+            }
         }
 
 
@@ -166,6 +168,7 @@ namespace HappyTourManager
         {
             customerBL = new CustomerBL(customerRepository);
             IList<Customer> custList = customerBL.Search(CustomerTerms.DEFAULT, null);
+            
             return custList;
         }
 
