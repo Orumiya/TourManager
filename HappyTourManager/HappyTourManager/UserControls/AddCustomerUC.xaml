@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Border Background="{StaticResource LightBGBrush}" CornerRadius="5">
-        <Grid Background="{StaticResource LightBGBrush}" Opacity="0.4" Margin="10">
+        <Grid Background="{StaticResource LightBGBrush}" Opacity="0.6" Margin="10">
             <Grid.Resources>
                 <Converters:TrueFalseConverter x:Key="truefalse" />
 

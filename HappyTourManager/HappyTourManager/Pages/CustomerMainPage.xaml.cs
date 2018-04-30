@@ -25,6 +25,7 @@ namespace HappyTourManager.Pages
     {
         private IRepository<Customer> custRepository;
         CustomerMainViewModel custVM;
+        AddCustomerUC custDetail;
 
         public CustomerMainPage(IRepository<Customer> custRepository)
         {
@@ -78,6 +79,18 @@ namespace HappyTourManager.Pages
             this.searchCat.Visibility = Visibility.Visible;
             this.searchCat.SelectedItem = "DEFAULT";
             this.DataContext = custVM;
+            custDetail = new AddCustomerUC();
+            foreach (string item in custVM.countryList)
+            {
+                custDetail.cboxCountry.Items.Add(item);
+            }
+            this.contCustDetails.Content = custDetail;
+            this.contCustDetails.Visibility = Visibility.Hidden;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.contCustDetails.Visibility = Visibility.Visible;
         }
     }
 }
