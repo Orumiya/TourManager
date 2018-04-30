@@ -1,4 +1,5 @@
 ﻿using DATA;
+using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,12 +25,12 @@ namespace HappyTourManager.Pages
     /// 
     public partial class TourMainPage : Page
     {
-        HappyTourDatabaseEntities entities;
+        TourRepository tourRepo;
 
-        public TourMainPage(HappyTourDatabaseEntities entities)
+        public TourMainPage(TourRepository tourRepo)
         {
             InitializeComponent();
-
+            this.tourRepo = tourRepo;
         }
     }
 }
