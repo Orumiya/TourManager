@@ -41,13 +41,18 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0">
-                <local:UserControl1 Height="75"/>
-                <local:UserControl1 Height="75"/>
-                <local:UserControl1 Height="75"/>
-                <local:UserControl1 Height="75"/>
-            </StackPanel>
-            
+            <Grid Grid.Column="0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding ResultList}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:UserControl1 />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+
         </Grid>
     </Grid>
 </Page>
