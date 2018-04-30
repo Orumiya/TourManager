@@ -68,11 +68,11 @@ namespace HappyTourManager
         public WindowViewModel(Window window)
         {
             this.window = window;
-
+            window.MaxHeight = SystemParameters.WorkArea.Height;
             window.StateChanged += Window_StateChanged;
 
             MinimizeCommand = new RelayCommand(() => window.WindowState = WindowState.Minimized);
-            MaximizeCommand = new RelayCommand(() => window.WindowState ^= WindowState.Maximized);
+            MaximizeCommand = new RelayCommand(() => window.WindowState = WindowState.Maximized);
             CloseCommand = new RelayCommand(() => window.Close());
 
         }
