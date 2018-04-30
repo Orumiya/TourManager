@@ -124,7 +124,7 @@ namespace BL
 
             // searching for reports which are created between 2 dates
             // searchvalue must be a DateTime[]
-            if ((ReportTerms)searchterm == ReportTerms.REPORTDATE)
+            if ((ReportTerms)Enum.Parse(typeof(ReportTerms), (string)searchterm) == ReportTerms.REPORTDATE)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -136,7 +136,7 @@ namespace BL
 
             // returns the reports of the searched type
             // searchvalue must be a string
-            else if ((ReportTerms)searchterm == ReportTerms.REPORTTYPE)
+            else if ((ReportTerms)Enum.Parse(typeof(ReportTerms), (string)searchterm) == ReportTerms.REPORTTYPE)
             {
                 string reporttype = (string)searchvalue;
                 reports = reports.Where(e => e.ReportType.Equals(reporttype));
@@ -144,7 +144,7 @@ namespace BL
             }
 
             // searches for all Reports
-            else if ((ReportTerms)searchterm == ReportTerms.DEFAULT)
+            else if ((ReportTerms)Enum.Parse(typeof(ReportTerms), (string)searchterm) == ReportTerms.DEFAULT)
             {
                 return reports.ToList<Report>();
             }
