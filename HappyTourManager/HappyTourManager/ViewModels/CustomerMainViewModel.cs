@@ -121,9 +121,9 @@ namespace HappyTourManager
         private IList<Customer> resultList;
         private Customer selectedCustomer;
 
-        public CustomerMainViewModel(HappyTourDatabaseEntities entities)
+        public CustomerMainViewModel(CustomerRepository custRepository)
         {
-            custRepository = new CustomerRepository(entities);
+            this.custRepository = custRepository;
             custBL = new CustomerBL(custRepository);
 
             searchCategories = new List<string>();
