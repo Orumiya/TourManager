@@ -86,7 +86,7 @@ namespace HappyTourManager.Pages
 
         private void btnOrder_Click(object sender, RoutedEventArgs e)
         {
-            this.mFrame.Content = new OrderMainPage();
+            this.mFrame.Content = new OrderMainPage(orderRepo,customerRepo, tourRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
         }
 
         private void btnTGuide_Click(object sender, RoutedEventArgs e)
