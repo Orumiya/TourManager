@@ -36,7 +36,7 @@
         /// creates a fake repository
         /// </summary>
         /// <param name="expected">input param as fake database</param>
-        public FakeRepository(IEnumerable<T> expected) => this.expected = expected);
+        public FakeRepository(IEnumerable<T> expected) => this.expected = expected;
 
         /// <summary>
         /// puts the object to the savedobjects list
