@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="HappyTourManager.TourDetailsUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HappyTourManager"
+             xmlns:Converters="clr-namespace:HappyTourManager.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Border Background="{StaticResource LightBGBrush}" CornerRadius="5" Opacity="0.9">
+        <Grid Background="{StaticResource LightBGBrush}" Margin="10">
+            <Grid.Resources>
+                <Converters:TrueFalseConverter x:Key="truefalse" />
+
+            </Grid.Resources>
+            <ScrollViewer >
+                <StackPanel Margin="3">
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Travel Name: "/>
+                        <TextBox Text="{Binding SelectedTour.TravelName}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Description: "/>
+                        <TextBox Text="{Binding SelectedTour.Description}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Transport type: "/>
+                        <TextBox Text="{Binding SelectedTour.Transport}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Tourguide: "/>
+                        <ComboBox Name="cboxTourGuide" SelectedItem="{Binding SelectedTour.TourguideID}" />
+                    </DockPanel>
+                    <TextBlock Text="Dates" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Start date: "/>
+                        <DatePicker SelectedDate="{Binding SelectedTour.StartDate}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="End date: "/>
+                        <DatePicker SelectedDate="{Binding SelectedTour.EndDate}" />
+                    </DockPanel>
+                    <TextBlock Text="Number of passangers" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Minimum: "/>
+                        <TextBox Text="{Binding SelectedTour.MinNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Maximum: "/>
+                        <TextBox Text="{Binding SelectedTour.MaxNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                    <TextBlock Text="Prices" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Adult price: "/>
+                        <TextBox Text="{Binding SelectedTour.AdultPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Child price: "/>
+                        <TextBox Text="{Binding SelectedTour.ChildPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>
