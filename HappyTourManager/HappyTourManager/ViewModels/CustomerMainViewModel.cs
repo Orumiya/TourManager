@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace HappyTourManager
 {
@@ -171,8 +172,7 @@ namespace HappyTourManager
 
         public void SaveCustomer()
         {
-            
-            if (ResultList.Contains(SelectedCustomer))
+            if (ResultList != null && ResultList.Contains(SelectedCustomer))
             {
                 custBL.Update();
             }
@@ -185,6 +185,32 @@ namespace HappyTourManager
         public void DeleteCustomer()
         {
             custBL.Delete(SelectedCustomer);
+        }
+
+        public bool Checkvalues()
+        {
+            bool isNull = false;
+
+            foreach (var item in SelectedCustomer.Person.GetType().GetProperties())
+            {
+                string s = item.Name;
+                if (item.Name != "BirthDate" && item.Name != "ValidTo" && item.Name != "PersonID"
+                    && item.Name != "Customer" && item.Name != "Tourguide")
+                {
+                    Decimal parsedValue;
+
+                    if (item.GetValue(SelectedCustomer.Person) == null)
+                    {
+                        isNull = true;
+                    }
+                    else if (Decimal.TryParse(item.GetValue(SelectedCustomer.Person).ToString(), out parsedValue))
+                    {
+                        isNull = parsedValue == 0;
+                    }
+                }
+                
+            }
+            return isNull;
         }
 
     }
