@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HappyTourManager"
              mc:Ignorable="d" 
-             d:DesignHeight="75" d:DesignWidth="300">
+             d:DesignHeight="75" d:DesignWidth="300"
+             Width="286"
+             >
 
     <Grid Background="{StaticResource LightBGBrush}" Opacity="0.6">
         <Grid.ColumnDefinitions>
