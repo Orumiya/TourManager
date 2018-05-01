@@ -7,8 +7,8 @@
              xmlns:local="clr-namespace:HappyTourManager"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Border Background="{StaticResource LightBGBrush}" CornerRadius="5">
-        <Grid Background="{StaticResource LightBGBrush}" Opacity="0.6" Margin="10">
+    <Border Background="{StaticResource LightBGBrush}" CornerRadius="5" Opacity="0.9">
+        <Grid Background="{StaticResource LightBGBrush}" Margin="10">
             <Grid.Resources>
                 <Converters:TrueFalseConverter x:Key="truefalse" />
 
@@ -29,7 +29,7 @@
                 </DockPanel>
                 <DockPanel Margin="3">
                     <TextBlock Text="Phonenumber: "/>
-                    <TextBox Text="{Binding SelectedCustomer.Person.Phone}" />
+                        <TextBox Text="{Binding SelectedCustomer.Person.Phone, StringFormat='{}{0:#\\%;0:#;#}'}" />
                 </DockPanel>
                 <TextBlock Text="Address" FontWeight="Bold" Margin="0,5,0,0"/>
                 <DockPanel Margin="3">
@@ -56,7 +56,7 @@
                     </DockPanel>
                 <DockPanel Margin="3">
                     <TextBlock Text="ID number: "/>
-                    <TextBox Text="{Binding SelectedCustomer.Person.IDNumber}" />
+                        <TextBox Text="{Binding SelectedCustomer.Person.IDNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
                 </DockPanel>
                 <DockPanel Margin="3">
                     <TextBlock Text="Valid to: "/>
