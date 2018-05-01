@@ -124,6 +124,9 @@
     <Compile Include="UserControls\CustomerUserControl.xaml.cs">
       <DependentUpon>CustomerUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TourUC.xaml.cs">
+      <DependentUpon>TourUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\CustomerMainViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -203,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CustomerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TourUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
