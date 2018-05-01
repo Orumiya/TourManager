@@ -51,13 +51,78 @@
                     </DockPanel>
                     <TextBlock Text="Prices" FontWeight="Bold" Margin="0,5,0,0"/>
                     <DockPanel Margin="3">
+                        <TextBlock Text="Price per night: "/>
+                        <TextBox Text="{Binding PricePerNight, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
                         <TextBlock Text="Adult price: "/>
-                        <TextBox Text="{Binding SelectedTour.AdultPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                        <TextBlock Text="{Binding SelectedTour.AdultPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
                     </DockPanel>
                     <DockPanel Margin="3">
                         <TextBlock Text="Child price: "/>
-                        <TextBox Text="{Binding SelectedTour.ChildPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                        <TextBlock Text="{Binding SelectedTour.ChildPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
                     </DockPanel>
+                    <TextBlock Text="Places" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <Expander Header="Places added">
+                            <ListBox>
+                                <DataTemplate>
+                                    <DockPanel Margin="3">
+                                        <TextBlock Text="{Binding Country}"/>
+                                        <TextBlock Text="{Binding City}" />
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox>
+                        </Expander>
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Select Place: "/>
+                        <ComboBox Name="cboxPlace" SelectedItem="{Binding SelectedPlace}">
+                            <ComboBox.ItemTemplate>
+                                <ItemContainerTemplate>
+                                    <DockPanel Margin="3">
+                                        <TextBlock Text="{Binding Country}"/>
+                                        <TextBlock Text="{Binding City}" />
+                                    </DockPanel>
+                                </ItemContainerTemplate>                                
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </DockPanel>
+                    <Expander Header="Add new place:">
+                        <StackPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Country: "/>
+                                <ComboBox Name="cboxCountry" />
+                                <Button Name="btnAddCountry" Content="Add"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Expander>
+                    <TextBlock Text="Programs" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <Expander Header="Programs added added">
+                            <ListBox>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProgramType}"/>
+                                </DataTemplate>
+                            </ListBox>
+                        </Expander>
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Select Program: "/>
+                        <ComboBox Name="cboxProgram" SelectedItem="{Binding SelectedPlace}">
+                            <ComboBox.ItemTemplate>
+                                <ItemContainerTemplate>
+                                    <TextBlock Text="{Binding ProgramType}"/>
+                                </ItemContainerTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </DockPanel>
+                    <Expander Header="Add new program:">
+                        <StackPanel>
+                            <TextBlock Text="Program type: "/>
+                            <Button Name="btnAddProgram" Content="Add"/>
+                        </StackPanel>
+                    </Expander>
                 </StackPanel>
             </ScrollViewer>
         </Grid>
