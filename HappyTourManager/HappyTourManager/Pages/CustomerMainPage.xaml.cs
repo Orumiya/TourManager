@@ -70,6 +70,16 @@ namespace HappyTourManager.Pages
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             custVM.GetSearchResult();
+            if (custVM.ResultList.Count > 0)
+            {
+                btnEdit.Visibility = Visibility.Visible;
+                btnDelete.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnEdit.Visibility = Visibility.Hidden;
+                btnDelete.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -98,6 +108,13 @@ namespace HappyTourManager.Pages
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             custVM.SaveCustomer();
+            MessageBox.Show("Customer data is saved!");
+
+    }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.contCustDetails.Visibility = Visibility.Hidden;
+            custVM.SelectedCustomer = null;
         }
     }
-}
