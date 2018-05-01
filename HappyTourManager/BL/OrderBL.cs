@@ -83,7 +83,7 @@ namespace BL
 
             // searching for orders which are between 2 dates
             // searchvalue must be a DateTime[]
-            if ((OrderTerms)Enum.Parse(typeof(OrderTerms), (string)searchterm) == OrderTerms.ORDERDATE)
+            if ((OrderTerms)searchterm == OrderTerms.ORDERDATE)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -95,7 +95,7 @@ namespace BL
 
             // searching for orders which are ordered with loyaltycard holders
             // searchvalue must be a string and accepted values are 1 or 0
-            else if ((OrderTerms)Enum.Parse(typeof(OrderTerms), (string)searchterm) == OrderTerms.ISLOYALTY)
+            else if ((OrderTerms)searchterm == OrderTerms.ISLOYALTY)
             {
                 string isloyalty = (string)searchvalue;
                 orders = orders.Where(e => e.IsLoyalty.Equals(isloyalty));
@@ -104,7 +104,7 @@ namespace BL
 
             // searching for orders which are payed
             // searchvalue must be a string and accepted values are 1 or 0
-            else if ((OrderTerms)Enum.Parse(typeof(OrderTerms), (string)searchterm) == OrderTerms.ISPAYED)
+            else if ((OrderTerms)searchterm == OrderTerms.ISPAYED)
             {
                 string ispayed = (string)searchvalue;
                 orders = orders.Where(e => e.IsPayed.Equals(ispayed));
@@ -113,7 +113,7 @@ namespace BL
 
             // searching for orders which are cancelled
             // searchvalue must be a string and accepted values are 1 or 0
-            else if ((OrderTerms)Enum.Parse(typeof(OrderTerms), (string)searchterm) == OrderTerms.ISCANCELLED)
+            else if ((OrderTerms)searchterm == OrderTerms.ISCANCELLED)
             {
                 string iscancelled = (string)searchvalue;
                 orders = orders.Where(e => e.IsCancelled.Equals(iscancelled));
@@ -121,7 +121,7 @@ namespace BL
             }
 
             // searches for all Orders
-            else if ((OrderTerms)Enum.Parse(typeof(OrderTerms), (string)searchterm) == OrderTerms.DEFAULT)
+            else if ((OrderTerms)searchterm == OrderTerms.DEFAULT)
             {
                 return orders.ToList();
             }

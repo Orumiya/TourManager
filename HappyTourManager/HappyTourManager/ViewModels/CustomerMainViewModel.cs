@@ -147,11 +147,11 @@ namespace HappyTourManager
                 dt[0] = SelectedDateFrom;
                 dt[1] = SelectedDateTo;
 
-                ResultList = custBL.Search(SelectedCtegory, dt);
+                ResultList = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), dt);
             }
             else
             {
-                ResultList = custBL.Search(SelectedCtegory, SelectedValue);
+                ResultList = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), SelectedValue);
             }
         }
 

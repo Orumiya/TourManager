@@ -80,7 +80,7 @@ namespace BL
 
             // returns customers with this last name
             // searchvalue must be a string
-            if ((CustomerTerms)Enum.Parse(typeof(CustomerTerms), (string)searchterm) == CustomerTerms.LASTNAME)
+            if ((CustomerTerms)searchterm == CustomerTerms.LASTNAME)
             {
                 customerList = customerList.Where(e => e.Person.LastName.ToLower().Equals(((string)searchvalue).ToLower()));
                 return customerList.ToList<Customer>();
@@ -88,7 +88,7 @@ namespace BL
 
             // returns customers  with this city
             // searchvalue must be a string
-            else if ((CustomerTerms)Enum.Parse(typeof(CustomerTerms), (string)searchterm) == CustomerTerms.ADDRESSCITY)
+            else if ((CustomerTerms)searchterm == CustomerTerms.ADDRESSCITY)
             {
                 customerList = customerList.Where(e => e.Person.AddressCity.ToLower().Equals(((string)searchvalue).ToLower()));
                 return customerList.ToList<Customer>();
@@ -96,7 +96,7 @@ namespace BL
 
             // returns customers with this IDNumber
             // searchvalue must be int
-            else if ((CustomerTerms)Enum.Parse(typeof(CustomerTerms), (string)searchterm) == CustomerTerms.IDNUMBER)
+            else if ((CustomerTerms)searchterm == CustomerTerms.IDNUMBER)
             {
                 customerList = customerList.Where(e => e.Person.IDNumber == (int)searchvalue);
                 return customerList.ToList<Customer>();
@@ -104,7 +104,7 @@ namespace BL
 
             // LoyaltyCard is a string in DB, values can be 1 for true and 0 for false
             // searchvalue must be a string
-            else if ((CustomerTerms)Enum.Parse(typeof(CustomerTerms), (string)searchterm) == CustomerTerms.LOYALTYCARD)
+            else if ((CustomerTerms)searchterm == CustomerTerms.LOYALTYCARD)
             {
                 customerList = customerList.Where(e => e.LoyaltyCard.Equals((string)searchvalue));
                 return customerList.ToList<Customer>();
@@ -112,7 +112,7 @@ namespace BL
 
             // returns customers with ValidTo date of their ID between these 2 dates
             // searchvalue must be a DateTime[]
-            else if ((CustomerTerms)Enum.Parse(typeof(CustomerTerms), (string)searchterm) == CustomerTerms.VALIDTO)
+            else if ((CustomerTerms)searchterm == CustomerTerms.VALIDTO)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -120,7 +120,7 @@ namespace BL
                 customerList = customerList.Where(e => e.Person.ValidTo <= endInterval && e.Person.ValidTo >= startInterval);
                 return customerList.ToList<Customer>();
             }
-            else if ((CustomerTerms)Enum.Parse(typeof(CustomerTerms), (string)searchterm) == CustomerTerms.DEFAULT)
+            else if ((CustomerTerms)searchterm == CustomerTerms.DEFAULT)
             {
                 return customerList.ToList<Customer>();
             }
