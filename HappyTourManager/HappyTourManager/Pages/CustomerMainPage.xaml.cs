@@ -39,7 +39,7 @@ namespace HappyTourManager.Pages
             if (custVM.SelectedCtegory == "VALIDTO")
             {
                 DatePicker datePicker = new DatePicker();
-                
+
                 Binding binding = new Binding("SelectedDateFrom");
                 datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
                 this.contSearch1.Content = datePicker;
@@ -80,6 +80,9 @@ namespace HappyTourManager.Pages
                 btnEdit.Visibility = Visibility.Hidden;
                 btnDelete.Visibility = Visibility.Hidden;
             }
+            this.contCustDetails.Visibility = Visibility.Hidden;
+            this.btnSave.Visibility = Visibility.Hidden;
+            this.btnCancel.Visibility = Visibility.Hidden;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -101,8 +104,15 @@ namespace HappyTourManager.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             custVM.SelectedCustomer = new Customer()
-            { Person = new Person() };
+            { Person = new Person()
+            {
+                BirthDate = DateTime.Today,
+                ValidTo = DateTime.Today
+            }
+            };
             this.contCustDetails.Visibility = Visibility.Visible;
+            this.btnSave.Visibility = Visibility.Visible;
+            this.btnCancel.Visibility = Visibility.Visible;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -110,11 +120,42 @@ namespace HappyTourManager.Pages
             custVM.SaveCustomer();
             MessageBox.Show("Customer data is saved!");
 
-    }
+        }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.contCustDetails.Visibility = Visibility.Hidden;
             custVM.SelectedCustomer = null;
+            this.btnSave.Visibility = Visibility.Hidden;
+            this.btnCancel.Visibility = Visibility.Hidden;
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (custVM.ResultList.Count>0 && custVM.SelectedCustomer !=null)
+            {
+                this.contCustDetails.Visibility = Visibility.Visible;
+                this.btnSave.Visibility = Visibility.Visible;
+                this.btnCancel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.contCustDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (custVM.SelectedCustomer != null)
+            {
+                if (MessageBox.Show("Delete", "Do you want to delete customer?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    custVM.DeleteCustomer();
+                    MessageBox.Show("Customer is deleted");
+                }
+            }
         }
     }
+}
