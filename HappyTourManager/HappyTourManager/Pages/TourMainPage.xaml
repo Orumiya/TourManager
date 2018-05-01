@@ -57,7 +57,11 @@
 
                 </ScrollViewer>
             </Grid>
-            <ContentControl Grid.Column="2" Name="contTourDetails" Margin="5"/>
+            <ContentControl Grid.Column="2" Name="contTourDetails" Margin="5">
+                <ContentControl.Content>
+                    <local:TourDetailsUC/>
+                </ContentControl.Content>
+            </ContentControl>
 
         </Grid>
         <Grid Grid.Row="2">

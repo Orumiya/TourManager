@@ -54,19 +54,19 @@ namespace HappyTourManager.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            tourVM = new TourMainViewModel();
+            tourVM = new TourMainViewModel(tourRepo,placeRepo,pltconRepo,programRepo,prtconRepo,tourguideRepo);
 
-            //this.searchCat.ItemsSource = custVM.SearchCategories;
-            //this.searchCat.Visibility = Visibility.Visible;
-            //this.searchCat.SelectedItem = "DEFAULT";
-            //this.DataContext = custVM;
-            //custDetail = new AddCustomerUC();
-            //foreach (string item in custVM.countryList)
-            //{
-            //    custDetail.cboxCountry.Items.Add(item);
-            //}
-            //this.contCustDetails.Content = custDetail;
-            //this.contCustDetails.Visibility = Visibility.Hidden;
+            this.searchCat.ItemsSource = tourVM.SearchCategories;
+            this.searchCat.Visibility = Visibility.Visible;
+            this.searchCat.SelectedItem = "DEFAULT";
+            this.DataContext = tourVM;
+            tourDetail = new TourDetailsUC();
+            foreach (string item in tourVM.countryList)
+            {
+                tourDetail.cboxCountry.Items.Add(item);
+            }
+            this.contTourDetails.Content = tourDetail;
+            this.contTourDetails.Visibility = Visibility.Hidden;
         }
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
