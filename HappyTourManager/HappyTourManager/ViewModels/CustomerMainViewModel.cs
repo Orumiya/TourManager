@@ -171,7 +171,15 @@ namespace HappyTourManager
 
         public void SaveCustomer()
         {
-            custBL.Save(SelectedCustomer);
+            
+            if (ResultList.Contains(SelectedCustomer))
+            {
+                custBL.Update();
+            }
+            else
+            {
+                custBL.Save(SelectedCustomer);
+            }
         }
 
     }
