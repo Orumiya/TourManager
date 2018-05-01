@@ -69,20 +69,31 @@ namespace HappyTourManager.Pages
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            custVM.GetSearchResult();
-            if (custVM.ResultList.Count > 0)
+            try
             {
-                btnEdit.Visibility = Visibility.Visible;
-                btnDelete.Visibility = Visibility.Visible;
+                custVM.GetSearchResult();
+                if (custVM.ResultList.Count > 0)
+                {
+                    btnEdit.Visibility = Visibility.Visible;
+                    btnDelete.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnEdit.Visibility = Visibility.Hidden;
+                    btnDelete.Visibility = Visibility.Hidden;
+                }
+                this.contCustDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
             }
-            else
+            catch (Exception ex)
             {
-                btnEdit.Visibility = Visibility.Hidden;
-                btnDelete.Visibility = Visibility.Hidden;
+                MessageBox.Show(ex.Message);
             }
-            this.contCustDetails.Visibility = Visibility.Hidden;
-            this.btnSave.Visibility = Visibility.Hidden;
-            this.btnCancel.Visibility = Visibility.Hidden;
+                
+            
+
+            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -117,15 +128,31 @@ namespace HappyTourManager.Pages
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (custVM.Checkvalues())
+            try
             {
-                MessageBox.Show("All values must be filled in!");
+                if (custVM.Checkvalues())
+                {
+                    MessageBox.Show("All values must be filled in!");
+                }
+                else
+                {
+                    custVM.SaveCustomer();
+                    MessageBox.Show("Customer data is saved!");
+                    this.contCustDetails.Visibility = Visibility.Hidden;
+                    custVM.SelectedCustomer = null;
+                    this.btnSave.Visibility = Visibility.Hidden;
+                    this.btnCancel.Visibility = Visibility.Hidden;
+                }
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                custVM.SaveCustomer();
-                MessageBox.Show("Customer data is saved!");
-            }           
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong :(");
+            }
+
 
         }
 
@@ -157,11 +184,16 @@ namespace HappyTourManager.Pages
         {
             if (custVM.SelectedCustomer != null)
             {
-                if (MessageBox.Show("Delete", "Do you want to delete customer?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Do you want to delete customer?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     custVM.DeleteCustomer();
                     MessageBox.Show("Customer is deleted");
+                    custVM.ResultList.Remove(custVM.SelectedCustomer);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select a customer!");
             }
         }
     }
