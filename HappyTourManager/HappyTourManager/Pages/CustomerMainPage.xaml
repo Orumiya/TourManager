@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Background="{StaticResource FGMidBrush}" Grid.Column="0" Content="+ Add instance" FontFamily="{StaticResource SugarcubesBold}" FontSize="18" Height="50" Width="300" HorizontalAlignment="Center" Margin="5,5,0,5" Click="Button_Click"/>
+            <Button Background="{StaticResource FGMidBrush}" Grid.Column="0" Content="+ Add new Customer" FontFamily="{StaticResource SugarcubesBold}" FontSize="18" Height="50" Width="300" HorizontalAlignment="Center" Margin="5,5,0,5" Click="Button_Click"/>
             <TextBlock Grid.Column="1" Text="Search for: " Foreground="{StaticResource ForegroundLight}" FontSize="14" VerticalAlignment="Center" Padding="10" FontWeight="ExtraBold"/>
             <ComboBox Name="searchCat" SelectedItem="{Binding SelectedCtegory}" Margin="10" Grid.Column="2" Visibility="Hidden" SelectionChanged="searchCat_SelectionChanged"/>
             <TextBlock Grid.Column="3" Text="Value: " Foreground="{StaticResource ForegroundLight}" FontSize="14" VerticalAlignment="Center" Padding="10" FontWeight="ExtraBold"/>
@@ -39,19 +39,21 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="2"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <Border Grid.Column="1" Background="{StaticResource DarkerBlueBrush}" ></Border>
             <Grid Grid.Column="0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListBox ItemsSource="{Binding ResultList}" Background="Transparent">
+                    <ListBox Width="300" ItemsSource="{Binding ResultList}" SelectedItem="{Binding SelectedCustomer}" Background="Transparent" Margin="0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <local:UserControl1/>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>                        
+                        </ListBox.ItemTemplate>
                     </ListBox>
-  
+
                 </ScrollViewer>
             </Grid>
             <ContentControl Grid.Column="1" Name="contCustDetails" Margin="5"/>
@@ -65,13 +67,13 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Name="btnEdit" Style="{StaticResource Iconbtn}" Grid.Column="0" Opacity="0.8" Visibility="Hidden">
+            <Button Name="btnEdit" Style="{StaticResource Iconbtn}" Grid.Column="0" Opacity="0.8" Visibility="Hidden" Click="btnEdit_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/edit.png" Stretch="Uniform"/>
                     <TextBlock Text=" Edit"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnDelete" Style="{StaticResource Iconbtn}" Grid.Column="1" Opacity="0.8" Visibility="Hidden"> 
+            <Button Name="btnDelete" Style="{StaticResource Iconbtn}" Grid.Column="1" Opacity="0.8" Visibility="Hidden" Click="btnDelete_Click"> 
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/delete.png" Stretch="Uniform"/>
                     <TextBlock Text=" Delete"/>
