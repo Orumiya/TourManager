@@ -182,5 +182,10 @@ namespace HappyTourManager
             }
         }
 
+        public void DeleteCustomer()
+        {
+            custBL.Delete(SelectedCustomer);
+        }
+
     }
 }
