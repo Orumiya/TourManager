@@ -36,6 +36,9 @@ namespace BL
 
     public class ReportBL : ISearcheable<Report>, IReportList
     {
+        /// <inheritdoc />
+        public event EventHandler ReportListChanged;
+
         private readonly IRepository<Report> reportRepository;
         private readonly IRepository<Order> orderRepository;
         private readonly IRepository<Customer> customerRepository;
@@ -88,8 +91,7 @@ namespace BL
             this.prtconRepository = prtconRepository;
         }
 
-        /// <inheritdoc />
-        public event EventHandler ReportListChanged;
+        public Tuple<int, int> CustomerReportResult { get; set; }
 
         /// <inheritdoc />
         public void Delete(Report report)
@@ -217,13 +219,12 @@ namespace BL
         /// <summary>
         /// generates a CustomerXMLreport and returns 2 parameters for the chart
         /// </summary>
-        /// <returns>Tuple item1 = customersWithLoyaltyCount, Tuple item2 = customersWithoutLoyaltyCount </returns>
-        private Tuple<int, int> GenerateCustomerReport()
+        private void GenerateCustomerReport()
         {
             // pie or doughnut chart needed
             Tuple<int, int, IQueryable<Customer>, IQueryable<Customer>> info = this.CollectCustomerInfo();
             this.CreateXMLCustomerReport(info.Item3, info.Item4);
-            return new Tuple<int, int>(info.Item1, info.Item2);
+            this.CustomerReportResult = new Tuple<int, int>(info.Item1, info.Item2);
         }
 
         private Tuple<int, int, IQueryable<Customer>, IQueryable<Customer>> CollectCustomerInfo()
