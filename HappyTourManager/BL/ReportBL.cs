@@ -50,6 +50,8 @@ namespace BL
         private readonly IRepository<Place> placeRepository;
         private readonly IRepository<PLTCON> pltconRepository;
         private readonly IRepository<PRTCON> prtconRepository;
+        private Tuple<int, int> _customerReportResult;
+        private Tuple<int, int, int> _orderReportResult;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportBL"/> class.
@@ -91,7 +93,15 @@ namespace BL
             this.prtconRepository = prtconRepository;
         }
 
-        public Tuple<int, int> CustomerReportResult { get; set; }
+        /// <summary>
+        /// Gets or sets info for the Customer chart
+        /// </summary>
+        public Tuple<int, int> CustomerReportResult { get => this._customerReportResult; set => this._customerReportResult = value; }
+
+        /// <summary>
+        ///  Gets or sets info for the Order chart
+        /// </summary>
+        public Tuple<int, int, int> OrderReportResult { get => this._orderReportResult; set => this._orderReportResult = value; }
 
         /// <inheritdoc />
         public void Delete(Report report)
@@ -206,18 +216,98 @@ namespace BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Generates the Order report and updates the OrderReportResult for the chart
+        /// </summary>
         private void GenerateOrderReport()
         {
-            throw new NotImplementedException();
-        }
-
-        private void GenerateTourReport()
-        {
-            throw new NotImplementedException();
+            // basic column chart needed
+            Tuple<int, int, int, IQueryable<Order>, IQueryable<Order>, IQueryable<Order>> info = this.CollectOrderInfoForReport();
+            this.CreateXMLOrderReport(info.Item4, info.Item5, info.Item6);
+            this.OrderReportResult = new Tuple<int, int, int>(info.Item1, info.Item2, info.Item3);
         }
 
         /// <summary>
-        /// generates a CustomerXMLreport and returns 2 parameters for the chart
+        /// generates an Order XML
+        /// </summary>
+        /// <param name="payedOrders">list of payedOrders</param>
+        /// <param name="cancelledOrders">list of cancelledOrders</param>
+        /// <param name="pendingOrders">list of pendingOrders</param>
+        private void CreateXMLOrderReport(IQueryable<Order> payedOrders, IQueryable<Order> cancelledOrders, IQueryable<Order> pendingOrders)
+        {
+            XDocument orderReport = new XDocument(
+#pragma warning disable SA1118 // Parameter must not span multiple lines
+            new XDeclaration("1.0", "utf-8", "yes"),
+            new XElement(
+                "OrderReport",
+                from payed in payedOrders
+                select
+                new XElement(
+                    "PayedOrders",
+                new XAttribute(
+                    "ID", payed.OrderID),
+                new XElement(
+                    "OrderDate", payed.OrderDate),
+                new XElement(
+                    "NumberOfPerson", payed.PersonCount),
+                new XElement(
+                    "TravelName", payed.Tour.TravelName),
+                new XElement(
+                    "TotalSum", payed.TotalSum)),
+                from cancelled in cancelledOrders
+                select
+                new XElement(
+                    "CancelledOrsers",
+                new XAttribute(
+                    "ID", cancelled.OrderID),
+                new XElement(
+                    "OrderDate", cancelled.OrderDate),
+                new XElement(
+                    "NumberOfPerson", cancelled.PersonCount),
+                new XElement(
+                    "TravelName", cancelled.Tour.TravelName),
+                new XElement(
+                    "TotalSum", cancelled.TotalSum)),
+                from pending in pendingOrders
+                select
+                new XElement(
+                    "PendingOrsers",
+                new XAttribute(
+                    "ID", pending.OrderID),
+                new XElement(
+                    "OrderDate", pending.OrderDate),
+                new XElement(
+                    "NumberOfPerson", pending.PersonCount),
+                new XElement(
+                    "TravelName", pending.Tour.TravelName),
+                new XElement(
+                    "TotalSum", pending.TotalSum))));
+#pragma warning restore SA1118 // Parameter must not span multiple lines
+            DateTime generateTime = DateTime.Now;
+            string filename = "OrderReport_" + generateTime.Year.ToString() + generateTime.Month.ToString() + generateTime.Day.ToString() + generateTime.Hour.ToString() + generateTime.Minute.ToString() + "_.xml";
+            orderReport.Save(filename);
+        }
+
+        /// <summary>
+        /// collects the order info for the generator method
+        /// </summary>
+        /// <returns>a tuple of info</returns>
+        private Tuple<int, int, int, IQueryable<Order>, IQueryable<Order>, IQueryable<Order>> CollectOrderInfoForReport()
+        {
+            var orders = this.orderRepository.GetAll();
+            var payedOrders = orders.Where(e => e.IsPayed.Equals("1"));
+            int payedOrderCount = payedOrders.Count();
+            var cancelledOrders = orders.Where(e => e.IsCancelled.Equals("1"));
+            int cancelledOrderCount = cancelledOrders.Count();
+            var pendingOrders = orders.Where(e => !e.IsPayed.Equals("1") && !e.IsCancelled.Equals("1"));
+            int pendingOrderCount = pendingOrders.Count();
+            Tuple<int, int, int, IQueryable<Order>, IQueryable<Order>, IQueryable<Order>> result =
+                new Tuple<int, int, int, IQueryable<Order>, IQueryable<Order>, IQueryable<Order>>(payedOrderCount, cancelledOrderCount, pendingOrderCount, payedOrders, cancelledOrders, pendingOrders);
+            return result;
+        }
+
+        /// <summary>
+        /// generates a CustomerXMLreport and updates the OrderReportResult for the chart
         /// </summary>
         private void GenerateCustomerReport()
         {
@@ -227,6 +317,10 @@ namespace BL
             this.CustomerReportResult = new Tuple<int, int>(info.Item1, info.Item2);
         }
 
+        /// <summary>
+        /// Collects the customer info for the generator method
+        /// </summary>
+        /// <returns>Tuple of info</returns>
         private Tuple<int, int, IQueryable<Customer>, IQueryable<Customer>> CollectCustomerInfo()
         {
             var customers = this.customerRepository.GetAll();
@@ -239,6 +333,11 @@ namespace BL
             return result;
         }
 
+        /// <summary>
+        /// creates a CustomerXML
+        /// </summary>
+        /// <param name="customersWithLoyalty">input list of customersWithLoyalty</param>
+        /// <param name="customersWithoutLoyalty">input list of customersWithoutLoyalty</param>
         private void CreateXMLCustomerReport(IQueryable<Customer> customersWithLoyalty, IQueryable<Customer> customersWithoutLoyalty)
         {
             XDocument customerReport = new XDocument(
@@ -276,7 +375,14 @@ namespace BL
                     "BirthDate", custN.Person.BirthDate))));
 #pragma warning restore SA1118 // Parameter must not span multiple lines
 
-            customerReport.Save("CustomerReport.xml");
+            DateTime generateTime = DateTime.Now;
+            string filename = "CustomerReport_" + generateTime.Year.ToString() + generateTime.Month.ToString() + generateTime.Day.ToString() + generateTime.Hour.ToString() + generateTime.Minute.ToString() + "_.xml";
+            customerReport.Save(filename);
+        }
+
+        private void GenerateTourReport()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
