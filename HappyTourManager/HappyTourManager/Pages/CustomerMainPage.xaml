@@ -77,7 +77,7 @@
                     <TextBlock Text=" Delete"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnSave" Content="Save" Style="{StaticResource Iconbtn}" Grid.Column="3" Opacity="0.8"/>
+            <Button Name="btnSave" Content="Save" Style="{StaticResource Iconbtn}" Grid.Column="3" Opacity="0.8" Click="btnSave_Click"/>
             <Button Name="btnCancel" Content="Cancel" Style="{StaticResource Iconbtn}" Grid.Column="4" Opacity="0.8"/>
             <Label Grid.Column="2" Opacity="0.8" Background="{StaticResource BGBlueBrush}"/>
         </Grid>
