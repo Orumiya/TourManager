@@ -114,7 +114,7 @@ namespace HappyTourManager
             set
             {
                 selectedCustomer = value;
-                OnPropertyChanged(nameof(ResultList));
+                OnPropertyChanged(nameof(SelectedCustomer));
             }
         }
 
@@ -167,6 +167,11 @@ namespace HappyTourManager
             }
 
             countryList = countryNames.OrderBy(names => names).Distinct();
+        }
+
+        public void SaveCustomer()
+        {
+            custBL.Save(SelectedCustomer);
         }
 
     }

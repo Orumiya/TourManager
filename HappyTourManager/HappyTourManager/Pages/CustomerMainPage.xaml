@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="{StaticResource ForegroundBrush}">
@@ -35,7 +36,7 @@
                     FontSize="16" Height="50" Width="100" HorizontalAlignment="Center" Margin="10" VerticalContentAlignment="Top"/>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*" />
@@ -43,17 +44,42 @@
 
             <Grid Grid.Column="0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding ResultList}">
-                        <ItemsControl.ItemTemplate>
+                    <ListBox ItemsSource="{Binding ResultList}" Background="Transparent">
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <local:UserControl1 />
+                                <local:UserControl1/>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </ListBox.ItemTemplate>                        
+                    </ListBox>
+  
                 </ScrollViewer>
             </Grid>
             <ContentControl Grid.Column="1" Name="contCustDetails" Margin="5"/>
 
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnEdit" Style="{StaticResource Iconbtn}" Grid.Column="0" Opacity="0.8">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/edit.png" Stretch="Uniform"/>
+                    <TextBlock Text=" Edit"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnDelete" Style="{StaticResource Iconbtn}" Grid.Column="1" Opacity="0.8"> 
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/delete.png" Stretch="Uniform"/>
+                    <TextBlock Text=" Delete"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnSave" Content="Save" Style="{StaticResource Iconbtn}" Grid.Column="3" Opacity="0.8" Click="btnSave_Click"/>
+            <Button Name="btnCancel" Content="Cancel" Style="{StaticResource Iconbtn}" Grid.Column="4" Opacity="0.8"/>
+            <Label Grid.Column="2" Opacity="0.8" Background="{StaticResource BGBlueBrush}"/>
         </Grid>
     </Grid>
 </Page>

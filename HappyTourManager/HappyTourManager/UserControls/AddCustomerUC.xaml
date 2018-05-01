@@ -15,11 +15,7 @@
             </Grid.Resources>
             <ScrollViewer >
                 <StackPanel Margin="3">
-                <DockPanel Margin="3">
-                    <TextBlock Text="CustomerID: "/>
-                    <TextBox Text="{Binding SelectedCustomer.PersonID}" />
-                </DockPanel>
-                <DockPanel Margin="3">
+                    <DockPanel Margin="3">
                     <TextBlock Text="Last Name: "/>
                     <TextBox Text="{Binding SelectedCustomer.Person.LastName}" />
                 </DockPanel>
@@ -33,7 +29,7 @@
                 </DockPanel>
                 <DockPanel Margin="3">
                     <TextBlock Text="Phonenumber: "/>
-                    <TextBox Text="{Binding SelectedCustomer.Person.BirthDate}" />
+                    <TextBox Text="{Binding SelectedCustomer.Person.Phone}" />
                 </DockPanel>
                 <TextBlock Text="Address" FontWeight="Bold" Margin="0,5,0,0"/>
                 <DockPanel Margin="3">
@@ -55,11 +51,8 @@
                 <TextBlock Text="ID Details" FontWeight="Bold" Margin="0,5,0,0"/>
                     <DockPanel Margin="3">
                         <TextBlock Text="ID Type: "/>
-                        <ComboBox SelectedItem="{Binding SelectedCustomer.Person.IDType}">
-                            <ComboBoxItem Content="Passport" />
-                            <ComboBoxItem Content="ID Card" />
-                            <ComboBoxItem Content="Driving licence" />
-                        </ComboBox>
+                        <ComboBox Name="cbIDtype" SelectedItem="{Binding SelectedCustomer.Person.IDType}"/>
+
                     </DockPanel>
                 <DockPanel Margin="3">
                     <TextBlock Text="ID number: "/>

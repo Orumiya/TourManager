@@ -90,7 +90,14 @@ namespace HappyTourManager.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            custVM.SelectedCustomer = new Customer()
+            { Person = new Person() };
             this.contCustDetails.Visibility = Visibility.Visible;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            custVM.SaveCustomer();
         }
     }
 }

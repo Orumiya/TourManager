@@ -57,6 +57,8 @@ namespace HappyTourManager
         UserRepository userRepo;
 
 
+
+
         public MainWindow()
         {
             this.InitializeComponent();

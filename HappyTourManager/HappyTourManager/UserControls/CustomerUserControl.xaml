@@ -17,7 +17,7 @@
         <StackPanel Grid.Column="1" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Padding="2" Text="CustomerID: " FontFamily="{StaticResource SugarcubesBold}" FontSize="14" FontWeight="Bold"/>
-                <TextBlock Padding="2" Text="{Binding SelectedCustomer.PersonID}" FontFamily="{StaticResource SugarcubesBold}" FontSize="14"/>
+                <TextBlock Padding="2" Text="{Binding PersonID}" FontFamily="{StaticResource SugarcubesBold}" FontSize="14"/>
             </StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -26,11 +26,11 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <TextBlock Padding="3" Text="Last Name: " FontFamily="{StaticResource SugarcubesRegular}" />
-                    <TextBlock Padding="3" Text="{Binding SelectedCustomer.Person.LastName}" FontFamily="{StaticResource SugarcubesRegular}" />
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Padding="3" Text="{Binding Person.LastName}" FontFamily="{StaticResource SugarcubesRegular}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <TextBlock Padding="3" Text="First Name: " FontFamily="{StaticResource SugarcubesRegular}" />
-                    <TextBlock Padding="3" Text="{Binding SelectedCustomer.Person.FirstName}" FontFamily="{StaticResource SugarcubesRegular}" />
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Padding="3" Text="{Binding Person.FirstName}" FontFamily="{StaticResource SugarcubesRegular}" />
                 </StackPanel>
             </Grid>
             <Grid>
@@ -42,11 +42,11 @@
                 
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <TextBlock Padding="3" Text="ID Number: " FontFamily="{StaticResource SugarcubesRegular}" />
-                    <TextBlock Padding="3" Text="{Binding SelectedCustomer.Person.IDNumber}" FontFamily="{StaticResource SugarcubesRegular}" />
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Padding="3" Text="{Binding Person.IDNumber}" FontFamily="{StaticResource SugarcubesRegular}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <TextBlock Padding="3"  Text="Valid To: " FontFamily="{StaticResource SugarcubesRegular}" />
-                    <TextBlock Padding="3"  Text="{Binding SelectedCustomer.Person.ValidTo}" FontFamily="{StaticResource SugarcubesRegular}" />
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Padding="3"  Text="{Binding Person.ValidTo, StringFormat='{}{0:dd/MM/yyyy}'}" FontFamily="{StaticResource SugarcubesRegular}" />
                 </StackPanel>
             </Grid>
 
