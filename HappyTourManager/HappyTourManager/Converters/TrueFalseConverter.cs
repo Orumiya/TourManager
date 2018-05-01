@@ -12,7 +12,11 @@ namespace HappyTourManager.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.ToString() == "1";
+            if (value != null)
+            {
+                return value.ToString() == "1";
+            }
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
