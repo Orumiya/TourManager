@@ -56,7 +56,7 @@
 
                 </ScrollViewer>
             </Grid>
-            <ContentControl Grid.Column="1" Name="contCustDetails" Margin="5"/>
+            <ContentControl Grid.Column="2" Name="contCustDetails" Margin="5"/>
 
         </Grid>
         <Grid Grid.Row="2">

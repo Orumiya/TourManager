@@ -117,8 +117,15 @@ namespace HappyTourManager.Pages
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            custVM.SaveCustomer();
-            MessageBox.Show("Customer data is saved!");
+            if (custVM.Checkvalues())
+            {
+                MessageBox.Show("All values must be filled in!");
+            }
+            else
+            {
+                custVM.SaveCustomer();
+                MessageBox.Show("Customer data is saved!");
+            }           
 
         }
 
