@@ -4,6 +4,7 @@ using DATA.Interfaces;
 using DATA.Repositoriees;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -91,7 +92,7 @@ namespace HappyTourManager
             }
         }
 
-        public IList<Customer> ResultList
+        public ObservableCollection<Customer> ResultList
         {
             get
             {
@@ -123,7 +124,8 @@ namespace HappyTourManager
         private string selectedValue;
         private DateTime selectedDateFrom = DateTime.Today;
         private DateTime selectedDateTo = DateTime.Today;
-        private IList<Customer> resultList;
+        private IList<Customer> rL;
+        private ObservableCollection<Customer> resultList;
         private Customer selectedCustomer;
         
 
@@ -144,16 +146,17 @@ namespace HappyTourManager
         {
             if (SelectedCtegory == "VALIDTO")
             {
-                DateTime[] dt = new DateTime[1];
+                DateTime[] dt = new DateTime[2];
                 dt[0] = SelectedDateFrom;
                 dt[1] = SelectedDateTo;
 
-                ResultList = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), dt);
+                rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), dt);
             }
             else
             {
-                ResultList = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), SelectedValue);
+                rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), SelectedValue);
             }
+            ResultList = new ObservableCollection<Customer>(rL);
         }
 
         private void CreateCountryList()
