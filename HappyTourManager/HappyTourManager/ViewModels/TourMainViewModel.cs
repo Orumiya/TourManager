@@ -42,6 +42,7 @@ namespace HappyTourManager
         ObservableCollection<Tourguide> tourGuideList;
 
         private List<string> searchCategories;
+        private bool isEdit;
 
         public IEnumerable<string> countryList;
         #endregion
@@ -284,6 +285,20 @@ namespace HappyTourManager
                 OnPropertyChanged(nameof(SelectedTourGuide));
             }
         }
+
+        public bool IsEdit
+        {
+            get
+            {
+                return isEdit;
+            }
+
+            set
+            {
+                isEdit = value;
+                OnPropertyChanged(nameof(IsEdit));
+            }
+        }
         #endregion
 
         #region constructor
@@ -312,6 +327,8 @@ namespace HappyTourManager
             PlaceListAll = new ObservableCollection<Place>();
             programListAll = new ObservableCollection<Program>();
             TourGuideList = new ObservableCollection<Tourguide>();
+            TourPlaceList = new ObservableCollection<Place>();
+            TourProgramList = new ObservableCollection<Program>();
             GetAllPlaces();
             GetAllPrograms();
             GetAllTourGuides();
@@ -346,6 +363,41 @@ namespace HappyTourManager
                 rL = tourBL.Search(Enum.Parse(typeof(TourTerms), SelectedCtegory), SelectedValue1);
             }
             ResultList = new ObservableCollection<Tour>(rL);
+        }
+
+        /// <summary>
+        /// Get Places for selected tour
+        /// </summary>
+        public void GetTourPlaces()
+        {
+            IQueryable<PLTCON> places = pltconRepo.GetAll();
+            foreach (var item in places)
+            {
+                if (item != null && item.TourID == SelectedTour.TourID)
+                {
+                    TourPlaceList.Add(item.Place);
+                }
+                
+            }
+
+        }
+
+        /// <summary>
+        /// Get Programs for selected tour
+        /// </summary>
+        public void GetTourPrograms()
+        {
+            IQueryable<PRTCON> programs = prtconRepo.GetAll();
+            foreach (var item in programs)
+            {
+                if (item != null && item.TourID == SelectedTour.TourID)
+                {
+                    TourProgramList.Add(item.Program);
+                }
+
+                
+            }
+
         }
         #endregion
 
@@ -383,27 +435,7 @@ namespace HappyTourManager
             }
         }
 
-        private void GetTourPlaces()
-        {
-            IQueryable<PLTCON> places = pltconRepo.GetAll();
-            places = places.Where(e => e.TourID == SelectedTour.TourID);
-            foreach (var item in places)
-            {
-                TourPlaceList.Add(item.Place);
-            }
 
-        }
-
-        private void GetTourPrograms()
-        {
-            IQueryable<PRTCON> programs = prtconRepo.GetAll();
-            programs = programs.Where(e => e.TourID == SelectedTour.TourID);
-            foreach (var item in programs)
-            {
-                TourProgramList.Add(item.Program);
-            }
-
-        }
 
         private void GetAllTourGuides()
         {
