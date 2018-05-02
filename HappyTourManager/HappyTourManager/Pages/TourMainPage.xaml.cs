@@ -188,17 +188,16 @@ namespace HappyTourManager.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //custVM.SelectedCustomer = new Customer()
-            //{
-            //    Person = new Person()
-            //    {
-            //        BirthDate = DateTime.Today,
-            //        ValidTo = DateTime.Today
-            //    }
-            //};
-            //this.contCustDetails.Visibility = Visibility.Visible;
-            //this.btnSave.Visibility = Visibility.Visible;
-            //this.btnCancel.Visibility = Visibility.Visible;
+            tourVM.SelectedTour = new Tour()
+            {
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today
+            };
+            tourVM.SelectedPlace = new Place();
+            tourVM.SelectedProgram = new Program();
+            this.contTourDetails.Visibility = Visibility.Visible;
+            this.btnSave.Visibility = Visibility.Visible;
+            this.btnCancel.Visibility = Visibility.Visible;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
