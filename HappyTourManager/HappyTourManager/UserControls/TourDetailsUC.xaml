@@ -6,125 +6,144 @@
              xmlns:local="clr-namespace:HappyTourManager"
              xmlns:Converters="clr-namespace:HappyTourManager.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Border Background="{StaticResource LightBGBrush}" CornerRadius="5" Opacity="0.9">
         <Grid Background="{StaticResource LightBGBrush}" Margin="10">
             <Grid.Resources>
                 <Converters:TrueFalseConverter x:Key="truefalse" />
 
             </Grid.Resources>
-            <ScrollViewer >
-                <StackPanel Margin="3">
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Travel Name: "/>
-                        <TextBox Text="{Binding SelectedTour.TravelName}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Description: "/>
-                        <TextBox Text="{Binding SelectedTour.Description}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Transport type: "/>
-                        <TextBox Text="{Binding SelectedTour.Transport}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Tourguide: "/>
-                        <ComboBox Name="cboxTourGuide" SelectedItem="{Binding SelectedTour.TourguideID}" />
-                    </DockPanel>
-                    <TextBlock Text="Dates" FontWeight="Bold" Margin="0,5,0,0"/>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Start date: "/>
-                        <DatePicker SelectedDate="{Binding SelectedTour.StartDate}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="End date: "/>
-                        <DatePicker SelectedDate="{Binding SelectedTour.EndDate}" />
-                    </DockPanel>
-                    <TextBlock Text="Number of passangers" FontWeight="Bold" Margin="0,5,0,0"/>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Minimum: "/>
-                        <TextBox Text="{Binding SelectedTour.MinNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Maximum: "/>
-                        <TextBox Text="{Binding SelectedTour.MaxNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
-                    </DockPanel>
-                    <TextBlock Text="Prices" FontWeight="Bold" Margin="0,5,0,0"/>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Price per night: "/>
-                        <TextBox Text="{Binding PricePerNight, StringFormat='{}{0:#\\%;0:#;#}'}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Adult price: "/>
-                        <TextBlock Text="{Binding SelectedTour.AdultPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Child price: "/>
-                        <TextBlock Text="{Binding SelectedTour.ChildPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
-                    </DockPanel>
-                    <TextBlock Text="Places" FontWeight="Bold" Margin="0,5,0,0"/>
-                    <DockPanel Margin="3">
-                        <Expander Header="Places added">
-                            <ListBox>
-                                <DataTemplate>
-                                    <DockPanel Margin="3">
-                                        <TextBlock Text="{Binding Country}"/>
-                                        <TextBlock Text="{Binding City}" />
-                                    </DockPanel>
-                                </DataTemplate>
-                            </ListBox>
-                        </Expander>
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Select Place: "/>
-                        <ComboBox Name="cboxPlace" SelectedItem="{Binding SelectedPlace}">
-                            <ComboBox.ItemTemplate>
-                                <ItemContainerTemplate>
-                                    <DockPanel Margin="3">
-                                        <TextBlock Text="{Binding Country}"/>
-                                        <TextBlock Text="{Binding City}" />
-                                    </DockPanel>
-                                </ItemContainerTemplate>                                
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </DockPanel>
-                    <Expander Header="Add new place:">
-                        <StackPanel>
+            <TabControl Name="tcTour">
+                <TabItem Header="Tour">
+                    <ScrollViewer >
+                        <StackPanel Margin="3">
                             <DockPanel Margin="3">
-                                <TextBlock Text="Country: "/>
-                                <ComboBox Name="cboxCountry" />
-                                <Button Name="btnAddCountry" Content="Add"/>
+                                <TextBlock Text="Travel Name: "/>
+                                <TextBox Text="{Binding SelectedTour.TravelName}" />
                             </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Description: "/>
+                                <TextBox Text="{Binding SelectedTour.Description}" />
+                            </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Transport type: "/>
+                                <ComboBox Name="cbTrans" SelectedItem="{Binding SelectedTour.Transport}"/>
+                            </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Tourguide: "/>
+                                <ComboBox Name="cboxTourGuide" ItemsSource="{Binding TourGuideList}" SelectedItem="{Binding SelectedTour.TourguideID}">
+                                    <ItemContainerTemplate>
+                                        <DockPanel >
+                                            <TextBlock Text="{Binding Person.LastName}"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Person.FirstName}"/>
+                                        </DockPanel>
+                                    </ItemContainerTemplate>
+                                </ComboBox>
+                            </DockPanel>
+                            <TextBlock Text="Dates" FontWeight="Bold" Margin="0,5,0,0"/>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Start date: "/>
+                                <DatePicker SelectedDate="{Binding SelectedTour.StartDate}" />
+                            </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="End date: "/>
+                                <DatePicker SelectedDate="{Binding SelectedTour.EndDate}" />
+                            </DockPanel>
+                            <TextBlock Text="Number of passangers" FontWeight="Bold" Margin="0,5,0,0"/>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Minimum: "/>
+                                <TextBox Text="{Binding SelectedTour.MinNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                            </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Maximum: "/>
+                                <TextBox Text="{Binding SelectedTour.MaxNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                            </DockPanel>
+                            <TextBlock Text="Prices" FontWeight="Bold" Margin="0,5,0,0"/>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Price per night: "/>
+                                <TextBox Text="{Binding PricePerNight, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                            </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Adult price: "/>
+                                <TextBlock Text="{Binding SelectedTour.AdultPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                            </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Child price: "/>
+                                <TextBlock Text="{Binding SelectedTour.ChildPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                            </DockPanel>
+                            <TextBlock Text="Places" FontWeight="Bold" Margin="0,5,0,0"/>
+                            <DockPanel Margin="3">
+                                <Expander Name="addedPlaces" Header="Places added">
+                                    <ListBox Name="lbPlaces" ItemsSource="{Binding TourPlaceList}">
+                                        <DataTemplate>
+                                            <DockPanel Margin="3">
+                                                <TextBlock Text="{Binding Country}"/>
+                                                <TextBlock Text="{Binding City}" />
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ListBox>
+                                </Expander>
+                            </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Select Place: "/>
+                                <ComboBox Name="cboxPlace" ItemsSource="{Binding PlaceListAll}" SelectedItem="{Binding SelectedPlace}">
+                                    <ComboBox.ItemTemplate>
+                                        <ItemContainerTemplate>
+                                            <DockPanel Margin="3">
+                                                <TextBlock Text="{Binding Country}"/>
+                                                <TextBlock Text=", "/>
+                                                <TextBlock Text="{Binding City}" />
+                                            </DockPanel>
+                                        </ItemContainerTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DockPanel>
+                            <TextBlock Text="Programs" FontWeight="Bold" Margin="0,5,0,0"/>
+                            <DockPanel Margin="3">
+                                <Expander Name="addedProgs" Header="Programs added">
+                                    <ListBox Name="lbProgs" ItemsSource="{Binding TourProgramList}">
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ProgramType}"/>
+                                        </DataTemplate>
+                                    </ListBox>
+                                </Expander>
+                            </DockPanel>
+                            <DockPanel Margin="3">
+                                <TextBlock Text="Select Program: "/>
+                                <ComboBox Name="cboxProgram" ItemsSource="{Binding ProgramListAll}" SelectedItem="{Binding SelectedProgram}">
+                                    <ComboBox.ItemTemplate>
+                                        <ItemContainerTemplate>
+                                            <TextBlock Text="{Binding ProgramType}"/>
+                                        </ItemContainerTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DockPanel>
+
                         </StackPanel>
-                    </Expander>
-                    <TextBlock Text="Programs" FontWeight="Bold" Margin="0,5,0,0"/>
-                    <DockPanel Margin="3">
-                        <Expander Header="Programs added added">
-                            <ListBox>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding ProgramType}"/>
-                                </DataTemplate>
-                            </ListBox>
-                        </Expander>
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Select Program: "/>
-                        <ComboBox Name="cboxProgram" SelectedItem="{Binding SelectedPlace}">
-                            <ComboBox.ItemTemplate>
-                                <ItemContainerTemplate>
-                                    <TextBlock Text="{Binding ProgramType}"/>
-                                </ItemContainerTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </DockPanel>
-                    <Expander Header="Add new program:">
-                        <StackPanel>
-                            <TextBlock Text="Program type: "/>
-                            <Button Name="btnAddProgram" Content="Add"/>
-                        </StackPanel>
-                    </Expander>
-                </StackPanel>
-            </ScrollViewer>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Place">
+                    <StackPanel>
+                        <DockPanel Margin="3">
+                            <TextBlock Text="Country: "/>
+                            <ComboBox Name="cboxCountry" SelectedItem="{Binding SelectedPlace.Country}"/>
+                        </DockPanel>
+                        <DockPanel Margin="3">
+                            <TextBlock Text="City: "/>
+                            <TextBox Name="cboxCity" Text="{Binding SelectedPlace.City}"/>
+                        </DockPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Program">
+
+                    <StackPanel>
+                        <TextBlock Text="Program type: "/>
+                        <TextBox Text="{Binding SelectedProgram.ProgramType}"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+            
         </Grid>
     </Border>
 </UserControl>
