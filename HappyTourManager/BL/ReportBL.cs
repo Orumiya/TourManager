@@ -50,8 +50,8 @@ namespace BL
         private readonly IRepository<Place> placeRepository;
         private readonly IRepository<PLTCON> pltconRepository;
         private readonly IRepository<PRTCON> prtconRepository;
-        private Tuple<int, int> _customerReportResult;
-        private Tuple<int, int, int> _orderReportResult;
+        private Tuple<int, int> customerReportResult;
+        private Tuple<int, int, int> orderReportResult;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportBL"/> class.
@@ -96,12 +96,20 @@ namespace BL
         /// <summary>
         /// Gets or sets info for the Customer chart
         /// </summary>
-        public Tuple<int, int> CustomerReportResult { get => this._customerReportResult; set => this._customerReportResult = value; }
+        public Tuple<int, int> CustomerReportResult
+        {
+            get { return this.customerReportResult; }
+            set { this.customerReportResult = value; }
+        }
 
         /// <summary>
         ///  Gets or sets info for the Order chart
         /// </summary>
-        public Tuple<int, int, int> OrderReportResult { get => this._orderReportResult; set => this._orderReportResult = value; }
+        public Tuple<int, int, int> OrderReportResult
+        {
+            get { return this.orderReportResult; }
+            set { this.orderReportResult = value; }
+        }
 
         /// <inheritdoc />
         public void Delete(Report report)
