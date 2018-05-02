@@ -31,14 +31,16 @@
                             </DockPanel>
                             <DockPanel Margin="3">
                                 <TextBlock Text="Tourguide: "/>
-                                <ComboBox Name="cboxTourGuide" ItemsSource="{Binding TourGuideList}" SelectedItem="{Binding SelectedTour.TourguideID}">
-                                    <!--<ItemContainerTemplate>
+                                <ComboBox Name="cboxTourGuide" ItemsSource="{Binding TourGuideList}" SelectedItem="{Binding SelectedTourGuide}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
                                         <DockPanel >
                                             <TextBlock Text="{Binding Person.LastName}"/>
                                             <TextBlock Text=", "/>
                                             <TextBlock Text="{Binding Person.FirstName}"/>
                                         </DockPanel>
-                                    </ItemContainerTemplate>-->
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DockPanel>
                             <TextBlock Text="Dates" FontWeight="Bold" Margin="0,5,0,0"/>
