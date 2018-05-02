@@ -4,6 +4,7 @@ using DATA.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -173,12 +174,12 @@ namespace HappyTourManager
         {
             get
             {
-                return TourPlaceList1;
+                return TourPlaceList;
             }
 
             set
             {
-                TourPlaceList1 = value;
+                TourPlaceList = value;
                 OnPropertyChanged(nameof(TourPlaceList));
             }
         }
@@ -254,15 +255,108 @@ namespace HappyTourManager
             this.programRepo = programRepo;
             this.prtconRepo = prtconRepo;
             this.tourguideRepo = tourguideRepo;
+            CreateCountryList();
+            tourBL = new TourBL(tourRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
+
+            searchCategories = new List<string>();
+            foreach (TourTerms item in Enum.GetValues(typeof(TourTerms)))
+            {
+                searchCategories.Add(item.ToString());
+            }
+
+            PlaceListAll = new ObservableCollection<Place>();
+            programListAll = new ObservableCollection<Program>();
+            GetAllPlaces();
+            GetAllPrograms();
         }
         #endregion
 
         #region Public methods
+        /// <summary>
+        /// Get the search result list
+        /// </summary>
+        public void GetSearchResult()
+        {
+            IList<Tour> rL;
+            if (SelectedCtegory == "TOURDATE")
+            {
+                DateTime[] dt = new DateTime[2];
+                dt[0] = SelectedDateFrom;
+                dt[1] = SelectedDateTo;
 
+                rL = tourBL.Search(Enum.Parse(typeof(TourTerms), SelectedCtegory), dt);
+            }
+            else if (SelectedCtegory == "ADULTPRICE" || SelectedCtegory == "CHILDPRICE")
+            {
+                int[] arr = new int[2];
+                arr[0] = Int32.Parse(SelectedValue1);
+                arr[1] = Int32.Parse(SelectedValue2);
+
+                rL = tourBL.Search(Enum.Parse(typeof(TourTerms), SelectedCtegory), arr);
+            }
+            else
+            {
+                rL = tourBL.Search(Enum.Parse(typeof(TourTerms), SelectedCtegory), SelectedValue1);
+            }
+            ResultList = new ObservableCollection<Tour>(rL);
+        }
         #endregion
 
 
         #region Private methods
+        private void CreateCountryList()
+        {
+            RegionInfo country = new RegionInfo(new CultureInfo("en-US", false).LCID);
+            List<string> countryNames = new List<string>();
+            foreach (CultureInfo cul in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                country = new RegionInfo(new CultureInfo(cul.Name, false).LCID);
+
+                countryNames.Add(country.DisplayName.ToString());
+            }
+
+            countryList = countryNames.OrderBy(names => names).Distinct();
+        }
+
+        private void GetAllPlaces()
+        {
+            IQueryable<Place> places = placeRepo.GetAll();
+            foreach (var item in places)
+            {
+                PlaceListAll.Add(item);
+            }
+        }
+
+        private void GetAllPrograms()
+        {
+            IQueryable<Program> programs = programRepo.GetAll();
+            foreach (var item in programs)
+            {
+                ProgramListAll.Add(item);
+            }
+        }
+
+        private void GetTourPlaces()
+        {
+            IQueryable<PLTCON> places = pltconRepo.GetAll();
+            places = places.Where(e => e.TourID == SelectedTour.TourID);
+            foreach (var item in places)
+            {
+                TourPlaceList.Add(item.Place);
+            }
+
+        }
+
+        private void GetTourPrograms()
+        {
+            IQueryable<PRTCON> programs = prtconRepo.GetAll();
+            programs = programs.Where(e => e.TourID == SelectedTour.TourID);
+            foreach (var item in programs)
+            {
+                TourProgramList.Add(item.Program);
+            }
+
+        }
 
         #endregion
 

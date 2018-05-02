@@ -15,13 +15,25 @@ namespace HappyTourManager
 {
     class CustomerMainViewModel : Bindable
     {
+
+        #region private variables
         private IRepository<Customer> custRepository;
         private CustomerBL custBL;
+
+        private string selectedCtegory = "DEFAULT";
+        private string selectedValue;
+        private DateTime selectedDateFrom = DateTime.Today;
+        private DateTime selectedDateTo = DateTime.Today;
+        private IList<Customer> rL;
+        private ObservableCollection<Customer> resultList;
+        private Customer selectedCustomer;
 
         private List<string> searchCategories;
 
         public IEnumerable<string> countryList;
+        #endregion
 
+        #region Parameters
         public List<string> SearchCategories
         {
             get
@@ -119,16 +131,10 @@ namespace HappyTourManager
                 OnPropertyChanged(nameof(SelectedCustomer));
             }
         }
+        #endregion
 
-        private string selectedCtegory = "DEFAULT";
-        private string selectedValue;
-        private DateTime selectedDateFrom = DateTime.Today;
-        private DateTime selectedDateTo = DateTime.Today;
-        private IList<Customer> rL;
-        private ObservableCollection<Customer> resultList;
-        private Customer selectedCustomer;
-        
 
+        #region constructor
         public CustomerMainViewModel(IRepository<Customer> custRepository)
         {
             this.custRepository = custRepository;
@@ -141,7 +147,12 @@ namespace HappyTourManager
                 searchCategories.Add(item.ToString());
             }
         }
+        #endregion
 
+        #region public methods
+        /// <summary>
+        /// Get the search result list
+        /// </summary>
         public void GetSearchResult()
         {
             if (SelectedCtegory == "VALIDTO")
@@ -159,20 +170,9 @@ namespace HappyTourManager
             ResultList = new ObservableCollection<Customer>(rL);
         }
 
-        private void CreateCountryList()
-        {
-            RegionInfo country = new RegionInfo(new CultureInfo("en-US", false).LCID);
-            List<string> countryNames = new List<string>();
-            foreach (CultureInfo cul in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
-            {
-                country = new RegionInfo(new CultureInfo(cul.Name, false).LCID);
-
-                countryNames.Add(country.DisplayName.ToString());
-            }
-
-            countryList = countryNames.OrderBy(names => names).Distinct();
-        }
-
+        /// <summary>
+        /// Save a new customer or update an existing one
+        /// </summary>
         public void SaveCustomer()
         {
             if (ResultList != null && ResultList.Contains(SelectedCustomer))
@@ -185,11 +185,18 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Delete selected customer
+        /// </summary>
         public void DeleteCustomer()
         {
             custBL.Delete(SelectedCustomer);
         }
 
+        /// <summary>
+        /// Check if all mandatory value is filled in
+        /// </summary>
+        /// <returns></returns>
         public bool Checkvalues()
         {
             bool isNull = false;
@@ -211,10 +218,30 @@ namespace HappyTourManager
                         isNull = parsedValue == 0;
                     }
                 }
-                
+
             }
             return isNull;
         }
+        #endregion
+
+        #region private methods
+        private void CreateCountryList()
+        {
+            RegionInfo country = new RegionInfo(new CultureInfo("en-US", false).LCID);
+            List<string> countryNames = new List<string>();
+            foreach (CultureInfo cul in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                country = new RegionInfo(new CultureInfo(cul.Name, false).LCID);
+
+                countryNames.Add(country.DisplayName.ToString());
+            }
+
+            countryList = countryNames.OrderBy(names => names).Distinct();
+        }
+        #endregion
+
+
+
 
     }
 }
