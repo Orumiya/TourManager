@@ -31,23 +31,7 @@ namespace HappyTourManager
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (this.lbPlaces.Items.Count>1)
-            {
-                this.addedPlaces.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.addedPlaces.Visibility = Visibility.Collapsed;
-            }
 
-            if (this.lbProgs.Items.Count>1)
-            {
-                this.addedProgs.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.addedProgs.Visibility = Visibility.Collapsed;
-            }
         }
     }
 }
