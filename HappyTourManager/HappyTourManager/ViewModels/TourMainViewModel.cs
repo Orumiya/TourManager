@@ -37,6 +37,8 @@ namespace HappyTourManager
         private ObservableCollection<Program> programListAll;
         private ObservableCollection<Program> tourProgramList;
         private Program selectedProgram;
+        int pricePerNight;
+        ObservableCollection<Tourguide> tourGuideList;
 
         private List<string> searchCategories;
 
@@ -174,12 +176,12 @@ namespace HappyTourManager
         {
             get
             {
-                return TourPlaceList;
+                return tourPlaceList;
             }
 
             set
             {
-                TourPlaceList = value;
+                tourPlaceList = value;
                 OnPropertyChanged(nameof(TourPlaceList));
             }
         }
@@ -237,6 +239,34 @@ namespace HappyTourManager
             {
                 selectedProgram = value;
                 OnPropertyChanged(nameof(SelectedProgram));
+            }
+        }
+
+        public int PricePerNight
+        {
+            get
+            {
+                return pricePerNight;
+            }
+
+            set
+            {
+                pricePerNight = value;
+                OnPropertyChanged(nameof(PricePerNight));
+            }
+        }
+
+        public ObservableCollection<Tourguide> TourGuideList
+        {
+            get
+            {
+                return tourGuideList;
+            }
+
+            set
+            {
+                tourGuideList = value;
+                OnPropertyChanged(nameof(TourGuideList));
             }
         }
         #endregion
