@@ -188,6 +188,7 @@ namespace HappyTourManager.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            tourVM.IsEdit = true;
             tourVM.SelectedTour = new Tour()
             {
                 StartDate = DateTime.Today,
@@ -195,6 +196,8 @@ namespace HappyTourManager.Pages
             };
             tourVM.SelectedPlace = new Place();
             tourVM.SelectedProgram = new Program();
+            tourVM.GetTourPlaces();
+            tourVM.GetTourPrograms();
             this.contTourDetails.Visibility = Visibility.Visible;
             this.btnSave.Visibility = Visibility.Visible;
             this.btnCancel.Visibility = Visibility.Visible;
@@ -240,18 +243,21 @@ namespace HappyTourManager.Pages
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            //if (custVM.ResultList.Count > 0 && custVM.SelectedCustomer != null)
-            //{
-            //    this.contCustDetails.Visibility = Visibility.Visible;
-            //    this.btnSave.Visibility = Visibility.Visible;
-            //    this.btnCancel.Visibility = Visibility.Visible;
-            //}
-            //else
-            //{
-            //    this.contCustDetails.Visibility = Visibility.Hidden;
-            //    this.btnSave.Visibility = Visibility.Hidden;
-            //    this.btnCancel.Visibility = Visibility.Hidden;
-            //}
+            tourVM.IsEdit = false;
+            if (tourVM.ResultList.Count > 0 && tourVM.SelectedTour != null)
+            {
+                tourVM.GetTourPlaces();
+                tourVM.GetTourPrograms();
+                this.contTourDetails.Visibility = Visibility.Visible;
+                this.btnSave.Visibility = Visibility.Visible;
+                this.btnCancel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.contTourDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
