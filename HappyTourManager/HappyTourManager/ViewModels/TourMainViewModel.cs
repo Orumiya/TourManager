@@ -33,6 +33,7 @@ namespace HappyTourManager
         private ObservableCollection<Place> placeListAll;
         private ObservableCollection<Place> tourPlaceList;
         private Place selectedPlace;
+        private Tourguide selectedTourGuide;
 
         private ObservableCollection<Program> programListAll;
         private ObservableCollection<Program> tourProgramList;
@@ -267,6 +268,20 @@ namespace HappyTourManager
             {
                 tourGuideList = value;
                 OnPropertyChanged(nameof(TourGuideList));
+            }
+        }
+
+        public Tourguide SelectedTourGuide
+        {
+            get
+            {
+                return selectedTourGuide;
+            }
+
+            set
+            {
+                selectedTourGuide = value;
+                OnPropertyChanged(nameof(SelectedTourGuide));
             }
         }
         #endregion
