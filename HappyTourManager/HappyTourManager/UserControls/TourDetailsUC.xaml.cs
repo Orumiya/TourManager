@@ -23,6 +23,31 @@ namespace HappyTourManager
         public TourDetailsUC()
         {
             InitializeComponent();
+
+            cbTrans.Items.Add("bus");
+            cbTrans.Items.Add("flight");
+            cbTrans.Items.Add("cruise");
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (this.lbPlaces.Items.Count>1)
+            {
+                this.addedPlaces.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.addedPlaces.Visibility = Visibility.Collapsed;
+            }
+
+            if (this.lbProgs.Items.Count>1)
+            {
+                this.addedProgs.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.addedProgs.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
