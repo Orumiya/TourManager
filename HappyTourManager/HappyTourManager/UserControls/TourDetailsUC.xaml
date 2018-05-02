@@ -78,12 +78,15 @@
                             <DockPanel Margin="3">
                                 <Expander Name="addedPlaces" Header="Places added">
                                     <ListBox Name="lbPlaces" ItemsSource="{Binding TourPlaceList}">
+                                        <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <DockPanel Margin="3">
                                                 <TextBlock Text="{Binding Country}"/>
-                                                <TextBlock Text="{Binding City}" />
+                                                    <TextBlock Text=", "/>
+                                                    <TextBlock Text="{Binding City}" />
                                             </DockPanel>
                                         </DataTemplate>
+                                        </ListBox.ItemTemplate>
                                     </ListBox>
                                 </Expander>
                             </DockPanel>
@@ -91,13 +94,13 @@
                                 <TextBlock Text="Select Place: "/>
                                 <ComboBox Name="cboxPlace" ItemsSource="{Binding PlaceListAll}" SelectedItem="{Binding SelectedPlace}">
                                     <ComboBox.ItemTemplate>
-                                        <ItemContainerTemplate>
+                                        <DataTemplate>
                                             <DockPanel Margin="3">
                                                 <TextBlock Text="{Binding Country}"/>
                                                 <TextBlock Text=", "/>
                                                 <TextBlock Text="{Binding City}" />
                                             </DockPanel>
-                                        </ItemContainerTemplate>
+                                        </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DockPanel>
@@ -105,9 +108,11 @@
                             <DockPanel Margin="3">
                                 <Expander Name="addedProgs" Header="Programs added">
                                     <ListBox Name="lbProgs" ItemsSource="{Binding TourProgramList}">
+                                        <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding ProgramType}"/>
                                         </DataTemplate>
+                                        </ListBox.ItemTemplate>
                                     </ListBox>
                                 </Expander>
                             </DockPanel>
@@ -115,9 +120,9 @@
                                 <TextBlock Text="Select Program: "/>
                                 <ComboBox Name="cboxProgram" ItemsSource="{Binding ProgramListAll}" SelectedItem="{Binding SelectedProgram}">
                                     <ComboBox.ItemTemplate>
-                                        <ItemContainerTemplate>
+                                        <DataTemplate>
                                             <TextBlock Text="{Binding ProgramType}"/>
-                                        </ItemContainerTemplate>
+                                        </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DockPanel>
