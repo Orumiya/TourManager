@@ -14,7 +14,7 @@
 
             </Grid.Resources>
             <TabControl Name="tcTour">
-                <TabItem Header="Tour">
+                <TabItem  Header="Tour">
                     <ScrollViewer >
                         <StackPanel Margin="3">
                             <DockPanel Margin="3">
@@ -32,13 +32,13 @@
                             <DockPanel Margin="3">
                                 <TextBlock Text="Tourguide: "/>
                                 <ComboBox Name="cboxTourGuide" ItemsSource="{Binding TourGuideList}" SelectedItem="{Binding SelectedTour.TourguideID}">
-                                    <ItemContainerTemplate>
+                                    <!--<ItemContainerTemplate>
                                         <DockPanel >
                                             <TextBlock Text="{Binding Person.LastName}"/>
                                             <TextBlock Text=", "/>
                                             <TextBlock Text="{Binding Person.FirstName}"/>
                                         </DockPanel>
-                                    </ItemContainerTemplate>
+                                    </ItemContainerTemplate>-->
                                 </ComboBox>
                             </DockPanel>
                             <TextBlock Text="Dates" FontWeight="Bold" Margin="0,5,0,0"/>
@@ -123,7 +123,7 @@
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Place">
+                <TabItem Name="tiPlace" Header="Place">
                     <StackPanel>
                         <DockPanel Margin="3">
                             <TextBlock Text="Country: "/>
@@ -135,7 +135,7 @@
                         </DockPanel>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="Program">
+                <TabItem Name="tiProgram" Header="Program">
 
                     <StackPanel>
                         <TextBlock Text="Program type: "/>

@@ -296,8 +296,10 @@ namespace HappyTourManager
 
             PlaceListAll = new ObservableCollection<Place>();
             programListAll = new ObservableCollection<Program>();
+            TourGuideList = new ObservableCollection<Tourguide>();
             GetAllPlaces();
             GetAllPrograms();
+            GetAllTourGuides();
         }
         #endregion
 
@@ -386,6 +388,20 @@ namespace HappyTourManager
                 TourProgramList.Add(item.Program);
             }
 
+        }
+
+        private void GetAllTourGuides()
+        {
+
+            IQueryable<Tourguide> tg = tourguideRepo.GetAll();
+            if (tg !=null)
+            {
+                foreach (var item in tg)
+                {
+                    TourGuideList.Add(item);
+                }
+            }
+            
         }
 
         #endregion
