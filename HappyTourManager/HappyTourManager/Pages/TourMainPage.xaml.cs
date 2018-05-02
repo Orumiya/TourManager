@@ -71,60 +71,115 @@ namespace HappyTourManager.Pages
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (custVM.SelectedCtegory == "VALIDTO")
-            //{
-            //    DatePicker datePicker = new DatePicker();
+            if (tourVM.SelectedCtegory == "TOURDATE")
+            {
+                DatePicker datePicker = new DatePicker();
 
-            //    Binding binding = new Binding("SelectedDateFrom");
-            //    datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
-            //    this.contSearch1.Content = datePicker;
+                Binding binding = new Binding("SelectedDateFrom");
+                datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
+                this.contSearch1.Content = datePicker;
 
-            //    DatePicker datePicker2 = new DatePicker();
-            //    Binding binding2 = new Binding("SelectedDateTo");
-            //    datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
-            //    this.contSearch2.Content = datePicker2;
+                DatePicker datePicker2 = new DatePicker();
+                Binding binding2 = new Binding("SelectedDateTo");
+                datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
+                this.contSearch2.Content = datePicker2;
 
-            //}
-            //else if (custVM.SelectedCtegory == "DEFAULT")
-            //{
-            //    this.contSearch1.Content = null;
-            //    this.contSearch2.Content = null;
-            //    custVM.SelectedValue = default(string);
-            //}
-            //else
-            //{
-            //    TextBox textbox = new TextBox();
-            //    Binding binding = new Binding("SelectedValue");
-            //    textbox.SetBinding(TextBox.TextProperty, binding);
-            //    this.contSearch1.Content = textbox;
-            //    this.contSearch2.Content = null;
-            //}
+            }
+            else if (tourVM.SelectedCtegory == "DEFAULT")
+            {
+                this.contSearch1.Content = null;
+                this.contSearch2.Content = null;
+                tourVM.SelectedValue1 = default(string);
+            }
+            else if (tourVM.SelectedCtegory == "ADULTPRICE" || tourVM.SelectedCtegory == "CHILDPRICE")
+            {
+                TextBox textbox = new TextBox();
+                Binding binding = new Binding("SelectedValue1");
+                textbox.SetBinding(TextBox.TextProperty, binding);
+                this.contSearch1.Content = textbox;
+
+                TextBox textbox2 = new TextBox();
+                Binding binding2 = new Binding("SelectedValue2");
+                textbox2.SetBinding(TextBox.TextProperty, binding2);
+                this.contSearch2.Content = textbox2;
+            }
+            else if (tourVM.SelectedCtegory == "COUNTRY")
+            {
+                ComboBox cBox = new ComboBox();
+
+                foreach (var item in tourVM.PlaceListAll)
+                {
+                    if (!cBox.Items.Contains(item.Country))
+                    {
+                        cBox.Items.Add(item.Country);
+                    }
+                }
+                Binding binding = new Binding("SelectedValue1");
+                cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+                this.contSearch1.Content = cBox;
+                this.contSearch2.Content = null;
+            }
+            else if (tourVM.SelectedCtegory == "CITY")
+            {
+                ComboBox cBox = new ComboBox();
+                foreach (var item in tourVM.PlaceListAll)
+                {
+                    if (!cBox.Items.Contains(item.City))
+                    {
+                        cBox.Items.Add(item.City);
+                    }
+                }
+                Binding binding = new Binding("SelectedValue1");
+                cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+                this.contSearch1.Content = cBox;
+                this.contSearch2.Content = null;
+            }
+            else if (tourVM.SelectedCtegory == "PROGRAM")
+            {
+                ComboBox cBox = new ComboBox();
+                foreach (var item in tourVM.ProgramListAll)
+                {
+                    if (!cBox.Items.Contains(item.ProgramType))
+                    {
+                        cBox.Items.Add(item.ProgramType);
+                    }
+                }
+                Binding binding = new Binding("SelectedValue1");
+                cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+                this.contSearch1.Content = cBox;
+                this.contSearch2.Content = null;
+            }
+            else
+            {
+                this.contSearch1.Content = null;
+                this.contSearch2.Content = null;
+            }
 
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    custVM.GetSearchResult();
-            //    if (custVM.ResultList.Count > 0)
-            //    {
-            //        btnEdit.Visibility = Visibility.Visible;
-            //        btnDelete.Visibility = Visibility.Visible;
-            //    }
-            //    else
-            //    {
-            //        btnEdit.Visibility = Visibility.Hidden;
-            //        btnDelete.Visibility = Visibility.Hidden;
-            //    }
-            //    this.contCustDetails.Visibility = Visibility.Hidden;
-            //    this.btnSave.Visibility = Visibility.Hidden;
-            //    this.btnCancel.Visibility = Visibility.Hidden;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            try
+            {
+                tourVM.GetSearchResult();
+                if (tourVM.ResultList.Count > 0)
+                {
+                    btnEdit.Visibility = Visibility.Visible;
+                    btnDelete.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnEdit.Visibility = Visibility.Hidden;
+                    btnDelete.Visibility = Visibility.Hidden;
+                }
+                this.contTourDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
 
 
