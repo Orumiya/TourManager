@@ -84,13 +84,7 @@
                     </DockPanel>
                     <DockPanel Margin="3">
                         <TextBlock Text="Select language: "/>
-                        <ComboBox Name="cboxLanguage" ItemsSource="{Binding languageList}" SelectedItem="{Binding SelectedLanguage}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding ProgramType}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                        <ComboBox Name="cboxLanguage" SelectedItem="{Binding SelectedLanguage}"/>
                     </DockPanel>
 
                     <TextBlock Text="On Holiday:" FontWeight="Bold" Margin="0,5,0,0"/>

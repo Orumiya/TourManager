@@ -24,6 +24,10 @@ namespace HappyTourManager
         {
             InitializeComponent();
 
+            this.cbIDtype.Items.Add("identity card");
+            this.cbIDtype.Items.Add("passport");
+            this.cbIDtype.Items.Add("driving licence");
+
         }
     }
 }
