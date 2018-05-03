@@ -67,6 +67,7 @@ namespace HappyTourManager.Pages
             }
             this.contTourDetails.Content = tourDetail;
             this.contTourDetails.Visibility = Visibility.Hidden;
+            
         }
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -205,40 +206,44 @@ namespace HappyTourManager.Pages
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    if (custVM.Checkvalues())
-            //    {
-            //        MessageBox.Show("All values must be filled in!");
-            //    }
-            //    else
-            //    {
-            //        custVM.SaveCustomer();
-            //        MessageBox.Show("Customer data is saved!");
-            //        this.contCustDetails.Visibility = Visibility.Hidden;
-            //        custVM.SelectedCustomer = null;
-            //        this.btnSave.Visibility = Visibility.Hidden;
-            //        this.btnCancel.Visibility = Visibility.Hidden;
-            //    }
-            //}
-            //catch (InvalidOperationException ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Something went wrong :(");
-            //}
+            try
+            {
+                if (tourVM.Checkvalues(tourDetail.tcTour.SelectedIndex))
+                {
+                    MessageBox.Show("All values must be filled in!");
+                }
+                else
+                {
+                    tourVM.SaveTour(tourDetail.tcTour.SelectedIndex);
+                    MessageBox.Show("Tour data is saved!");
+                    this.contTourDetails.Visibility = Visibility.Hidden;
+                    tourVM.SelectedTour = null;
+                    tourVM.SelectedPlace = null;
+                    tourVM.SelectedProgram = null;
+                    this.btnSave.Visibility = Visibility.Hidden;
+                    this.btnCancel.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Something went wrong :(");
+            }
 
 
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //this.contCustDetails.Visibility = Visibility.Hidden;
-            //custVM.SelectedCustomer = null;
-            //this.btnSave.Visibility = Visibility.Hidden;
-            //this.btnCancel.Visibility = Visibility.Hidden;
+            this.contTourDetails.Visibility = Visibility.Hidden;
+            tourVM.SelectedTour = null;
+            tourVM.SelectedPlace = null;
+            tourVM.SelectedProgram = null;
+            this.btnSave.Visibility = Visibility.Hidden;
+            this.btnCancel.Visibility = Visibility.Hidden;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -262,19 +267,19 @@ namespace HappyTourManager.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            //if (custVM.SelectedCustomer != null)
-            //{
-            //    if (MessageBox.Show("Do you want to delete customer?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            //    {
-            //        custVM.DeleteCustomer();
-            //        MessageBox.Show("Customer is deleted");
-            //        custVM.ResultList.Remove(custVM.SelectedCustomer);
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Please select a customer!");
-            //}
+            if (tourVM.SelectedTour != null)
+            {
+                if (MessageBox.Show("Do you want to delete tour?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    tourVM.DeleteCustomer();
+                    MessageBox.Show("Customer is deleted");
+                    tourVM.ResultList.Remove(tourVM.SelectedTour);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a customer!");
+            }
         }
     }
 }
