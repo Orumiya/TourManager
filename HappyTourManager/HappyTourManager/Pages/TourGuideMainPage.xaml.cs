@@ -65,6 +65,10 @@ namespace HappyTourManager.Pages
                 tgDetails.cboxCountry.Items.Add(item);
             }
             this.contTGDetails.Content = tgDetails;
+            foreach (string item in tgVM.languageList)
+            {
+                tgDetails.cboxLanguage.Items.Add(item);
+            }
             this.contTGDetails.Visibility = Visibility.Hidden;
         }
 
@@ -117,27 +121,31 @@ namespace HappyTourManager.Pages
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    custVM.GetSearchResult();
-            //    if (custVM.ResultList.Count > 0)
-            //    {
-            //        btnEdit.Visibility = Visibility.Visible;
-            //        btnDelete.Visibility = Visibility.Visible;
-            //    }
-            //    else
-            //    {
-            //        btnEdit.Visibility = Visibility.Hidden;
-            //        btnDelete.Visibility = Visibility.Hidden;
-            //    }
-            //    this.contCustDetails.Visibility = Visibility.Hidden;
-            //    this.btnSave.Visibility = Visibility.Hidden;
-            //    this.btnCancel.Visibility = Visibility.Hidden;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            try
+            {
+                tgVM.GetSearchResult();
+                if (tgVM.ResultList.Count > 0)
+                {
+                    btnEdit.Visibility = Visibility.Visible;
+                    btnDelete.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnEdit.Visibility = Visibility.Hidden;
+                    btnDelete.Visibility = Visibility.Hidden;
+                }
+                this.contTGDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("The searchvalue has an incorrect datatype!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
 
 
@@ -146,89 +154,119 @@ namespace HappyTourManager.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //custVM.SelectedCustomer = new Customer()
-            //{
-            //    Person = new Person()
-            //    {
-            //        BirthDate = DateTime.Today,
-            //        ValidTo = DateTime.Today
-            //    }
-            //};
-            //this.contCustDetails.Visibility = Visibility.Visible;
-            //this.btnSave.Visibility = Visibility.Visible;
-            //this.btnCancel.Visibility = Visibility.Visible;
+            tgVM.SelectedTG = new Tourguide()
+            {
+                Person = new Person()
+                {
+                    BirthDate = DateTime.Today,
+                    ValidTo = DateTime.Today
+                }
+            };
+            tgVM.SelectedLanguage = null;
+            tgVM.SelectedHolidayFrom = default(DateTime);
+            tgVM.SelectedHolidayTill = default(DateTime);
+            this.contTGDetails.Visibility = Visibility.Visible;
+            this.btnSave.Visibility = Visibility.Visible;
+            this.btnCancel.Visibility = Visibility.Visible;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    if (custVM.Checkvalues())
-            //    {
-            //        MessageBox.Show("All values must be filled in!");
-            //    }
-            //    else
-            //    {
-            //        custVM.SaveCustomer();
-            //        MessageBox.Show("Customer data is saved!");
-            //        this.contCustDetails.Visibility = Visibility.Hidden;
-            //        custVM.SelectedCustomer = null;
-            //        this.btnSave.Visibility = Visibility.Hidden;
-            //        this.btnCancel.Visibility = Visibility.Hidden;
-            //    }
-            //}
-            //catch (InvalidOperationException ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Something went wrong :(");
-            //}
+            try
+            {
+                if (tgVM.Checkvalues())
+                {
+                    MessageBox.Show("All values must be filled in!");
+                }
+                else
+                {
+                    tgVM.SaveTG();
+                    MessageBox.Show("Tour Guide data is saved!");
+                    this.contTGDetails.Visibility = Visibility.Hidden;
+                    tgVM.SelectedTG = null;
+                    tgVM.SelectedHolidayTill = default(DateTime);
+                    tgVM.SelectedHolidayFrom = default(DateTime);
+                    tgVM.SelectedLanguage = null;
+                    this.btnSave.Visibility = Visibility.Hidden;
+                    this.btnCancel.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong :(");
+            }
 
 
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //this.contCustDetails.Visibility = Visibility.Hidden;
-            //custVM.SelectedCustomer = null;
-            //this.btnSave.Visibility = Visibility.Hidden;
-            //this.btnCancel.Visibility = Visibility.Hidden;
+            this.contTGDetails.Visibility = Visibility.Hidden;
+            tgVM.SelectedTG = null;
+            tgVM.SelectedHolidayTill = default(DateTime);
+            tgVM.SelectedHolidayFrom = default(DateTime);
+            tgVM.SelectedLanguage = null;
+            this.btnSave.Visibility = Visibility.Hidden;
+            this.btnCancel.Visibility = Visibility.Hidden;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            //if (custVM.ResultList.Count > 0 && custVM.SelectedCustomer != null)
-            //{
-            //    this.contCustDetails.Visibility = Visibility.Visible;
-            //    this.btnSave.Visibility = Visibility.Visible;
-            //    this.btnCancel.Visibility = Visibility.Visible;
-            //}
-            //else
-            //{
-            //    this.contCustDetails.Visibility = Visibility.Hidden;
-            //    this.btnSave.Visibility = Visibility.Hidden;
-            //    this.btnCancel.Visibility = Visibility.Hidden;
-            //}
+            tgVM.SelectedHolidayTill = default(DateTime);
+            tgVM.SelectedHolidayFrom = default(DateTime);
+            tgVM.SelectedLanguage = null;
+            if (tgVM.ResultList.Count > 0 && tgVM.SelectedTG != null)
+            {
+                this.contTGDetails.Visibility = Visibility.Visible;
+                this.btnSave.Visibility = Visibility.Visible;
+                this.btnCancel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.contTGDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
+                MessageBox.Show("Please select a Tour guide!");
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            //if (custVM.SelectedCustomer != null)
-            //{
-            //    if (MessageBox.Show("Do you want to delete customer?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            //    {
-            //        custVM.DeleteCustomer();
-            //        MessageBox.Show("Customer is deleted");
-            //        custVM.ResultList.Remove(custVM.SelectedCustomer);
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Please select a customer!");
-            //}
+            if (tgVM.SelectedTG != null)
+            {
+                if (MessageBox.Show("Do you want to delete the selected Tour guide?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        tgVM.DeleteTG();
+                        MessageBox.Show("Tour Guide is deleted");
+                        tgVM.ResultList.Remove(tgVM.SelectedTG);
+                    }
+                    catch (Exception)
+                    {
+
+                        MessageBox.Show("Tour Guide cannot be deleted!");
+                    }
+                    finally
+                    {
+                        tgVM.SelectedTG = null;
+                        tgVM.SelectedHolidayTill = default(DateTime);
+                        tgVM.SelectedHolidayFrom = default(DateTime);
+                        tgVM.SelectedLanguage = null;
+                    }
+                    
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a Tour guide!");
+            }
         }
         #endregion
     }
 }
+
