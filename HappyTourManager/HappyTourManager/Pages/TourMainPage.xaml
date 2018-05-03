@@ -86,7 +86,7 @@
             </Button>
             <Button Name="btnSave" Content="Save" Style="{StaticResource Iconbtn}" Grid.Column="3" Opacity="0.8" Click="btnSave_Click" Visibility="Hidden"/>
             <Button Name="btnCancel" Content="Cancel" Style="{StaticResource Iconbtn}" Grid.Column="4" Opacity="0.8" Visibility="Hidden" Click="btnCancel_Click"/>
-            <Label Grid.Column="2" Opacity="0.8" Background="{StaticResource BGBlueBrush}"/>
+            <!--<Label Grid.Column="2" Opacity="0.8" Background="{StaticResource BGBlueBrush}"/>-->
         </Grid>
     </Grid>
 
