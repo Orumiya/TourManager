@@ -68,34 +68,34 @@ namespace HappyTourManager.Pages
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (custVM.SelectedCtegory == "VALIDTO")
-            //{
-            //    DatePicker datePicker = new DatePicker();
+            if (tgVM.SelectedCtegory == "VALIDTO")
+            {
+                DatePicker datePicker = new DatePicker();
 
-            //    Binding binding = new Binding("SelectedDateFrom");
-            //    datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
-            //    this.contSearch1.Content = datePicker;
+                Binding binding = new Binding("SelectedDateFrom");
+                datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
+                this.contSearch1.Content = datePicker;
 
-            //    DatePicker datePicker2 = new DatePicker();
-            //    Binding binding2 = new Binding("SelectedDateTo");
-            //    datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
-            //    this.contSearch2.Content = datePicker2;
+                DatePicker datePicker2 = new DatePicker();
+                Binding binding2 = new Binding("SelectedDateTo");
+                datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
+                this.contSearch2.Content = datePicker2;
 
-            //}
-            //else if (custVM.SelectedCtegory == "DEFAULT")
-            //{
-            //    this.contSearch1.Content = null;
-            //    this.contSearch2.Content = null;
-            //    custVM.SelectedValue = default(string);
-            //}
-            //else
-            //{
-            //    TextBox textbox = new TextBox();
-            //    Binding binding = new Binding("SelectedValue");
-            //    textbox.SetBinding(TextBox.TextProperty, binding);
-            //    this.contSearch1.Content = textbox;
-            //    this.contSearch2.Content = null;
-            //}
+            }
+            else if (tgVM.SelectedCtegory == "DEFAULT")
+            {
+                this.contSearch1.Content = null;
+                this.contSearch2.Content = null;
+                tgVM.SelectedValue = default(string);
+            }
+            else
+            {
+                TextBox textbox = new TextBox();
+                Binding binding = new Binding("SelectedValue");
+                textbox.SetBinding(TextBox.TextProperty, binding);
+                this.contSearch1.Content = textbox;
+                this.contSearch2.Content = null;
+            }
 
         }
 

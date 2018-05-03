@@ -148,13 +148,19 @@ namespace HappyTourManager
             this.tourRepo = tourRepo;
             tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
             CreateCountryList();
+
+            searchCategories = new List<string>();
+            foreach (TourguideTerms item in Enum.GetValues(typeof(TourguideTerms)))
+            {
+                searchCategories.Add(item.ToString());
+            }
         }
 
         #endregion
 
 
         #region public method
-
+        
 
         #endregion
 
