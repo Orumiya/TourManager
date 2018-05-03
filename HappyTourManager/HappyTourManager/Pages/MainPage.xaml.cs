@@ -92,7 +92,7 @@ namespace HappyTourManager.Pages
 
         private void btnTGuide_Click(object sender, RoutedEventArgs e)
         {
-            this.mFrame.Content = new TourGuideMainPage();
+            this.mFrame.Content = new TourGuideMainPage(tourguideRepo,languageRepo,onHolidayRepo,tourRepo);
         }
 
         private void btnOffice_Click(object sender, RoutedEventArgs e)
