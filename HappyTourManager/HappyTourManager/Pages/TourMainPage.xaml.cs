@@ -26,6 +26,7 @@ namespace HappyTourManager.Pages
     /// 
     public partial class TourMainPage : Page
     {
+        #region private variables
         private IRepository<Place> placeRepo;
         private IRepository<PLTCON> pltconRepo;
         private IRepository<Program> programRepo;
@@ -33,9 +34,11 @@ namespace HappyTourManager.Pages
         private IRepository<Tourguide> tourguideRepo;
         private IRepository<Tour> tourRepo;
 
-        TourMainViewModel tourVM;
-        TourDetailsUC tourDetail;
+        private TourMainViewModel tourVM;
+        private TourDetailsUC tourDetail;
+        #endregion
 
+        #region constructor
         public TourMainPage(IRepository<Tour> tourRepo,
             IRepository<Place> placeRepo,
             IRepository<PLTCON> pltconRepo,
@@ -51,7 +54,10 @@ namespace HappyTourManager.Pages
             this.prtconRepo = prtconRepo;
             this.tourguideRepo = tourguideRepo;
         }
+        #endregion
 
+
+        #region event handlers
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             tourVM = new TourMainViewModel(tourRepo,placeRepo,pltconRepo,programRepo,prtconRepo,tourguideRepo);
@@ -294,5 +300,6 @@ namespace HappyTourManager.Pages
                 MessageBox.Show("Please select a customer!");
             }
         }
+        #endregion
     }
 }

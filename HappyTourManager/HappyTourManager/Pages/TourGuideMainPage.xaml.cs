@@ -50,6 +50,8 @@ namespace HappyTourManager.Pages
         }
         #endregion
 
+
+        #region event handlers
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             tgVM = new TourGuideMainViewModel(tourGuideRepo,languageRepo,holidayRepo,tourRepo);
@@ -68,7 +70,7 @@ namespace HappyTourManager.Pages
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tgVM.SelectedCtegory == "VALIDTO")
+            if (tgVM.SelectedCtegory == "ISONHOLIDAY" || tgVM.SelectedCtegory == "ISAVAILABLE")
             {
                 DatePicker datePicker = new DatePicker();
 
@@ -88,8 +90,22 @@ namespace HappyTourManager.Pages
                 this.contSearch2.Content = null;
                 tgVM.SelectedValue = default(string);
             }
+            else if (tgVM.SelectedCtegory == "LANGUAGE")
+            {
+                ComboBox cBox = new ComboBox();
+
+                foreach (var item in tgVM.languageList)
+                {
+                    cBox.Items.Add(item);
+                }
+                Binding binding = new Binding("SelectedValue");
+                cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+                this.contSearch1.Content = cBox;
+                this.contSearch2.Content = null;
+            }
             else
             {
+                tgVM.SelectedValue = default(string);
                 TextBox textbox = new TextBox();
                 Binding binding = new Binding("SelectedValue");
                 textbox.SetBinding(TextBox.TextProperty, binding);
@@ -213,5 +229,6 @@ namespace HappyTourManager.Pages
             //    MessageBox.Show("Please select a customer!");
             //}
         }
+        #endregion
     }
 }
