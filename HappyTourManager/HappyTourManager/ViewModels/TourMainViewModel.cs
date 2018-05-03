@@ -381,7 +381,11 @@ namespace HappyTourManager
             {
                 if (item != null && item.TourID == SelectedTour.TourID)
                 {
-                    TourPlaceList.Add(item.Place);
+                    if (!TourPlaceList.Contains(item.Place))
+                    {
+                        TourPlaceList.Add(item.Place);
+                    }
+                    
                 }
                 
             }
@@ -398,7 +402,12 @@ namespace HappyTourManager
             {
                 if (item != null && item.TourID == SelectedTour.TourID)
                 {
-                    TourProgramList.Add(item.Program);
+                    if (!TourProgramList.Contains(item.Program))
+                    {
+                        TourProgramList.Add(item.Program);
+                    }
+
+                    
                 }
 
                 
