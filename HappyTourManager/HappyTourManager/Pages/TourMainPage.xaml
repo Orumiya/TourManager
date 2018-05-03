@@ -72,20 +72,20 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Name="btnEdit" Style="{StaticResource Iconbtn}" Grid.Column="0" Opacity="0.8" Visibility="Hidden" Click="btnEdit_Click">
+            <Button Margin="3" Name="btnEdit" Style="{StaticResource Iconbtn}" Grid.Column="0" Opacity="0.8" Visibility="Hidden" Click="btnEdit_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/edit.png" Stretch="Uniform"/>
                     <TextBlock Text=" Edit"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnDelete" Style="{StaticResource Iconbtn}" Grid.Column="1" Opacity="0.8" Visibility="Hidden" Click="btnDelete_Click">
+            <Button Margin="3" Name="btnDelete" Style="{StaticResource Iconbtn}" Grid.Column="1" Opacity="0.8" Visibility="Hidden" Click="btnDelete_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/delete.png" Stretch="Uniform"/>
                     <TextBlock Text=" Delete"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnSave" Content="Save" Style="{StaticResource Iconbtn}" Grid.Column="3" Opacity="0.8" Click="btnSave_Click" Visibility="Hidden"/>
-            <Button Name="btnCancel" Content="Cancel" Style="{StaticResource Iconbtn}" Grid.Column="4" Opacity="0.8" Visibility="Hidden" Click="btnCancel_Click"/>
+            <Button Margin="3" Name="btnSave" Content="Save" Style="{StaticResource Iconbtn}" Grid.Column="3" Opacity="0.8" Click="btnSave_Click" Visibility="Hidden"/>
+            <Button Margin="3" Name="btnCancel" Content="Cancel" Style="{StaticResource Iconbtn}" Grid.Column="4" Opacity="0.8" Visibility="Hidden" Click="btnCancel_Click"/>
             <!--<Label Grid.Column="2" Opacity="0.8" Background="{StaticResource BGBlueBrush}"/>-->
         </Grid>
     </Grid>

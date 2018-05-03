@@ -272,6 +272,7 @@ namespace HappyTourManager.Pages
                 this.contTourDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
+                MessageBox.Show("Please select a tour!");
             }
         }
 
@@ -297,7 +298,7 @@ namespace HappyTourManager.Pages
             }
             else
             {
-                MessageBox.Show("Please select a customer!");
+                MessageBox.Show("Please select a tour!");
             }
         }
         #endregion
