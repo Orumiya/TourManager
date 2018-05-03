@@ -30,6 +30,7 @@ namespace HappyTourManager
         private List<string> searchCategories;
 
         public IEnumerable<string> countryList;
+        public List<string> languageList;
         #endregion
 
 
@@ -148,6 +149,15 @@ namespace HappyTourManager
             this.tourRepo = tourRepo;
             tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
             CreateCountryList();
+
+            languageList = new List<string>();
+            languageList.Add("english");
+            languageList.Add("german");
+            languageList.Add("french");
+            languageList.Add("spanish");
+            languageList.Add("italian");
+            languageList.Add("chinese");
+            languageList.Add("japanese");
 
             searchCategories = new List<string>();
             foreach (TourguideTerms item in Enum.GetValues(typeof(TourguideTerms)))
