@@ -26,6 +26,9 @@ namespace HappyTourManager
         private DateTime selectedDateTo = DateTime.Today;
         private ObservableCollection<Tourguide> resultList;
         private Tourguide selectedTG;
+        private string selectedLanguage;
+        private DateTime selectedHolidayFrom;
+        private DateTime selectedHolidayTill;
 
         private List<string> searchCategories;
 
@@ -132,6 +135,48 @@ namespace HappyTourManager
                 OnPropertyChanged(nameof(SelectedTG));
             }
         }
+
+        public string SelectedLanguage
+        {
+            get
+            {
+                return selectedLanguage;
+            }
+
+            set
+            {
+                selectedLanguage = value;
+                OnPropertyChanged(nameof(SelectedLanguage));
+            }
+        }
+
+        public DateTime SelectedHolidayFrom
+        {
+            get
+            {
+                return selectedHolidayFrom;
+            }
+
+            set
+            {
+                selectedHolidayFrom = value;
+                OnPropertyChanged(nameof(SelectedHolidayFrom));
+            }
+        }
+
+        public DateTime SelectedHolidayTill
+        {
+            get
+            {
+                return selectedHolidayTill;
+            }
+
+            set
+            {
+                selectedHolidayTill = value;
+                OnPropertyChanged(nameof(SelectedHolidayTill));
+            }
+        }
         #endregion
 
 
@@ -156,6 +201,7 @@ namespace HappyTourManager
             languageList.Add("french");
             languageList.Add("spanish");
             languageList.Add("italian");
+            languageList.Add("dutch");
             languageList.Add("chinese");
             languageList.Add("japanese");
 
@@ -170,7 +216,139 @@ namespace HappyTourManager
 
 
         #region public method
-        
+        /// <summary>
+        /// Get the search result list
+        /// </summary>
+        public void GetSearchResult()
+        {
+            IList<Tourguide> rL;
+            if (SelectedCtegory == "ISONHOLIDAY" || SelectedCtegory == "ISAVAILABLE")
+            {
+                DateTime[] dt = new DateTime[2];
+                dt[0] = SelectedDateFrom;
+                dt[1] = SelectedDateTo;
+
+                rL = tgBL.Search(Enum.Parse(typeof(TourguideTerms), SelectedCtegory), dt);
+            }
+            else if (SelectedCtegory == "TAXIDENTIFICATION")
+            {
+                rL = tgBL.Search(Enum.Parse(typeof(TourguideTerms), SelectedCtegory), Int32.Parse(SelectedValue));
+            }
+            else
+            {
+                rL = tgBL.Search(Enum.Parse(typeof(TourguideTerms), SelectedCtegory), SelectedValue);
+            }
+            ResultList = new ObservableCollection<Tourguide>(rL);
+        }
+
+        public bool Checkvalues()
+        {
+            bool isNull = false;
+
+            foreach (var item in SelectedTG.Person.GetType().GetProperties())
+            {
+                string s = item.Name;
+                if (item.Name != "BirthDate" && item.Name != "ValidTo" && item.Name != "PersonID"
+                    && item.Name != "Customer" && item.Name != "Tourguide")
+                {
+                    Decimal parsedValue;
+
+                    if (item.GetValue(SelectedTG.Person) == null)
+                    {
+                        isNull = true;
+                    }
+                    else if (Decimal.TryParse(item.GetValue(SelectedTG.Person).ToString(), out parsedValue))
+                    {
+                        if (parsedValue == 0)
+                        {
+                            isNull = true;
+                        }
+                        
+                    }
+                }
+
+            }
+            if (SelectedTG.Taxidentification == 0)
+            {
+                isNull = true;
+            }
+            if (SelectedTG.Dailyallowance == 0)
+            {
+                isNull = true;
+            }
+            return isNull;
+        }
+
+        public void SaveTG()
+        {
+
+            if (ResultList != null && ResultList.Contains(SelectedTG))
+            {
+                if (SelectedLanguage != null)
+                {
+                    languageRepo.Create(new Language() { TourguideID = SelectedTG.PersonID, Language1 = SelectedLanguage });
+                 }
+                 if (SelectedHolidayFrom != default(DateTime) && SelectedHolidayTill != default(DateTime))
+                 {
+                    holidayRepo.Create(new OnHoliday() { StartDate = SelectedHolidayFrom, EndDate = SelectedHolidayTill, TourguideID = SelectedTG.PersonID });
+                 }
+                 tgBL.Update();
+            }
+            else
+            {
+                tgBL.Save(SelectedTG);
+                if (SelectedLanguage != null)
+                {
+                    languageRepo.Create(new Language() { TourguideID = SelectedTG.PersonID, Language1 = SelectedLanguage });
+                }
+                if (SelectedHolidayFrom != default(DateTime) && SelectedHolidayTill != default(DateTime))
+                {
+                    holidayRepo.Create(new OnHoliday() { StartDate = SelectedHolidayFrom, EndDate = SelectedHolidayTill, TourguideID = SelectedTG.PersonID });
+                }
+            }
+                    
+
+        }
+
+        public void DeleteTG()
+        {
+            IQueryable<Language> languages = languageRepo.GetAll();
+            List<Language> lList = new List<Language>();
+            foreach (var item in languages)
+            {
+                if (item.TourguideID == SelectedTG.PersonID)
+                {
+                    lList.Add(item);
+                }
+            }
+            foreach (var item in lList)
+            {
+                try
+                {
+                    languageRepo.Delete(item);
+                }
+                finally { }
+            }
+            IQueryable<OnHoliday> holidays = holidayRepo.GetAll();
+            List<OnHoliday> hList = new List<OnHoliday>();
+            foreach (var item in holidays)
+            {
+                if (item.TourguideID == SelectedTG.PersonID)
+                {
+                    hList.Add(item);
+                }
+            }
+            foreach (var item in hList)
+            {
+                try
+                {
+                    holidayRepo.Delete(item);
+                }
+                finally { }
+            }
+            tgBL.Delete(SelectedTG);
+        }
+
 
         #endregion
 
