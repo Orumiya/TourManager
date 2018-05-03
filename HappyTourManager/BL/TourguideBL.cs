@@ -89,7 +89,7 @@ namespace BL
 
             // returns tourguides with this taxID
             // searchvalue must be int
-            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.TAXIDENTIFICATION)
+            else if ((TourguideTerms)searchterm == TourguideTerms.TAXIDENTIFICATION)
             {
                 tourguideList = tourguideList.Where(e => e.Taxidentification == (int)searchvalue);
                 return tourguideList.ToList<Tourguide>();
@@ -97,7 +97,7 @@ namespace BL
 
             // returns tourguides who speaks this language
             // searchvalue must be a string
-            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.LANGUAGE)
+            else if ((TourguideTerms)searchterm == TourguideTerms.LANGUAGE)
             {
                 var languages = this.languageRepository.GetAll();
                 languages = languages.Where(i => i.Language1 == (string)searchvalue);
@@ -115,7 +115,7 @@ namespace BL
 
             // searching for tourguides who are on holiday between 2 dates
             // searchvalue must be a DateTime[]
-            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.ISONHOLIDAY)
+            else if ((TourguideTerms)searchterm == TourguideTerms.ISONHOLIDAY)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
@@ -137,15 +137,21 @@ namespace BL
 
             // searching for tourguides who are not on holiday between 2 dates
             // searchvalue must be a DateTime[]
-            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.ISAVAILABLE)
+            else if ((TourguideTerms)searchterm == TourguideTerms.ISAVAILABLE)
             {
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
                 DateTime endInterval = interval[1];
                 var onholidayList = this.onHolidayRepository.GetAll();
+                List<OnHoliday> l = new List<OnHoliday>();
+                foreach (var item in onholidayList)
+                {
+                    l.Add(item);
+                }
                 onholidayList = onholidayList.Where(
                     i => !((i.StartDate <= endInterval) && (startInterval <= i.EndDate)));
                 IList<Tourguide> tglist = new List<Tourguide>();
+
                 foreach (var item in onholidayList)
                 {
                     if (!tglist.Contains(item.Tourguide))
@@ -156,7 +162,7 @@ namespace BL
 
                 return tglist;
             }
-            else if ((TourguideTerms)Enum.Parse(typeof(TourguideTerms), (string)searchterm) == TourguideTerms.DEFAULT)
+            else if ((TourguideTerms)searchterm == TourguideTerms.DEFAULT)
             {
                 return tourguideList.ToList<Tourguide>();
             }
