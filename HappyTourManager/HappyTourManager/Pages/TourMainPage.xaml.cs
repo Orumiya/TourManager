@@ -94,6 +94,8 @@ namespace HappyTourManager.Pages
             }
             else if (tourVM.SelectedCtegory == "ADULTPRICE" || tourVM.SelectedCtegory == "CHILDPRICE")
             {
+                tourVM.SelectedValue1 = "";
+                tourVM.SelectedValue2 = "";
                 TextBox textbox = new TextBox();
                 Binding binding = new Binding("SelectedValue1");
                 textbox.SetBinding(TextBox.TextProperty, binding);
@@ -215,7 +217,7 @@ namespace HappyTourManager.Pages
                 else
                 {
                     tourVM.SaveTour(tourDetail.tcTour.SelectedIndex);
-                    MessageBox.Show("Tour data is saved!");
+                    MessageBox.Show("Data is saved!");
                     this.contTourDetails.Visibility = Visibility.Hidden;
                     tourVM.SelectedTour = null;
                     tourVM.SelectedPlace = null;
@@ -249,6 +251,8 @@ namespace HappyTourManager.Pages
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             tourVM.IsEdit = false;
+            tourVM.SelectedPlace = null;
+            tourVM.SelectedProgram = null;
             if (tourVM.ResultList.Count > 0 && tourVM.SelectedTour != null)
             {
                 tourVM.GetTourPlaces();
@@ -271,9 +275,18 @@ namespace HappyTourManager.Pages
             {
                 if (MessageBox.Show("Do you want to delete tour?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    tourVM.DeleteCustomer();
-                    MessageBox.Show("Customer is deleted");
-                    tourVM.ResultList.Remove(tourVM.SelectedTour);
+                    try
+                    {
+                        tourVM.DeleteTour();
+                        MessageBox.Show("Customer is deleted");
+                        tourVM.ResultList.Remove(tourVM.SelectedTour);
+                    }
+                    catch (Exception)
+                    {
+
+                        MessageBox.Show("Tour cannot be deleted!");
+                    }
+
                 }
             }
             else
