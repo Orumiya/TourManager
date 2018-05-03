@@ -177,6 +177,7 @@ namespace HappyTourManager.Pages
                 this.contCustDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
+                MessageBox.Show("Please select a customer!");
             }
         }
 
