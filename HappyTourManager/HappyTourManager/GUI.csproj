@@ -124,8 +124,14 @@
     <Compile Include="UserControls\CustomerUserControl.xaml.cs">
       <DependentUpon>CustomerUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TGDetailsUC.xaml.cs">
+      <DependentUpon>TGDetailsUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TourDetailsUC.xaml.cs">
       <DependentUpon>TourDetailsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TourGuideUC.xaml.cs">
+      <DependentUpon>TourGuideUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TourUC.xaml.cs">
       <DependentUpon>TourUC.xaml</DependentUpon>
@@ -212,7 +218,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\TGDetailsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TourDetailsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TourGuideUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

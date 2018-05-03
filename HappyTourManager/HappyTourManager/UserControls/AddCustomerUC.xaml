@@ -69,7 +69,7 @@
                     <TextBlock Text="Customer Orders:" FontWeight="Bold" Margin="0,5,0,0"/>
                     <DockPanel Margin="3">
                         <Expander  Header="Orders">
-                            <ListBox Name="lbProgs" ItemsSource="{Binding Orders}">
+                            <ListBox Name="lbProgs" ItemsSource="{Binding SelectedCustomer.Orders}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <DockPanel Margin="3">
