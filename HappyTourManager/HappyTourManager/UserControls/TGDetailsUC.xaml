@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="HappyTourManager.TGDetailsUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Converters="clr-namespace:HappyTourManager.Converters"
+             xmlns:local="clr-namespace:HappyTourManager"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Border Background="{StaticResource LightBGBrush}" CornerRadius="5" Opacity="0.9">
+        <Grid Background="{StaticResource LightBGBrush}" Margin="10">
+            <Grid.Resources>
+                <Converters:TrueFalseConverter x:Key="truefalse" />
+
+            </Grid.Resources>
+            <ScrollViewer >
+                <StackPanel Margin="3">
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Last Name: "/>
+                        <TextBox Text="{Binding SelectedTG.Person.LastName}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="First Name: "/>
+                        <TextBox Text="{Binding SelectedTG.Person.FirstName}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Birthdate: "/>
+                        <DatePicker SelectedDate="{Binding SelectedTG.Person.BirthDate}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Phonenumber: "/>
+                        <TextBox Text="{Binding SelectedTG.Person.Phone, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                    <TextBlock Text="Address" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Country: "/>
+                        <ComboBox Name="cboxCountry" SelectedItem="{Binding SelectedTG.Person.AddressCountry}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="City: "/>
+                        <TextBox Text="{Binding SelectedTG.Person.AddressCity}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="ZIP Code: "/>
+                        <TextBox Text="{Binding SelectedTG.Person.AddressZip}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Address: "/>
+                        <TextBox Text="{Binding SelectedTG.Person.AddressFree}" />
+                    </DockPanel>
+                    <TextBlock Text="ID Details" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="ID Type: "/>
+                        <ComboBox Name="cbIDtype" SelectedItem="{Binding SelectedTG.Person.IDType}"/>
+
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="ID number: "/>
+                        <TextBox Text="{Binding SelectedTG.Person.IDNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Valid to: "/>
+                        <DatePicker SelectedDate="{Binding SelectedTG.Person.ValidTo}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Tax identification: "/>
+                        <TextBox Text="{Binding SelectedTG.Taxidentification, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Daily allowance: "/>
+                        <TextBox Text="{Binding SelectedTG.Dailyallowance, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                    </DockPanel>
+                    <TextBlock Text="Languages:" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <Expander Name="addedlangs" Header="Spoken languages">
+                            <ListBox Name="lbLangs" ItemsSource="{Binding SelectedTG.Languages}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Language1}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Expander>
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Select language: "/>
+                        <ComboBox Name="cboxLanguage" SelectedItem="{Binding SelectedLanguage}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProgramType}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </DockPanel>
+
+                    <TextBlock Text="On Holiday:" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <Expander Name="addedholidays" Header="Holiday list">
+                            <ListBox Name="lbHolidays" ItemsSource="{Binding SelectedTG.OnHolidays}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Margin="3">
+                                            <TextBlock Text="{Binding StartDate}"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding EndDate}"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Expander>
+                    </DockPanel>
+                    <StackPanel Margin="3">
+                        <TextBlock Text="Select holiday: "/>
+                        <DockPanel Margin="3">
+                            <TextBlock Text="From: "/>
+                            <DatePicker SelectedDate="{Binding SelectedHolidayFrom}" />
+                        </DockPanel>
+                        <DockPanel Margin="3">
+                            <TextBlock Text="Till: "/>
+                            <DatePicker SelectedDate="{Binding SelectedHolidayTill}" />
+                        </DockPanel>
+                    </StackPanel>
+                    <TextBlock Text="Tours:" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <DockPanel Margin="3">
+                        <Expander Name="addedtourss" Header="Tour list">
+                            <ListBox Name="lbtours" ItemsSource="{Binding SelectedTG.Tours}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Margin="3">
+                                            <TextBlock Text="{Binding TravelName}"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding StartDate}"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding EndDate}"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Expander>
+                    </DockPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>
