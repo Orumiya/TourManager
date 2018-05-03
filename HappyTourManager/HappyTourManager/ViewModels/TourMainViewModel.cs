@@ -254,6 +254,7 @@ namespace HappyTourManager
             set
             {
                 pricePerNight = value;
+                CalculatePrices();
                 OnPropertyChanged(nameof(PricePerNight));
             }
         }
@@ -299,6 +300,10 @@ namespace HappyTourManager
                 OnPropertyChanged(nameof(IsEdit));
             }
         }
+
+
+
+
         #endregion
 
         #region constructor
@@ -333,6 +338,7 @@ namespace HappyTourManager
             GetAllPrograms();
             GetAllTourGuides();
         }
+
         #endregion
 
         #region Public methods
@@ -399,6 +405,93 @@ namespace HappyTourManager
             }
 
         }
+
+        public bool Checkvalues(int tab)
+        {
+            switch (tab)
+            {
+                case 0:
+                    if (SelectedTour.TravelName == null) return true;
+                    if (SelectedTour.Transport == null) return true;
+                    break;
+                case 1:
+                    if (SelectedPlace.Country == null) return true;
+                    if (SelectedPlace.City == null) return true;
+                    break;
+                case 2:
+                    if (SelectedProgram.ProgramType == null) return true;
+                    break;
+                default:
+                    break;
+
+                    
+            }
+            return false;
+        }
+
+        public void SaveTour(int tab)
+        {
+            switch (tab)
+            {
+                case 0:
+                    if (ResultList != null && ResultList.Contains(SelectedTour))
+                    {
+                        if (SelectedPlace != null)
+                        {
+                            pltconRepo.Create(new PLTCON() { TourID = SelectedTour.TourID, PlaceID = SelectedPlace.PlaceID });
+                        }
+                        if (SelectedProgram != null)
+                        {
+                            prtconRepo.Create(new PRTCON() { TourID = SelectedTour.TourID, ProgramID = SelectedProgram.ProgramID });
+                        }
+                        tourBL.Update();
+                    }
+                    else
+                    {
+                        tourBL.Save(SelectedTour);
+                        if (SelectedPlace != null)
+                        {
+                            pltconRepo.Create(new PLTCON() { TourID = SelectedTour.TourID, PlaceID = SelectedPlace.PlaceID });
+                        }
+                        if (SelectedProgram != null)
+                        {
+                            prtconRepo.Create(new PRTCON() { TourID = SelectedTour.TourID, ProgramID = SelectedProgram.ProgramID });
+                        }
+                    }
+                    break;
+                case 1:
+                    if (PlaceListAll.Contains(SelectedPlace))
+                    {
+                        placeRepo.Update();
+                    }
+                    else
+                    {
+                        placeRepo.Create(SelectedPlace);
+                        PlaceListAll.Add(SelectedPlace);
+                    }
+                    break;
+                case 2:
+                    if (ProgramListAll.Contains(SelectedProgram))
+                    {
+                        programRepo.Update();
+                    }
+                    else
+                    {
+                        programRepo.Create(SelectedProgram);
+                        ProgramListAll.Add(SelectedProgram);
+                    }
+                    break;
+                default:
+                    break;
+
+
+            }
+        }
+
+        public void DeleteCustomer()
+        {
+            tourBL.Delete(SelectedTour);
+        }
         #endregion
 
 
@@ -451,6 +544,14 @@ namespace HappyTourManager
             
         }
 
+        private void CalculatePrices()
+        {
+            if (SelectedTour != null)
+            {
+                SelectedTour.AdultPrice = tourBL.AdultPriceCalculator(SelectedTour.EndDate, SelectedTour.StartDate, pricePerNight);
+                SelectedTour.ChildPrice = tourBL.ChildPriceCalculator((int)SelectedTour.AdultPrice);
+            }
+        }
         #endregion
 
     }
