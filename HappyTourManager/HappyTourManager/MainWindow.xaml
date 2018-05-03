@@ -93,6 +93,6 @@
 
 
 
-    <Frame Grid.Row="1" x:Name="MainFrame"  />
+    <Frame Grid.Row="1" x:Name="MainFrame"  NavigationUIVisibility="Hidden"/>
 
 </Window>
