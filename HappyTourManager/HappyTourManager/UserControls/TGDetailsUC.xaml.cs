@@ -24,13 +24,6 @@ namespace HappyTourManager
         {
             InitializeComponent();
 
-            cboxLanguage.Items.Add("english");
-            cboxLanguage.Items.Add("german");
-            cboxLanguage.Items.Add("french");
-            cboxLanguage.Items.Add("spanish");
-            cboxLanguage.Items.Add("italian");
-            cboxLanguage.Items.Add("chinese");
-            cboxLanguage.Items.Add("japanese");
         }
     }
 }
