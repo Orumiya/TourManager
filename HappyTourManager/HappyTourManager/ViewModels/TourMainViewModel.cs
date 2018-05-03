@@ -488,8 +488,43 @@ namespace HappyTourManager
             }
         }
 
-        public void DeleteCustomer()
+        public void DeleteTour()
         {
+            IQueryable<PLTCON> plts = pltconRepo.GetAll();
+            List<PLTCON> pltList = new List<PLTCON>();
+            foreach (var item in plts)
+            {
+                if (item.TourID == SelectedTour.TourID)
+                {
+                    pltList.Add(item);
+                }
+            }
+            foreach (var item in pltList)
+            {
+                try
+                {
+                    pltconRepo.Delete(item);
+                }
+                finally { }
+            }
+            IQueryable<PRTCON> prts = prtconRepo.GetAll();
+            List<PRTCON> prtList = new List<PRTCON>();
+            foreach (var item in prts)
+            {
+                if (item.TourID == SelectedTour.TourID)
+                {
+                    prtList.Add(item);
+                }
+                
+            }
+            foreach (var item in prtList)
+            {
+                try
+                {
+                    prtconRepo.Delete(item);
+                }
+                finally { }
+            }
             tourBL.Delete(SelectedTour);
         }
         #endregion
