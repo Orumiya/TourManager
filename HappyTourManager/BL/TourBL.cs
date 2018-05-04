@@ -256,6 +256,74 @@ namespace BL
         }
 
         /// <summary>
+        /// gets all place-Tour relation
+        /// </summary>
+        /// <returns>pltcon object list</returns>
+        public IList<PLTCON> GetAllPLTCONs()
+        {
+            var pltcons = this.pltconRepository.GetAll();
+            return pltcons.ToList();
+        }
+
+        /// <summary>
+        /// gets all program-tour connections
+        /// </summary>
+        /// <returns>obj list</returns>
+        public IList<PRTCON> GetAllPRTCONs()
+        {
+            var prtcons = this.prtconRepository.GetAll();
+            return prtcons.ToList();
+        }
+
+        /// <summary>
+        /// creates a program-tour connection
+        /// </summary>
+        /// <param name="prtcon">input  obj</param>
+        public void CreatePRTCON(PRTCON prtcon)
+        {
+            this.prtconRepository.Create(prtcon);
+        }
+
+        /// <summary>
+        /// creates a place-tour connection
+        /// </summary>
+        /// <param name="pltcon">input  obj</param>
+        public void CreatePLTCON(PLTCON pltcon)
+        {
+            this.pltconRepository.Create(pltcon);
+        }
+
+        public void PlaceRepoUpdate()
+        {
+            this.placeRepository.Update();
+        }
+
+        public void ProgramRepoUpdate()
+        {
+            this.programRepository.Update();
+        }
+
+        public void CreatePlace(Place place)
+        {
+            this.placeRepository.Create(place);
+        }
+
+        public void CreateProgram(Program program)
+        {
+            this.programRepository.Create(program);
+        }
+
+        public void DeletePLTCON(PLTCON pltcon)
+        {
+            this.pltconRepository.Delete(pltcon);
+        }
+
+        public void DeletePRTCON(PRTCON prtcon)
+        {
+            this.prtconRepository.Delete(prtcon);
+        }
+
+        /// <summary>
         /// notifies the outside about any collection change manually
         /// </summary>
         private void OnTourListChanged()

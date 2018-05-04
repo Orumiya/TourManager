@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using System;
     using System.Collections.Generic;
@@ -14,12 +18,7 @@
     class TourMainViewModel : Bindable
     {
         #region private variables
-        private IRepository<Place> placeRepo;
-        private IRepository<PLTCON> pltconRepo;
-        private IRepository<Program> programRepo;
-        private IRepository<PRTCON> prtconRepo;
-        private IRepository<Tourguide> tourguideRepo;
-        private IRepository<Tour> tourRepo;
+
         private TourBL tourBL;
         private TourguideBL tourguideBL;
 
@@ -312,12 +311,6 @@
             IRepository<PRTCON> prtconRepo,
             IRepository<Tourguide> tourguideRepo)
         {
-            //this.tourRepo = tourRepo;
-            //this.placeRepo = placeRepo;
-            //this.pltconRepo = pltconRepo;
-            //this.programRepo = programRepo;
-            //this.prtconRepo = prtconRepo;
-            //this.tourguideRepo = tourguideRepo;
             this.CreateCountryList();
             this.tourBL = new TourBL(tourRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
             this.tourguideBL = new TourguideBL(tourguideRepo);
@@ -375,7 +368,7 @@
         /// </summary>
         public void GetTourPlaces()
         {
-            IQueryable<PLTCON> places = this.pltconRepo.GetAll();
+            IList<PLTCON> places = this.tourBL.GetAllPLTCONs();
             this.TourPlaceList = new ObservableCollection<Place>();
             foreach (var item in places)
             {
@@ -385,9 +378,7 @@
                     {
                         this.TourPlaceList.Add(item.Place);
                     }
-
                 }
-
             }
 
         }
@@ -397,7 +388,7 @@
         /// </summary>
         public void GetTourPrograms()
         {
-            IQueryable<PRTCON> programs = this.prtconRepo.GetAll();
+            IList<PRTCON> programs = this.tourBL.GetAllPRTCONs();
             this.TourProgramList = new ObservableCollection<Program>();
             foreach (var item in programs)
             {
@@ -445,11 +436,11 @@
                     {
                         if (this.SelectedPlace != null)
                         {
-                            this.pltconRepo.Create(new PLTCON() { TourID = this.SelectedTour.TourID, PlaceID = this.SelectedPlace.PlaceID });
+                            this.tourBL.CreatePLTCON(new PLTCON() { TourID = this.SelectedTour.TourID, PlaceID = this.SelectedPlace.PlaceID });
                         }
                         if (this.SelectedProgram != null)
                         {
-                            this.prtconRepo.Create(new PRTCON() { TourID = this.SelectedTour.TourID, ProgramID = this.SelectedProgram.ProgramID });
+                            this.tourBL.CreatePRTCON(new PRTCON() { TourID = this.SelectedTour.TourID, ProgramID = this.SelectedProgram.ProgramID });
                         }
                         this.tourBL.Update();
                     }
@@ -458,33 +449,33 @@
                         this.tourBL.Save(this.SelectedTour);
                         if (this.SelectedPlace != null)
                         {
-                            this.pltconRepo.Create(new PLTCON() { TourID = this.SelectedTour.TourID, PlaceID = this.SelectedPlace.PlaceID });
+                            this.tourBL.CreatePLTCON(new PLTCON() { TourID = this.SelectedTour.TourID, PlaceID = this.SelectedPlace.PlaceID });
                         }
                         if (this.SelectedProgram != null)
                         {
-                            this.prtconRepo.Create(new PRTCON() { TourID = this.SelectedTour.TourID, ProgramID = this.SelectedProgram.ProgramID });
+                            this.tourBL.CreatePRTCON(new PRTCON() { TourID = this.SelectedTour.TourID, ProgramID = this.SelectedProgram.ProgramID });
                         }
                     }
                     break;
                 case 1:
                     if (this.PlaceListAll.Contains(this.SelectedPlace))
                     {
-                        this.placeRepo.Update();
+                        this.tourBL.PlaceRepoUpdate();
                     }
                     else
                     {
-                        this.placeRepo.Create(this.SelectedPlace);
+                        this.tourBL.CreatePlace(this.SelectedPlace);
                         this.PlaceListAll.Add(this.SelectedPlace);
                     }
                     break;
                 case 2:
                     if (this.ProgramListAll.Contains(this.SelectedProgram))
                     {
-                        this.programRepo.Update();
+                        this.tourBL.ProgramRepoUpdate();
                     }
                     else
                     {
-                        this.programRepo.Create(this.SelectedProgram);
+                        this.tourBL.CreateProgram(this.SelectedProgram);
                         this.ProgramListAll.Add(this.SelectedProgram);
                     }
                     break;
@@ -496,7 +487,7 @@
 
         public void DeleteInstance()
         {
-            IQueryable<PLTCON> plts = this.pltconRepo.GetAll();
+            IList<PLTCON> plts = this.tourBL.GetAllPLTCONs();
             List<PLTCON> pltList = new List<PLTCON>();
             foreach (var item in plts)
             {
@@ -509,11 +500,12 @@
             {
                 try
                 {
-                    this.pltconRepo.Delete(item);
+                    this.tourBL.DeletePLTCON(item);
                 }
                 finally { }
             }
-            IQueryable<PRTCON> prts = this.prtconRepo.GetAll();
+
+            IList<PRTCON> prts = this.tourBL.GetAllPRTCONs();
             List<PRTCON> prtList = new List<PRTCON>();
             foreach (var item in prts)
             {
@@ -527,7 +519,7 @@
             {
                 try
                 {
-                    this.prtconRepo.Delete(item);
+                    this.tourBL.DeletePRTCON(item);
                 }
                 finally { }
             }

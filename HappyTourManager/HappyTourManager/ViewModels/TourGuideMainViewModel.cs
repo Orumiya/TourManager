@@ -18,11 +18,6 @@ namespace HappyTourManager
     class TourGuideMainViewModel: Bindable, IContentPage
     {
         #region private variables
-        //private IRepository<Tourguide> tourGuideRepo;
-        //private IRepository<Language> languageRepo;
-        //private IRepository<OnHoliday> holidayRepo;
-        //private IRepository<Tour> tourRepo;
-
         private TourguideBL tgBL;
         private string selectedCtegory = "DEFAULT";
         private string selectedValue;
@@ -190,10 +185,6 @@ namespace HappyTourManager
                 IRepository<Tour> tourRepo
             )
         {
-            //this.tourGuideRepo = tourGuideRepo;
-            //this.languageRepo = languageRepo;
-            //this.holidayRepo = holidayRepo;
-            //this.tourRepo = tourRepo;
             this.tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
             this.CreateCountryList();
 
