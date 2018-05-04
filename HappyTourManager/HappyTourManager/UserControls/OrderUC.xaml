@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="HappyTourManager.OrderUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HappyTourManager"
+             mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="300" Width="286">
+    <Grid Background="{StaticResource LightBGBrush}" Opacity="0.6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="Black" Width="5"/>
+        <StackPanel Grid.Column="1" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Padding="2" Text="OrderID: " FontFamily="{StaticResource SugarcubesBold}" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Padding="2" Text="{Binding OrderID}" FontFamily="{StaticResource SugarcubesBold}" FontSize="14"/>
+            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Padding="3" Text="CustomerID: " FontFamily="{StaticResource SugarcubesRegular}" />
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Padding="3" Text="{Binding CustomerID}" FontFamily="{StaticResource SugarcubesRegular}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Padding="3" Text="Tour: " FontFamily="{StaticResource SugarcubesRegular}" />
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Padding="3" Text="{Binding Tour.TravelName}" FontFamily="{StaticResource SugarcubesRegular}" />
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Padding="3" Text="Order Date: " FontFamily="{StaticResource SugarcubesRegular}" />
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Padding="3" Text="{Binding OrderDate}" FontFamily="{StaticResource SugarcubesRegular}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Padding="3"  Text="Price: " FontFamily="{StaticResource SugarcubesRegular}" />
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Padding="3"  Text="{Binding TotalSum}" FontFamily="{StaticResource SugarcubesRegular}" />
+                </StackPanel>
+            </Grid>
+
+        </StackPanel>
+
+
+
+
+    </Grid>
+</UserControl>
