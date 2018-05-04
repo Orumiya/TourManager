@@ -23,17 +23,22 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class CustomerMainPage : Page
     {
+        #region private variables
         private IRepository<Customer> custRepository;
         CustomerMainViewModel custVM;
         AddCustomerUC custDetail;
+        #endregion
 
+        #region constructor
         public CustomerMainPage(IRepository<Customer> custRepository)
         {
             InitializeComponent();
             this.custRepository = custRepository;
 
         }
+        #endregion
 
+        #region eventhandlers
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (custVM.SelectedCtegory == "VALIDTO")
@@ -197,5 +202,6 @@ namespace HappyTourManager.Pages
                 MessageBox.Show("Please select a customer!");
             }
         }
+        #endregion
     }
 }

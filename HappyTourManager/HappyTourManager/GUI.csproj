@@ -88,6 +88,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -123,6 +125,12 @@
     </Compile>
     <Compile Include="UserControls\CustomerUserControl.xaml.cs">
       <DependentUpon>CustomerUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrderDetailsUC.xaml.cs">
+      <DependentUpon>OrderDetailsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrderUC.xaml.cs">
+      <DependentUpon>OrderUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TGDetailsUC.xaml.cs">
       <DependentUpon>TGDetailsUC.xaml</DependentUpon>
@@ -215,6 +223,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CustomerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OrderDetailsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OrderUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
