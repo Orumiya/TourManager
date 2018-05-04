@@ -302,5 +302,15 @@ namespace HappyTourManager.Pages
             }
         }
         #endregion
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tourVM.SelectedTour != null)
+            {
+                tourVM.GetTourPlaces();
+                tourVM.GetTourPrograms();
+            }
+            
+        }
     }
 }
