@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using System;
     using System.Collections.Generic;
@@ -14,10 +18,10 @@
     class TourGuideMainViewModel: Bindable, IContentPage
     {
         #region private variables
-        private IRepository<Tourguide> tourGuideRepo;
-        private IRepository<Language> languageRepo;
-        private IRepository<OnHoliday> holidayRepo;
-        private IRepository<Tour> tourRepo;
+        //private IRepository<Tourguide> tourGuideRepo;
+        //private IRepository<Language> languageRepo;
+        //private IRepository<OnHoliday> holidayRepo;
+        //private IRepository<Tour> tourRepo;
 
         private TourguideBL tgBL;
         private string selectedCtegory = "DEFAULT";
@@ -186,10 +190,10 @@
                 IRepository<Tour> tourRepo
             )
         {
-            this.tourGuideRepo = tourGuideRepo;
-            this.languageRepo = languageRepo;
-            this.holidayRepo = holidayRepo;
-            this.tourRepo = tourRepo;
+            //this.tourGuideRepo = tourGuideRepo;
+            //this.languageRepo = languageRepo;
+            //this.holidayRepo = holidayRepo;
+            //this.tourRepo = tourRepo;
             this.tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
             this.CreateCountryList();
 
@@ -283,11 +287,11 @@
             {
                 if (this.SelectedLanguage != null)
                 {
-                    this.languageRepo.Create(new Language() { TourguideID = this.SelectedTG.PersonID, Language1 = this.SelectedLanguage });
+                    this.tgBL.CreateLanguage(new Language() { TourguideID = this.SelectedTG.PersonID, Language1 = this.SelectedLanguage });
                  }
                  if (this.SelectedHolidayFrom != default(DateTime) && this.SelectedHolidayTill != default(DateTime))
                  {
-                    this.holidayRepo.Create(new OnHoliday() { StartDate = this.SelectedHolidayFrom, EndDate = this.SelectedHolidayTill, TourguideID = this.SelectedTG.PersonID });
+                    this.tgBL.CreateHoliday(new OnHoliday() { StartDate = this.SelectedHolidayFrom, EndDate = this.SelectedHolidayTill, TourguideID = this.SelectedTG.PersonID });
                  }
                  this.tgBL.Update();
             }
@@ -296,11 +300,11 @@
                 this.tgBL.Save(this.SelectedTG);
                 if (this.SelectedLanguage != null)
                 {
-                    this.languageRepo.Create(new Language() { TourguideID = this.SelectedTG.PersonID, Language1 = this.SelectedLanguage });
+                    this.tgBL.CreateLanguage(new Language() { TourguideID = this.SelectedTG.PersonID, Language1 = this.SelectedLanguage });
                 }
                 if (this.SelectedHolidayFrom != default(DateTime) && this.SelectedHolidayTill != default(DateTime))
                 {
-                    this.holidayRepo.Create(new OnHoliday() { StartDate = this.SelectedHolidayFrom, EndDate = this.SelectedHolidayTill, TourguideID = this.SelectedTG.PersonID });
+                    this.tgBL.CreateHoliday(new OnHoliday() { StartDate = this.SelectedHolidayFrom, EndDate = this.SelectedHolidayTill, TourguideID = this.SelectedTG.PersonID });
                 }
             }
 
@@ -308,7 +312,7 @@
 
         public void DeleteInstance()
         {
-            IQueryable<Language> languages = this.languageRepo.GetAll();
+            IList<Language> languages = this.tgBL.GetAllLanguages();
             List<Language> lList = new List<Language>();
             foreach (var item in languages)
             {
@@ -321,11 +325,11 @@
             {
                 try
                 {
-                    this.languageRepo.Delete(item);
+                    this.tgBL.DeleteLanguage(item);
                 }
                 finally { }
             }
-            IQueryable<OnHoliday> holidays = this.holidayRepo.GetAll();
+            IList<OnHoliday> holidays = this.tgBL.GetAllHolidays();
             List<OnHoliday> hList = new List<OnHoliday>();
             foreach (var item in holidays)
             {
@@ -338,7 +342,7 @@
             {
                 try
                 {
-                    this.holidayRepo.Delete(item);
+                    this.tgBL.DeleteHoliday(item);
                 }
                 finally { }
             }
