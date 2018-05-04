@@ -163,6 +163,17 @@ namespace HappyTourManager
 
                 rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), dt);
             }
+            else if (SelectedCtegory == "LOYALTYCARD")
+            {
+                if (SelectedValue == "yes")
+                {
+                    rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), "1");
+                }
+                else
+                {
+                    rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), "0");
+                }
+            }
             else
             {
                 rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), SelectedValue);
