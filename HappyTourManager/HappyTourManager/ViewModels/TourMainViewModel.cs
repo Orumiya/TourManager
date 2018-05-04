@@ -21,6 +21,7 @@
         private IRepository<Tourguide> tourguideRepo;
         private IRepository<Tour> tourRepo;
         private TourBL tourBL;
+        private TourguideBL tourguideBL;
 
         private string selectedCtegory = "DEFAULT";
         private string selectedValue1;
@@ -319,6 +320,7 @@
             this.tourguideRepo = tourguideRepo;
             this.CreateCountryList();
             this.tourBL = new TourBL(tourRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
+            this.tourguideBL = new TourguideBL(tourguideRepo);
 
             this.searchCategories = new List<string>();
             foreach (TourTerms item in Enum.GetValues(typeof(TourTerms)))
@@ -575,10 +577,12 @@
             }
         }
 
+        /// <summary>
+        /// returns all tourguides and puts them in the list for FE
+        /// </summary>
         private void GetAllTourGuides()
         {
-
-            IQueryable<Tourguide> tg = this.tourguideRepo.GetAll();
+            IList<Tourguide> tg = this.tourguideBL.GetAllTourguides();
             if (tg !=null)
             {
                 foreach (var item in tg)
@@ -586,7 +590,6 @@
                     this.TourGuideList.Add(item);
                 }
             }
-
         }
 
         private void CalculatePrices()

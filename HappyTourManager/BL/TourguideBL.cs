@@ -45,6 +45,15 @@ namespace BL
             this.onHolidayRepository = onHolidayRepository;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TourguideBL"/> class.
+        /// </summary>
+        /// <param name="tourguideRepository">input repo</param>
+        public TourguideBL(IRepository<Tourguide> tourguideRepository)
+        {
+            this.tourguideRepository = tourguideRepository;
+        }
+
         /// <inheritdoc />
         public event EventHandler TourguideListChanged;
 
@@ -176,6 +185,16 @@ namespace BL
         public void ThrowIfExists(Tourguide guide)
         {
             this.tourguideRepository.ThrowIfExists(guide);
+        }
+
+        /// <summary>
+        /// returns all tourguides
+        /// </summary>
+        /// <returns>tglist</returns>
+        public IList<Tourguide> GetAllTourguides()
+        {
+            var tg = this.tourguideRepository.GetAll();
+            return tg.ToList();
         }
 
         /// <summary>
