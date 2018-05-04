@@ -262,6 +262,5 @@ namespace BL
         {
             this.TourListChanged?.Invoke(this, EventArgs.Empty);
         }
-
     }
 }

@@ -157,6 +157,7 @@ namespace BL
                 {
                     l.Add(item);
                 }
+
                 onholidayList = onholidayList.Where(
                     i => !((i.StartDate <= endInterval) && (startInterval <= i.EndDate)));
                 IList<Tourguide> tglist = new List<Tourguide>();

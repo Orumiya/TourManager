@@ -312,12 +312,12 @@
             IRepository<PRTCON> prtconRepo,
             IRepository<Tourguide> tourguideRepo)
         {
-            this.tourRepo = tourRepo;
-            this.placeRepo = placeRepo;
-            this.pltconRepo = pltconRepo;
-            this.programRepo = programRepo;
-            this.prtconRepo = prtconRepo;
-            this.tourguideRepo = tourguideRepo;
+            //this.tourRepo = tourRepo;
+            //this.placeRepo = placeRepo;
+            //this.pltconRepo = pltconRepo;
+            //this.programRepo = programRepo;
+            //this.prtconRepo = prtconRepo;
+            //this.tourguideRepo = tourguideRepo;
             this.CreateCountryList();
             this.tourBL = new TourBL(tourRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
             this.tourguideBL = new TourguideBL(tourguideRepo);
