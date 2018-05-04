@@ -55,20 +55,20 @@
                             <TextBlock Text="Number of passangers" FontWeight="Bold" Margin="0,5,0,0"/>
                             <DockPanel Margin="3">
                                 <TextBlock Text="Minimum: "/>
-                                <TextBox Text="{Binding SelectedTour.MinNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                                <TextBox Text="{Binding SelectedTour.MinNumber, StringFormat='{}{0:#\;0:#;#}'}" />
                             </DockPanel>
                             <DockPanel Margin="3">
                                 <TextBlock Text="Maximum: "/>
-                                <TextBox Text="{Binding SelectedTour.MaxNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                                <TextBox Text="{Binding SelectedTour.MaxNumber, StringFormat='{}{0:#\;0:#;#}'}" />
                             </DockPanel>
                             <TextBlock Text="Prices" FontWeight="Bold" Margin="0,5,0,0"/>
                             <DockPanel Margin="3">
                                 <TextBlock Text="Price per night: "/>
-                                <TextBox Text="{Binding PricePerNight, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                                <TextBox Text="{Binding PricePerNight, StringFormat='{}{0:#\;0:#;#}'}" />
                             </DockPanel>
                             <DockPanel Margin="3">
                                 <TextBlock Text="Adult price: "/>
-                                <TextBlock Text="{Binding SelectedTour.AdultPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                                <TextBlock Text="{Binding SelectedTour.AdultPrice, StringFormat='{}{0:#\;0:#;#}'}" />
                             </DockPanel>
                             <DockPanel Margin="3">
                                 <TextBlock Text="Child price: "/>
