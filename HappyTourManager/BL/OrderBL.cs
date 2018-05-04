@@ -17,7 +17,6 @@ namespace BL
     public enum OrderTerms
     {
         ORDERDATE,
-        TOTALSUM,
         ISLOYALTY,
         ISCANCELLED,
         ISPAYED,

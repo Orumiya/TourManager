@@ -12,6 +12,7 @@ namespace HappyTourManager
 
     public class OrderMainViewModel : Bindable
     {
+        #region private variables
         private IRepository<Order> orderRepository;
         private IRepository<Customer> customerRepository;
         private IRepository<Tour> tourRepository;
@@ -25,37 +26,28 @@ namespace HappyTourManager
         private TourBL tourBL;
         private CustomerBL customerBL;
 
+        private string selectedCtegory = "DEFAULT";
+        private DateTime selectedDateFrom = DateTime.Today;
+        private DateTime selectedDateTo = DateTime.Today;
+        private string selectedValue;
         private Order selectedOrder;
+        private int adultCountNew;
+        private int childCountNew;
+        private Tour selectedTour;
+        private Customer selectedCustomer;
+        private IList<Customer> customerList;
+        private IList<Tour> tourList;
+        private List<string> searchCategories;
+        #endregion
 
+        #region parameters
         public Order SelectedOrder
         {
             get { return selectedOrder; }
             set { selectedOrder = value;
                 OnPropertyChanged(nameof(this.SelectedOrder));
             }
-        }
-
-        private Order newOrder;
-
-        public Order NewOrder
-        {
-            get { return newOrder; }
-            set { newOrder = value;
-                OnPropertyChanged(nameof(this.NewOrder));
-            }
-        }
-
-        private int totalSum;
-
-        //public int TotalSum
-        //{
-        //    get { return totalSum; }
-        //    set { totalSum = orderBL.CalculateOrderPriceBeforeLoyaltyCounted()
-        //    OnPropertyChanged(nameof(this.NewOrder));
-        //    }
-        //}
-
-        private int adultCountNew;
+        }        
 
         public int AdultCountNew
         {
@@ -65,8 +57,6 @@ namespace HappyTourManager
             }
         }
 
-        private int childCountNew;
-
         public int ChildCountNew
         {
             get { return childCountNew; }
@@ -74,8 +64,7 @@ namespace HappyTourManager
                 OnPropertyChanged(nameof(this.ChildCountNew));
             }
         }
-
-        private Tour selectedTour;
+       
 
         public Tour SelectedTour
         {
@@ -84,8 +73,7 @@ namespace HappyTourManager
                 OnPropertyChanged(nameof(this.SelectedTour));
             }
         }
-
-        private Customer selectedCustomer;
+               
 
         public Customer SelectedCustomer
         {
@@ -95,9 +83,104 @@ namespace HappyTourManager
             }
         }
 
-        
+        public string SelectedCtegory
+        {
+            get
+            {
+                return selectedCtegory;
+            }
 
+            set
+            {
+                selectedCtegory = value;
+                OnPropertyChanged(nameof(SelectedCtegory));
+            }
+        }
 
+        public IList<Order> OrderList
+        {
+            get { return orderList; }
+            set { orderList = value; }
+        }
+
+        public IList<Customer> CustomerList
+        {
+            get { return customerList; }
+            set
+            {
+                customerList = value;
+                OnPropertyChanged(nameof(CustomerList));
+            }
+        }
+
+        public IList<Tour> TourList
+        {
+            get { return tourList; }
+            set
+            {
+                tourList = value;
+                OnPropertyChanged(nameof(TourList));
+            }
+        }
+
+        public DateTime SelectedDateFrom
+        {
+            get
+            {
+                return selectedDateFrom;
+            }
+
+            set
+            {
+                selectedDateFrom = value;
+                OnPropertyChanged(nameof(SelectedDateFrom));
+            }
+        }
+
+        public DateTime SelectedDateTo
+        {
+            get
+            {
+                return selectedDateTo;
+            }
+
+            set
+            {
+                selectedDateTo = value;
+                OnPropertyChanged(nameof(SelectedDateTo));
+            }
+        }
+
+        public List<string> SearchCategories
+        {
+            get
+            {
+                return searchCategories;
+            }
+
+            set
+            {
+                searchCategories = value;
+                OnPropertyChanged(nameof(SearchCategories));
+            }
+        }
+
+        public string SelectedValue
+        {
+            get
+            {
+                return selectedValue;
+            }
+
+            set
+            {
+                selectedValue = value;
+                OnPropertyChanged(nameof(SelectedValue));
+            }
+        }
+        #endregion
+
+        #region constructor
         public OrderMainViewModel(IRepository<Order> orderRepository, 
             IRepository<Customer> customerRepository,
             IRepository<Tour> tourRepository,
@@ -115,7 +198,19 @@ namespace HappyTourManager
             this.prtconRepository = prtconRepository;
             this.orderBL = new OrderBL(orderRepository, customerRepository, tourRepository);
             this.RefreshOrderList();
+
+            searchCategories = new List<string>();
+            foreach (OrderTerms item in Enum.GetValues(typeof(OrderTerms)))
+            {
+                searchCategories.Add(item.ToString());
+            }
         }
+        #endregion
+
+
+        #region public methods
+
+
 
         public void RefreshOrderList()
         {
@@ -124,32 +219,13 @@ namespace HappyTourManager
             
         }
 
-        public IList<Order> OrderList
-        {
-            get { return orderList; }
-            set { orderList = value; }
-        }
+        
 
-        private IList<Customer> customerList;
+        
 
-        public IList<Customer> CustomerList
-        {
-            get { return customerList; }
-            set {
-                customerList = value;
-                OnPropertyChanged(nameof(CustomerList));
-            }
-        }
+        
 
-        private IList<Tour> tourList;
 
-        public IList<Tour> TourList
-        {
-            get { return tourList; }
-            set { tourList = value;
-                OnPropertyChanged(nameof(TourList));
-            }
-        }
 
         //private Order CreateNewOrder()
         //{
@@ -172,6 +248,10 @@ namespace HappyTourManager
             return custList;
         }
 
+        #endregion
 
+        #region private methods
+
+        #endregion
     }
 }

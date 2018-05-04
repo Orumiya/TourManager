@@ -31,7 +31,7 @@ namespace HappyTourManager.Pages
         private IRepository<PRTCON> prtconRepository;
 
         private OrderMainViewModel orderVM;
-        private TourDetailsUC tourDetail;
+        private OrderDetailsUC orderDetail;
 
         IList<Tour> tourList = new List<Tour>();
         IList<Customer> customerList = new List<Customer>();
@@ -60,109 +60,57 @@ namespace HappyTourManager.Pages
         #region event handlers
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //tourVM = new TourMainViewModel(tourRepo, placeRepo, pltconRepo, programRepo, prtconRepo, tourguideRepo);
+            orderVM = new OrderMainViewModel(orderRepository, customerRepository, tourRepository, programRepository, placeRepository, pltconRepository, prtconRepository);
 
-            //this.searchCat.ItemsSource = tourVM.SearchCategories;
-            //this.searchCat.Visibility = Visibility.Visible;
-            //this.searchCat.SelectedItem = "DEFAULT";
-            //this.DataContext = tourVM;
-            //tourDetail = new TourDetailsUC();
-            //foreach (string item in tourVM.countryList)
-            //{
-            //    tourDetail.cboxCountry.Items.Add(item);
-            //}
-            //this.contTourDetails.Content = tourDetail;
-            //this.contTourDetails.Visibility = Visibility.Hidden;
+            this.searchCat.ItemsSource = orderVM.SearchCategories;
+            this.searchCat.Visibility = Visibility.Visible;
+            this.searchCat.SelectedItem = "DEFAULT";
+            this.DataContext = orderVM;
+            orderDetail = new OrderDetailsUC();
+            
+            this.contOrderDetails.Visibility = Visibility.Hidden;
 
         }
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (tourVM.SelectedCtegory == "TOURDATE")
-            //{
-            //    DatePicker datePicker = new DatePicker();
+            if (orderVM.SelectedCtegory == "ORDERDATE")
+            {
+                DatePicker datePicker = new DatePicker();
 
-            //    Binding binding = new Binding("SelectedDateFrom");
-            //    datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
-            //    this.contSearch1.Content = datePicker;
+                Binding binding = new Binding("SelectedDateFrom");
+                datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
+                this.contSearch1.Content = datePicker;
 
-            //    DatePicker datePicker2 = new DatePicker();
-            //    Binding binding2 = new Binding("SelectedDateTo");
-            //    datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
-            //    this.contSearch2.Content = datePicker2;
+                DatePicker datePicker2 = new DatePicker();
+                Binding binding2 = new Binding("SelectedDateTo");
+                datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
+                this.contSearch2.Content = datePicker2;
 
-            //}
-            //else if (tourVM.SelectedCtegory == "DEFAULT")
-            //{
-            //    this.contSearch1.Content = null;
-            //    this.contSearch2.Content = null;
-            //    tourVM.SelectedValue1 = default(string);
-            //}
-            //else if (tourVM.SelectedCtegory == "ADULTPRICE" || tourVM.SelectedCtegory == "CHILDPRICE")
-            //{
-            //    tourVM.SelectedValue1 = "";
-            //    tourVM.SelectedValue2 = "";
-            //    TextBox textbox = new TextBox();
-            //    Binding binding = new Binding("SelectedValue1");
-            //    textbox.SetBinding(TextBox.TextProperty, binding);
-            //    this.contSearch1.Content = textbox;
+            }
+            else if (orderVM.SelectedCtegory == "DEFAULT")
+            {
+                this.contSearch1.Content = null;
+                this.contSearch2.Content = null;
+                orderVM.SelectedValue = default(string);
+            }
+            else if (orderVM.SelectedCtegory == "ISLOYALTY" || orderVM.SelectedCtegory == "ISCANCELLED" || orderVM.SelectedCtegory == "ISPAYED")
+            {
+                ComboBox cBox = new ComboBox();
 
-            //    TextBox textbox2 = new TextBox();
-            //    Binding binding2 = new Binding("SelectedValue2");
-            //    textbox2.SetBinding(TextBox.TextProperty, binding2);
-            //    this.contSearch2.Content = textbox2;
-            //}
-            //else if (tourVM.SelectedCtegory == "COUNTRY")
-            //{
-            //    ComboBox cBox = new ComboBox();
+                cBox.Items.Add("yes");
+                cBox.Items.Add("no");
 
-            //    foreach (var item in tourVM.PlaceListAll)
-            //    {
-            //        if (!cBox.Items.Contains(item.Country))
-            //        {
-            //            cBox.Items.Add(item.Country);
-            //        }
-            //    }
-            //    Binding binding = new Binding("SelectedValue1");
-            //    cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
-            //    this.contSearch1.Content = cBox;
-            //    this.contSearch2.Content = null;
-            //}
-            //else if (tourVM.SelectedCtegory == "CITY")
-            //{
-            //    ComboBox cBox = new ComboBox();
-            //    foreach (var item in tourVM.PlaceListAll)
-            //    {
-            //        if (!cBox.Items.Contains(item.City))
-            //        {
-            //            cBox.Items.Add(item.City);
-            //        }
-            //    }
-            //    Binding binding = new Binding("SelectedValue1");
-            //    cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
-            //    this.contSearch1.Content = cBox;
-            //    this.contSearch2.Content = null;
-            //}
-            //else if (tourVM.SelectedCtegory == "PROGRAM")
-            //{
-            //    ComboBox cBox = new ComboBox();
-            //    foreach (var item in tourVM.ProgramListAll)
-            //    {
-            //        if (!cBox.Items.Contains(item.ProgramType))
-            //        {
-            //            cBox.Items.Add(item.ProgramType);
-            //        }
-            //    }
-            //    Binding binding = new Binding("SelectedValue1");
-            //    cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
-            //    this.contSearch1.Content = cBox;
-            //    this.contSearch2.Content = null;
-            //}
-            //else
-            //{
-            //    this.contSearch1.Content = null;
-            //    this.contSearch2.Content = null;
-            //}
+                Binding binding = new Binding("SelectedValue");
+                cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+                this.contSearch1.Content = cBox;
+                this.contSearch2.Content = null;
+            }
+            else
+            {
+                this.contSearch1.Content = null;
+                this.contSearch2.Content = null;
+            }
 
         }
 
