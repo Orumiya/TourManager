@@ -4,13 +4,13 @@
 
 namespace HappyTourManager
 {
+    using System;
+    using System.Collections.Generic;
     using BL;
     using DATA;
     using DATA.Interfaces;
-    using System;
-    using System.Collections.Generic;
 
-    public class OrderMainViewModel : Bindable
+    public class OrderMainViewModel : Bindable, IContentPage
     {
         #region private variables
         private IRepository<Order> orderRepository;
@@ -43,43 +43,71 @@ namespace HappyTourManager
         #region parameters
         public Order SelectedOrder
         {
-            get { return selectedOrder; }
-            set { selectedOrder = value;
-                OnPropertyChanged(nameof(this.SelectedOrder));
+            get
+            {
+                return this.selectedOrder;
             }
-        }        
+
+            set
+            {
+                this.selectedOrder = value;
+                this.OnPropertyChanged(nameof(this.SelectedOrder));
+            }
+        }
 
         public int AdultCountNew
         {
-            get { return adultCountNew; }
-            set { adultCountNew = value;
-                OnPropertyChanged(nameof(this.AdultCountNew));
+            get
+            {
+                return this.adultCountNew;
+            }
+
+            set
+            {
+                this.adultCountNew = value;
+                this.OnPropertyChanged(nameof(this.AdultCountNew));
             }
         }
 
         public int ChildCountNew
         {
-            get { return childCountNew; }
-            set { childCountNew = value;
-                OnPropertyChanged(nameof(this.ChildCountNew));
+            get
+            {
+                return this.childCountNew;
+            }
+
+            set
+            {
+                this.childCountNew = value;
+                this.OnPropertyChanged(nameof(this.ChildCountNew));
             }
         }
-       
 
         public Tour SelectedTour
         {
-            get { return selectedTour; }
-            set { selectedTour = value;
-                OnPropertyChanged(nameof(this.SelectedTour));
+            get
+            {
+                return this.selectedTour;
+            }
+
+            set
+            {
+                this.selectedTour = value;
+                this.OnPropertyChanged(nameof(this.SelectedTour));
             }
         }
-               
 
         public Customer SelectedCustomer
         {
-            get { return selectedCustomer; }
-            set { selectedCustomer = value;
-                OnPropertyChanged(nameof(this.SelectedCustomer));
+            get
+            {
+                return this.selectedCustomer;
+            }
+
+            set
+            {
+                this.selectedCustomer = value;
+                this.OnPropertyChanged(nameof(this.SelectedCustomer));
             }
         }
 
@@ -87,39 +115,47 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedCtegory;
+                return this.selectedCtegory;
             }
 
             set
             {
-                selectedCtegory = value;
-                OnPropertyChanged(nameof(SelectedCtegory));
+                this.selectedCtegory = value;
+                this.OnPropertyChanged(nameof(this.SelectedCtegory));
             }
         }
 
         public IList<Order> OrderList
         {
-            get { return orderList; }
-            set { orderList = value; }
+            get { return this.orderList; }
+            set { this.orderList = value; }
         }
 
         public IList<Customer> CustomerList
         {
-            get { return customerList; }
+            get
+            {
+                return this.customerList;
+            }
+
             set
             {
-                customerList = value;
-                OnPropertyChanged(nameof(CustomerList));
+                this.customerList = value;
+                this.OnPropertyChanged(nameof(this.CustomerList));
             }
         }
 
         public IList<Tour> TourList
         {
-            get { return tourList; }
+            get
+            {
+                return this.tourList;
+            }
+
             set
             {
-                tourList = value;
-                OnPropertyChanged(nameof(TourList));
+                this.tourList = value;
+                this.OnPropertyChanged(nameof(this.TourList));
             }
         }
 
@@ -127,13 +163,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedDateFrom;
+                return this.selectedDateFrom;
             }
 
             set
             {
-                selectedDateFrom = value;
-                OnPropertyChanged(nameof(SelectedDateFrom));
+                this.selectedDateFrom = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateFrom));
             }
         }
 
@@ -141,13 +177,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedDateTo;
+                return this.selectedDateTo;
             }
 
             set
             {
-                selectedDateTo = value;
-                OnPropertyChanged(nameof(SelectedDateTo));
+                this.selectedDateTo = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateTo));
             }
         }
 
@@ -155,13 +191,13 @@ namespace HappyTourManager
         {
             get
             {
-                return searchCategories;
+                return this.searchCategories;
             }
 
             set
             {
-                searchCategories = value;
-                OnPropertyChanged(nameof(SearchCategories));
+                this.searchCategories = value;
+                this.OnPropertyChanged(nameof(this.SearchCategories));
             }
         }
 
@@ -169,19 +205,19 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedValue;
+                return this.selectedValue;
             }
 
             set
             {
-                selectedValue = value;
-                OnPropertyChanged(nameof(SelectedValue));
+                this.selectedValue = value;
+                this.OnPropertyChanged(nameof(this.SelectedValue));
             }
         }
         #endregion
 
         #region constructor
-        public OrderMainViewModel(IRepository<Order> orderRepository, 
+        public OrderMainViewModel(IRepository<Order> orderRepository,
             IRepository<Customer> customerRepository,
             IRepository<Tour> tourRepository,
             IRepository<Program> programRepository,
@@ -197,55 +233,77 @@ namespace HappyTourManager
             this.pltconRepository = pltconRepository;
             this.prtconRepository = prtconRepository;
             this.orderBL = new OrderBL(orderRepository, customerRepository, tourRepository);
-            this.RefreshOrderList();
-
-            searchCategories = new List<string>();
+            
+            this.searchCategories = new List<string>();
             foreach (OrderTerms item in Enum.GetValues(typeof(OrderTerms)))
             {
-                searchCategories.Add(item.ToString());
+                this.searchCategories.Add(item.ToString());
             }
         }
         #endregion
 
-
         #region public methods
 
-
-
-        public void RefreshOrderList()
+        /// <summary>
+        /// Get the search result list
+        /// </summary>
+        public void GetSearchResult()
         {
-            OrderList = orderBL.Search(OrderTerms.DEFAULT, null);
-            OnPropertyChanged(nameof(OrderList));
-            
+            //if (this.SelectedCtegory == "ORDERDATE")
+            //{
+            //    DateTime[] dt = new DateTime[2];
+            //    dt[0] = this.SelectedDateFrom;
+            //    dt[1] = this.SelectedDateTo;
+
+            //    rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), dt);
+            //}
+            //else if (this.SelectedCtegory == "LOYALTYCARD")
+            //{
+            //    if (this.SelectedValue == "yes")
+            //    {
+            //        rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), "1");
+            //    }
+            //    else
+            //    {
+            //        rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), "0");
+            //    }
+            //}
+            //else
+            //{
+            //    rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), this.SelectedValue);
+            //}
+            //ResultList = new ObservableCollection<Customer>(rL);
         }
-
-        
-
-        
-
-        
-
-
-
-        //private Order CreateNewOrder()
-        //{
-
-        //}
 
         public IList<Tour> GetAllTours()
         {
-            tourBL = new TourBL(tourRepository,programRepository,placeRepository,pltconRepository,prtconRepository);
-            IList<Tour> tglist = tourBL.Search(TourTerms.DEFAULT, null);
+            this.tourBL = new TourBL(this.tourRepository,this.programRepository,this.placeRepository,this.pltconRepository,this.prtconRepository);
+            IList<Tour> tglist = this.tourBL.Search(TourTerms.DEFAULT, null);
 
             return tglist;
         }
 
         public IList<Customer> GetAllCustomers()
         {
-            customerBL = new CustomerBL(customerRepository);
-            IList<Customer> custList = customerBL.Search(CustomerTerms.DEFAULT, null);
-            
+            this.customerBL = new CustomerBL(this.customerRepository);
+            IList<Customer> custList = this.customerBL.Search(CustomerTerms.DEFAULT, null);
+
             return custList;
+        }
+
+        public bool Checkvalues()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveInstance()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteInstance()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

@@ -1,29 +1,27 @@
-﻿using DATA;
-using DATA.Interfaces;
-using DATA.Repositoriees;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace HappyTourManager.Pages
+﻿namespace HappyTourManager.Pages
 {
-    
-    
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Navigation;
+    using System.Windows.Shapes;
+    using DATA;
+    using DATA.Interfaces;
+    using DATA.Repositoriees;
+
     /// <summary>
     /// Interaction logic for TourMainPage.xaml
     /// </summary>
-    /// 
+    ///
     public partial class TourMainPage : Page
     {
         #region private variables
@@ -46,7 +44,7 @@ namespace HappyTourManager.Pages
             IRepository<PRTCON> prtconRepo,
             IRepository<Tourguide> tourguideRepo)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.tourRepo = tourRepo;
             this.placeRepo = placeRepo;
             this.pltconRepo = pltconRepo;
@@ -56,29 +54,28 @@ namespace HappyTourManager.Pages
         }
         #endregion
 
-
         #region event handlers
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            tourVM = new TourMainViewModel(tourRepo,placeRepo,pltconRepo,programRepo,prtconRepo,tourguideRepo);
+            this.tourVM = new TourMainViewModel(this.tourRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.tourguideRepo);
 
-            this.searchCat.ItemsSource = tourVM.SearchCategories;
+            this.searchCat.ItemsSource = this.tourVM.SearchCategories;
             this.searchCat.Visibility = Visibility.Visible;
             this.searchCat.SelectedItem = "DEFAULT";
-            this.DataContext = tourVM;
-            tourDetail = new TourDetailsUC();
-            foreach (string item in tourVM.countryList)
+            this.DataContext = this.tourVM;
+            this.tourDetail = new TourDetailsUC();
+            foreach (string item in this.tourVM.countryList)
             {
-                tourDetail.cboxCountry.Items.Add(item);
+                this.tourDetail.cboxCountry.Items.Add(item);
             }
-            this.contTourDetails.Content = tourDetail;
+            this.contTourDetails.Content = this.tourDetail;
             this.contTourDetails.Visibility = Visibility.Hidden;
-            
+
         }
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tourVM.SelectedCtegory == "TOURDATE")
+            if (this.tourVM.SelectedCtegory == "TOURDATE")
             {
                 DatePicker datePicker = new DatePicker();
 
@@ -92,16 +89,16 @@ namespace HappyTourManager.Pages
                 this.contSearch2.Content = datePicker2;
 
             }
-            else if (tourVM.SelectedCtegory == "DEFAULT")
+            else if (this.tourVM.SelectedCtegory == "DEFAULT")
             {
                 this.contSearch1.Content = null;
                 this.contSearch2.Content = null;
-                tourVM.SelectedValue1 = default(string);
+                this.tourVM.SelectedValue1 = default(string);
             }
-            else if (tourVM.SelectedCtegory == "ADULTPRICE" || tourVM.SelectedCtegory == "CHILDPRICE")
+            else if (this.tourVM.SelectedCtegory == "ADULTPRICE" || this.tourVM.SelectedCtegory == "CHILDPRICE")
             {
-                tourVM.SelectedValue1 = "";
-                tourVM.SelectedValue2 = "";
+                this.tourVM.SelectedValue1 = "";
+                this.tourVM.SelectedValue2 = "";
                 TextBox textbox = new TextBox();
                 Binding binding = new Binding("SelectedValue1");
                 textbox.SetBinding(TextBox.TextProperty, binding);
@@ -112,11 +109,11 @@ namespace HappyTourManager.Pages
                 textbox2.SetBinding(TextBox.TextProperty, binding2);
                 this.contSearch2.Content = textbox2;
             }
-            else if (tourVM.SelectedCtegory == "COUNTRY")
+            else if (this.tourVM.SelectedCtegory == "COUNTRY")
             {
                 ComboBox cBox = new ComboBox();
 
-                foreach (var item in tourVM.PlaceListAll)
+                foreach (var item in this.tourVM.PlaceListAll)
                 {
                     if (!cBox.Items.Contains(item.Country))
                     {
@@ -128,10 +125,10 @@ namespace HappyTourManager.Pages
                 this.contSearch1.Content = cBox;
                 this.contSearch2.Content = null;
             }
-            else if (tourVM.SelectedCtegory == "CITY")
+            else if (this.tourVM.SelectedCtegory == "CITY")
             {
                 ComboBox cBox = new ComboBox();
-                foreach (var item in tourVM.PlaceListAll)
+                foreach (var item in this.tourVM.PlaceListAll)
                 {
                     if (!cBox.Items.Contains(item.City))
                     {
@@ -143,10 +140,10 @@ namespace HappyTourManager.Pages
                 this.contSearch1.Content = cBox;
                 this.contSearch2.Content = null;
             }
-            else if (tourVM.SelectedCtegory == "PROGRAM")
+            else if (this.tourVM.SelectedCtegory == "PROGRAM")
             {
                 ComboBox cBox = new ComboBox();
-                foreach (var item in tourVM.ProgramListAll)
+                foreach (var item in this.tourVM.ProgramListAll)
                 {
                     if (!cBox.Items.Contains(item.ProgramType))
                     {
@@ -170,16 +167,16 @@ namespace HappyTourManager.Pages
         {
             try
             {
-                tourVM.GetSearchResult();
-                if (tourVM.ResultList.Count > 0)
+                this.tourVM.GetSearchResult();
+                if (this.tourVM.ResultList.Count > 0)
                 {
-                    btnEdit.Visibility = Visibility.Visible;
-                    btnDelete.Visibility = Visibility.Visible;
+                    this.btnEdit.Visibility = Visibility.Visible;
+                    this.btnDelete.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    btnEdit.Visibility = Visibility.Hidden;
-                    btnDelete.Visibility = Visibility.Hidden;
+                    this.btnEdit.Visibility = Visibility.Hidden;
+                    this.btnDelete.Visibility = Visibility.Hidden;
                 }
                 this.contTourDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
@@ -190,23 +187,20 @@ namespace HappyTourManager.Pages
                 MessageBox.Show(ex.Message);
             }
 
-
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            tourVM.IsEdit = true;
-            tourVM.SelectedTour = new Tour()
+            this.tourVM.IsEdit = true;
+            this.tourVM.SelectedTour = new Tour()
             {
                 StartDate = DateTime.Today,
                 EndDate = DateTime.Today
             };
-            tourVM.SelectedPlace = new Place();
-            tourVM.SelectedProgram = new Program();
-            tourVM.GetTourPlaces();
-            tourVM.GetTourPrograms();
+            this.tourVM.SelectedPlace = new Place();
+            this.tourVM.SelectedProgram = new Program();
+            this.tourVM.GetTourPlaces();
+            this.tourVM.GetTourPrograms();
             this.contTourDetails.Visibility = Visibility.Visible;
             this.btnSave.Visibility = Visibility.Visible;
             this.btnCancel.Visibility = Visibility.Visible;
@@ -216,18 +210,18 @@ namespace HappyTourManager.Pages
         {
             try
             {
-                if (tourVM.Checkvalues(tourDetail.tcTour.SelectedIndex))
+                if (this.tourVM.Checkvalues(this.tourDetail.tcTour.SelectedIndex))
                 {
                     MessageBox.Show("All values must be filled in!");
                 }
                 else
                 {
-                    tourVM.SaveTour(tourDetail.tcTour.SelectedIndex);
+                    this.tourVM.SaveInstance(this.tourDetail.tcTour.SelectedIndex);
                     MessageBox.Show("Data is saved!");
                     this.contTourDetails.Visibility = Visibility.Hidden;
-                    tourVM.SelectedTour = null;
-                    tourVM.SelectedPlace = null;
-                    tourVM.SelectedProgram = null;
+                    this.tourVM.SelectedTour = null;
+                    this.tourVM.SelectedPlace = null;
+                    this.tourVM.SelectedProgram = null;
                     this.btnSave.Visibility = Visibility.Hidden;
                     this.btnCancel.Visibility = Visibility.Hidden;
                 }
@@ -241,28 +235,27 @@ namespace HappyTourManager.Pages
                 MessageBox.Show("Something went wrong :(");
             }
 
-
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.contTourDetails.Visibility = Visibility.Hidden;
-            tourVM.SelectedTour = null;
-            tourVM.SelectedPlace = null;
-            tourVM.SelectedProgram = null;
+            this.tourVM.SelectedTour = null;
+            this.tourVM.SelectedPlace = null;
+            this.tourVM.SelectedProgram = null;
             this.btnSave.Visibility = Visibility.Hidden;
             this.btnCancel.Visibility = Visibility.Hidden;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            tourVM.IsEdit = false;
-            tourVM.SelectedPlace = null;
-            tourVM.SelectedProgram = null;
-            if (tourVM.ResultList.Count > 0 && tourVM.SelectedTour != null)
+            this.tourVM.IsEdit = false;
+            this.tourVM.SelectedPlace = null;
+            this.tourVM.SelectedProgram = null;
+            if (this.tourVM.ResultList.Count > 0 && this.tourVM.SelectedTour != null)
             {
-                tourVM.GetTourPlaces();
-                tourVM.GetTourPrograms();
+                this.tourVM.GetTourPlaces();
+                this.tourVM.GetTourPrograms();
                 this.contTourDetails.Visibility = Visibility.Visible;
                 this.btnSave.Visibility = Visibility.Visible;
                 this.btnCancel.Visibility = Visibility.Visible;
@@ -278,15 +271,15 @@ namespace HappyTourManager.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (tourVM.SelectedTour != null)
+            if (this.tourVM.SelectedTour != null)
             {
                 if (MessageBox.Show("Do you want to delete tour?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        tourVM.DeleteTour();
+                        this.tourVM.DeleteInstance();
                         MessageBox.Show("Customer is deleted");
-                        tourVM.ResultList.Remove(tourVM.SelectedTour);
+                        this.tourVM.ResultList.Remove(this.tourVM.SelectedTour);
                     }
                     catch (Exception)
                     {
@@ -305,12 +298,12 @@ namespace HappyTourManager.Pages
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tourVM.SelectedTour != null)
+            if (this.tourVM.SelectedTour != null)
             {
-                tourVM.GetTourPlaces();
-                tourVM.GetTourPrograms();
+                this.tourVM.GetTourPlaces();
+                this.tourVM.GetTourPrograms();
             }
-            
+
         }
     }
 }

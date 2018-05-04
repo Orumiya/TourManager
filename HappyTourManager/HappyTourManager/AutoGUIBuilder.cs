@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-
-namespace HappyTourManager
+﻿namespace HappyTourManager
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+
     class AutoGUIBuilder
     {
         public AutoGUIBuilder(Panel parent, object content)
         {
             var stackPanel = new StackPanel();
             parent.Children.Add(stackPanel);
-            BuildGUI(stackPanel, content);
+            this.BuildGUI(stackPanel, content);
         }
 
         private void BuildGUI(StackPanel stackPanel, object content)
@@ -24,13 +24,12 @@ namespace HappyTourManager
             Type t = content.GetType();
             foreach (var propInfo in t.GetProperties())
             {
-                var editor = CreateEditor(propInfo, content);
+                var editor = this.CreateEditor(propInfo, content);
                 if (editor != null)
                 {
-                    var container = CreateContainer(propInfo, editor);
+                    var container = this.CreateContainer(propInfo, editor);
                     stackPanel.Children.Add(container);
                 }
-
 
             }
         }
@@ -60,7 +59,7 @@ namespace HappyTourManager
                 Binding binding = new Binding(propInfo.Name);
                 binding.Source = content;
 
-                if (propInfo.SetMethod == null || propInfo.SetMethod.IsPublic == false) 
+                if (propInfo.SetMethod == null || propInfo.SetMethod.IsPublic == false)
                 {
                     txtBox.IsEnabled = false;
                     binding.Mode = BindingMode.OneWay;
@@ -83,7 +82,6 @@ namespace HappyTourManager
 
             return editor;
         }
-
 
     }
 }

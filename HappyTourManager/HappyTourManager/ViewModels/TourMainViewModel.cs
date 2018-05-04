@@ -1,16 +1,16 @@
-﻿using BL;
-using DATA;
-using DATA.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HappyTourManager
+﻿namespace HappyTourManager
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BL;
+    using DATA;
+    using DATA.Interfaces;
+
     class TourMainViewModel : Bindable
     {
         #region private variables
@@ -52,13 +52,13 @@ namespace HappyTourManager
         {
             get
             {
-                return searchCategories;
+                return this.searchCategories;
             }
 
             set
             {
-                searchCategories = value;
-                OnPropertyChanged(nameof(SearchCategories));
+                this.searchCategories = value;
+                this.OnPropertyChanged(nameof(this.SearchCategories));
             }
         }
 
@@ -66,13 +66,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedCtegory;
+                return this.selectedCtegory;
             }
 
             set
             {
-                selectedCtegory = value;
-                OnPropertyChanged(nameof(SelectedCtegory));
+                this.selectedCtegory = value;
+                this.OnPropertyChanged(nameof(this.SelectedCtegory));
             }
         }
 
@@ -80,13 +80,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedValue1;
+                return this.selectedValue1;
             }
 
             set
             {
-                selectedValue1 = value;
-                OnPropertyChanged(nameof(SelectedValue1));
+                this.selectedValue1 = value;
+                this.OnPropertyChanged(nameof(this.SelectedValue1));
             }
         }
 
@@ -94,13 +94,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedValue2;
+                return this.selectedValue2;
             }
 
             set
             {
-                selectedValue2 = value;
-                OnPropertyChanged(nameof(SelectedValue2));
+                this.selectedValue2 = value;
+                this.OnPropertyChanged(nameof(this.SelectedValue2));
             }
         }
 
@@ -108,13 +108,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedDateFrom;
+                return this.selectedDateFrom;
             }
 
             set
             {
-                selectedDateFrom = value;
-                OnPropertyChanged(nameof(SelectedDateFrom));
+                this.selectedDateFrom = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateFrom));
             }
         }
 
@@ -122,13 +122,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedDateTo;
+                return this.selectedDateTo;
             }
 
             set
             {
-                selectedDateTo = value;
-                OnPropertyChanged(nameof(SelectedDateTo));
+                this.selectedDateTo = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateTo));
             }
         }
 
@@ -136,13 +136,13 @@ namespace HappyTourManager
         {
             get
             {
-                return resultList;
+                return this.resultList;
             }
 
             set
             {
-                resultList = value;
-                OnPropertyChanged(nameof(ResultList));
+                this.resultList = value;
+                this.OnPropertyChanged(nameof(this.ResultList));
             }
         }
 
@@ -150,13 +150,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedTour;
+                return this.selectedTour;
             }
 
             set
             {
-                selectedTour = value;
-                OnPropertyChanged(nameof(SelectedTour));
+                this.selectedTour = value;
+                this.OnPropertyChanged(nameof(this.SelectedTour));
             }
         }
 
@@ -164,13 +164,13 @@ namespace HappyTourManager
         {
             get
             {
-                return placeListAll;
+                return this.placeListAll;
             }
 
             set
             {
-                placeListAll = value;
-                OnPropertyChanged(nameof(PlaceListAll));
+                this.placeListAll = value;
+                this.OnPropertyChanged(nameof(this.PlaceListAll));
             }
         }
 
@@ -178,13 +178,13 @@ namespace HappyTourManager
         {
             get
             {
-                return tourPlaceList;
+                return this.tourPlaceList;
             }
 
             set
             {
-                tourPlaceList = value;
-                OnPropertyChanged(nameof(TourPlaceList));
+                this.tourPlaceList = value;
+                this.OnPropertyChanged(nameof(this.TourPlaceList));
             }
         }
 
@@ -192,13 +192,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedPlace;
+                return this.selectedPlace;
             }
 
             set
             {
-                selectedPlace = value;
-                OnPropertyChanged(nameof(SelectedPlace));
+                this.selectedPlace = value;
+                this.OnPropertyChanged(nameof(this.SelectedPlace));
             }
         }
 
@@ -206,13 +206,13 @@ namespace HappyTourManager
         {
             get
             {
-                return programListAll;
+                return this.programListAll;
             }
 
             set
             {
-                programListAll = value;
-                OnPropertyChanged(nameof(ProgramListAll));
+                this.programListAll = value;
+                this.OnPropertyChanged(nameof(this.ProgramListAll));
             }
         }
 
@@ -220,13 +220,13 @@ namespace HappyTourManager
         {
             get
             {
-                return tourProgramList;
+                return this.tourProgramList;
             }
 
             set
             {
-                tourProgramList = value;
-                OnPropertyChanged(nameof(TourProgramList));
+                this.tourProgramList = value;
+                this.OnPropertyChanged(nameof(this.TourProgramList));
             }
         }
 
@@ -234,13 +234,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedProgram;
+                return this.selectedProgram;
             }
 
             set
             {
-                selectedProgram = value;
-                OnPropertyChanged(nameof(SelectedProgram));
+                this.selectedProgram = value;
+                this.OnPropertyChanged(nameof(this.SelectedProgram));
             }
         }
 
@@ -248,14 +248,14 @@ namespace HappyTourManager
         {
             get
             {
-                return pricePerNight;
+                return this.pricePerNight;
             }
 
             set
             {
-                pricePerNight = value;
-                CalculatePrices();
-                OnPropertyChanged(nameof(PricePerNight));
+                this.pricePerNight = value;
+                this.CalculatePrices();
+                this.OnPropertyChanged(nameof(this.PricePerNight));
             }
         }
 
@@ -263,13 +263,13 @@ namespace HappyTourManager
         {
             get
             {
-                return tourGuideList;
+                return this.tourGuideList;
             }
 
             set
             {
-                tourGuideList = value;
-                OnPropertyChanged(nameof(TourGuideList));
+                this.tourGuideList = value;
+                this.OnPropertyChanged(nameof(this.TourGuideList));
             }
         }
 
@@ -277,13 +277,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedTourGuide;
+                return this.selectedTourGuide;
             }
 
             set
             {
-                selectedTourGuide = value;
-                OnPropertyChanged(nameof(SelectedTourGuide));
+                this.selectedTourGuide = value;
+                this.OnPropertyChanged(nameof(this.SelectedTourGuide));
             }
         }
 
@@ -291,18 +291,15 @@ namespace HappyTourManager
         {
             get
             {
-                return isEdit;
+                return this.isEdit;
             }
 
             set
             {
-                isEdit = value;
-                OnPropertyChanged(nameof(IsEdit));
+                this.isEdit = value;
+                this.OnPropertyChanged(nameof(this.IsEdit));
             }
         }
-
-
-
 
         #endregion
 
@@ -320,23 +317,23 @@ namespace HappyTourManager
             this.programRepo = programRepo;
             this.prtconRepo = prtconRepo;
             this.tourguideRepo = tourguideRepo;
-            CreateCountryList();
-            tourBL = new TourBL(tourRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
+            this.CreateCountryList();
+            this.tourBL = new TourBL(tourRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
 
-            searchCategories = new List<string>();
+            this.searchCategories = new List<string>();
             foreach (TourTerms item in Enum.GetValues(typeof(TourTerms)))
             {
-                searchCategories.Add(item.ToString());
+                this.searchCategories.Add(item.ToString());
             }
 
-            PlaceListAll = new ObservableCollection<Place>();
-            programListAll = new ObservableCollection<Program>();
-            TourGuideList = new ObservableCollection<Tourguide>();
-            TourPlaceList = new ObservableCollection<Place>();
-            TourProgramList = new ObservableCollection<Program>();
-            GetAllPlaces();
-            GetAllPrograms();
-            GetAllTourGuides();
+            this.PlaceListAll = new ObservableCollection<Place>();
+            this.programListAll = new ObservableCollection<Program>();
+            this.TourGuideList = new ObservableCollection<Tourguide>();
+            this.TourPlaceList = new ObservableCollection<Place>();
+            this.TourProgramList = new ObservableCollection<Program>();
+            this.GetAllPlaces();
+            this.GetAllPrograms();
+            this.GetAllTourGuides();
         }
 
         #endregion
@@ -348,27 +345,27 @@ namespace HappyTourManager
         public void GetSearchResult()
         {
             IList<Tour> rL;
-            if (SelectedCtegory == "TOURDATE")
+            if (this.SelectedCtegory == "TOURDATE")
             {
                 DateTime[] dt = new DateTime[2];
-                dt[0] = SelectedDateFrom;
-                dt[1] = SelectedDateTo;
+                dt[0] = this.SelectedDateFrom;
+                dt[1] = this.SelectedDateTo;
 
-                rL = tourBL.Search(Enum.Parse(typeof(TourTerms), SelectedCtegory), dt);
+                rL = this.tourBL.Search(Enum.Parse(typeof(TourTerms), this.SelectedCtegory), dt);
             }
-            else if (SelectedCtegory == "ADULTPRICE" || SelectedCtegory == "CHILDPRICE")
+            else if (this.SelectedCtegory == "ADULTPRICE" || this.SelectedCtegory == "CHILDPRICE")
             {
                 int[] arr = new int[2];
-                arr[0] = Int32.Parse(SelectedValue1);
-                arr[1] = Int32.Parse(SelectedValue2);
+                arr[0] = Int32.Parse(this.SelectedValue1);
+                arr[1] = Int32.Parse(this.SelectedValue2);
 
-                rL = tourBL.Search(Enum.Parse(typeof(TourTerms), SelectedCtegory), arr);
+                rL = this.tourBL.Search(Enum.Parse(typeof(TourTerms), this.SelectedCtegory), arr);
             }
             else
             {
-                rL = tourBL.Search(Enum.Parse(typeof(TourTerms), SelectedCtegory), SelectedValue1);
+                rL = this.tourBL.Search(Enum.Parse(typeof(TourTerms), this.SelectedCtegory), this.SelectedValue1);
             }
-            ResultList = new ObservableCollection<Tour>(rL);
+            this.ResultList = new ObservableCollection<Tour>(rL);
         }
 
         /// <summary>
@@ -376,19 +373,19 @@ namespace HappyTourManager
         /// </summary>
         public void GetTourPlaces()
         {
-            IQueryable<PLTCON> places = pltconRepo.GetAll();
-            TourPlaceList = new ObservableCollection<Place>();
+            IQueryable<PLTCON> places = this.pltconRepo.GetAll();
+            this.TourPlaceList = new ObservableCollection<Place>();
             foreach (var item in places)
             {
-                if (item != null && item.TourID == SelectedTour.TourID)
+                if (item != null && item.TourID == this.SelectedTour.TourID)
                 {
-                    if (!TourPlaceList.Contains(item.Place))
+                    if (!this.TourPlaceList.Contains(item.Place))
                     {
-                        TourPlaceList.Add(item.Place);
+                        this.TourPlaceList.Add(item.Place);
                     }
-                    
+
                 }
-                
+
             }
 
         }
@@ -398,21 +395,19 @@ namespace HappyTourManager
         /// </summary>
         public void GetTourPrograms()
         {
-            IQueryable<PRTCON> programs = prtconRepo.GetAll();
-            TourProgramList = new ObservableCollection<Program>();
+            IQueryable<PRTCON> programs = this.prtconRepo.GetAll();
+            this.TourProgramList = new ObservableCollection<Program>();
             foreach (var item in programs)
             {
-                if (item != null && item.TourID == SelectedTour.TourID)
+                if (item != null && item.TourID == this.SelectedTour.TourID)
                 {
-                    if (!TourProgramList.Contains(item.Program))
+                    if (!this.TourProgramList.Contains(item.Program))
                     {
-                        TourProgramList.Add(item.Program);
+                        this.TourProgramList.Add(item.Program);
                     }
 
-                    
                 }
 
-                
             }
 
         }
@@ -422,90 +417,88 @@ namespace HappyTourManager
             switch (tab)
             {
                 case 0:
-                    if (SelectedTour.TravelName == null) return true;
-                    if (SelectedTour.Transport == null) return true;
+                    if (this.SelectedTour.TravelName == null) return true;
+                    if (this.SelectedTour.Transport == null) return true;
                     break;
                 case 1:
-                    if (SelectedPlace.Country == null) return true;
-                    if (SelectedPlace.City == null) return true;
+                    if (this.SelectedPlace.Country == null) return true;
+                    if (this.SelectedPlace.City == null) return true;
                     break;
                 case 2:
-                    if (SelectedProgram.ProgramType == null) return true;
+                    if (this.SelectedProgram.ProgramType == null) return true;
                     break;
                 default:
                     break;
 
-                    
             }
             return false;
         }
 
-        public void SaveTour(int tab)
+        public void SaveInstance(int tab)
         {
             switch (tab)
             {
                 case 0:
-                    if (ResultList != null && ResultList.Contains(SelectedTour))
+                    if (this.ResultList != null && this.ResultList.Contains(this.SelectedTour))
                     {
-                        if (SelectedPlace != null)
+                        if (this.SelectedPlace != null)
                         {
-                            pltconRepo.Create(new PLTCON() { TourID = SelectedTour.TourID, PlaceID = SelectedPlace.PlaceID });
+                            this.pltconRepo.Create(new PLTCON() { TourID = this.SelectedTour.TourID, PlaceID = this.SelectedPlace.PlaceID });
                         }
-                        if (SelectedProgram != null)
+                        if (this.SelectedProgram != null)
                         {
-                            prtconRepo.Create(new PRTCON() { TourID = SelectedTour.TourID, ProgramID = SelectedProgram.ProgramID });
+                            this.prtconRepo.Create(new PRTCON() { TourID = this.SelectedTour.TourID, ProgramID = this.SelectedProgram.ProgramID });
                         }
-                        tourBL.Update();
+                        this.tourBL.Update();
                     }
                     else
                     {
-                        tourBL.Save(SelectedTour);
-                        if (SelectedPlace != null)
+                        this.tourBL.Save(this.SelectedTour);
+                        if (this.SelectedPlace != null)
                         {
-                            pltconRepo.Create(new PLTCON() { TourID = SelectedTour.TourID, PlaceID = SelectedPlace.PlaceID });
+                            this.pltconRepo.Create(new PLTCON() { TourID = this.SelectedTour.TourID, PlaceID = this.SelectedPlace.PlaceID });
                         }
-                        if (SelectedProgram != null)
+                        if (this.SelectedProgram != null)
                         {
-                            prtconRepo.Create(new PRTCON() { TourID = SelectedTour.TourID, ProgramID = SelectedProgram.ProgramID });
+                            this.prtconRepo.Create(new PRTCON() { TourID = this.SelectedTour.TourID, ProgramID = this.SelectedProgram.ProgramID });
                         }
                     }
                     break;
                 case 1:
-                    if (PlaceListAll.Contains(SelectedPlace))
+                    if (this.PlaceListAll.Contains(this.SelectedPlace))
                     {
-                        placeRepo.Update();
+                        this.placeRepo.Update();
                     }
                     else
                     {
-                        placeRepo.Create(SelectedPlace);
-                        PlaceListAll.Add(SelectedPlace);
+                        this.placeRepo.Create(this.SelectedPlace);
+                        this.PlaceListAll.Add(this.SelectedPlace);
                     }
                     break;
                 case 2:
-                    if (ProgramListAll.Contains(SelectedProgram))
+                    if (this.ProgramListAll.Contains(this.SelectedProgram))
                     {
-                        programRepo.Update();
+                        this.programRepo.Update();
                     }
                     else
                     {
-                        programRepo.Create(SelectedProgram);
-                        ProgramListAll.Add(SelectedProgram);
+                        this.programRepo.Create(this.SelectedProgram);
+                        this.ProgramListAll.Add(this.SelectedProgram);
                     }
                     break;
                 default:
                     break;
 
-
             }
         }
 
-        public void DeleteTour()
+        public void DeleteInstance()
         {
-            IQueryable<PLTCON> plts = pltconRepo.GetAll();
+            IQueryable<PLTCON> plts = this.pltconRepo.GetAll();
             List<PLTCON> pltList = new List<PLTCON>();
             foreach (var item in plts)
             {
-                if (item.TourID == SelectedTour.TourID)
+                if (item.TourID == this.SelectedTour.TourID)
                 {
                     pltList.Add(item);
                 }
@@ -514,32 +507,31 @@ namespace HappyTourManager
             {
                 try
                 {
-                    pltconRepo.Delete(item);
+                    this.pltconRepo.Delete(item);
                 }
                 finally { }
             }
-            IQueryable<PRTCON> prts = prtconRepo.GetAll();
+            IQueryable<PRTCON> prts = this.prtconRepo.GetAll();
             List<PRTCON> prtList = new List<PRTCON>();
             foreach (var item in prts)
             {
-                if (item.TourID == SelectedTour.TourID)
+                if (item.TourID == this.SelectedTour.TourID)
                 {
                     prtList.Add(item);
                 }
-                
+
             }
             foreach (var item in prtList)
             {
                 try
                 {
-                    prtconRepo.Delete(item);
+                    this.prtconRepo.Delete(item);
                 }
                 finally { }
             }
-            tourBL.Delete(SelectedTour);
+            this.tourBL.Delete(this.SelectedTour);
         }
         #endregion
-
 
         #region Private methods
         private void CreateCountryList()
@@ -553,51 +545,50 @@ namespace HappyTourManager
                 countryNames.Add(country.DisplayName.ToString());
             }
 
-            countryList = countryNames.OrderBy(names => names).Distinct();
+            this.countryList = countryNames.OrderBy(names => names).Distinct();
         }
 
         private void GetAllPlaces()
         {
-            IQueryable<Place> places = placeRepo.GetAll();
+            IQueryable<Place> places = this.placeRepo.GetAll();
             foreach (var item in places)
             {
-                PlaceListAll.Add(item);
+                this.PlaceListAll.Add(item);
             }
         }
 
         private void GetAllPrograms()
         {
-            IQueryable<Program> programs = programRepo.GetAll();
+            IQueryable<Program> programs = this.programRepo.GetAll();
             foreach (var item in programs)
             {
-                ProgramListAll.Add(item);
+                this.ProgramListAll.Add(item);
             }
         }
-
-
 
         private void GetAllTourGuides()
         {
 
-            IQueryable<Tourguide> tg = tourguideRepo.GetAll();
+            IQueryable<Tourguide> tg = this.tourguideRepo.GetAll();
             if (tg !=null)
             {
                 foreach (var item in tg)
                 {
-                    TourGuideList.Add(item);
+                    this.TourGuideList.Add(item);
                 }
             }
-            
+
         }
 
         private void CalculatePrices()
         {
-            if (SelectedTour != null)
+            if (this.SelectedTour != null)
             {
-                SelectedTour.AdultPrice = tourBL.AdultPriceCalculator(SelectedTour.EndDate, SelectedTour.StartDate, pricePerNight);
-                SelectedTour.ChildPrice = tourBL.ChildPriceCalculator((int)SelectedTour.AdultPrice);
+                this.SelectedTour.AdultPrice = this.tourBL.AdultPriceCalculator(this.SelectedTour.EndDate, this.SelectedTour.StartDate, this.pricePerNight);
+                this.SelectedTour.ChildPrice = this.tourBL.ChildPriceCalculator((int)this.SelectedTour.AdultPrice);
             }
         }
+
         #endregion
 
     }

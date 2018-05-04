@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-
-namespace HappyTourManager
+﻿namespace HappyTourManager
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Input;
+
     /// <summary>
     /// View Model for the basic window
     /// </summary>
@@ -20,44 +20,43 @@ namespace HappyTourManager
 
         public string Test { get; set; } = "My string";
 
-
         public int ResizeBorder { get; set; } = 5;
 
-        public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBorder + OuterMarginSize); } }
+        public Thickness ResizeBorderThickness { get { return new Thickness(this.ResizeBorder + this.OuterMarginSize); } }
 
         public int OuterMarginSize
         {
             get
             {
-                return window.WindowState == WindowState.Maximized ? 0 : outerMarginsize;
+                return this.window.WindowState == WindowState.Maximized ? 0 : this.outerMarginsize;
             }
 
             set
             {
-                outerMarginsize = value;
+                this.outerMarginsize = value;
             }
         }
 
-        public Thickness OuterMarginThickness { get { return new Thickness(OuterMarginSize); } }
+        public Thickness OuterMarginThickness { get { return new Thickness(this.OuterMarginSize); } }
 
         public int WindowRadius
         {
             get
             {
-                return window.WindowState == WindowState.Maximized ? 0 : windowRadius;
+                return this.window.WindowState == WindowState.Maximized ? 0 : this.windowRadius;
             }
 
             set
             {
-                windowRadius = value;
+                this.windowRadius = value;
             }
         }
 
-        public CornerRadius WCornerRadius { get { return new CornerRadius(WindowRadius); } }
+        public CornerRadius WCornerRadius { get { return new CornerRadius(this.WindowRadius); } }
 
         public int TitleHeight { get; set; } = 40;
 
-        public GridLength TitleHeightGL { get { return new GridLength(TitleHeight + ResizeBorder); } }
+        public GridLength TitleHeightGL { get { return new GridLength(this.TitleHeight + this.ResizeBorder); } }
 
         public string ActualPage { get; set; } = "LoginPage";
 
@@ -69,30 +68,29 @@ namespace HappyTourManager
         {
             this.window = window;
             window.MaxHeight = SystemParameters.WorkArea.Height;
-            window.StateChanged += Window_StateChanged;
+            window.StateChanged += this.Window_StateChanged;
 
-            MinimizeCommand = new RelayCommand(() => window.WindowState = WindowState.Minimized);
-            MaximizeCommand = new RelayCommand(() => window.WindowState = WindowState.Maximized);
-            CloseCommand = new RelayCommand(() => window.Close());
+            this.MinimizeCommand = new RelayCommand(() => window.WindowState = WindowState.Minimized);
+            this.MaximizeCommand = new RelayCommand(() => window.WindowState = WindowState.Maximized);
+            this.CloseCommand = new RelayCommand(() => window.Close());
 
         }
 
         private void Window_StateChanged(object sender, EventArgs e)
         {
-            OnPropertyChanged("ResizeBorderThickness");
-            OnPropertyChanged("OuterMarginSize");
-            OnPropertyChanged("OuterMarginThickness");
-            OnPropertyChanged("WindowRadius");
-            OnPropertyChanged("WCornerRadius");
+            this.OnPropertyChanged("ResizeBorderThickness");
+            this.OnPropertyChanged("OuterMarginSize");
+            this.OnPropertyChanged("OuterMarginThickness");
+            this.OnPropertyChanged("WindowRadius");
+            this.OnPropertyChanged("WCornerRadius");
         }
 
-        //Commands
+        // Commands
 
         /// <summary>
         /// Minimize Window
         /// </summary>
         public ICommand MinimizeCommand { get; set; }
-
 
         /// <summary>
         /// Maximize Window
