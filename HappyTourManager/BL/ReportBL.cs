@@ -103,7 +103,7 @@ namespace BL
         }
 
         /// <summary>
-        ///  Gets or sets info for the Order chart
+        /// Gets or sets info for the Order chart
         /// </summary>
         public Tuple<int, int, int> OrderReportResult
         {
