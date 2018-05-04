@@ -114,45 +114,39 @@
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            // try
-            // {
-            //    tourVM.GetSearchResult();
-            //    if (tourVM.ResultList.Count > 0)
-            //    {
-            //        btnEdit.Visibility = Visibility.Visible;
-            //        btnDelete.Visibility = Visibility.Visible;
-            //    }
-            //    else
-            //    {
-            //        btnEdit.Visibility = Visibility.Hidden;
-            //        btnDelete.Visibility = Visibility.Hidden;
-            //    }
-            //    this.contTourDetails.Visibility = Visibility.Hidden;
-            //    this.btnSave.Visibility = Visibility.Hidden;
-            //    this.btnCancel.Visibility = Visibility.Hidden;
-            // }
-            // catch (Exception ex)
-            // {
-            //    MessageBox.Show(ex.Message);
-            // }
-
+            try
+            {
+                orderVM.GetSearchResult();
+                if (orderVM.ResultList.Count > 0)
+                {
+                    btnEdit.Visibility = Visibility.Visible;
+                    btnDelete.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnEdit.Visibility = Visibility.Hidden;
+                    btnDelete.Visibility = Visibility.Hidden;
+                }
+                this.contOrderDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
         }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // tourVM.IsEdit = true;
-            // tourVM.SelectedTour = new Tour()
-            // {
-            //    StartDate = DateTime.Today,
-            //    EndDate = DateTime.Today
-            // };
-            // tourVM.SelectedPlace = new Place();
-            // tourVM.SelectedProgram = new Program();
-            // tourVM.GetTourPlaces();
-            // tourVM.GetTourPrograms();
-            // this.contTourDetails.Visibility = Visibility.Visible;
-            // this.btnSave.Visibility = Visibility.Visible;
-            // this.btnCancel.Visibility = Visibility.Visible;
+            orderVM.SelectedOrder = new Order()
+            {
+                OrderDate = DateTime.Today
+            };
+            this.contOrderDetails.Visibility = Visibility.Visible;
+            this.btnSave.Visibility = Visibility.Visible;
+            this.btnCancel.Visibility = Visibility.Visible;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
