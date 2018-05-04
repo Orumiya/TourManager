@@ -1,15 +1,16 @@
-﻿using BL;
-using DATA;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TEST.Fakes;
+﻿// <copyright file="TourguideBLTest.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace TEST
 {
+    using BL;
+    using DATA;
+    using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using TEST.Fakes;
+
     [TestFixture]
     class TourBLTest
     {
@@ -28,13 +29,64 @@ namespace TEST
 
         public TourBLTest()
         {
-            CreateTestdataArrays();
+            this.CreateTestdataArrays();
             this.tourRepository = new FakeRepository<Tour>(tours);
             this.programRepository = new FakeRepository<Program>(programs);
             this.placeRepository = new FakeRepository<Place>(places);
             this.pltconRepository = new FakeRepository<PLTCON>(pltcons);
             this.prtconRepository = new FakeRepository<PRTCON>(prtcons);
-            bl = new TourBL(tourRepository, programRepository, placeRepository, pltconRepository, prtconRepository);
+            this.bl = new TourBL(tourRepository, programRepository, placeRepository, pltconRepository, prtconRepository);
+        }
+
+        [Test]
+        public void WhenCreatingTourBL_ThenTourBLIsNotNull()
+        {
+            // ARRANGE - ACT
+            //arranged in constructor
+            // ASSERT
+            Assert.That(bl, Is.Not.Null);
+        }
+
+        [TestCase("France", 1)]
+        [TestCase("franCE", 1)]
+        [TestCase("USA", 0)]
+        [TestCase("fra", 0)] //can't search for substring yet
+        public void WhenSearchingForACountry_ThenGetsToursToThatCountry(string country, int result)
+        {
+            //ARRANGE --> Testarray
+            //ACT
+            IList<Tour> list = bl.Search(TourTerms.COUNTRY, country);
+
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(result));
+        }
+
+        [TestCase("Cairo", 1)]
+        [TestCase("caIRO", 1)]
+        [TestCase("Bukarest", 0)]
+        [TestCase("cai", 0)] //can't search for substring yet
+        public void WhenSearchingForACity_ThenGetsToursToThatCity(string city, int result)
+        {
+            //ARRANGE --> Testarray
+            //ACT
+            IList<Tour> list = bl.Search(TourTerms.CITY, city);
+
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(result));
+        }
+
+        [TestCase("museum", 2)]
+        [TestCase("MUseUM", 2)]
+        [TestCase("beach", 0)]
+        [TestCase("mus", 0)] //can't search for substring yet
+        public void WhenSearchingForAProgram_ThenGetsToursWithThisProgram(string program, int result)
+        {
+            //ARRANGE --> Testarray
+            //ACT
+            IList<Tour> list = bl.Search(TourTerms.PROGRAM, program);
+
+            //ASSERT
+            Assert.That(list.Count, Is.EqualTo(result));
         }
 
         private void CreateTestdataArrays()
@@ -107,10 +159,10 @@ namespace TEST
                 new PRTCON{PRTCONID = 3, ProgramID=1, TourID = 2},
                 new PRTCON{PRTCONID = 4, ProgramID=2, TourID = 2}
             };
-            ConnectProgramsAndTours(programs[1], tours[0], prtcons[0]);
-            ConnectProgramsAndTours(programs[2], tours[0], prtcons[1]);
-            ConnectProgramsAndTours(programs[0], tours[1], prtcons[2]);
-            ConnectProgramsAndTours(programs[1], tours[1], prtcons[3]);
+            this.ConnectProgramsAndTours(programs[1], tours[0], prtcons[0]);
+            this.ConnectProgramsAndTours(programs[2], tours[0], prtcons[1]);
+            this.ConnectProgramsAndTours(programs[0], tours[1], prtcons[2]);
+            this.ConnectProgramsAndTours(programs[1], tours[1], prtcons[3]);
             pltcons = new[]
             {
                 new PLTCON{PLTCONID = 1, PlaceID=1, TourID = 1},
@@ -158,14 +210,14 @@ namespace TEST
                 Dailyallowance = 20000,
                 Taxidentification = 198600023
             } };
-            
-            ConnectPlacesAndTours(places[0], tours[0],pltcons[0]);
-            ConnectPlacesAndTours(places[1], tours[0], pltcons[1]);
-            ConnectPlacesAndTours(places[2], tours[1], pltcons[2]);
-            ConnectPlacesAndTours(places[3], tours[1], pltcons[3]);
 
-            ConnectToursAndGuides(tours[0], tourguides[0]);
-            ConnectToursAndGuides(tours[1], tourguides[1]);
+            this.ConnectPlacesAndTours(places[0], tours[0], pltcons[0]);
+            this.ConnectPlacesAndTours(places[1], tours[0], pltcons[1]);
+            this.ConnectPlacesAndTours(places[2], tours[1], pltcons[2]);
+            this.ConnectPlacesAndTours(places[3], tours[1], pltcons[3]);
+
+            this.ConnectToursAndGuides(tours[0], tourguides[0]);
+            this.ConnectToursAndGuides(tours[1], tourguides[1]);
         }
 
         private void ConnectPlacesAndTours(Place place, Tour tour, PLTCON pltcon)
@@ -188,56 +240,6 @@ namespace TEST
         {
             guide.Tours.Add(tour);
             tour.Tourguide = guide;
-        }
-        [Test]
-        public void WhenCreatingTourBL_ThenTourBLIsNotNull()
-        {
-            // ARRANGE - ACT
-            //arranged in constructor
-            // ASSERT
-            Assert.That(bl, Is.Not.Null);
-        }
-
-        [TestCase("France", 1)]
-        [TestCase("franCE", 1)]
-        [TestCase("USA", 0)]
-        [TestCase("fra", 0)] //can't search for substring yet
-        public void WhenSearchingForACountry_ThenGetsToursToThatCountry(string country, int result)
-        {
-            //ARRANGE --> Testarray
-            //ACT
-            IList<Tour> list = bl.Search(TourTerms.COUNTRY, country);
-
-            //ASSERT
-            Assert.That(list.Count, Is.EqualTo(result));
-        }
-
-        [TestCase("Cairo", 1)]
-        [TestCase("caIRO", 1)]
-        [TestCase("Bukarest", 0)]
-        [TestCase("cai", 0)] //can't search for substring yet
-        public void WhenSearchingForACity_ThenGetsToursToThatCity(string city, int result)
-        {
-            //ARRANGE --> Testarray
-            //ACT
-            IList<Tour> list = bl.Search(TourTerms.CITY, city);
-
-            //ASSERT
-            Assert.That(list.Count, Is.EqualTo(result));
-        }
-
-        [TestCase("museum", 2)]
-        [TestCase("MUseUM", 2)]
-        [TestCase("beach", 0)]
-        [TestCase("mus", 0)] //can't search for substring yet
-        public void WhenSearchingForAProgram_ThenGetsToursWithThisProgram(string program, int result)
-        {
-            //ARRANGE --> Testarray
-            //ACT
-            IList<Tour> list = bl.Search(TourTerms.PROGRAM, program);
-
-            //ASSERT
-            Assert.That(list.Count, Is.EqualTo(result));
         }
     }
 }

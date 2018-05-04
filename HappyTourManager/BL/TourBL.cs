@@ -256,7 +256,6 @@ namespace BL
             return program.ToList();
         }
 
-        
 
         /// <summary>
         /// notifies the outside about any collection change manually
