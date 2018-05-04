@@ -32,6 +32,7 @@ namespace BL
         private readonly IRepository<Place> placeRepository;
         private readonly IRepository<PLTCON> pltconRepository;
         private readonly IRepository<PRTCON> prtconRepository;
+        private readonly IRepository<Tourguide> tourguideRepository;
 
         public TourBL(
             IRepository<Tour> tourRepository,
@@ -234,6 +235,28 @@ namespace BL
         {
             this.tourRepository.Update();
         }
+
+        /// <summary>
+        /// returns all places
+        /// </summary>
+        /// <returns>placelist</returns>
+        public IList<Place> GetAllPlaces()
+        {
+            var places = this.placeRepository.GetAll();
+            return places.ToList();
+        }
+
+        /// <summary>
+        /// returns all programs
+        /// </summary>
+        /// <returns>programlist</returns>
+        public IList<Program> GetAllPrograms()
+        {
+            var program = this.programRepository.GetAll();
+            return program.ToList();
+        }
+
+        
 
         /// <summary>
         /// notifies the outside about any collection change manually

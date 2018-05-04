@@ -548,21 +548,30 @@
             this.countryList = countryNames.OrderBy(names => names).Distinct();
         }
 
+        /// <summary>
+        /// returns all available places and puts them in the list for FE
+        /// </summary>
         private void GetAllPlaces()
         {
-            IQueryable<Place> places = this.placeRepo.GetAll();
+            IList<Place> places = this.tourBL.GetAllPlaces();
             foreach (var item in places)
             {
                 this.PlaceListAll.Add(item);
             }
         }
 
+        /// <summary>
+        /// returns all available programs and puts them in the list for FE
+        /// </summary>
         private void GetAllPrograms()
         {
-            IQueryable<Program> programs = this.programRepo.GetAll();
-            foreach (var item in programs)
+            IList<Program> programs = this.tourBL.GetAllPrograms();
+            if (programs != null)
             {
-                this.ProgramListAll.Add(item);
+                foreach (var item in programs)
+                {
+                    this.ProgramListAll.Add(item);
+                }
             }
         }
 
