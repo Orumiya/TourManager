@@ -1,6 +1,5 @@
 ﻿namespace HappyTourManager
 {
-    using DATA.Repositoriees;
     using System;
     using System.Collections.Generic;
     using System.Data.Common;
@@ -12,6 +11,7 @@
     using BL;
     using DATA;
     using DATA.Interfaces;
+    using DATA.Repositoriees;
 
     class LoginViewModel : Bindable
     {
@@ -20,22 +20,32 @@
         private string password;
         public LoginBL loginBL;
 
-        public string Username {
-            get { return userName; }
+        public string Username
+        {
+            get
+            {
+                return this.userName;
+            }
+
             set
             {
-                userName = value;
-                OnPropertyChanged(nameof(Username));
+                this.userName = value;
+                this.OnPropertyChanged(nameof(this.Username));
             }
 
         }
 
-        public string Password {
-            get { return password; }
+        public string Password
+        {
+            get
+            {
+                return this.password;
+            }
+
             set
             {
-                password = value;
-                OnPropertyChanged(nameof(Password));
+                this.password = value;
+                this.OnPropertyChanged(nameof(this.Password));
             }
 
         }
@@ -43,18 +53,17 @@
         public LoginViewModel(IRepository<User> userRepo)
         {
             this.userRepository = userRepo;
-            loginBL = new LoginBL(userRepository);
+            this.loginBL = new LoginBL(this.userRepository);
         }
-
 
         public bool SignIn()
         {
-            return loginBL.Login(Username, Password);
+            return this.loginBL.Login(this.Username, this.Password);
         }
 
         public bool SignUp()
         {
-            return loginBL.RegisterUser(Username, Password);
+            return this.loginBL.RegisterUser(this.Username, this.Password);
         }
 
     }

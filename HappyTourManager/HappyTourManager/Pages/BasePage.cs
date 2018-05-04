@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
-namespace HappyTourManager.Pages
+﻿namespace HappyTourManager.Pages
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Controls;
+
     public class BasePage<T> : Page where T : Bindable, new()
     {
         private T viewModel;
@@ -14,16 +14,18 @@ namespace HappyTourManager.Pages
         public T ViewNodel
         {
             get
-            { return viewModel; }
+            {
+                return this.viewModel;
+            }
+
             set
             {
-                if (viewModel == value)
+                if (this.viewModel == value)
                 {
                     return;
                 }
-
-                viewModel = value;
-                this.DataContext = viewModel;
+                this.viewModel = value;
+                this.DataContext = this.viewModel;
             }
         }
 

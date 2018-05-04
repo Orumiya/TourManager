@@ -1,23 +1,23 @@
-﻿using DATA;
-using DATA.Interfaces;
-using DATA.Repositoriees;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace HappyTourManager.Pages
+﻿namespace HappyTourManager.Pages
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Navigation;
+    using System.Windows.Shapes;
+    using DATA;
+    using DATA.Interfaces;
+    using DATA.Repositoriees;
+
     /// <summary>
     /// Interaction logic for CustomerMainPage.xaml
     /// </summary>
@@ -32,7 +32,7 @@ namespace HappyTourManager.Pages
         #region constructor
         public CustomerMainPage(IRepository<Customer> custRepository)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.custRepository = custRepository;
 
         }
@@ -41,7 +41,7 @@ namespace HappyTourManager.Pages
         #region eventhandlers
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (custVM.SelectedCtegory == "VALIDTO")
+            if (this.custVM.SelectedCtegory == "VALIDTO")
             {
                 DatePicker datePicker = new DatePicker();
 
@@ -55,11 +55,23 @@ namespace HappyTourManager.Pages
                 this.contSearch2.Content = datePicker2;
 
             }
-            else if (custVM.SelectedCtegory == "DEFAULT")
+            else if (this.custVM.SelectedCtegory == "DEFAULT")
             {
                 this.contSearch1.Content = null;
                 this.contSearch2.Content = null;
-                custVM.SelectedValue = default(string);
+                this.custVM.SelectedValue = default(string);
+            }
+            else if (this.custVM.SelectedCtegory == "LOYALTYCARD")
+            {
+                ComboBox cBox = new ComboBox();
+
+                cBox.Items.Add("yes");
+                cBox.Items.Add("no");
+
+                Binding binding = new Binding("SelectedValue");
+                cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+                this.contSearch1.Content = cBox;
+                this.contSearch2.Content = null;
             }
             else
             {
@@ -76,16 +88,16 @@ namespace HappyTourManager.Pages
         {
             try
             {
-                custVM.GetSearchResult();
-                if (custVM.ResultList.Count > 0)
+                this.custVM.GetSearchResult();
+                if (this.custVM.ResultList.Count > 0)
                 {
-                    btnEdit.Visibility = Visibility.Visible;
-                    btnDelete.Visibility = Visibility.Visible;
+                    this.btnEdit.Visibility = Visibility.Visible;
+                    this.btnDelete.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    btnEdit.Visibility = Visibility.Hidden;
-                    btnDelete.Visibility = Visibility.Hidden;
+                    this.btnEdit.Visibility = Visibility.Hidden;
+                    this.btnDelete.Visibility = Visibility.Hidden;
                 }
                 this.contCustDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
@@ -95,32 +107,30 @@ namespace HappyTourManager.Pages
             {
                 MessageBox.Show(ex.Message);
             }
-                
-            
 
-            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            custVM = new CustomerMainViewModel(custRepository);
-            this.searchCat.ItemsSource = custVM.SearchCategories;
+            this.custVM = new CustomerMainViewModel(this.custRepository);
+            this.searchCat.ItemsSource = this.custVM.SearchCategories;
             this.searchCat.Visibility = Visibility.Visible;
             this.searchCat.SelectedItem = "DEFAULT";
-            this.DataContext = custVM;
-            custDetail = new AddCustomerUC();
-            foreach (string item in custVM.countryList)
+            this.DataContext = this.custVM;
+            this.custDetail = new AddCustomerUC();
+            foreach (string item in this.custVM.countryList)
             {
-                custDetail.cboxCountry.Items.Add(item);
+                this.custDetail.cboxCountry.Items.Add(item);
             }
-            this.contCustDetails.Content = custDetail;
+            this.contCustDetails.Content = this.custDetail;
             this.contCustDetails.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            custVM.SelectedCustomer = new Customer()
-            { Person = new Person()
+            this.custVM.SelectedCustomer = new Customer()
+            {
+                Person = new Person()
             {
                 BirthDate = DateTime.Today,
                 ValidTo = DateTime.Today
@@ -135,16 +145,16 @@ namespace HappyTourManager.Pages
         {
             try
             {
-                if (custVM.Checkvalues())
+                if (this.custVM.Checkvalues())
                 {
                     MessageBox.Show("All values must be filled in!");
                 }
                 else
                 {
-                    custVM.SaveCustomer();
+                    this.custVM.SaveInstance();
                     MessageBox.Show("Customer data is saved!");
                     this.contCustDetails.Visibility = Visibility.Hidden;
-                    custVM.SelectedCustomer = null;
+                    this.custVM.SelectedCustomer = null;
                     this.btnSave.Visibility = Visibility.Hidden;
                     this.btnCancel.Visibility = Visibility.Hidden;
                 }
@@ -158,20 +168,19 @@ namespace HappyTourManager.Pages
                 MessageBox.Show("Something went wrong :(");
             }
 
-
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.contCustDetails.Visibility = Visibility.Hidden;
-            custVM.SelectedCustomer = null;
+            this.custVM.SelectedCustomer = null;
             this.btnSave.Visibility = Visibility.Hidden;
             this.btnCancel.Visibility = Visibility.Hidden;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (custVM.ResultList.Count>0 && custVM.SelectedCustomer !=null)
+            if (this.custVM.ResultList.Count>0 && this.custVM.SelectedCustomer !=null)
             {
                 this.contCustDetails.Visibility = Visibility.Visible;
                 this.btnSave.Visibility = Visibility.Visible;
@@ -188,13 +197,13 @@ namespace HappyTourManager.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (custVM.SelectedCustomer != null)
+            if (this.custVM.SelectedCustomer != null)
             {
                 if (MessageBox.Show("Do you want to delete customer?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    custVM.DeleteCustomer();
+                    this.custVM.DeleteInstance();
                     MessageBox.Show("Customer is deleted");
-                    custVM.ResultList.Remove(custVM.SelectedCustomer);
+                    this.custVM.ResultList.Remove(this.custVM.SelectedCustomer);
                 }
             }
             else

@@ -19,8 +19,8 @@ namespace HappyTourManager
     using System.Windows.Media.Imaging;
     using System.Windows.Navigation;
     using System.Windows.Shapes;
-    //using HappyTourManager.VM;
-    //using Helper;
+    // using HappyTourManager.VM;
+    // using Helper;
     using DATA;
     using DATA.Repositories;
     using DATA.Interfaces;
@@ -36,7 +36,7 @@ namespace HappyTourManager
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// a főmenü page-t indítja
         /// </summary>
-        /// 
+        ///
 
         LoginPage loginPage;
         MainPage mainPage;
@@ -56,48 +56,45 @@ namespace HappyTourManager
         TourRepository tourRepo;
         UserRepository userRepo;
 
-
-
-
         public MainWindow()
         {
             this.InitializeComponent();
-            
+
         }
 
         public void SetPage(string pagetype)
         {
             if (pagetype == "LoginPage")
             {
-                loginPage = new LoginPage(userRepo, this);
-                this.MainFrame.Content = loginPage;
+                this.loginPage = new LoginPage(this.userRepo, this);
+                this.MainFrame.Content = this.loginPage;
             }
             else
             {
-                mainPage = new MainPage(customerRepo,languageRepo,officeRepo,onHolidayRepo,orderRepo,placeRepo,pltconRepo,programRepo,prtconRepo,reportRepo,
-                    tourguideRepo,tourRepo,userRepo, this);
-                this.MainFrame.Content = mainPage;
+                this.mainPage = new MainPage(this.customerRepo,this.languageRepo,this.officeRepo,this.onHolidayRepo,this.orderRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.reportRepo,
+                    this.tourguideRepo,this.tourRepo,this.userRepo, this);
+                this.MainFrame.Content = this.mainPage;
             }
         }
 
         private void AppWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.entities = new HappyTourDatabaseEntities();
-            customerRepo = new CustomerRepository(entities);
-            languageRepo = new LanguageRepository(entities);
-            officeRepo = new OfficeRepository(entities);
-            onHolidayRepo = new OnholidayRepository(entities);
-            orderRepo = new OrderRepository(entities);
-            placeRepo = new PlaceRepository(entities);
-            pltconRepo = new PLTCONRepository(entities);
-            programRepo = new ProgramRepository(entities);
-            prtconRepo = new PRTCONRepository(entities);
-            reportRepo = new ReportRepository(entities);
-            tourguideRepo = new TourguideRepository(entities);
-            tourRepo = new TourRepository(entities);
-            userRepo = new UserRepository(entities);
+            this.customerRepo = new CustomerRepository(this.entities);
+            this.languageRepo = new LanguageRepository(this.entities);
+            this.officeRepo = new OfficeRepository(this.entities);
+            this.onHolidayRepo = new OnholidayRepository(this.entities);
+            this.orderRepo = new OrderRepository(this.entities);
+            this.placeRepo = new PlaceRepository(this.entities);
+            this.pltconRepo = new PLTCONRepository(this.entities);
+            this.programRepo = new ProgramRepository(this.entities);
+            this.prtconRepo = new PRTCONRepository(this.entities);
+            this.reportRepo = new ReportRepository(this.entities);
+            this.tourguideRepo = new TourguideRepository(this.entities);
+            this.tourRepo = new TourRepository(this.entities);
+            this.userRepo = new UserRepository(this.entities);
 
-            SetPage("MainPage");
+            this.SetPage("MainPage");
 
             this.DataContext = new WindowViewModel(this);
         }

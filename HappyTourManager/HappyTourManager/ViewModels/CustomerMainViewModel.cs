@@ -1,19 +1,19 @@
-﻿using BL;
-using DATA;
-using DATA.Interfaces;
-using DATA.Repositoriees;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-
-namespace HappyTourManager
+﻿namespace HappyTourManager
 {
-    class CustomerMainViewModel : Bindable
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Data;
+    using BL;
+    using DATA;
+    using DATA.Interfaces;
+    using DATA.Repositoriees;
+
+    class CustomerMainViewModel : Bindable, IContentPage
     {
 
         #region private variables
@@ -38,13 +38,13 @@ namespace HappyTourManager
         {
             get
             {
-                return searchCategories;
+                return this.searchCategories;
             }
 
             set
             {
-                searchCategories = value;
-                OnPropertyChanged(nameof(SearchCategories));
+                this.searchCategories = value;
+                this.OnPropertyChanged(nameof(this.SearchCategories));
             }
         }
 
@@ -52,13 +52,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedCtegory;
+                return this.selectedCtegory;
             }
 
             set
             {
-                selectedCtegory = value;
-                OnPropertyChanged(nameof(SelectedCtegory));
+                this.selectedCtegory = value;
+                this.OnPropertyChanged(nameof(this.SelectedCtegory));
             }
         }
 
@@ -66,13 +66,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedDateFrom;
+                return this.selectedDateFrom;
             }
 
             set
             {
-                selectedDateFrom = value;
-                OnPropertyChanged(nameof(SelectedDateFrom));
+                this.selectedDateFrom = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateFrom));
             }
         }
 
@@ -80,13 +80,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedDateTo;
+                return this.selectedDateTo;
             }
 
             set
             {
-                selectedDateTo = value;
-                OnPropertyChanged(nameof(SelectedDateTo));
+                this.selectedDateTo = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateTo));
             }
         }
 
@@ -94,13 +94,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedValue;
+                return this.selectedValue;
             }
 
             set
             {
-                selectedValue = value;
-                OnPropertyChanged(nameof(SelectedValue));
+                this.selectedValue = value;
+                this.OnPropertyChanged(nameof(this.SelectedValue));
             }
         }
 
@@ -108,13 +108,13 @@ namespace HappyTourManager
         {
             get
             {
-                return resultList;
+                return this.resultList;
             }
 
             set
             {
-                resultList = value;
-                OnPropertyChanged(nameof(ResultList));
+                this.resultList = value;
+                this.OnPropertyChanged(nameof(this.ResultList));
             }
         }
 
@@ -122,29 +122,28 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedCustomer;
+                return this.selectedCustomer;
             }
 
             set
             {
-                selectedCustomer = value;
-                OnPropertyChanged(nameof(SelectedCustomer));
+                this.selectedCustomer = value;
+                this.OnPropertyChanged(nameof(this.SelectedCustomer));
             }
         }
         #endregion
-
 
         #region constructor
         public CustomerMainViewModel(IRepository<Customer> custRepository)
         {
             this.custRepository = custRepository;
-            custBL = new CustomerBL(custRepository);
-            CreateCountryList();
+            this.custBL = new CustomerBL(custRepository);
+            this.CreateCountryList();
 
-            searchCategories = new List<string>();
+            this.searchCategories = new List<string>();
             foreach (CustomerTerms item in Enum.GetValues(typeof(CustomerTerms)))
             {
-                searchCategories.Add(item.ToString());
+                this.searchCategories.Add(item.ToString());
             }
         }
         #endregion
@@ -155,42 +154,53 @@ namespace HappyTourManager
         /// </summary>
         public void GetSearchResult()
         {
-            if (SelectedCtegory == "VALIDTO")
+            if (this.SelectedCtegory == "VALIDTO")
             {
                 DateTime[] dt = new DateTime[2];
-                dt[0] = SelectedDateFrom;
-                dt[1] = SelectedDateTo;
+                dt[0] = this.SelectedDateFrom;
+                dt[1] = this.SelectedDateTo;
 
-                rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), dt);
+                this.rL = this.custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), dt);
+            }
+            else if (this.SelectedCtegory == "LOYALTYCARD")
+            {
+                if (this.SelectedValue == "yes")
+                {
+                    this.rL = this.custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), "1");
+                }
+                else
+                {
+                    this.rL = this.custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), "0");
+                }
             }
             else
             {
-                rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), SelectedCtegory), SelectedValue);
+                this.rL = this.custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), this.SelectedValue);
             }
-            ResultList = new ObservableCollection<Customer>(rL);
+            this.ResultList = new ObservableCollection<Customer>(this.rL);
         }
 
         /// <summary>
         /// Save a new customer or update an existing one
         /// </summary>
-        public void SaveCustomer()
+        public void SaveInstance()
         {
-            if (ResultList != null && ResultList.Contains(SelectedCustomer))
+            if (this.ResultList != null && this.ResultList.Contains(this.SelectedCustomer))
             {
-                custBL.Update();
+                this.custBL.Update();
             }
             else
             {
-                custBL.Save(SelectedCustomer);
+                this.custBL.Save(this.SelectedCustomer);
             }
         }
 
         /// <summary>
         /// Delete selected customer
         /// </summary>
-        public void DeleteCustomer()
+        public void DeleteInstance()
         {
-            custBL.Delete(SelectedCustomer);
+            this.custBL.Delete(this.SelectedCustomer);
         }
 
         /// <summary>
@@ -201,7 +211,7 @@ namespace HappyTourManager
         {
             bool isNull = false;
 
-            foreach (var item in SelectedCustomer.Person.GetType().GetProperties())
+            foreach (var item in this.SelectedCustomer.Person.GetType().GetProperties())
             {
                 string s = item.Name;
                 if (item.Name != "BirthDate" && item.Name != "ValidTo" && item.Name != "PersonID"
@@ -209,11 +219,11 @@ namespace HappyTourManager
                 {
                     Decimal parsedValue;
 
-                    if (item.GetValue(SelectedCustomer.Person) == null)
+                    if (item.GetValue(this.SelectedCustomer.Person) == null)
                     {
                         isNull = true;
                     }
-                    else if (Decimal.TryParse(item.GetValue(SelectedCustomer.Person).ToString(), out parsedValue))
+                    else if (Decimal.TryParse(item.GetValue(this.SelectedCustomer.Person).ToString(), out parsedValue))
                     {
                         isNull = parsedValue == 0;
                     }
@@ -236,12 +246,9 @@ namespace HappyTourManager
                 countryNames.Add(country.DisplayName.ToString());
             }
 
-            countryList = countryNames.OrderBy(names => names).Distinct();
+            this.countryList = countryNames.OrderBy(names => names).Distinct();
         }
         #endregion
-
-
-
 
     }
 }

@@ -1,22 +1,22 @@
-﻿using DATA;
-using DATA.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace HappyTourManager.Pages
+﻿namespace HappyTourManager.Pages
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Navigation;
+    using System.Windows.Shapes;
+    using DATA;
+    using DATA.Interfaces;
+
     /// <summary>
     /// Interaction logic for TourGuideMainPage.xaml
     /// </summary>
@@ -43,38 +43,35 @@ namespace HappyTourManager.Pages
             this.languageRepo = languageRepo;
             this.holidayRepo = holidayRepo;
             this.tourRepo = tourRepo;
-            InitializeComponent();
+            this.InitializeComponent();
 
-            
-            
         }
         #endregion
-
 
         #region event handlers
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            tgVM = new TourGuideMainViewModel(tourGuideRepo,languageRepo,holidayRepo,tourRepo);
-            this.DataContext = tgVM;
-            this.searchCat.ItemsSource = tgVM.SearchCategories;
+            this.tgVM = new TourGuideMainViewModel(this.tourGuideRepo,this.languageRepo,this.holidayRepo,this.tourRepo);
+            this.DataContext = this.tgVM;
+            this.searchCat.ItemsSource = this.tgVM.SearchCategories;
             this.searchCat.Visibility = Visibility.Visible;
             this.searchCat.SelectedItem = "DEFAULT";
-            tgDetails = new TGDetailsUC();
-            foreach (string item in tgVM.countryList)
+            this.tgDetails = new TGDetailsUC();
+            foreach (string item in this.tgVM.countryList)
             {
-                tgDetails.cboxCountry.Items.Add(item);
+                this.tgDetails.cboxCountry.Items.Add(item);
             }
-            this.contTGDetails.Content = tgDetails;
-            foreach (string item in tgVM.languageList)
+            this.contTGDetails.Content = this.tgDetails;
+            foreach (string item in this.tgVM.languageList)
             {
-                tgDetails.cboxLanguage.Items.Add(item);
+                this.tgDetails.cboxLanguage.Items.Add(item);
             }
             this.contTGDetails.Visibility = Visibility.Hidden;
         }
 
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tgVM.SelectedCtegory == "ISONHOLIDAY" || tgVM.SelectedCtegory == "ISAVAILABLE")
+            if (this.tgVM.SelectedCtegory == "ISONHOLIDAY" || this.tgVM.SelectedCtegory == "ISAVAILABLE")
             {
                 DatePicker datePicker = new DatePicker();
 
@@ -88,17 +85,17 @@ namespace HappyTourManager.Pages
                 this.contSearch2.Content = datePicker2;
 
             }
-            else if (tgVM.SelectedCtegory == "DEFAULT")
+            else if (this.tgVM.SelectedCtegory == "DEFAULT")
             {
                 this.contSearch1.Content = null;
                 this.contSearch2.Content = null;
-                tgVM.SelectedValue = default(string);
+                this.tgVM.SelectedValue = default(string);
             }
-            else if (tgVM.SelectedCtegory == "LANGUAGE")
+            else if (this.tgVM.SelectedCtegory == "LANGUAGE")
             {
                 ComboBox cBox = new ComboBox();
 
-                foreach (var item in tgVM.languageList)
+                foreach (var item in this.tgVM.languageList)
                 {
                     cBox.Items.Add(item);
                 }
@@ -109,7 +106,7 @@ namespace HappyTourManager.Pages
             }
             else
             {
-                tgVM.SelectedValue = default(string);
+                this.tgVM.SelectedValue = default(string);
                 TextBox textbox = new TextBox();
                 Binding binding = new Binding("SelectedValue");
                 textbox.SetBinding(TextBox.TextProperty, binding);
@@ -123,16 +120,16 @@ namespace HappyTourManager.Pages
         {
             try
             {
-                tgVM.GetSearchResult();
-                if (tgVM.ResultList.Count > 0)
+                this.tgVM.GetSearchResult();
+                if (this.tgVM.ResultList.Count > 0)
                 {
-                    btnEdit.Visibility = Visibility.Visible;
-                    btnDelete.Visibility = Visibility.Visible;
+                    this.btnEdit.Visibility = Visibility.Visible;
+                    this.btnDelete.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    btnEdit.Visibility = Visibility.Hidden;
-                    btnDelete.Visibility = Visibility.Hidden;
+                    this.btnEdit.Visibility = Visibility.Hidden;
+                    this.btnDelete.Visibility = Visibility.Hidden;
                 }
                 this.contTGDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
@@ -147,14 +144,11 @@ namespace HappyTourManager.Pages
                 MessageBox.Show(ex.Message);
             }
 
-
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            tgVM.SelectedTG = new Tourguide()
+            this.tgVM.SelectedTG = new Tourguide()
             {
                 Person = new Person()
                 {
@@ -162,9 +156,9 @@ namespace HappyTourManager.Pages
                     ValidTo = DateTime.Today
                 }
             };
-            tgVM.SelectedLanguage = null;
-            tgVM.SelectedHolidayFrom = default(DateTime);
-            tgVM.SelectedHolidayTill = default(DateTime);
+            this.tgVM.SelectedLanguage = null;
+            this.tgVM.SelectedHolidayFrom = default(DateTime);
+            this.tgVM.SelectedHolidayTill = default(DateTime);
             this.contTGDetails.Visibility = Visibility.Visible;
             this.btnSave.Visibility = Visibility.Visible;
             this.btnCancel.Visibility = Visibility.Visible;
@@ -174,19 +168,19 @@ namespace HappyTourManager.Pages
         {
             try
             {
-                if (tgVM.Checkvalues())
+                if (this.tgVM.Checkvalues())
                 {
                     MessageBox.Show("All values must be filled in!");
                 }
                 else
                 {
-                    tgVM.SaveTG();
+                    this.tgVM.SaveInstance();
                     MessageBox.Show("Tour Guide data is saved!");
                     this.contTGDetails.Visibility = Visibility.Hidden;
-                    tgVM.SelectedTG = null;
-                    tgVM.SelectedHolidayTill = default(DateTime);
-                    tgVM.SelectedHolidayFrom = default(DateTime);
-                    tgVM.SelectedLanguage = null;
+                    this.tgVM.SelectedTG = null;
+                    this.tgVM.SelectedHolidayTill = default(DateTime);
+                    this.tgVM.SelectedHolidayFrom = default(DateTime);
+                    this.tgVM.SelectedLanguage = null;
                     this.btnSave.Visibility = Visibility.Hidden;
                     this.btnCancel.Visibility = Visibility.Hidden;
                 }
@@ -200,26 +194,25 @@ namespace HappyTourManager.Pages
                 MessageBox.Show("Something went wrong :(");
             }
 
-
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.contTGDetails.Visibility = Visibility.Hidden;
-            tgVM.SelectedTG = null;
-            tgVM.SelectedHolidayTill = default(DateTime);
-            tgVM.SelectedHolidayFrom = default(DateTime);
-            tgVM.SelectedLanguage = null;
+            this.tgVM.SelectedTG = null;
+            this.tgVM.SelectedHolidayTill = default(DateTime);
+            this.tgVM.SelectedHolidayFrom = default(DateTime);
+            this.tgVM.SelectedLanguage = null;
             this.btnSave.Visibility = Visibility.Hidden;
             this.btnCancel.Visibility = Visibility.Hidden;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            tgVM.SelectedHolidayTill = default(DateTime);
-            tgVM.SelectedHolidayFrom = default(DateTime);
-            tgVM.SelectedLanguage = null;
-            if (tgVM.ResultList.Count > 0 && tgVM.SelectedTG != null)
+            this.tgVM.SelectedHolidayTill = default(DateTime);
+            this.tgVM.SelectedHolidayFrom = default(DateTime);
+            this.tgVM.SelectedLanguage = null;
+            if (this.tgVM.ResultList.Count > 0 && this.tgVM.SelectedTG != null)
             {
                 this.contTGDetails.Visibility = Visibility.Visible;
                 this.btnSave.Visibility = Visibility.Visible;
@@ -236,15 +229,15 @@ namespace HappyTourManager.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (tgVM.SelectedTG != null)
+            if (this.tgVM.SelectedTG != null)
             {
                 if (MessageBox.Show("Do you want to delete the selected Tour guide?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        tgVM.DeleteTG();
+                        this.tgVM.DeleteInstance();
                         MessageBox.Show("Tour Guide is deleted");
-                        tgVM.ResultList.Remove(tgVM.SelectedTG);
+                        this.tgVM.ResultList.Remove(this.tgVM.SelectedTG);
                     }
                     catch (Exception)
                     {
@@ -253,12 +246,12 @@ namespace HappyTourManager.Pages
                     }
                     finally
                     {
-                        tgVM.SelectedTG = null;
-                        tgVM.SelectedHolidayTill = default(DateTime);
-                        tgVM.SelectedHolidayFrom = default(DateTime);
-                        tgVM.SelectedLanguage = null;
+                        this.tgVM.SelectedTG = null;
+                        this.tgVM.SelectedHolidayTill = default(DateTime);
+                        this.tgVM.SelectedHolidayFrom = default(DateTime);
+                        this.tgVM.SelectedLanguage = null;
                     }
-                    
+
                 }
             }
             else

@@ -1,17 +1,17 @@
-﻿using BL;
-using DATA;
-using DATA.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HappyTourManager
+﻿namespace HappyTourManager
 {
-    class TourGuideMainViewModel: Bindable
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BL;
+    using DATA;
+    using DATA.Interfaces;
+
+    class TourGuideMainViewModel: Bindable, IContentPage
     {
         #region private variables
         private IRepository<Tourguide> tourGuideRepo;
@@ -36,19 +36,18 @@ namespace HappyTourManager
         public List<string> languageList;
         #endregion
 
-
         #region parameters
         public List<string> SearchCategories
         {
             get
             {
-                return searchCategories;
+                return this.searchCategories;
             }
 
             set
             {
-                searchCategories = value;
-                OnPropertyChanged(nameof(SearchCategories));
+                this.searchCategories = value;
+                this.OnPropertyChanged(nameof(this.SearchCategories));
             }
         }
 
@@ -56,13 +55,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedCtegory;
+                return this.selectedCtegory;
             }
 
             set
             {
-                selectedCtegory = value;
-                OnPropertyChanged(nameof(SelectedCtegory));
+                this.selectedCtegory = value;
+                this.OnPropertyChanged(nameof(this.SelectedCtegory));
             }
         }
 
@@ -70,13 +69,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedDateFrom;
+                return this.selectedDateFrom;
             }
 
             set
             {
-                selectedDateFrom = value;
-                OnPropertyChanged(nameof(SelectedDateFrom));
+                this.selectedDateFrom = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateFrom));
             }
         }
 
@@ -84,13 +83,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedDateTo;
+                return this.selectedDateTo;
             }
 
             set
             {
-                selectedDateTo = value;
-                OnPropertyChanged(nameof(SelectedDateTo));
+                this.selectedDateTo = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateTo));
             }
         }
 
@@ -98,13 +97,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedValue;
+                return this.selectedValue;
             }
 
             set
             {
-                selectedValue = value;
-                OnPropertyChanged(nameof(SelectedValue));
+                this.selectedValue = value;
+                this.OnPropertyChanged(nameof(this.SelectedValue));
             }
         }
 
@@ -112,13 +111,13 @@ namespace HappyTourManager
         {
             get
             {
-                return resultList;
+                return this.resultList;
             }
 
             set
             {
-                resultList = value;
-                OnPropertyChanged(nameof(ResultList));
+                this.resultList = value;
+                this.OnPropertyChanged(nameof(this.ResultList));
             }
         }
 
@@ -126,13 +125,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedTG;
+                return this.selectedTG;
             }
 
             set
             {
-                selectedTG = value;
-                OnPropertyChanged(nameof(SelectedTG));
+                this.selectedTG = value;
+                this.OnPropertyChanged(nameof(this.SelectedTG));
             }
         }
 
@@ -140,13 +139,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedLanguage;
+                return this.selectedLanguage;
             }
 
             set
             {
-                selectedLanguage = value;
-                OnPropertyChanged(nameof(SelectedLanguage));
+                this.selectedLanguage = value;
+                this.OnPropertyChanged(nameof(this.SelectedLanguage));
             }
         }
 
@@ -154,13 +153,13 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedHolidayFrom;
+                return this.selectedHolidayFrom;
             }
 
             set
             {
-                selectedHolidayFrom = value;
-                OnPropertyChanged(nameof(SelectedHolidayFrom));
+                this.selectedHolidayFrom = value;
+                this.OnPropertyChanged(nameof(this.SelectedHolidayFrom));
             }
         }
 
@@ -168,17 +167,16 @@ namespace HappyTourManager
         {
             get
             {
-                return selectedHolidayTill;
+                return this.selectedHolidayTill;
             }
 
             set
             {
-                selectedHolidayTill = value;
-                OnPropertyChanged(nameof(SelectedHolidayTill));
+                this.selectedHolidayTill = value;
+                this.OnPropertyChanged(nameof(this.SelectedHolidayTill));
             }
         }
         #endregion
-
 
         #region constructor
         public TourGuideMainViewModel(
@@ -192,28 +190,27 @@ namespace HappyTourManager
             this.languageRepo = languageRepo;
             this.holidayRepo = holidayRepo;
             this.tourRepo = tourRepo;
-            tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
-            CreateCountryList();
+            this.tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
+            this.CreateCountryList();
 
-            languageList = new List<string>();
-            languageList.Add("english");
-            languageList.Add("german");
-            languageList.Add("french");
-            languageList.Add("spanish");
-            languageList.Add("italian");
-            languageList.Add("dutch");
-            languageList.Add("chinese");
-            languageList.Add("japanese");
+            this.languageList = new List<string>();
+            this.languageList.Add("english");
+            this.languageList.Add("german");
+            this.languageList.Add("french");
+            this.languageList.Add("spanish");
+            this.languageList.Add("italian");
+            this.languageList.Add("dutch");
+            this.languageList.Add("chinese");
+            this.languageList.Add("japanese");
 
-            searchCategories = new List<string>();
+            this.searchCategories = new List<string>();
             foreach (TourguideTerms item in Enum.GetValues(typeof(TourguideTerms)))
             {
-                searchCategories.Add(item.ToString());
+                this.searchCategories.Add(item.ToString());
             }
         }
 
         #endregion
-
 
         #region public method
         /// <summary>
@@ -222,30 +219,30 @@ namespace HappyTourManager
         public void GetSearchResult()
         {
             IList<Tourguide> rL;
-            if (SelectedCtegory == "ISONHOLIDAY" || SelectedCtegory == "ISAVAILABLE")
+            if (this.SelectedCtegory == "ISONHOLIDAY" || this.SelectedCtegory == "ISAVAILABLE")
             {
                 DateTime[] dt = new DateTime[2];
-                dt[0] = SelectedDateFrom;
-                dt[1] = SelectedDateTo;
+                dt[0] = this.SelectedDateFrom;
+                dt[1] = this.SelectedDateTo;
 
-                rL = tgBL.Search(Enum.Parse(typeof(TourguideTerms), SelectedCtegory), dt);
+                rL = this.tgBL.Search(Enum.Parse(typeof(TourguideTerms), this.SelectedCtegory), dt);
             }
-            else if (SelectedCtegory == "TAXIDENTIFICATION")
+            else if (this.SelectedCtegory == "TAXIDENTIFICATION")
             {
-                rL = tgBL.Search(Enum.Parse(typeof(TourguideTerms), SelectedCtegory), Int32.Parse(SelectedValue));
+                rL = this.tgBL.Search(Enum.Parse(typeof(TourguideTerms), this.SelectedCtegory), Int32.Parse(this.SelectedValue));
             }
             else
             {
-                rL = tgBL.Search(Enum.Parse(typeof(TourguideTerms), SelectedCtegory), SelectedValue);
+                rL = this.tgBL.Search(Enum.Parse(typeof(TourguideTerms), this.SelectedCtegory), this.SelectedValue);
             }
-            ResultList = new ObservableCollection<Tourguide>(rL);
+            this.ResultList = new ObservableCollection<Tourguide>(rL);
         }
 
         public bool Checkvalues()
         {
             bool isNull = false;
 
-            foreach (var item in SelectedTG.Person.GetType().GetProperties())
+            foreach (var item in this.SelectedTG.Person.GetType().GetProperties())
             {
                 string s = item.Name;
                 if (item.Name != "BirthDate" && item.Name != "ValidTo" && item.Name != "PersonID"
@@ -253,70 +250,69 @@ namespace HappyTourManager
                 {
                     Decimal parsedValue;
 
-                    if (item.GetValue(SelectedTG.Person) == null)
+                    if (item.GetValue(this.SelectedTG.Person) == null)
                     {
                         isNull = true;
                     }
-                    else if (Decimal.TryParse(item.GetValue(SelectedTG.Person).ToString(), out parsedValue))
+                    else if (Decimal.TryParse(item.GetValue(this.SelectedTG.Person).ToString(), out parsedValue))
                     {
                         if (parsedValue == 0)
                         {
                             isNull = true;
                         }
-                        
+
                     }
                 }
 
             }
-            if (SelectedTG.Taxidentification == 0)
+            if (this.SelectedTG.Taxidentification == 0)
             {
                 isNull = true;
             }
-            if (SelectedTG.Dailyallowance == 0)
+            if (this.SelectedTG.Dailyallowance == 0)
             {
                 isNull = true;
             }
             return isNull;
         }
 
-        public void SaveTG()
+        public void SaveInstance()
         {
 
-            if (ResultList != null && ResultList.Contains(SelectedTG))
+            if (this.ResultList != null && this.ResultList.Contains(this.SelectedTG))
             {
-                if (SelectedLanguage != null)
+                if (this.SelectedLanguage != null)
                 {
-                    languageRepo.Create(new Language() { TourguideID = SelectedTG.PersonID, Language1 = SelectedLanguage });
+                    this.languageRepo.Create(new Language() { TourguideID = this.SelectedTG.PersonID, Language1 = this.SelectedLanguage });
                  }
-                 if (SelectedHolidayFrom != default(DateTime) && SelectedHolidayTill != default(DateTime))
+                 if (this.SelectedHolidayFrom != default(DateTime) && this.SelectedHolidayTill != default(DateTime))
                  {
-                    holidayRepo.Create(new OnHoliday() { StartDate = SelectedHolidayFrom, EndDate = SelectedHolidayTill, TourguideID = SelectedTG.PersonID });
+                    this.holidayRepo.Create(new OnHoliday() { StartDate = this.SelectedHolidayFrom, EndDate = this.SelectedHolidayTill, TourguideID = this.SelectedTG.PersonID });
                  }
-                 tgBL.Update();
+                 this.tgBL.Update();
             }
             else
             {
-                tgBL.Save(SelectedTG);
-                if (SelectedLanguage != null)
+                this.tgBL.Save(this.SelectedTG);
+                if (this.SelectedLanguage != null)
                 {
-                    languageRepo.Create(new Language() { TourguideID = SelectedTG.PersonID, Language1 = SelectedLanguage });
+                    this.languageRepo.Create(new Language() { TourguideID = this.SelectedTG.PersonID, Language1 = this.SelectedLanguage });
                 }
-                if (SelectedHolidayFrom != default(DateTime) && SelectedHolidayTill != default(DateTime))
+                if (this.SelectedHolidayFrom != default(DateTime) && this.SelectedHolidayTill != default(DateTime))
                 {
-                    holidayRepo.Create(new OnHoliday() { StartDate = SelectedHolidayFrom, EndDate = SelectedHolidayTill, TourguideID = SelectedTG.PersonID });
+                    this.holidayRepo.Create(new OnHoliday() { StartDate = this.SelectedHolidayFrom, EndDate = this.SelectedHolidayTill, TourguideID = this.SelectedTG.PersonID });
                 }
             }
-                    
 
         }
 
-        public void DeleteTG()
+        public void DeleteInstance()
         {
-            IQueryable<Language> languages = languageRepo.GetAll();
+            IQueryable<Language> languages = this.languageRepo.GetAll();
             List<Language> lList = new List<Language>();
             foreach (var item in languages)
             {
-                if (item.TourguideID == SelectedTG.PersonID)
+                if (item.TourguideID == this.SelectedTG.PersonID)
                 {
                     lList.Add(item);
                 }
@@ -325,15 +321,15 @@ namespace HappyTourManager
             {
                 try
                 {
-                    languageRepo.Delete(item);
+                    this.languageRepo.Delete(item);
                 }
                 finally { }
             }
-            IQueryable<OnHoliday> holidays = holidayRepo.GetAll();
+            IQueryable<OnHoliday> holidays = this.holidayRepo.GetAll();
             List<OnHoliday> hList = new List<OnHoliday>();
             foreach (var item in holidays)
             {
-                if (item.TourguideID == SelectedTG.PersonID)
+                if (item.TourguideID == this.SelectedTG.PersonID)
                 {
                     hList.Add(item);
                 }
@@ -342,16 +338,14 @@ namespace HappyTourManager
             {
                 try
                 {
-                    holidayRepo.Delete(item);
+                    this.holidayRepo.Delete(item);
                 }
                 finally { }
             }
-            tgBL.Delete(SelectedTG);
+            this.tgBL.Delete(this.SelectedTG);
         }
 
-
         #endregion
-
 
         #region private method
         private void CreateCountryList()
@@ -365,7 +359,7 @@ namespace HappyTourManager
                 countryNames.Add(country.DisplayName.ToString());
             }
 
-            countryList = countryNames.OrderBy(names => names).Distinct();
+            this.countryList = countryNames.OrderBy(names => names).Distinct();
         }
         #endregion
     }

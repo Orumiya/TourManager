@@ -39,7 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>oenik.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\HappyTourManager\oenik.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,7 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>oenik.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\HappyTourManager\oenik.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -195,7 +195,6 @@
     <None Include="HappyDatabase.edmx.diagram">
       <DependentUpon>HappyDatabase.edmx</DependentUpon>
     </None>
-    <None Include="oenik.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

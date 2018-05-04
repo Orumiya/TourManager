@@ -1,19 +1,19 @@
-﻿using BL;
-using DATA;
-using DATA.Repositoriees;
-using DATA.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HappyTourManager
+﻿namespace HappyTourManager
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BL;
+    using DATA;
+    using DATA.Repositoriees;
+    using DATA.Repositories;
+
     class MainViewModel
     {
-        //private CustomerRepository custRepository;
-        //private CustomerBL custBL;
+        // private CustomerRepository custRepository;
+        // private CustomerBL custBL;
         CustomerRepository customerRepo;
         LanguageRepository languageRepo;
         OfficeRepository officeRepo;
@@ -55,7 +55,7 @@ namespace HappyTourManager
             this.reportRepo = reportRepo;
             this.tourguideRepo = tourguideRepo;
             this.tourRepo = tourRepo;
-            
+
         }
 
     }
