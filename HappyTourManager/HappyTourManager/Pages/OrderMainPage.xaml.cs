@@ -22,7 +22,6 @@ namespace HappyTourManager.Pages
     /// </summary>
     public partial class OrderMainPage : Page
     {
-        OrderMainViewModel vm;
         private IRepository<Order> orderRepository;
         private IRepository<Customer> customerRepository;
         private IRepository<Tour> tourRepository;
@@ -30,6 +29,9 @@ namespace HappyTourManager.Pages
         private IRepository<Place> placeRepository;
         private IRepository<PLTCON> pltconRepository;
         private IRepository<PRTCON> prtconRepository;
+
+        private OrderMainViewModel orderVM;
+        private TourDetailsUC tourDetail;
 
         IList<Tour> tourList = new List<Tour>();
         IList<Customer> customerList = new List<Customer>();
@@ -53,68 +55,254 @@ namespace HappyTourManager.Pages
             InitializeComponent();
         }
 
+
+
+        #region event handlers
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            vm = new OrderMainViewModel(orderRepository,customerRepository, tourRepository, programRepository,placeRepository,pltconRepository, prtconRepository);
-            tourList = vm.GetAllTours();
-            customerList = vm.GetAllCustomers();
-            tourNewCombo.ItemsSource = tourList;
-            customerNewCombo.ItemsSource = customerList;
+            //tourVM = new TourMainViewModel(tourRepo, placeRepo, pltconRepo, programRepo, prtconRepo, tourguideRepo);
 
+            //this.searchCat.ItemsSource = tourVM.SearchCategories;
+            //this.searchCat.Visibility = Visibility.Visible;
+            //this.searchCat.SelectedItem = "DEFAULT";
+            //this.DataContext = tourVM;
+            //tourDetail = new TourDetailsUC();
+            //foreach (string item in tourVM.countryList)
+            //{
+            //    tourDetail.cboxCountry.Items.Add(item);
+            //}
+            //this.contTourDetails.Content = tourDetail;
+            //this.contTourDetails.Visibility = Visibility.Hidden;
 
-
-            this.DataContext = vm;
         }
 
-        private void btnCustomer_Click(object sender, RoutedEventArgs e)
+        private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //if (tourVM.SelectedCtegory == "TOURDATE")
+            //{
+            //    DatePicker datePicker = new DatePicker();
+
+            //    Binding binding = new Binding("SelectedDateFrom");
+            //    datePicker.SetBinding(DatePicker.SelectedDateProperty, binding);
+            //    this.contSearch1.Content = datePicker;
+
+            //    DatePicker datePicker2 = new DatePicker();
+            //    Binding binding2 = new Binding("SelectedDateTo");
+            //    datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
+            //    this.contSearch2.Content = datePicker2;
+
+            //}
+            //else if (tourVM.SelectedCtegory == "DEFAULT")
+            //{
+            //    this.contSearch1.Content = null;
+            //    this.contSearch2.Content = null;
+            //    tourVM.SelectedValue1 = default(string);
+            //}
+            //else if (tourVM.SelectedCtegory == "ADULTPRICE" || tourVM.SelectedCtegory == "CHILDPRICE")
+            //{
+            //    tourVM.SelectedValue1 = "";
+            //    tourVM.SelectedValue2 = "";
+            //    TextBox textbox = new TextBox();
+            //    Binding binding = new Binding("SelectedValue1");
+            //    textbox.SetBinding(TextBox.TextProperty, binding);
+            //    this.contSearch1.Content = textbox;
+
+            //    TextBox textbox2 = new TextBox();
+            //    Binding binding2 = new Binding("SelectedValue2");
+            //    textbox2.SetBinding(TextBox.TextProperty, binding2);
+            //    this.contSearch2.Content = textbox2;
+            //}
+            //else if (tourVM.SelectedCtegory == "COUNTRY")
+            //{
+            //    ComboBox cBox = new ComboBox();
+
+            //    foreach (var item in tourVM.PlaceListAll)
+            //    {
+            //        if (!cBox.Items.Contains(item.Country))
+            //        {
+            //            cBox.Items.Add(item.Country);
+            //        }
+            //    }
+            //    Binding binding = new Binding("SelectedValue1");
+            //    cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+            //    this.contSearch1.Content = cBox;
+            //    this.contSearch2.Content = null;
+            //}
+            //else if (tourVM.SelectedCtegory == "CITY")
+            //{
+            //    ComboBox cBox = new ComboBox();
+            //    foreach (var item in tourVM.PlaceListAll)
+            //    {
+            //        if (!cBox.Items.Contains(item.City))
+            //        {
+            //            cBox.Items.Add(item.City);
+            //        }
+            //    }
+            //    Binding binding = new Binding("SelectedValue1");
+            //    cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+            //    this.contSearch1.Content = cBox;
+            //    this.contSearch2.Content = null;
+            //}
+            //else if (tourVM.SelectedCtegory == "PROGRAM")
+            //{
+            //    ComboBox cBox = new ComboBox();
+            //    foreach (var item in tourVM.ProgramListAll)
+            //    {
+            //        if (!cBox.Items.Contains(item.ProgramType))
+            //        {
+            //            cBox.Items.Add(item.ProgramType);
+            //        }
+            //    }
+            //    Binding binding = new Binding("SelectedValue1");
+            //    cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+            //    this.contSearch1.Content = cBox;
+            //    this.contSearch2.Content = null;
+            //}
+            //else
+            //{
+            //    this.contSearch1.Content = null;
+            //    this.contSearch2.Content = null;
+            //}
 
         }
 
-        private void btnTour_Click(object sender, RoutedEventArgs e)
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    tourVM.GetSearchResult();
+            //    if (tourVM.ResultList.Count > 0)
+            //    {
+            //        btnEdit.Visibility = Visibility.Visible;
+            //        btnDelete.Visibility = Visibility.Visible;
+            //    }
+            //    else
+            //    {
+            //        btnEdit.Visibility = Visibility.Hidden;
+            //        btnDelete.Visibility = Visibility.Hidden;
+            //    }
+            //    this.contTourDetails.Visibility = Visibility.Hidden;
+            //    this.btnSave.Visibility = Visibility.Hidden;
+            //    this.btnCancel.Visibility = Visibility.Hidden;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
+
+
 
         }
 
-        private void btnOrder_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            //tourVM.IsEdit = true;
+            //tourVM.SelectedTour = new Tour()
+            //{
+            //    StartDate = DateTime.Today,
+            //    EndDate = DateTime.Today
+            //};
+            //tourVM.SelectedPlace = new Place();
+            //tourVM.SelectedProgram = new Program();
+            //tourVM.GetTourPlaces();
+            //tourVM.GetTourPrograms();
+            //this.contTourDetails.Visibility = Visibility.Visible;
+            //this.btnSave.Visibility = Visibility.Visible;
+            //this.btnCancel.Visibility = Visibility.Visible;
         }
 
-        private void btnTGuide_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    if (tourVM.Checkvalues(tourDetail.tcTour.SelectedIndex))
+            //    {
+            //        MessageBox.Show("All values must be filled in!");
+            //    }
+            //    else
+            //    {
+            //        tourVM.SaveTour(tourDetail.tcTour.SelectedIndex);
+            //        MessageBox.Show("Data is saved!");
+            //        this.contTourDetails.Visibility = Visibility.Hidden;
+            //        tourVM.SelectedTour = null;
+            //        tourVM.SelectedPlace = null;
+            //        tourVM.SelectedProgram = null;
+            //        this.btnSave.Visibility = Visibility.Hidden;
+            //        this.btnCancel.Visibility = Visibility.Hidden;
+            //    }
+            //}
+            //catch (InvalidOperationException ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Something went wrong :(");
+            //}
+
 
         }
 
-        private void btnOffice_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            //this.contTourDetails.Visibility = Visibility.Hidden;
+            //tourVM.SelectedTour = null;
+            //tourVM.SelectedPlace = null;
+            //tourVM.SelectedProgram = null;
+            //this.btnSave.Visibility = Visibility.Hidden;
+            //this.btnCancel.Visibility = Visibility.Hidden;
         }
 
-        private void btnReports_Click(object sender, RoutedEventArgs e)
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            //tourVM.IsEdit = false;
+            //tourVM.SelectedPlace = null;
+            //tourVM.SelectedProgram = null;
+            //if (tourVM.ResultList.Count > 0 && tourVM.SelectedTour != null)
+            //{
+            //    tourVM.GetTourPlaces();
+            //    tourVM.GetTourPrograms();
+            //    this.contTourDetails.Visibility = Visibility.Visible;
+            //    this.btnSave.Visibility = Visibility.Visible;
+            //    this.btnCancel.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
+            //    this.contTourDetails.Visibility = Visibility.Hidden;
+            //    this.btnSave.Visibility = Visibility.Hidden;
+            //    this.btnCancel.Visibility = Visibility.Hidden;
+            //    MessageBox.Show("Please select a tour!");
+            //}
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            //if (tourVM.SelectedTour != null)
+            //{
+            //    if (MessageBox.Show("Do you want to delete tour?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            //    {
+            //        try
+            //        {
+            //            tourVM.DeleteTour();
+            //            MessageBox.Show("Customer is deleted");
+            //            tourVM.ResultList.Remove(tourVM.SelectedTour);
+            //        }
+            //        catch (Exception)
+            //        {
 
+            //            MessageBox.Show("Tour cannot be deleted!");
+            //        }
+
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Please select a tour!");
+            //}
         }
+        #endregion
 
-        private void newOrder_Click(object sender, RoutedEventArgs e)
-        {
-            DateTime date;
-            if (orderDate.SelectedDate != null)
-            {
-                date = (DateTime)orderDate.SelectedDate;
-            }
-            else
-            {
-                vm.orderBL.DetermineTheOrderDate();
-            }
 
-            
-            
-        }
     }
 }
