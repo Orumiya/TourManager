@@ -61,6 +61,18 @@ namespace HappyTourManager.Pages
                 this.contSearch2.Content = null;
                 custVM.SelectedValue = default(string);
             }
+            else if (custVM.SelectedCtegory == "LOYALTYCARD")
+            {
+                ComboBox cBox = new ComboBox();
+
+                cBox.Items.Add("yes");
+                cBox.Items.Add("no");
+
+                Binding binding = new Binding("SelectedValue");
+                cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
+                this.contSearch1.Content = cBox;
+                this.contSearch2.Content = null;
+            }
             else
             {
                 TextBox textbox = new TextBox();
