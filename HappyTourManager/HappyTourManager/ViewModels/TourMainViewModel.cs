@@ -377,6 +377,7 @@ namespace HappyTourManager
         public void GetTourPlaces()
         {
             IQueryable<PLTCON> places = pltconRepo.GetAll();
+            TourPlaceList = new ObservableCollection<Place>();
             foreach (var item in places)
             {
                 if (item != null && item.TourID == SelectedTour.TourID)
@@ -398,6 +399,7 @@ namespace HappyTourManager
         public void GetTourPrograms()
         {
             IQueryable<PRTCON> programs = prtconRepo.GetAll();
+            TourProgramList = new ObservableCollection<Program>();
             foreach (var item in programs)
             {
                 if (item != null && item.TourID == SelectedTour.TourID)
