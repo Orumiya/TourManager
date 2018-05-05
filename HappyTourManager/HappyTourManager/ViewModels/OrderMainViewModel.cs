@@ -116,6 +116,7 @@ namespace HappyTourManager
             set
             {
                 this.selectedTour = value;
+                this.TotalPrice = CalculateTotalPrice();
                 this.OnPropertyChanged(nameof(this.SelectedTour));
             }
         }
