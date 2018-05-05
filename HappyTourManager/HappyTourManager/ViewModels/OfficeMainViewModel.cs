@@ -2,6 +2,7 @@
 {
     using BL;
     using DATA;
+    using DATA.Interfaces;
 
     /// <summary>
     /// View model for office page
@@ -31,9 +32,9 @@
         /// <summary>
         /// constructor for office view model
         /// </summary>
-        public OfficeMainViewModel()
+        public OfficeMainViewModel(IRepository<Office> officeRepository)
         {
-            officeBL = new OfficeBL();
+            this.officeBL = new OfficeBL(officeRepository);
         }
 
         /// <summary>

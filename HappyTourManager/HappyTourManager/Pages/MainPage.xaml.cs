@@ -23,6 +23,7 @@
         IRepository<Tourguide> tourguideRepo;
         IRepository<Tour> tourRepo;
         IRepository<User> userRepo;
+        IRepository<Office> officeRepo;
         MainWindow win;
 
         public MainPage(IRepository<Customer> customerRepo,
@@ -37,6 +38,7 @@
                 IRepository<Tourguide> tourguideRepo,
                 IRepository<Tour> tourRepo,
                 IRepository<User> userRepo,
+                IRepository<Office> officeRepo,
                 MainWindow parentWin)
         {
             this.InitializeComponent();
@@ -52,6 +54,8 @@
             this.tourguideRepo = tourguideRepo;
             this.tourRepo = tourRepo;
             this.userRepo = userRepo;
+
+            this.officeRepo = officeRepo;
             this.win = parentWin;
 
         }
@@ -78,7 +82,7 @@
 
         private void btnOffice_Click(object sender, RoutedEventArgs e)
         {
-            this.mFrame.Content = new OfficeMainPage();
+            this.mFrame.Content = new OfficeMainPage(officeRepo);
         }
 
         private void btnReports_Click(object sender, RoutedEventArgs e)
