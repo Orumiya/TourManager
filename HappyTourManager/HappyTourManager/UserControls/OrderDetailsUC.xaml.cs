@@ -24,5 +24,13 @@
         {
             this.InitializeComponent();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            for (int i = -1; i < 10; i++)
+            {
+                this.cbAdults.Items.Add(i + 1);
+            }
+        }
     }
 }
