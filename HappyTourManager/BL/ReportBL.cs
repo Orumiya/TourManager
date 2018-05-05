@@ -260,9 +260,28 @@ namespace BL
             return result;
         }
 
+        /// <summary>
+        /// creates a Tour report (each tour how much order has)
+        /// </summary>
         private void GenerateTourReport()
         {
-            throw new NotImplementedException();
+            CollectTourAndOrderInfo();
+        }
+
+        public Dictionary<Tour, decimal> CollectTourAndOrderInfo()
+        {
+            var orders = this.orderRepository.GetAll();
+            IList<Order> allOrders = orders.Where(e => e.IsCancelled.Equals(0)).ToList();
+            var tours = this.tourRepository.GetAll();
+            IList<Tour> allTours = tours.ToList();
+            Dictionary<Tour, decimal> dictionary = new Dictionary<Tour, decimal>();
+            foreach (Tour item in allTours)
+            {
+                decimal value = item.Orders.Where(e => !e.IsCancelled.Equals("1")).Sum(i => i.PersonCount);
+                dictionary.Add(item, value);
+            }
+
+            return dictionary;
         }
 
         private void GenerateHolidayReport()
