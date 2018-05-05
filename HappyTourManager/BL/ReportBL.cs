@@ -28,10 +28,8 @@ namespace BL
     public enum ReportTypes
     {
         TOURREPORT,
-        GUIDEREPORT,
         CUSTOMERREPORT,
-        ORDERREPORT,
-        HOLIDAYREPORT
+        ORDERREPORT
     }
 
     public class ReportBL : ISearcheable<Report>, IReportList
@@ -217,14 +215,6 @@ namespace BL
             {
                 this.GenerateOrderReport();
             }
-            else if (type.Equals(ReportTypes.GUIDEREPORT))
-            {
-                this.GenerateGuideReport();
-            }
-            else if (type.Equals(ReportTypes.HOLIDAYREPORT))
-            {
-                this.GenerateHolidayReport();
-            }
             else
             {
                 throw new InvalidOperationException("unknown reporting type");
@@ -288,16 +278,6 @@ namespace BL
             }
 
             return dictionary;
-        }
-
-        private void GenerateHolidayReport()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void GenerateGuideReport()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

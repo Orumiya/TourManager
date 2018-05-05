@@ -136,6 +136,18 @@ namespace TEST
                     IsCancelled = "1",
                     IsPayed = "0",
                     IsLoyalty = "1"
+                },
+                new Order
+                {
+                    OrderID = 4,
+                    OrderDate = new DateTime(2018,02,28),
+                    CustomerID = 1,
+                    TourID = 2,
+                    TotalSum = 0,
+                    PersonCount = 2,
+                    IsCancelled = "1",
+                    IsPayed = "0",
+                    IsLoyalty = "1"
                 }
             };
 
@@ -224,6 +236,48 @@ namespace TEST
         {
             bool isValid = bl.PassportValidityCheck(orders[1]);
             Assert.That(isValid, Is.False);
+        }
+
+        [Test]
+        public void WhenSearchingForPayedOrders_ThenGetsPayedOrders()
+        {
+            IList<Order> orders = bl.Search(OrderTerms.ISPAYED, "1");
+            Assert.That(orders.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void WhenSearchingForCancelledOrders_ThenGetsCancelledOrders()
+        {
+            IList<Order> orders = bl.Search(OrderTerms.ISCANCELLED, "1");
+            Assert.That(orders.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void WhenSearchingForOrdersWithLoyalty_ThenGetsOrdersWithLoyalty()
+        {
+            IList<Order> orders = bl.Search(OrderTerms.ISLOYALTY, "1");
+            Assert.That(orders.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void WhenSearchingForOrdersWithoutLoyalty_ThenGetsOrdersWithoutLoyalty()
+        {
+            IList<Order> orders = bl.Search(OrderTerms.ISLOYALTY, "0");
+            Assert.That(orders.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void WhenSearchingForNotCancelledOrders_ThenGetsNotCancelledOrders()
+        {
+            IList<Order> orders = bl.Search(OrderTerms.ISCANCELLED, "0");
+            Assert.That(orders.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void WhenSearchingForNotPayedOrders_ThenGetsPendingOrders()
+        {
+            IList<Order> orders = bl.Search(OrderTerms.ISPAYED, "0");
+            Assert.That(orders.Count, Is.EqualTo(3));
         }
     }
 }
