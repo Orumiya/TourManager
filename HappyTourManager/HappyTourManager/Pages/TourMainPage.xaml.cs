@@ -201,6 +201,8 @@
             this.tourVM.SelectedProgram = new Program();
             this.tourVM.GetTourPlaces();
             this.tourVM.GetTourPrograms();
+            tourVM.AdultP = 0;
+            tourVM.ChildP = 0;
             this.contTourDetails.Visibility = Visibility.Visible;
             this.btnSave.Visibility = Visibility.Visible;
             this.btnCancel.Visibility = Visibility.Visible;
@@ -245,6 +247,8 @@
             this.tourVM.SelectedProgram = null;
             this.btnSave.Visibility = Visibility.Hidden;
             this.btnCancel.Visibility = Visibility.Hidden;
+            tourVM.AdultP = 0;
+            tourVM.ChildP = 0;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -298,10 +302,14 @@
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            tourVM.AdultP = 0;
+            tourVM.ChildP = 0;
             if (this.tourVM.SelectedTour != null)
             {
                 this.tourVM.GetTourPlaces();
                 this.tourVM.GetTourPrograms();
+                tourVM.AdultP = tourVM.SelectedTour.AdultPrice;
+                tourVM.ChildP = tourVM.SelectedTour.ChildPrice;
             }
 
         }
