@@ -31,7 +31,8 @@ namespace HappyTourManager
                 new ColumnSeries
                 {
                     Title = "Orders",
-                    Values = new ChartValues<int> { point1, point2, point3 }
+                    Values = new ChartValues<int> { point1, point2, point3 },
+                    MaxColumnWidth = 100
                 }
             };
 
