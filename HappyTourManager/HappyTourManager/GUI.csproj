@@ -134,6 +134,12 @@
     <Compile Include="UserControls\OrderUC.xaml.cs">
       <DependentUpon>OrderUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PieChartUC.xaml.cs">
+      <DependentUpon>PieChartUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReportUC.xaml.cs">
+      <DependentUpon>ReportUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TGDetailsUC.xaml.cs">
       <DependentUpon>TGDetailsUC.xaml</DependentUpon>
     </Compile>
@@ -233,6 +239,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\OrderUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PieChartUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReportUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
