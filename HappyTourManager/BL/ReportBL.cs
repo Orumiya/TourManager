@@ -270,6 +270,10 @@ namespace BL
             return result;
         }
 
+        /// <summary>
+        /// Collects the tour and order info for the generator method
+        /// </summary>
+        /// <returns>Dictionary of info</returns>
         public Dictionary<Tour, decimal> CollectTourAndOrderInfo()
         {
             var orders = this.orderRepository.GetAll();
