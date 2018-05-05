@@ -101,7 +101,8 @@
 
         private void btnReports_Click(object sender, RoutedEventArgs e)
         {
-            this.mFrame.Content = new ReportMainPage();
+            this.mFrame.Content = new ReportMainPage(reportRepo, orderRepo,customerRepo, tourRepo, tourguideRepo,
+                                        languageRepo, onHolidayRepo, programRepo, placeRepo, pltconRepo, prtconRepo);
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
