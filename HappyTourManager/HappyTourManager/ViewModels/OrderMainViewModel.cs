@@ -304,14 +304,14 @@ namespace HappyTourManager
         {
             var tglist = this.tourBL.GetAllTours();
 
-            return tglist;
+            this.TourList = tglist;
         }
 
         public void GetAllCustomers()
         {
             IList<Customer> custList = this.customerBL.GetAllCustomers();
 
-            return custList;
+            this.CustomerList = custList;
         }
 
         public bool Checkvalues()
