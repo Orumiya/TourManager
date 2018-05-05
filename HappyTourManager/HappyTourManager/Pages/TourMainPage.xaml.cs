@@ -26,6 +26,16 @@ namespace HappyTourManager.Pages
         private TourMainViewModel tourVM;
         private TourDetailsUC tourDetail;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TourMainPage"/> class.
+        /// tour main page
+        /// </summary>
+        /// <param name="tourRepo">tour</param>
+        /// <param name="placeRepo">place</param>
+        /// <param name="pltconRepo">pltcon</param>
+        /// <param name="programRepo">program</param>
+        /// <param name="prtconRepo">prtcon</param>
+        /// <param name="tourguideRepo">tourguide</param>
         public TourMainPage(
             IRepository<Tour> tourRepo,
             IRepository<Place> placeRepo,
@@ -84,8 +94,8 @@ namespace HappyTourManager.Pages
             }
             else if (this.tourVM.SelectedCtegory == "ADULTPRICE" || this.tourVM.SelectedCtegory == "CHILDPRICE")
             {
-                this.tourVM.SelectedValue1 = "";
-                this.tourVM.SelectedValue2 = "";
+                this.tourVM.SelectedValue1 = string.Empty;
+                this.tourVM.SelectedValue2 = string.Empty;
                 TextBox textbox = new TextBox();
                 Binding binding = new Binding("SelectedValue1");
                 textbox.SetBinding(TextBox.TextProperty, binding);

@@ -24,7 +24,7 @@ namespace HappyTourManager.Pages
         /// Initializes a new instance of the <see cref="CustomerMainPage"/> class.
         /// Constructor of customer main page
         /// </summary>
-        /// <param name="custRepository"></param>
+        /// <param name="custRepository">customer</param>
         public CustomerMainPage(IRepository<Customer> custRepository)
         {
             this.InitializeComponent();
@@ -103,7 +103,7 @@ namespace HappyTourManager.Pages
             {
                 MessageBox.Show("Missing data");
             }
-            catch(InvalidCastException)
+            catch (InvalidCastException)
             {
                 MessageBox.Show("Wrong data type");
             }

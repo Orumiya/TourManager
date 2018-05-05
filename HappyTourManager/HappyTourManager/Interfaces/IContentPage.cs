@@ -17,7 +17,7 @@ namespace HappyTourManager
         /// <summary>
         /// Check if the customer filled in all mandatory field
         /// </summary>
-        /// <returns></returns>
+        /// <returns>true if values are ok</returns>
         bool Checkvalues();
 
         /// <summary>

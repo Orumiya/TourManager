@@ -15,6 +15,12 @@ namespace HappyTourManager
     /// </summary>
     public partial class PieChartUC : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PieChartUC"/> class.
+        /// Piechart
+        /// </summary>
+        /// <param name="point1">data1</param>
+        /// <param name="point2">data2</param>
         public PieChartUC(int point1, int point2)
         {
             this.InitializeComponent();
@@ -38,14 +44,21 @@ namespace HappyTourManager
             this.DataContext = this;
         }
 
+        /// <summary>
+        /// Gets or sets dataseries
+        /// </summary>
         public SeriesCollection SeriesCollection { get; set; }
-        public DateTime CreationDay {get; set;}
+
+        /// <summary>
+        /// Gets or sets today
+        /// </summary>
+        public DateTime CreationDay { get; set; }
 
         private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
         {
-            var chart = (LiveCharts.Wpf.PieChart)chartpoint.ChartView;
+            var chart = (PieChart)chartpoint.ChartView;
 
-            //clear selected slice.
+            // clear selected slice.
             foreach (PieSeries series in chart.Series)
             {
                 series.PushOut = 0;

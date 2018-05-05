@@ -11,6 +11,10 @@ namespace HappyTourManager
     /// </summary>
     public partial class TourUC : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TourUC"/> class.
+        /// tour list
+        /// </summary>
         public TourUC()
         {
             this.InitializeComponent();

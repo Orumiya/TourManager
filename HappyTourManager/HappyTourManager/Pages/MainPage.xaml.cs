@@ -108,8 +108,18 @@ namespace HappyTourManager.Pages
 
         private void BtnReports_Click(object sender, RoutedEventArgs e)
         {
-            this.mFrame.Content = new ReportMainPage(this.reportRepo, this.orderRepo, this.customerRepo, this.tourRepo, this.tourguideRepo,
-                                        this.languageRepo, this.onHolidayRepo, this.programRepo, this.placeRepo, this.pltconRepo, this.prtconRepo);
+            this.mFrame.Content = new ReportMainPage(
+                this.reportRepo,
+                this.orderRepo,
+                this.customerRepo,
+                this.tourRepo,
+                this.tourguideRepo,
+                this.languageRepo,
+                this.onHolidayRepo,
+                this.programRepo,
+                this.placeRepo,
+                this.pltconRepo,
+                this.prtconRepo);
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)

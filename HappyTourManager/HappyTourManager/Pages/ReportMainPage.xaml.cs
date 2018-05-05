@@ -29,6 +29,21 @@ namespace HappyTourManager.Pages
 
         private ReportMainViewModel reportVM;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReportMainPage"/> class.
+        /// report page
+        /// </summary>
+        /// <param name="reportRepository">report</param>
+        /// <param name="orderRepository">order</param>
+        /// <param name="customerRepository">custmer</param>
+        /// <param name="tourRepository">tour</param>
+        /// <param name="tourguideRepository">tourguide</param>
+        /// <param name="languageRepository">language</param>
+        /// <param name="onHolidayRepository">onholiday</param>
+        /// <param name="programRepository">program</param>
+        /// <param name="placeRepository">place</param>
+        /// <param name="pltconRepository">plt</param>
+        /// <param name="prtconRepository">prt</param>
         public ReportMainPage(
             IRepository<Report> reportRepository,
             IRepository<Order> orderRepository,
@@ -59,9 +74,18 @@ namespace HappyTourManager.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            this.reportVM = new ReportMainViewModel(this.reportRepository, this.orderRepository, this.customerRepository, this.tourRepository,
-                                                    this.tourguideRepository, this.languageRepository, this.onHolidayRepository, this.programRepository,
-                                                    this.placeRepository, this.pltconRepository, this.prtconRepository);
+            this.reportVM = new ReportMainViewModel(
+                this.reportRepository,
+                this.orderRepository,
+                this.customerRepository,
+                this.tourRepository,
+                this.tourguideRepository,
+                this.languageRepository,
+                this.onHolidayRepository,
+                this.programRepository,
+                this.placeRepository,
+                this.pltconRepository,
+                this.prtconRepository);
             this.DataContext = this.reportVM;
         }
 
@@ -85,7 +109,7 @@ namespace HappyTourManager.Pages
                 {
                     MessageBox.Show("Wrong data type");
                 }
-                catch(NotImplementedException)
+                catch (NotImplementedException)
                 {
                     MessageBox.Show("Report is not implemented!");
                 }

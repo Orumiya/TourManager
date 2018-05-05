@@ -22,6 +22,13 @@ namespace HappyTourManager.Pages
         private TourGuideMainViewModel tgVM;
         private TGDetailsUC tgDetails;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TourGuideMainPage"/> class.
+        /// tour guide page
+        /// </summary>
+        /// <param name="tourGuideRepo">tourgude</param>
+        /// <param name="languageRepo">language</param>
+        /// <param name="holidayRepo">holiday</param>
         public TourGuideMainPage(
                 IRepository<Tourguide> tourGuideRepo,
                 IRepository<Language> languageRepo,
@@ -259,4 +266,3 @@ namespace HappyTourManager.Pages
         }
     }
 }
-

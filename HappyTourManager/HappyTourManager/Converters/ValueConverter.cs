@@ -12,7 +12,7 @@ namespace HappyTourManager
     /// <summary>
     /// Abstract converter class
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T"> T param</typeparam>
     public abstract class ValueConverter<T> : MarkupExtension, IValueConverter
         where T : class, new()
     {

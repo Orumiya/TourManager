@@ -26,6 +26,17 @@ namespace HappyTourManager.Pages
         private OrderMainViewModel orderVM;
         private OrderDetailsUC orderDetail;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderMainPage"/> class.
+        /// Order page
+        /// </summary>
+        /// <param name="orderRepository">orders</param>
+        /// <param name="customerRepository">customers</param>
+        /// <param name="tourRepository">tour</param>
+        /// <param name="programRepository">program</param>
+        /// <param name="placeRepository">place</param>
+        /// <param name="pltconRepository">plt</param>
+        /// <param name="prtconRepository">prt</param>
         public OrderMainPage(
             IRepository<Order> orderRepository,
             IRepository<Customer> customerRepository,

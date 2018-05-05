@@ -19,7 +19,6 @@ namespace HappyTourManager.Pages
         private IRepository<User> userRepo;
         private MainWindow win;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginPage"/> class.
         /// Login page
@@ -55,7 +54,7 @@ namespace HappyTourManager.Pages
             {
                 MessageBox.Show(ex.Message);
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Data is not valid!");
             }

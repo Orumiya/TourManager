@@ -11,6 +11,10 @@ namespace HappyTourManager
     /// </summary>
     public partial class TGDetailsUC : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TGDetailsUC"/> class.
+        /// Tour guide details
+        /// </summary>
         public TGDetailsUC()
         {
             this.InitializeComponent();
