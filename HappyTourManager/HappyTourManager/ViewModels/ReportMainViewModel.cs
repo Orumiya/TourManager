@@ -129,6 +129,11 @@ namespace HappyTourManager
         }
 
         /// <summary>
+        /// Gets or sets tour report data
+        /// </summary>
+        public Dictionary<Tour, decimal> TourDatas { get; set; }
+
+        /// <summary>
         /// Gets or sets report value 2
         /// </summary>
         public int Point2
@@ -178,6 +183,10 @@ namespace HappyTourManager
                 this.Point1 = this.reportBL.OrderReportResult.Item1;
                 this.Point2 = this.reportBL.OrderReportResult.Item2;
                 this.Point3 = this.reportBL.OrderReportResult.Item3;
+            }
+            else if (this.SelectedType == "TOURREPORT")
+            {
+                this.TourDatas = this.reportBL.TourReportResult;
             }
         }
     }

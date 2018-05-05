@@ -27,7 +27,6 @@ namespace BL
     /// </summary>
     public enum ReportTypes
     {
-        TOURREPORT,
         CUSTOMERREPORT,
         ORDERREPORT
     }
@@ -206,10 +205,6 @@ namespace BL
             if (type.Equals(ReportTypes.CUSTOMERREPORT))
             {
                 this.GenerateCustomerReport();
-            }
-            else if (type.Equals(ReportTypes.TOURREPORT))
-            {
-                this.GenerateTourReport();
             }
             else if (type.Equals(ReportTypes.ORDERREPORT))
             {
