@@ -277,14 +277,24 @@ namespace TEST
         }
 
         [Test]
-        public void WhenCreatingOrderXMLReport_ThenReportIsCreated()
+        public void WhenCollectCustomerInfoForReport_ThenInfoIsAvailable()
         {
             // ASSERT
-            Tuple<int, int, int, IList<Order>, IList<Order>, IList<Order>> result = bl.CollectOrderInfoForReport();
+            Tuple<int, int, IList<Customer>, IList<Customer>> result = bl.CollectCustomerInfo();
             //ACT
-            
-            // payed, cancelled, pending
-            //Assert.That(result.Item1, Is.);
+
+            // CustomersWithLoyalty
+            Assert.That(result.Item1, Is.EqualTo(3));
+            // CustomersWithoutLoyalty
+            Assert.That(result.Item2, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void WhenCollectTourAndOrderInfoForReport_ThenInfoIsAvailable()
+        {
+            Dictionary<Tour, decimal> dictionary = bl.CollectTourAndOrderInfo();
+            Assert.That(dictionary[tours[1]],Is.EqualTo((decimal)9));
+
         }
     }
 }
