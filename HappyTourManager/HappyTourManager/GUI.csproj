@@ -150,6 +150,9 @@
     <Compile Include="UserControls\TourGuideUC.xaml.cs">
       <DependentUpon>TourGuideUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TourReport.xaml.cs">
+      <DependentUpon>TourReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TourUC.xaml.cs">
       <DependentUpon>TourUC.xaml</DependentUpon>
     </Compile>
@@ -264,6 +267,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\TourGuideUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TourReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

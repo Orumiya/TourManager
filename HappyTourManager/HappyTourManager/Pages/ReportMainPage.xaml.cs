@@ -122,6 +122,10 @@ namespace HappyTourManager.Pages
                 {
                     this.contReportDetails.Content = new OrderReportUC(this.reportVM.Point1, this.reportVM.Point2, this.reportVM.Point3);
                 }
+                else if (this.reportVM.SelectedType == "TOURREPORT")
+                {
+                    this.contReportDetails.Content = new TourReport(this.reportVM.TourDatas);
+                }
             }
             else
             {
