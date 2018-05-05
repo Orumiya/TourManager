@@ -267,7 +267,7 @@ namespace BL
         public Dictionary<Tour, decimal> CollectTourAndOrderInfo()
         {
             var orders = this.orderRepository.GetAll();
-            IList<Order> allOrders = orders.Where(e => e.IsCancelled.Equals(0)).ToList();
+            IList<Order> allOrders = orders.Where(e => (!e.IsCancelled.Equals("1"))).ToList();
             var tours = this.tourRepository.GetAll();
             IList<Tour> allTours = tours.ToList();
             Dictionary<Tour, decimal> dictionary = new Dictionary<Tour, decimal>();
