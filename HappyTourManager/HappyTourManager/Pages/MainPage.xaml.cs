@@ -38,7 +38,6 @@
         IRepository<Tourguide> tourguideRepo;
         IRepository<Tour> tourRepo;
         IRepository<User> userRepo;
-        private string selectedPage;
         MainWindow win;
 
         public MainPage(IRepository<Customer> customerRepo,

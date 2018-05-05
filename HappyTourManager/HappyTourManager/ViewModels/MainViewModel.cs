@@ -31,7 +31,6 @@ namespace HappyTourManager
         TourguideRepository tourguideRepo;
         TourRepository tourRepo;
         UserRepository userRepo;
-        private string selectedPage;
 
         public MainViewModel(CustomerRepository customerRepo,
                             LanguageRepository languageRepo,

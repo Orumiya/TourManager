@@ -26,11 +26,12 @@ namespace HappyTourManager
     using DATA.Interfaces;
     using Pages;
     using DATA.Repositoriees;
+    using System.Runtime.InteropServices;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -42,19 +43,19 @@ namespace HappyTourManager
         MainPage mainPage;
 
         HappyTourDatabaseEntities entities;
-        CustomerRepository customerRepo;
-        LanguageRepository languageRepo;
-        OfficeRepository officeRepo;
-        OnholidayRepository onHolidayRepo;
-        OrderRepository orderRepo;
-        PlaceRepository placeRepo;
-        PLTCONRepository pltconRepo;
-        ProgramRepository programRepo;
-        PRTCONRepository prtconRepo;
-        ReportRepository reportRepo;
-        TourguideRepository tourguideRepo;
-        TourRepository tourRepo;
-        UserRepository userRepo;
+        IRepository<Customer> customerRepo;
+        IRepository<Language> languageRepo;
+        IRepository<Office> officeRepo;
+        IRepository<OnHoliday> onHolidayRepo;
+        IRepository<Order> orderRepo;
+        IRepository<Place> placeRepo;
+        IRepository<PLTCON> pltconRepo;
+        IRepository<Program> programRepo;
+        IRepository<PRTCON> prtconRepo;
+        IRepository<Report> reportRepo;
+        IRepository<Tourguide> tourguideRepo;
+        IRepository<Tour> tourRepo;
+        IRepository<User> userRepo;
 
         public MainWindow()
         {
@@ -95,8 +96,28 @@ namespace HappyTourManager
             this.userRepo = new UserRepository(this.entities);
 
             this.SetPage("MainPage");
-
+            //this.resource;
             this.DataContext = new WindowViewModel(this);
+        }
+
+        bool dispose = false;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (dispose)
+            {
+                if (disposing)
+                {
+                    if (entities != null) entities.Dispose();
+                }
+            }
+
         }
     }
 }
