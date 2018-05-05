@@ -9,9 +9,6 @@ namespace TEST
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using TEST.Fakes;
 
     [TestFixture]
@@ -256,7 +253,7 @@ namespace TEST
         }
 
         [Test]
-        public void WhenCreatingReportBL_ThenReportBLIsNotNull()
+        public void WhenCreatingReportBL_ThenReportBlisNotNull()
         {
             // ARRANGE - ACT
             //arranged in constructor

@@ -363,7 +363,7 @@ namespace BL
 #pragma warning restore SA1118 // Parameter must not span multiple lines
 
             DateTime generateTime = DateTime.Now;
-            string filename = "CustomerReport_" + generateTime.Year.ToString() + generateTime.Month.ToString() + generateTime.Day.ToString() + "_"+ generateTime.Hour.ToString() + generateTime.Minute.ToString() + ".xml";
+            string filename = "CustomerReport_" + generateTime.Year.ToString() + generateTime.Month.ToString() + generateTime.Day.ToString() + "_" + generateTime.Hour.ToString() + generateTime.Minute.ToString() + ".xml";
             customerReport.Save(filename);
         }
 
