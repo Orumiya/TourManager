@@ -1,16 +1,19 @@
-﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+﻿// <copyright file="ReportMainViewModel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace HappyTourManager
 {
+    using System;
+    using System.Collections.Generic;
     using BL;
     using DATA;
     using DATA.Interfaces;
-    using System;
-    using System.Collections.Generic;
 
-    class ReportMainViewModel : Bindable
+    /// <summary>
+    /// report viewmodel
+    /// </summary>
+    internal class ReportMainViewModel : Bindable
     {
         private ReportBL reportBL;
         private List<string> searchCategories;
@@ -21,104 +24,20 @@ namespace HappyTourManager
         private int point3;
 
         /// <summary>
-        /// contains selected report type
-        /// </summary>
-        public string SelectedType
-        {
-            get
-            {
-                return selectedType;
-            }
-
-            set
-            {
-                selectedType = value;
-                this.OnPropertyChanged(nameof(SelectedType));
-            }
-        }
-
-        /// <summary>
-        /// Listof selectable report types
-        /// </summary>
-        public List<string> TypeCategories
-        {
-            get
-            {
-                return typeCategories;
-            }
-
-            set
-            {
-                typeCategories = value;
-                this.OnPropertyChanged(nameof(TypeCategories));
-            }
-        }
-
-        /// <summary>
-        /// report value 1
-        /// </summary>
-        public int Point1
-        {
-            get
-            {
-                return point1;
-            }
-
-            set
-            {
-                point1 = value;
-                this.OnPropertyChanged(nameof(Point1));
-            }
-        }
-
-        /// <summary>
-        /// report value 2
-        /// </summary>
-        public int Point2
-        {
-            get
-            {
-                return point2;
-            }
-
-            set
-            {
-                point2 = value;
-                this.OnPropertyChanged(nameof(Point2));
-            }
-        }
-
-        /// <summary>
-        /// report value 3
-        /// </summary>
-        public int Point3
-        {
-            get
-            {
-                return point3;
-            }
-
-            set
-            {
-                point3 = value;
-                this.OnPropertyChanged(nameof(Point3));
-            }
-        }
-
-        /// <summary>
+        /// Initializes a new instance of the <see cref="ReportMainViewModel"/> class.
         /// constructor for Report viewmodel
         /// </summary>
-        /// <param name="reportRepository"></param>
-        /// <param name="orderRepository"></param>
-        /// <param name="customerRepository"></param>
-        /// <param name="tourRepository"></param>
-        /// <param name="tourguideRepository"></param>
-        /// <param name="languageRepository"></param>
-        /// <param name="onHolidayRepository"></param>
-        /// <param name="programRepository"></param>
-        /// <param name="placeRepository"></param>
-        /// <param name="pltconRepository"></param>
-        /// <param name="prtconRepository"></param>
+        /// <param name="reportRepository"> report</param>
+        /// <param name="orderRepository">order</param>
+        /// <param name="customerRepository">customer</param>
+        /// <param name="tourRepository">tour</param>
+        /// <param name="tourguideRepository">tourguide</param>
+        /// <param name="languageRepository">language</param>
+        /// <param name="onHolidayRepository">onHoliday</param>
+        /// <param name="programRepository">program</param>
+        /// <param name="placeRepository">place</param>
+        /// <param name="pltconRepository">pltcon</param>
+        /// <param name="prtconRepository">prtcon</param>
         public ReportMainViewModel(
             IRepository<Report> reportRepository,
             IRepository<Order> orderRepository,
@@ -130,12 +49,20 @@ namespace HappyTourManager
             IRepository<Program> programRepository,
             IRepository<Place> placeRepository,
             IRepository<PLTCON> pltconRepository,
-            IRepository<PRTCON> prtconRepository
-            )
+            IRepository<PRTCON> prtconRepository)
         {
-            this.reportBL = new ReportBL(reportRepository, orderRepository, customerRepository, tourRepository,
-                                    tourguideRepository, languageRepository, onHolidayRepository, programRepository, 
-                                            placeRepository, pltconRepository, prtconRepository);
+            this.reportBL = new ReportBL(
+                reportRepository,
+                orderRepository,
+                customerRepository,
+                tourRepository,
+                tourguideRepository,
+                languageRepository,
+                onHolidayRepository,
+                programRepository,
+                placeRepository,
+                pltconRepository,
+                prtconRepository);
 
             this.searchCategories = new List<string>();
             foreach (ReportTerms item in Enum.GetValues(typeof(ReportTerms)))
@@ -150,28 +77,108 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Gets or sets contains selected report type
+        /// </summary>
+        public string SelectedType
+        {
+            get
+            {
+                return this.selectedType;
+            }
+
+            set
+            {
+                this.selectedType = value;
+                this.OnPropertyChanged(nameof(this.SelectedType));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets listof selectable report types
+        /// </summary>
+        public List<string> TypeCategories
+        {
+            get
+            {
+                return this.typeCategories;
+            }
+
+            set
+            {
+                this.typeCategories = value;
+                this.OnPropertyChanged(nameof(this.TypeCategories));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets report value 1
+        /// </summary>
+        public int Point1
+        {
+            get
+            {
+                return this.point1;
+            }
+
+            set
+            {
+                this.point1 = value;
+                this.OnPropertyChanged(nameof(this.Point1));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets report value 2
+        /// </summary>
+        public int Point2
+        {
+            get
+            {
+                return this.point2;
+            }
+
+            set
+            {
+                this.point2 = value;
+                this.OnPropertyChanged(nameof(this.Point2));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets report value 3
+        /// </summary>
+        public int Point3
+        {
+            get
+            {
+                return this.point3;
+            }
+
+            set
+            {
+                this.point3 = value;
+                this.OnPropertyChanged(nameof(this.Point3));
+            }
+        }
 
         /// <summary>
         /// Generate report
         /// </summary>
         public void GenerateReport()
         {
-            
             this.reportBL.GenerateNewReport((ReportTypes)Enum.Parse(typeof(ReportTypes), this.SelectedType));
             if (this.SelectedType == "CUSTOMERREPORT")
             {
-                Point1 = reportBL.CustomerReportResult.Item1;
-                Point2 = reportBL.CustomerReportResult.Item2;
+                this.Point1 = this.reportBL.CustomerReportResult.Item1;
+                this.Point2 = this.reportBL.CustomerReportResult.Item2;
             }
             else if (this.SelectedType == "ORDERREPORT")
             {
-                Point1 = reportBL.OrderReportResult.Item1;
-                Point2 = reportBL.OrderReportResult.Item2;
-                Point3 = reportBL.OrderReportResult.Item3;
+                this.Point1 = this.reportBL.OrderReportResult.Item1;
+                this.Point2 = this.reportBL.OrderReportResult.Item2;
+                this.Point3 = this.reportBL.OrderReportResult.Item3;
             }
-
-            
-
         }
     }
 }

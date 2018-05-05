@@ -1,11 +1,15 @@
-﻿using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using System;
-using System.Windows.Controls;
+﻿// <copyright file="PieChartUC.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace HappyTourManager
 {
+    using System;
+    using System.Windows.Controls;
+    using LiveCharts;
+    using LiveCharts.Defaults;
+    using LiveCharts.Wpf;
+
     /// <summary>
     /// Interaction logic for PieChartUC.xaml
     /// </summary>
@@ -13,9 +17,9 @@ namespace HappyTourManager
     {
         public PieChartUC(int point1, int point2)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            SeriesCollection = new SeriesCollection
+            this.SeriesCollection = new SeriesCollection
             {
                 new PieSeries
                 {
@@ -29,12 +33,9 @@ namespace HappyTourManager
                     Values = new ChartValues<ObservableValue> { new ObservableValue(point2) },
                     DataLabels = true
                 }
-
-
             };
-            CreationDay = DateTime.Today;
-            DataContext = this;
-
+            this.CreationDay = DateTime.Today;
+            this.DataContext = this;
         }
 
         public SeriesCollection SeriesCollection { get; set; }
@@ -46,12 +47,12 @@ namespace HappyTourManager
 
             //clear selected slice.
             foreach (PieSeries series in chart.Series)
+            {
                 series.PushOut = 0;
+            }
 
             var selectedSeries = (PieSeries)chartpoint.SeriesView;
             selectedSeries.PushOut = 8;
         }
-
-
     }
 }

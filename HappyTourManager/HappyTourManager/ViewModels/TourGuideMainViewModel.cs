@@ -1,4 +1,4 @@
-﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+﻿// <copyright file="TourGuideMainViewModel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -13,7 +13,10 @@ namespace HappyTourManager
     using DATA;
     using DATA.Interfaces;
 
-    class TourGuideMainViewModel: Bindable, IContentPage
+    /// <summary>
+    /// Tourguide viewmodel
+    /// </summary>
+    internal class TourGuideMainViewModel : Bindable, IContentPage
     {
         private TourguideBL tgBL;
         private string selectedCtegory = "DEFAULT";
@@ -26,11 +29,43 @@ namespace HappyTourManager
         private DateTime selectedHolidayFrom;
         private DateTime selectedHolidayTill;
         private List<string> searchCategories;
-        public IEnumerable<string> countryList;
-        public List<string> languageList;
+        private IEnumerable<string> countryList;
+        private List<string> languageList;
 
         /// <summary>
-        /// list of selectable search categories
+        /// Initializes a new instance of the <see cref="TourGuideMainViewModel"/> class.
+        /// constructor for Tourguide view model
+        /// </summary>
+        /// <param name="tourGuideRepo">tourGuideRepo</param>
+        /// <param name="languageRepo">languageRepo</param>
+        /// <param name="holidayRepo">holidayRepo</param>
+        public TourGuideMainViewModel(
+            IRepository<Tourguide> tourGuideRepo,
+                IRepository<Language> languageRepo,
+                IRepository<OnHoliday> holidayRepo)
+        {
+            this.tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
+            this.CreateCountryList();
+
+            this.LanguageList = new List<string>();
+            this.LanguageList.Add("english");
+            this.LanguageList.Add("german");
+            this.LanguageList.Add("french");
+            this.LanguageList.Add("spanish");
+            this.LanguageList.Add("italian");
+            this.LanguageList.Add("dutch");
+            this.LanguageList.Add("chinese");
+            this.LanguageList.Add("japanese");
+
+            this.searchCategories = new List<string>();
+            foreach (TourguideTerms item in Enum.GetValues(typeof(TourguideTerms)))
+            {
+                this.searchCategories.Add(item.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets list of selectable search categories
         /// </summary>
         public List<string> SearchCategories
         {
@@ -47,7 +82,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// selected search category
+        /// Gets or sets selected search category
         /// </summary>
         public string SelectedCtegory
         {
@@ -64,7 +99,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// date search value
+        /// Gets or sets date search value
         /// </summary>
         public DateTime SelectedDateFrom
         {
@@ -81,7 +116,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// date search value
+        /// Gets or sets date search value
         /// </summary>
         public DateTime SelectedDateTo
         {
@@ -98,7 +133,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// string search value
+        /// Gets or sets string search value
         /// </summary>
         public string SelectedValue
         {
@@ -115,7 +150,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// List of search result
+        /// Gets or sets list of search result
         /// </summary>
         public ObservableCollection<Tourguide> ResultList
         {
@@ -132,7 +167,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// Selected tourguide
+        /// Gets or sets selected tourguide
         /// </summary>
         public Tourguide SelectedTG
         {
@@ -149,7 +184,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// selected language
+        /// Gets or sets selected language
         /// </summary>
         public string SelectedLanguage
         {
@@ -166,7 +201,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// selected holiday
+        /// Gets or sets selected holiday
         /// </summary>
         public DateTime SelectedHolidayFrom
         {
@@ -183,7 +218,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// selected holiday
+        /// Gets or sets selected holiday
         /// </summary>
         public DateTime SelectedHolidayTill
         {
@@ -198,40 +233,38 @@ namespace HappyTourManager
                 this.OnPropertyChanged(nameof(this.SelectedHolidayTill));
             }
         }
-        
 
         /// <summary>
-        /// constructor for Tourguide view model
+        /// Gets or sets propertx
         /// </summary>
-        /// <param name="tourGuideRepo"></param>
-        /// <param name="languageRepo"></param>
-        /// <param name="holidayRepo"></param>
-        public TourGuideMainViewModel(
-            IRepository<Tourguide> tourGuideRepo,
-                IRepository<Language> languageRepo,
-                IRepository<OnHoliday> holidayRepo
-            )
+        public IEnumerable<string> CountryList
         {
-            this.tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
-            this.CreateCountryList();
-
-            this.languageList = new List<string>();
-            this.languageList.Add("english");
-            this.languageList.Add("german");
-            this.languageList.Add("french");
-            this.languageList.Add("spanish");
-            this.languageList.Add("italian");
-            this.languageList.Add("dutch");
-            this.languageList.Add("chinese");
-            this.languageList.Add("japanese");
-
-            this.searchCategories = new List<string>();
-            foreach (TourguideTerms item in Enum.GetValues(typeof(TourguideTerms)))
+            get
             {
-                this.searchCategories.Add(item.ToString());
+                return this.countryList;
+            }
+
+            set
+            {
+                this.countryList = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets property
+        /// </summary>
+        public List<string> LanguageList
+        {
+            get
+            {
+                return this.languageList;
+            }
+
+            set
+            {
+                this.languageList = value;
+            }
+        }
 
         /// <summary>
         /// Get the search result list
@@ -249,19 +282,20 @@ namespace HappyTourManager
             }
             else if (this.SelectedCtegory == "TAXIDENTIFICATION")
             {
-                rL = this.tgBL.Search(Enum.Parse(typeof(TourguideTerms), this.SelectedCtegory), Int32.Parse(this.SelectedValue));
+                rL = this.tgBL.Search(Enum.Parse(typeof(TourguideTerms), this.SelectedCtegory), int.Parse(this.SelectedValue));
             }
             else
             {
                 rL = this.tgBL.Search(Enum.Parse(typeof(TourguideTerms), this.SelectedCtegory), this.SelectedValue);
             }
+
             this.ResultList = new ObservableCollection<Tourguide>(rL);
         }
 
         /// <summary>
         /// check if form is filled in correctly
         /// </summary>
-        /// <returns></returns>
+        /// <returns> true if values ok</returns>
         public bool Checkvalues()
         {
             bool isNull = false;
@@ -271,31 +305,32 @@ namespace HappyTourManager
                 if (item.Name != "BirthDate" && item.Name != "ValidTo" && item.Name != "PersonID"
                     && item.Name != "Customer" && item.Name != "Tourguide")
                 {
-                    Decimal parsedValue;
+                    decimal parsedValue;
 
                     if (item.GetValue(this.SelectedTG.Person) == null)
                     {
                         isNull = true;
                     }
-                    else if (Decimal.TryParse(item.GetValue(this.SelectedTG.Person).ToString(), out parsedValue))
+                    else if (decimal.TryParse(item.GetValue(this.SelectedTG.Person).ToString(), out parsedValue))
                     {
                         if (parsedValue == 0)
                         {
                             isNull = true;
                         }
-
                     }
                 }
-
             }
+
             if (this.SelectedTG.Taxidentification == 0)
             {
                 isNull = true;
             }
+
             if (this.SelectedTG.Dailyallowance == 0)
             {
                 isNull = true;
             }
+
             return isNull;
         }
 
@@ -304,18 +339,19 @@ namespace HappyTourManager
         /// </summary>
         public void SaveInstance()
         {
-
             if (this.ResultList != null && this.ResultList.Contains(this.SelectedTG))
             {
                 if (this.SelectedLanguage != null)
                 {
                     this.tgBL.CreateLanguage(new Language() { TourguideID = this.SelectedTG.PersonID, Language1 = this.SelectedLanguage });
                  }
+
                  if (this.SelectedHolidayFrom != default(DateTime) && this.SelectedHolidayTill != default(DateTime))
                  {
                     this.tgBL.CreateHoliday(new OnHoliday() { StartDate = this.SelectedHolidayFrom, EndDate = this.SelectedHolidayTill, TourguideID = this.SelectedTG.PersonID });
                  }
-                 this.tgBL.Update();
+
+                this.tgBL.Update();
             }
             else
             {
@@ -324,12 +360,12 @@ namespace HappyTourManager
                 {
                     this.tgBL.CreateLanguage(new Language() { TourguideID = this.SelectedTG.PersonID, Language1 = this.SelectedLanguage });
                 }
+
                 if (this.SelectedHolidayFrom != default(DateTime) && this.SelectedHolidayTill != default(DateTime))
                 {
                     this.tgBL.CreateHoliday(new OnHoliday() { StartDate = this.SelectedHolidayFrom, EndDate = this.SelectedHolidayTill, TourguideID = this.SelectedTG.PersonID });
                 }
             }
-
         }
 
         /// <summary>
@@ -346,14 +382,18 @@ namespace HappyTourManager
                     lList.Add(item);
                 }
             }
+
             foreach (var item in lList)
             {
                 try
                 {
                     this.tgBL.DeleteLanguage(item);
                 }
-                finally { }
+                finally
+                {
+                }
             }
+
             IList<OnHoliday> holidays = this.tgBL.GetAllHolidays();
             List<OnHoliday> hList = new List<OnHoliday>();
             foreach (var item in holidays)
@@ -363,17 +403,20 @@ namespace HappyTourManager
                     hList.Add(item);
                 }
             }
+
             foreach (var item in hList)
             {
                 try
                 {
                     this.tgBL.DeleteHoliday(item);
                 }
-                finally { }
+                finally
+                {
+                }
             }
+
             this.tgBL.Delete(this.SelectedTG);
         }
-
 
         private void CreateCountryList()
         {
@@ -386,7 +429,7 @@ namespace HappyTourManager
                 countryNames.Add(country.DisplayName.ToString());
             }
 
-            this.countryList = countryNames.OrderBy(names => names).Distinct();
+            this.CountryList = countryNames.OrderBy(names => names).Distinct();
         }
     }
 }

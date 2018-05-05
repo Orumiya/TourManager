@@ -1,10 +1,14 @@
-﻿using LiveCharts;
-using LiveCharts.Wpf;
-using System;
-using System.Windows.Controls;
+﻿// <copyright file="OrderReportUC.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace HappyTourManager
 {
+    using System;
+    using System.Windows.Controls;
+    using LiveCharts;
+    using LiveCharts.Wpf;
+
     /// <summary>
     /// Interaction logic for OrderReportUC.xaml
     /// </summary>
@@ -12,9 +16,9 @@ namespace HappyTourManager
     {
         public OrderReportUC(int point1, int point2, int point3)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            SeriesCollection = new SeriesCollection
+            this.SeriesCollection = new SeriesCollection
             {
                 new ColumnSeries
                 {
@@ -24,11 +28,11 @@ namespace HappyTourManager
                 }
             };
 
-            Labels = new[] { "Payed Orders", "Cancelled Orders", "Pending Orders" };
-            Formatter = value => value.ToString("N");
-            CreationDay = DateTime.Today;
+            this.Labels = new[] { "Payed Orders", "Cancelled Orders", "Pending Orders" };
+            this.Formatter = value => value.ToString("N");
+            this.CreationDay = DateTime.Today;
 
-            DataContext = this;
+            this.DataContext = this;
         }
 
         public SeriesCollection SeriesCollection { get; set; }

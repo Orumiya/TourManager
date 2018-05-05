@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager.Pages
+﻿// <copyright file="TourMainPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Pages
 {
     using System;
     using System.Windows;
@@ -13,7 +17,6 @@
     ///
     public partial class TourMainPage : Page
     {
-
         private IRepository<Place> placeRepo;
         private IRepository<PLTCON> pltconRepo;
         private IRepository<Program> programRepo;
@@ -23,8 +26,8 @@
         private TourMainViewModel tourVM;
         private TourDetailsUC tourDetail;
 
-
-        public TourMainPage(IRepository<Tour> tourRepo,
+        public TourMainPage(
+            IRepository<Tour> tourRepo,
             IRepository<Place> placeRepo,
             IRepository<PLTCON> pltconRepo,
             IRepository<Program> programRepo,
@@ -40,27 +43,25 @@
             this.tourguideRepo = tourguideRepo;
         }
 
-
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            this.tourVM = new TourMainViewModel(this.tourRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.tourguideRepo);
+            this.tourVM = new TourMainViewModel(this.tourRepo, this.placeRepo, this.pltconRepo, this.programRepo, this.prtconRepo, this.tourguideRepo);
 
             this.searchCat.ItemsSource = this.tourVM.SearchCategories;
             this.searchCat.Visibility = Visibility.Visible;
             this.searchCat.SelectedItem = "DEFAULT";
             this.DataContext = this.tourVM;
             this.tourDetail = new TourDetailsUC();
-            foreach (string item in this.tourVM.countryList)
+            foreach (string item in this.tourVM.CountryList)
             {
                 this.tourDetail.cboxCountry.Items.Add(item);
             }
+
             this.contTourDetails.Content = this.tourDetail;
             this.contTourDetails.Visibility = Visibility.Hidden;
-
         }
 
-        private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SearchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.tourVM.SelectedCtegory == "TOURDATE")
             {
@@ -74,7 +75,6 @@
                 Binding binding2 = new Binding("SelectedDateTo");
                 datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
                 this.contSearch2.Content = datePicker2;
-
             }
             else if (this.tourVM.SelectedCtegory == "DEFAULT")
             {
@@ -107,6 +107,7 @@
                         cBox.Items.Add(item.Country);
                     }
                 }
+
                 Binding binding = new Binding("SelectedValue1");
                 cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
                 this.contSearch1.Content = cBox;
@@ -122,6 +123,7 @@
                         cBox.Items.Add(item.City);
                     }
                 }
+
                 Binding binding = new Binding("SelectedValue1");
                 cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
                 this.contSearch1.Content = cBox;
@@ -137,6 +139,7 @@
                         cBox.Items.Add(item.ProgramType);
                     }
                 }
+
                 Binding binding = new Binding("SelectedValue1");
                 cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
                 this.contSearch1.Content = cBox;
@@ -147,10 +150,9 @@
                 this.contSearch1.Content = null;
                 this.contSearch2.Content = null;
             }
-
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -165,6 +167,7 @@
                     this.btnEdit.Visibility = Visibility.Hidden;
                     this.btnDelete.Visibility = Visibility.Hidden;
                 }
+
                 this.contTourDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
@@ -181,7 +184,6 @@
             {
                 MessageBox.Show("Wrong data type");
             }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -196,14 +198,14 @@
             this.tourVM.SelectedProgram = new Program();
             this.tourVM.GetTourPlaces();
             this.tourVM.GetTourPrograms();
-            tourVM.AdultP = 0;
-            tourVM.ChildP = 0;
+            this.tourVM.AdultP = 0;
+            this.tourVM.ChildP = 0;
             this.contTourDetails.Visibility = Visibility.Visible;
             this.btnSave.Visibility = Visibility.Visible;
             this.btnCancel.Visibility = Visibility.Visible;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -235,10 +237,9 @@
             {
                 MessageBox.Show("Wrong data type");
             }
-
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.contTourDetails.Visibility = Visibility.Hidden;
             this.tourVM.SelectedTour = null;
@@ -246,11 +247,11 @@
             this.tourVM.SelectedProgram = null;
             this.btnSave.Visibility = Visibility.Hidden;
             this.btnCancel.Visibility = Visibility.Hidden;
-            tourVM.AdultP = 0;
-            tourVM.ChildP = 0;
+            this.tourVM.AdultP = 0;
+            this.tourVM.ChildP = 0;
         }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             this.tourVM.IsEdit = false;
             this.tourVM.SelectedPlace = null;
@@ -272,7 +273,7 @@
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (this.tourVM.SelectedTour != null)
             {
@@ -296,7 +297,6 @@
                     {
                         MessageBox.Show("Wrong data type");
                     }
-
                 }
             }
             else
@@ -307,16 +307,15 @@
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            tourVM.AdultP = 0;
-            tourVM.ChildP = 0;
+            this.tourVM.AdultP = 0;
+            this.tourVM.ChildP = 0;
             if (this.tourVM.SelectedTour != null)
             {
                 this.tourVM.GetTourPlaces();
                 this.tourVM.GetTourPrograms();
-                tourVM.AdultP = tourVM.SelectedTour.AdultPrice;
-                tourVM.ChildP = tourVM.SelectedTour.ChildPrice;
+                this.tourVM.AdultP = this.tourVM.SelectedTour.AdultPrice;
+                this.tourVM.ChildP = this.tourVM.SelectedTour.ChildPrice;
             }
-
         }
     }
 }

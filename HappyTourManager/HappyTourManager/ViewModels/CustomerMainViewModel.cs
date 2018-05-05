@@ -1,4 +1,4 @@
-﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+﻿// <copyright file="CustomerMainViewModel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -13,13 +13,11 @@ namespace HappyTourManager
     using DATA;
     using DATA.Interfaces;
 
-
     /// <summary>
     /// View model for Customer page
     /// </summary>
     public class CustomerMainViewModel : Bindable, IContentPage
     {
-
         private CustomerBL custBL;
         private string selectedCtegory = "DEFAULT";
         private string selectedValue;
@@ -29,10 +27,27 @@ namespace HappyTourManager
         private ObservableCollection<Customer> resultList;
         private Customer selectedCustomer;
         private List<string> searchCategories;
-        public IEnumerable<string> countryList;
+        private IEnumerable<string> countryList;
 
         /// <summary>
-        /// List for all selectable search categories
+        /// Initializes a new instance of the <see cref="CustomerMainViewModel"/> class.
+        /// Constructor for CustomerMainViewModel
+        /// </summary>
+        /// <param name="custRepository">repository</param>
+        public CustomerMainViewModel(IRepository<Customer> custRepository)
+        {
+            this.custBL = new CustomerBL(custRepository);
+            this.CreateCountryList();
+
+            this.searchCategories = new List<string>();
+            foreach (CustomerTerms item in Enum.GetValues(typeof(CustomerTerms)))
+            {
+                this.searchCategories.Add(item.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets list for all selectable search categories
         /// </summary>
         public List<string> SearchCategories
         {
@@ -48,9 +63,8 @@ namespace HappyTourManager
             }
         }
 
-
         /// <summary>
-        /// Contains the selected category
+        /// Gets or sets contains the selected category
         /// </summary>
         public string SelectedCtegory
         {
@@ -67,7 +81,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// Cointain date search value
+        /// Gets or sets cointain date search value
         /// </summary>
         public DateTime SelectedDateFrom
         {
@@ -84,7 +98,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// Cointain date search value
+        /// Gets or sets cointain date search value
         /// </summary>
         public DateTime SelectedDateTo
         {
@@ -100,9 +114,8 @@ namespace HappyTourManager
             }
         }
 
-
         /// <summary>
-        /// Contains string searchvalue
+        /// Gets or sets contains string searchvalue
         /// </summary>
         public string SelectedValue
         {
@@ -119,7 +132,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// Contains the list of the search result
+        /// Gets or sets contains the list of the search result
         /// </summary>
         public ObservableCollection<Customer> ResultList
         {
@@ -136,7 +149,7 @@ namespace HappyTourManager
         }
 
         /// <summary>
-        /// Contains selected customer
+        /// Gets or sets contains selected customer
         /// </summary>
         public Customer SelectedCustomer
         {
@@ -152,23 +165,21 @@ namespace HappyTourManager
             }
         }
 
-
         /// <summary>
-        /// Constructor for CustomerMainViewModel
+        /// Gets or sets property
         /// </summary>
-        /// <param name="custRepository"></param>
-        public CustomerMainViewModel(IRepository<Customer> custRepository)
+        public IEnumerable<string> CountryList
         {
-            this.custBL = new CustomerBL(custRepository);
-            this.CreateCountryList();
-
-            this.searchCategories = new List<string>();
-            foreach (CustomerTerms item in Enum.GetValues(typeof(CustomerTerms)))
+            get
             {
-                this.searchCategories.Add(item.ToString());
+                return this.countryList;
+            }
+
+            set
+            {
+                this.countryList = value;
             }
         }
-
 
         /// <summary>
         /// Get the search result list
@@ -198,6 +209,7 @@ namespace HappyTourManager
             {
                 this.rL = this.custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), this.SelectedValue);
             }
+
             this.ResultList = new ObservableCollection<Customer>(this.rL);
         }
 
@@ -227,7 +239,7 @@ namespace HappyTourManager
         /// <summary>
         /// Check if all mandatory value is filled in
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returns true if data is ok</returns>
         public bool Checkvalues()
         {
             bool isNull = false;
@@ -237,22 +249,21 @@ namespace HappyTourManager
                 if (item.Name != "BirthDate" && item.Name != "ValidTo" && item.Name != "PersonID"
                     && item.Name != "Customer" && item.Name != "Tourguide")
                 {
-                    Decimal parsedValue;
+                    decimal parsedValue;
 
                     if (item.GetValue(this.SelectedCustomer.Person) == null)
                     {
                         isNull = true;
                     }
-                    else if (Decimal.TryParse(item.GetValue(this.SelectedCustomer.Person).ToString(), out parsedValue))
+                    else if (decimal.TryParse(item.GetValue(this.SelectedCustomer.Person).ToString(), out parsedValue))
                     {
                         isNull = parsedValue == 0;
                     }
                 }
-
             }
+
             return isNull;
         }
-
 
         private void CreateCountryList()
         {
@@ -265,8 +276,7 @@ namespace HappyTourManager
                 countryNames.Add(country.DisplayName.ToString());
             }
 
-            this.countryList = countryNames.OrderBy(names => names).Distinct();
+            this.CountryList = countryNames.OrderBy(names => names).Distinct();
         }
-
     }
 }

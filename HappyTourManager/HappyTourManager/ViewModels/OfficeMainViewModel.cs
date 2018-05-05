@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="OfficeMainViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using BL;
     using DATA;
@@ -7,34 +11,36 @@
     /// <summary>
     /// View model for office page
     /// </summary>
-    class OfficeMainViewModel : Bindable
+    internal class OfficeMainViewModel : Bindable
     {
         private OfficeBL officeBL;
         private Office currentOffice;
 
         /// <summary>
-        /// current Office instance
+        /// Initializes a new instance of the <see cref="OfficeMainViewModel"/> class.
+        /// constructor for office view model
+        /// </summary>
+        /// <param name="officeRepository">office repository</param>
+        public OfficeMainViewModel(IRepository<Office> officeRepository)
+        {
+            this.officeBL = new OfficeBL(officeRepository);
+        }
+
+        /// <summary>
+        /// Gets or sets current Office instance
         /// </summary>
         public Office CurrentOffice
         {
             get
             {
-                return currentOffice;
+                return this.currentOffice;
             }
 
             set
             {
-                currentOffice = value;
-                this.OnPropertyChanged(nameof(CurrentOffice));
+                this.currentOffice = value;
+                this.OnPropertyChanged(nameof(this.CurrentOffice));
             }
-        }
-
-        /// <summary>
-        /// constructor for office view model
-        /// </summary>
-        public OfficeMainViewModel(IRepository<Office> officeRepository)
-        {
-            this.officeBL = new OfficeBL(officeRepository);
         }
 
         /// <summary>
@@ -44,12 +50,8 @@
         {
             if (this.CurrentOffice != null)
             {
-
-                this.officeBL.Save(CurrentOffice);
+                this.officeBL.Save(this.CurrentOffice);
             }
-
-
-
     }
     }
 }

@@ -23,28 +23,31 @@ namespace HappyTourManager
         /// </summary>
         ///
 
-        LoginPage loginPage;
-        MainPage mainPage;
+        private LoginPage loginPage;
+        private MainPage mainPage;
 
-        HappyTourDatabaseEntities entities;
-        IRepository<Customer> customerRepo;
-        IRepository<Language> languageRepo;
-        IRepository<OnHoliday> onHolidayRepo;
-        IRepository<Order> orderRepo;
-        IRepository<Place> placeRepo;
-        IRepository<PLTCON> pltconRepo;
-        IRepository<Program> programRepo;
-        IRepository<PRTCON> prtconRepo;
-        IRepository<Report> reportRepo;
-        IRepository<Tourguide> tourguideRepo;
-        IRepository<Tour> tourRepo;
-        IRepository<User> userRepo;
-        IRepository<Office> officeRepo;
+        private HappyTourDatabaseEntities entities;
+        private IRepository<Customer> customerRepo;
+        private IRepository<Language> languageRepo;
+        private IRepository<OnHoliday> onHolidayRepo;
+        private IRepository<Order> orderRepo;
+        private IRepository<Place> placeRepo;
+        private IRepository<PLTCON> pltconRepo;
+        private IRepository<Program> programRepo;
+        private IRepository<PRTCON> prtconRepo;
+        private IRepository<Report> reportRepo;
+        private IRepository<Tourguide> tourguideRepo;
+        private IRepository<Tour> tourRepo;
+        private IRepository<User> userRepo;
+        private IRepository<Office> officeRepo;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// Contructor of main window
+        /// </summary>
         public MainWindow()
         {
             this.InitializeComponent();
-
         }
 
         public void SetPage(string pagetype)
@@ -56,8 +59,8 @@ namespace HappyTourManager
             }
             else
             {
-                this.mainPage = new MainPage(this.customerRepo,this.languageRepo,this.onHolidayRepo,this.orderRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.reportRepo,
-                    this.tourguideRepo,this.tourRepo,this.userRepo, this.officeRepo,this);
+                this.mainPage = new MainPage(this.customerRepo, this.languageRepo, this.onHolidayRepo, this.orderRepo, this.placeRepo, this.pltconRepo, this.programRepo, this.prtconRepo, this.reportRepo,
+                    this.tourguideRepo, this.tourRepo, this.userRepo, this.officeRepo, this);
                 this.MainFrame.Content = this.mainPage;
             }
         }
@@ -84,24 +87,27 @@ namespace HappyTourManager
             this.DataContext = new WindowViewModel(this);
         }
 
-        bool dispose = false;
+        private bool dispose = false;
 
+        /// <inheritdoc/>
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (dispose)
+            if (this.dispose)
             {
                 if (disposing)
                 {
-                    if (entities != null) entities.Dispose();
+                    if (this.entities != null)
+                    {
+                        this.entities.Dispose();
+                    }
                 }
             }
-
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="OrderDetailsUC.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using System.Windows;
     using System.Windows.Controls;

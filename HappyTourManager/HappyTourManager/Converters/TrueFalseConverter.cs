@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager.Converters
+﻿// <copyright file="TrueFalseConverter.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Converters
 {
     using System;
     using System.Globalization;
@@ -7,16 +11,15 @@
     /// <summary>
     /// TrueFalse Converter class
     /// </summary>
-    class TrueFalseConverter : IValueConverter
+    public class TrueFalseConverter : IValueConverter
     {
-
         /// <summary>
         /// Convert from string to bool
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="targetType"></param>
-        /// <param name="parameter"></param>
-        /// <param name="culture"></param>
+        /// <param name="value">value</param>
+        /// <param name="targetType">targettype</param>
+        /// <param name="parameter">parameter</param>
+        /// <param name="culture"culture</param>
         /// <returns>true if value "1"</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -24,6 +27,7 @@
             {
                 return value.ToString() == "1";
             }
+
             return false;
         }
 

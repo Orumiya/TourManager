@@ -49,8 +49,8 @@
                     <ColumnDefinition Width="125"/>
                     <ColumnDefinition Width="125"/>
                 </Grid.ColumnDefinitions>
-                <Button Margin="5" Name="btnSave" Content="Save" Style="{StaticResource Iconbtn}" Grid.Column="1" Opacity="0.8" Click="btnSave_Click" />
-            <Button Margin="3" Name="btnCancel" Content="Cancel" Style="{StaticResource Iconbtn}" Grid.Column="2" Opacity="0.8" Click="btnCancel_Click" />
+                <Button Margin="5" Name="btnSave" Content="Save" Style="{StaticResource Iconbtn}" Grid.Column="1" Opacity="0.8" Click="BtnSave_Click" />
+            <Button Margin="3" Name="btnCancel" Content="Cancel" Style="{StaticResource Iconbtn}" Grid.Column="2" Opacity="0.8" Click="BtnCancel_Click" />
             <!--<Label Grid.Column="2" Opacity="0.8" Background="{StaticResource BGBlueBrush}"/>-->
         </Grid>
 

@@ -1,9 +1,13 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="IContentPage.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     /// <summary>
     /// Interface for ContentPages
     /// </summary>
-    interface IContentPage
+    internal interface IContentPage
     {
         /// <summary>
         /// Show the result of the search
@@ -25,6 +29,5 @@
         /// delete the selected instance
         /// </summary>
         void DeleteInstance();
-
     }
 }

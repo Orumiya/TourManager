@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager.Pages
+﻿// <copyright file="CustomerMainPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Pages
 {
     using System;
     using System.Windows;
@@ -17,6 +21,7 @@
         private AddCustomerUC custDetail;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CustomerMainPage"/> class.
         /// Constructor of customer main page
         /// </summary>
         /// <param name="custRepository"></param>
@@ -24,11 +29,10 @@
         {
             this.InitializeComponent();
             this.custRepository = custRepository;
-
         }
 
         // Sets UI elements based on the value of searchcategory
-        private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SearchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.custVM.SelectedCtegory == "VALIDTO")
             {
@@ -42,7 +46,6 @@
                 Binding binding2 = new Binding("SelectedDateTo");
                 datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
                 this.contSearch2.Content = datePicker2;
-
             }
             else if (this.custVM.SelectedCtegory == "DEFAULT")
             {
@@ -70,10 +73,9 @@
                 this.contSearch1.Content = textbox;
                 this.contSearch2.Content = null;
             }
-
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -88,6 +90,7 @@
                     this.btnEdit.Visibility = Visibility.Hidden;
                     this.btnDelete.Visibility = Visibility.Hidden;
                 }
+
                 this.contCustDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
@@ -104,7 +107,6 @@
             {
                 MessageBox.Show("Wrong data type");
             }
-
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -115,10 +117,11 @@
             this.searchCat.SelectedItem = "DEFAULT";
             this.DataContext = this.custVM;
             this.custDetail = new AddCustomerUC();
-            foreach (string item in this.custVM.countryList)
+            foreach (string item in this.custVM.CountryList)
             {
                 this.custDetail.cboxCountry.Items.Add(item);
             }
+
             this.contCustDetails.Content = this.custDetail;
             this.contCustDetails.Visibility = Visibility.Hidden;
         }
@@ -138,7 +141,7 @@
             this.btnCancel.Visibility = Visibility.Visible;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -168,10 +171,9 @@
             {
                 MessageBox.Show("Wrong data type");
             }
-
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.contCustDetails.Visibility = Visibility.Hidden;
             this.custVM.SelectedCustomer = null;
@@ -179,9 +181,9 @@
             this.btnCancel.Visibility = Visibility.Hidden;
         }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (this.custVM.ResultList.Count>0 && this.custVM.SelectedCustomer !=null)
+            if (this.custVM.ResultList.Count > 0 && this.custVM.SelectedCustomer != null)
             {
                 this.contCustDetails.Visibility = Visibility.Visible;
                 this.btnSave.Visibility = Visibility.Visible;
@@ -196,7 +198,7 @@
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (this.custVM.SelectedCustomer != null)
             {
@@ -212,6 +214,5 @@
                 MessageBox.Show("Please select a customer!");
             }
         }
-
     }
 }

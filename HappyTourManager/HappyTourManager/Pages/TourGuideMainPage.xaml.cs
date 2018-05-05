@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager.Pages
+﻿// <copyright file="TourGuideMainPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Pages
 {
     using System;
     using System.Windows;
@@ -12,50 +16,46 @@
     /// </summary>
     public partial class TourGuideMainPage : Page
     {
-
         private IRepository<Tourguide> tourGuideRepo;
         private IRepository<Language> languageRepo;
         private IRepository<OnHoliday> holidayRepo;
         private TourGuideMainViewModel tgVM;
         private TGDetailsUC tgDetails;
 
-
-
         public TourGuideMainPage(
                 IRepository<Tourguide> tourGuideRepo,
                 IRepository<Language> languageRepo,
-                IRepository<OnHoliday> holidayRepo
-            )
+                IRepository<OnHoliday> holidayRepo)
         {
             this.tourGuideRepo = tourGuideRepo;
             this.languageRepo = languageRepo;
             this.holidayRepo = holidayRepo;
             this.InitializeComponent();
-
         }
-
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            this.tgVM = new TourGuideMainViewModel(this.tourGuideRepo,this.languageRepo,this.holidayRepo);
+            this.tgVM = new TourGuideMainViewModel(this.tourGuideRepo, this.languageRepo, this.holidayRepo);
             this.DataContext = this.tgVM;
             this.searchCat.ItemsSource = this.tgVM.SearchCategories;
             this.searchCat.Visibility = Visibility.Visible;
             this.searchCat.SelectedItem = "DEFAULT";
             this.tgDetails = new TGDetailsUC();
-            foreach (string item in this.tgVM.countryList)
+            foreach (string item in this.tgVM.CountryList)
             {
                 this.tgDetails.cboxCountry.Items.Add(item);
             }
+
             this.contTGDetails.Content = this.tgDetails;
-            foreach (string item in this.tgVM.languageList)
+            foreach (string item in this.tgVM.LanguageList)
             {
                 this.tgDetails.cboxLanguage.Items.Add(item);
             }
+
             this.contTGDetails.Visibility = Visibility.Hidden;
         }
 
-        private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SearchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.tgVM.SelectedCtegory == "ISONHOLIDAY" || this.tgVM.SelectedCtegory == "ISAVAILABLE")
             {
@@ -69,7 +69,6 @@
                 Binding binding2 = new Binding("SelectedDateTo");
                 datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
                 this.contSearch2.Content = datePicker2;
-
             }
             else if (this.tgVM.SelectedCtegory == "DEFAULT")
             {
@@ -81,10 +80,11 @@
             {
                 ComboBox cBox = new ComboBox();
 
-                foreach (var item in this.tgVM.languageList)
+                foreach (var item in this.tgVM.LanguageList)
                 {
                     cBox.Items.Add(item);
                 }
+
                 Binding binding = new Binding("SelectedValue");
                 cBox.SetBinding(ComboBox.SelectedItemProperty, binding);
                 this.contSearch1.Content = cBox;
@@ -99,10 +99,9 @@
                 this.contSearch1.Content = textbox;
                 this.contSearch2.Content = null;
             }
-
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -117,6 +116,7 @@
                     this.btnEdit.Visibility = Visibility.Hidden;
                     this.btnDelete.Visibility = Visibility.Hidden;
                 }
+
                 this.contTGDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
@@ -133,7 +133,6 @@
             {
                 MessageBox.Show("Wrong data type");
             }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -154,7 +153,7 @@
             this.btnCancel.Visibility = Visibility.Visible;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -187,10 +186,9 @@
             {
                 MessageBox.Show("Wrong data type");
             }
-
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.contTGDetails.Visibility = Visibility.Hidden;
             this.tgVM.SelectedTG = null;
@@ -201,7 +199,7 @@
             this.btnCancel.Visibility = Visibility.Hidden;
         }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             this.tgVM.SelectedHolidayTill = default(DateTime);
             this.tgVM.SelectedHolidayFrom = default(DateTime);
@@ -221,7 +219,7 @@
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (this.tgVM.SelectedTG != null)
             {
@@ -252,7 +250,6 @@
                         this.tgVM.SelectedHolidayFrom = default(DateTime);
                         this.tgVM.SelectedLanguage = null;
                     }
-
                 }
             }
             else
