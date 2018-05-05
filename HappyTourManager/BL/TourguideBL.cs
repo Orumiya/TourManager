@@ -151,20 +151,13 @@ namespace BL
                 DateTime[] interval = (DateTime[])searchvalue;
                 DateTime startInterval = interval[0];
                 DateTime endInterval = interval[1];
+                var allGuides = this.tourguideRepository.GetAll();
+                var guidesWithoutHolidays = allGuides.Where(e => e.OnHolidays.Count.Equals(0));
+
                 var onholidayList = this.onHolidayRepository.GetAll();
-                List<OnHoliday> l = new List<OnHoliday>();
-                if (onholidayList != null)
-                {
-                    foreach (var item in onholidayList)
-                    {
-                        l.Add(item);
-                    }
-                }
-
                 onholidayList = onholidayList.Where(
-                    i => !((i.StartDate <= endInterval) && (startInterval <= i.EndDate)));
+                    i => (i.StartDate <= endInterval) && (startInterval <= i.EndDate));
                 IList<Tourguide> tglist = new List<Tourguide>();
-
                 foreach (var item in onholidayList)
                 {
                     if (!tglist.Contains(item.Tourguide))
@@ -173,7 +166,15 @@ namespace BL
                     }
                 }
 
-                return tglist;
+                foreach (var item in guidesWithoutHolidays)
+                {
+                    if (!tglist.Contains(item))
+                    {
+                        tglist.Add(item);
+                    }
+                }
+
+                return tglist.ToList();
             }
             else if ((TourguideTerms)searchterm == TourguideTerms.DEFAULT)
             {

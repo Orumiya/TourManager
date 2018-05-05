@@ -273,11 +273,18 @@ namespace BL
             Dictionary<Tour, decimal> dictionary = new Dictionary<Tour, decimal>();
             foreach (Tour item in allTours)
             {
-                decimal value = item.Orders.Where(e => !e.IsCancelled.Equals("1")).Sum(i => i.PersonCount);
+                decimal value = item.Orders.Where(e => (!e.IsCancelled.Equals("N"))).Sum(i => i.PersonCount);
                 dictionary.Add(item, value);
             }
 
-            return dictionary;
+            if (dictionary.Count != 0 || dictionary != null)
+            {
+                return dictionary;
+            }
+            else
+            {
+                throw new InvalidOperationException("No data");
+            }
         }
 
         /// <summary>
