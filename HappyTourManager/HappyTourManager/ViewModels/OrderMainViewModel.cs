@@ -336,10 +336,10 @@ namespace HappyTourManager
                 }
                 else
                 {
-                    
-                    
+                    rL = orderBL.Search(Enum.Parse(typeof(OrderTerms), this.SelectedCtegory), "0");
+
                 }
-                rL = orderBL.Search(Enum.Parse(typeof(OrderTerms), this.SelectedCtegory), "0");
+                
             }
             else
             {
