@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL;
-using DATA;
-using DATA.Repositoriees;
-using NUnit.Framework;
-using TEST.Fakes;
+﻿// <copyright file="TourguideBLTest.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace TEST
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BL;
+    using DATA;
+    using DATA.Repositoriees;
+    using NUnit.Framework;
+    using TEST.Fakes;
+
     [TestFixture]
     internal class TourguideBLTest
     {

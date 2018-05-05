@@ -36,9 +36,6 @@ namespace BL
 
     public class ReportBL : ISearcheable<Report>, IReportList
     {
-        /// <inheritdoc />
-        public event EventHandler ReportListChanged;
-
         private readonly IRepository<Report> reportRepository;
         private readonly IRepository<Order> orderRepository;
         private readonly IRepository<Customer> customerRepository;
@@ -93,6 +90,9 @@ namespace BL
             this.prtconRepository = prtconRepository;
         }
 
+        /// <inheritdoc />
+        public event EventHandler ReportListChanged;
+
         /// <summary>
         /// Gets or sets info for the Customer chart
         /// </summary>
@@ -103,7 +103,7 @@ namespace BL
         }
 
         /// <summary>
-        ///  Gets or sets info for the Order chart
+        /// Gets or sets info for the Order chart
         /// </summary>
         public Tuple<int, int, int> OrderReportResult
         {

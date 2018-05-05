@@ -45,6 +45,15 @@ namespace BL
             this.onHolidayRepository = onHolidayRepository;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TourguideBL"/> class.
+        /// </summary>
+        /// <param name="tourguideRepository">input repo</param>
+        public TourguideBL(IRepository<Tourguide> tourguideRepository)
+        {
+            this.tourguideRepository = tourguideRepository;
+        }
+
         /// <inheritdoc />
         public event EventHandler TourguideListChanged;
 
@@ -144,10 +153,14 @@ namespace BL
                 DateTime endInterval = interval[1];
                 var onholidayList = this.onHolidayRepository.GetAll();
                 List<OnHoliday> l = new List<OnHoliday>();
-                foreach (var item in onholidayList)
+                if (onholidayList != null)
                 {
-                    l.Add(item);
+                    foreach (var item in onholidayList)
+                    {
+                        l.Add(item);
+                    }
                 }
+
                 onholidayList = onholidayList.Where(
                     i => !((i.StartDate <= endInterval) && (startInterval <= i.EndDate)));
                 IList<Tourguide> tglist = new List<Tourguide>();
@@ -179,11 +192,77 @@ namespace BL
         }
 
         /// <summary>
+        /// returns all tourguides
+        /// </summary>
+        /// <returns>tglist</returns>
+        public IList<Tourguide> GetAllTourguides()
+        {
+            var tg = this.tourguideRepository.GetAll();
+            return tg.ToList();
+        }
+
+        /// <summary>
         /// updates an entry
         /// </summary>
         public void Update()
         {
             this.tourguideRepository.Update();
+        }
+
+        /// <summary>
+        /// returns all holiday object
+        /// </summary>
+        /// <returns>holidaylist</returns>
+        public IList<OnHoliday> GetAllHolidays()
+        {
+            var holiday = this.onHolidayRepository.GetAll();
+            return holiday.ToList();
+        }
+
+        /// <summary>
+        /// returns all language object
+        /// </summary>
+        /// <returns>languagelist</returns>
+        public IList<Language> GetAllLanguages()
+        {
+            var languages = this.languageRepository.GetAll();
+            return languages.ToList();
+        }
+
+        /// <summary>
+        /// creates the language object for a tourguide
+        /// </summary>
+        /// <param name="language">language obj</param>
+        public void CreateLanguage(Language language)
+        {
+            this.languageRepository.Create(language);
+        }
+
+        /// <summary>
+        /// creates a holiday object for a tourguide
+        /// </summary>
+        /// <param name="obj">onholiday obj</param>
+        public void CreateHoliday(OnHoliday obj)
+        {
+            this.onHolidayRepository.Create(obj);
+        }
+
+        /// <summary>
+        /// deletes a lang object
+        /// </summary>
+        /// <param name="lang">language</param>
+        public void DeleteLanguage(Language lang)
+        {
+            this.languageRepository.Delete(lang);
+        }
+
+        /// <summary>
+        /// deletes a holiday object
+        /// </summary>
+        /// <param name="oh">holiday input param</param>
+        public void DeleteHoliday(OnHoliday oh)
+        {
+            this.onHolidayRepository.Delete(oh);
         }
 
         /// <summary>

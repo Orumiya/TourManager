@@ -1,4 +1,8 @@
-﻿namespace BL.Interfaces
+﻿// <copyright file="ISearcheable.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace BL.Interfaces
 {
     using System.Collections.Generic;
 
@@ -7,9 +11,9 @@
         /// <summary>
         /// searches for a dataobject with specified searchterm and value
         /// </summary>
-        /// <param name="searchterm"></param>
-        /// <param name="searchvalue"></param>
-        /// <returns></returns>
+        /// <param name="searchterm">searchcategory</param>
+        /// <param name="searchvalue">value</param>
+        /// <returns>objectlist</returns>
         IList<T> Search(object searchterm, object searchvalue);
     }
 }

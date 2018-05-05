@@ -1,4 +1,8 @@
-﻿namespace BL
+﻿// <copyright file="LoginBL.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace BL
 {
     using System;
     using System.Linq;
