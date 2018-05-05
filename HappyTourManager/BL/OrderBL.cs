@@ -97,7 +97,15 @@ namespace BL
             else if ((OrderTerms)searchterm == OrderTerms.ISLOYALTY)
             {
                 string isloyalty = (string)searchvalue;
-                orders = orders.Where(e => e.IsLoyalty.Equals(isloyalty));
+                if (isloyalty == "1")
+                {
+                    orders = orders.Where(e => e.IsLoyalty.Equals(isloyalty));
+                }
+                else
+                {
+                    orders = orders.Where(e => !e.IsLoyalty.Equals("1"));
+                }
+
                 return orders.ToList();
             }
 
@@ -106,7 +114,15 @@ namespace BL
             else if ((OrderTerms)searchterm == OrderTerms.ISPAYED)
             {
                 string ispayed = (string)searchvalue;
-                orders = orders.Where(e => e.IsPayed.Equals(ispayed));
+                if (ispayed == "1")
+                {
+                    orders = orders.Where(e => e.IsPayed.Equals(ispayed));
+                }
+                else
+                {
+                    orders = orders.Where(e => !e.IsPayed.Equals("1"));
+                }
+
                 return orders.ToList();
             }
 
@@ -115,7 +131,15 @@ namespace BL
             else if ((OrderTerms)searchterm == OrderTerms.ISCANCELLED)
             {
                 string iscancelled = (string)searchvalue;
-                orders = orders.Where(e => e.IsCancelled.Equals(iscancelled));
+                if (iscancelled == "1")
+                {
+                    orders = orders.Where(e => e.IsCancelled.Equals(iscancelled));
+                }
+                else
+                {
+                    orders = orders.Where(e => !e.IsCancelled.Equals("1"));
+                }
+
                 return orders.ToList();
             }
 

@@ -49,6 +49,7 @@ namespace BL
         private readonly IRepository<PRTCON> prtconRepository;
         private Tuple<int, int> customerReportResult;
         private Tuple<int, int, int> orderReportResult;
+        private Dictionary<Tour, decimal> tourReportResult;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportBL"/> class.
@@ -112,6 +113,15 @@ namespace BL
         {
             get { return this.orderReportResult; }
             set { this.orderReportResult = value; }
+        }
+
+       /// <summary>
+       /// Gets or sets info for the Tour chart
+       /// </summary>
+        public Dictionary<Tour, decimal> TourReportResult
+        {
+            get { return this.tourReportResult; }
+            set { this.tourReportResult = value; }
         }
 
         /// <inheritdoc />
@@ -260,9 +270,24 @@ namespace BL
             return result;
         }
 
-        private void GenerateTourReport()
+        /// <summary>
+        /// Collects the tour and order info for the generator method
+        /// </summary>
+        /// <returns>Dictionary of info</returns>
+        public Dictionary<Tour, decimal> CollectTourAndOrderInfo()
         {
-            throw new NotImplementedException();
+            var orders = this.orderRepository.GetAll();
+            IList<Order> allOrders = orders.Where(e => e.IsCancelled.Equals(0)).ToList();
+            var tours = this.tourRepository.GetAll();
+            IList<Tour> allTours = tours.ToList();
+            Dictionary<Tour, decimal> dictionary = new Dictionary<Tour, decimal>();
+            foreach (Tour item in allTours)
+            {
+                decimal value = item.Orders.Where(e => !e.IsCancelled.Equals("1")).Sum(i => i.PersonCount);
+                dictionary.Add(item, value);
+            }
+
+            return dictionary;
         }
 
         private void GenerateHolidayReport()
@@ -273,6 +298,14 @@ namespace BL
         private void GenerateGuideReport()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// creates a Tour report (each tour how much order has)
+        /// </summary>
+        private void GenerateTourReport()
+        {
+            this.TourReportResult = this.CollectTourAndOrderInfo();
         }
 
         /// <summary>
@@ -330,7 +363,7 @@ namespace BL
 #pragma warning restore SA1118 // Parameter must not span multiple lines
 
             DateTime generateTime = DateTime.Now;
-            string filename = "CustomerReport_" + generateTime.Year.ToString() + generateTime.Month.ToString() + generateTime.Day.ToString() + "_"+ generateTime.Hour.ToString() + generateTime.Minute.ToString() + ".xml";
+            string filename = "CustomerReport_" + generateTime.Year.ToString() + generateTime.Month.ToString() + generateTime.Day.ToString() + "_" + generateTime.Hour.ToString() + generateTime.Minute.ToString() + ".xml";
             customerReport.Save(filename);
         }
 

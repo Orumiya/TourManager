@@ -139,12 +139,12 @@ namespace TEST
                 }
             };
 
-            ConnectCustomersAndOrders(orders[0], customers[0]);
-            ConnectCustomersAndOrders(orders[1], customers[1]);
-            ConnectCustomersAndOrders(orders[2], customers[0]);
-            ConnectToursAndOrders(orders[0], tours[0]);
-            ConnectToursAndOrders(orders[1], tours[1]);
-            ConnectToursAndOrders(orders[2], tours[1]);
+            this.ConnectCustomersAndOrders(orders[0], customers[0]);
+            this.ConnectCustomersAndOrders(orders[1], customers[1]);
+            this.ConnectCustomersAndOrders(orders[2], customers[0]);
+            this.ConnectToursAndOrders(orders[0], tours[0]);
+            this.ConnectToursAndOrders(orders[1], tours[1]);
+            this.ConnectToursAndOrders(orders[2], tours[1]);
         }
 
         private void ConnectToursAndOrders(Order order, Tour tour)

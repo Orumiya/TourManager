@@ -131,7 +131,7 @@ namespace BL
             {
                 this.whichUser = query.Single(e => e.Username.Equals(username));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

@@ -39,6 +39,7 @@ namespace HappyTourManager
         IRepository<Tourguide> tourguideRepo;
         IRepository<Tour> tourRepo;
         IRepository<User> userRepo;
+        IRepository<Office> officeRepo;
 
         public MainWindow()
         {
@@ -56,7 +57,7 @@ namespace HappyTourManager
             else
             {
                 this.mainPage = new MainPage(this.customerRepo,this.languageRepo,this.onHolidayRepo,this.orderRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.reportRepo,
-                    this.tourguideRepo,this.tourRepo,this.userRepo, this);
+                    this.tourguideRepo,this.tourRepo,this.userRepo, this.officeRepo,this);
                 this.MainFrame.Content = this.mainPage;
             }
         }
@@ -76,6 +77,7 @@ namespace HappyTourManager
             this.tourguideRepo = new TourguideRepository(this.entities);
             this.tourRepo = new TourRepository(this.entities);
             this.userRepo = new UserRepository(this.entities);
+            this.officeRepo = new OfficeRepository(this.entities);
 
             this.SetPage("LoginPage");
             //this.resource;
