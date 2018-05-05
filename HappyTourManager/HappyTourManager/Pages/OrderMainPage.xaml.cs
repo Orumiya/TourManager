@@ -65,7 +65,7 @@
             this.searchCat.SelectedItem = "DEFAULT";
             this.DataContext = this.orderVM;
             this.orderDetail = new OrderDetailsUC();
-
+            this.contOrderDetails.Content = orderDetail;
             this.contOrderDetails.Visibility = Visibility.Hidden;
 
         }
@@ -114,136 +114,161 @@
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            // try
-            // {
-            //    tourVM.GetSearchResult();
-            //    if (tourVM.ResultList.Count > 0)
-            //    {
-            //        btnEdit.Visibility = Visibility.Visible;
-            //        btnDelete.Visibility = Visibility.Visible;
-            //    }
-            //    else
-            //    {
-            //        btnEdit.Visibility = Visibility.Hidden;
-            //        btnDelete.Visibility = Visibility.Hidden;
-            //    }
-            //    this.contTourDetails.Visibility = Visibility.Hidden;
-            //    this.btnSave.Visibility = Visibility.Hidden;
-            //    this.btnCancel.Visibility = Visibility.Hidden;
-            // }
-            // catch (Exception ex)
-            // {
-            //    MessageBox.Show(ex.Message);
-            // }
-
+            try
+            {
+                orderVM.GetSearchResult();
+                if (orderVM.ResultList.Count > 0)
+                {
+                    btnEdit.Visibility = Visibility.Visible;
+                    btnDelete.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnEdit.Visibility = Visibility.Hidden;
+                    btnDelete.Visibility = Visibility.Hidden;
+                }
+                this.contOrderDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
         }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // tourVM.IsEdit = true;
-            // tourVM.SelectedTour = new Tour()
-            // {
-            //    StartDate = DateTime.Today,
-            //    EndDate = DateTime.Today
-            // };
-            // tourVM.SelectedPlace = new Place();
-            // tourVM.SelectedProgram = new Program();
-            // tourVM.GetTourPlaces();
-            // tourVM.GetTourPrograms();
-            // this.contTourDetails.Visibility = Visibility.Visible;
-            // this.btnSave.Visibility = Visibility.Visible;
-            // this.btnCancel.Visibility = Visibility.Visible;
+            orderVM.SelectedOrder = new Order()
+            {
+                OrderDate = DateTime.Today
+            };
+            orderVM.TotalPrice = 0;
+            orderVM.AdultCountNew = 0;
+            orderVM.SelectedCustomer = null;
+            orderVM.SelectedTour = null;
+            this.contOrderDetails.Visibility = Visibility.Visible;
+            this.btnSave.Visibility = Visibility.Visible;
+            this.btnCancel.Visibility = Visibility.Visible;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            // try
-            // {
-            //    if (tourVM.Checkvalues(tourDetail.tcTour.SelectedIndex))
-            //    {
-            //        MessageBox.Show("All values must be filled in!");
-            //    }
-            //    else
-            //    {
-            //        tourVM.SaveTour(tourDetail.tcTour.SelectedIndex);
-            //        MessageBox.Show("Data is saved!");
-            //        this.contTourDetails.Visibility = Visibility.Hidden;
-            //        tourVM.SelectedTour = null;
-            //        tourVM.SelectedPlace = null;
-            //        tourVM.SelectedProgram = null;
-            //        this.btnSave.Visibility = Visibility.Hidden;
-            //        this.btnCancel.Visibility = Visibility.Hidden;
-            //    }
-            // }
-            // catch (InvalidOperationException ex)
-            // {
-            //    MessageBox.Show(ex.Message);
-            // }
-            // catch (Exception)
-            // {
-            //    MessageBox.Show("Something went wrong :(");
-            // }
+            try
+            {
+
+                if (orderVM.Checkvalues())
+                {
+                    MessageBox.Show("All values must be filled in!");
+                }
+                else
+                {
+                    orderVM.SaveInstance();
+                    MessageBox.Show("Data is saved!");
+                    this.contOrderDetails.Visibility = Visibility.Hidden;
+                    orderVM.SelectedOrder = null;
+                    orderVM.SelectedCustomer = null;
+                    orderVM.SelectedTour = null;
+                    orderVM.AdultCountNew = 0;
+                    orderVM.TotalPrice = 0;
+                    this.btnSave.Visibility = Visibility.Hidden;
+                    this.btnCancel.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Something went wrong :(");
+            }
 
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            // this.contTourDetails.Visibility = Visibility.Hidden;
-            // tourVM.SelectedTour = null;
-            // tourVM.SelectedPlace = null;
-            // tourVM.SelectedProgram = null;
-            // this.btnSave.Visibility = Visibility.Hidden;
-            // this.btnCancel.Visibility = Visibility.Hidden;
+            this.contOrderDetails.Visibility = Visibility.Hidden;
+            orderVM.SelectedOrder = null;
+            orderVM.SelectedCustomer = null;
+            orderVM.SelectedTour = null;
+            orderVM.TotalPrice = 0;
+            orderVM.AdultCountNew = 0;
+            this.btnSave.Visibility = Visibility.Hidden;
+            this.btnCancel.Visibility = Visibility.Hidden;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            // tourVM.IsEdit = false;
-            // tourVM.SelectedPlace = null;
-            // tourVM.SelectedProgram = null;
-            // if (tourVM.ResultList.Count > 0 && tourVM.SelectedTour != null)
-            // {
-            //    tourVM.GetTourPlaces();
-            //    tourVM.GetTourPrograms();
-            //    this.contTourDetails.Visibility = Visibility.Visible;
-            //    this.btnSave.Visibility = Visibility.Visible;
-            //    this.btnCancel.Visibility = Visibility.Visible;
-            // }
-            // else
-            // {
-            //    this.contTourDetails.Visibility = Visibility.Hidden;
-            //    this.btnSave.Visibility = Visibility.Hidden;
-            //    this.btnCancel.Visibility = Visibility.Hidden;
-            //    MessageBox.Show("Please select a tour!");
-            // }
+            if (orderVM.ResultList.Count > 0 && orderVM.SelectedOrder != null)
+            {
+                orderVM.SelectedCustomer = orderVM.SelectedOrder.Customer;
+                orderVM.SelectedTour = orderVM.SelectedOrder.Tour;
+                orderVM.TotalPrice = orderVM.SelectedOrder.TotalSum;
+                orderVM.AdultCountNew = (int)orderVM.SelectedOrder.PersonCount;
+                this.contOrderDetails.Visibility = Visibility.Visible;
+                this.btnSave.Visibility = Visibility.Visible;
+                this.btnCancel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.contOrderDetails.Visibility = Visibility.Hidden;
+                this.btnSave.Visibility = Visibility.Hidden;
+                this.btnCancel.Visibility = Visibility.Hidden;
+                orderVM.SelectedCustomer = null;
+                orderVM.SelectedTour = null;
+                orderVM.TotalPrice = 0;
+                orderVM.AdultCountNew = 0;
+                MessageBox.Show("Please select an order!");
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            // if (tourVM.SelectedTour != null)
-            // {
-            //    if (MessageBox.Show("Do you want to delete tour?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            //    {
-            //        try
-            //        {
-            //            tourVM.DeleteTour();
-            //            MessageBox.Show("Customer is deleted");
-            //            tourVM.ResultList.Remove(tourVM.SelectedTour);
-            //        }
-            //        catch (Exception)
-            //        {
+            if (orderVM.SelectedOrder != null)
+            {
+                if (MessageBox.Show("Do you want to delete order?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        orderVM.DeleteInstance();
+                        MessageBox.Show("Order is deleted");
+                        orderVM.ResultList.Remove(orderVM.SelectedOrder);
+                    }
+                    catch (Exception)
+                    {
 
-            // MessageBox.Show("Tour cannot be deleted!");
-            //        }
+                        MessageBox.Show("Order cannot be deleted!");
+                    }
+                    finally
+                    {
+                        orderVM.SelectedCustomer = null;
+                        orderVM.SelectedTour = null;
+                        orderVM.TotalPrice = 0;
+                        orderVM.AdultCountNew = 0;
+                    }
 
-            // }
-            // }
-            // else
-            // {
-            //    MessageBox.Show("Please select a tour!");
-            // }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a tour!");
+            }
         }
         #endregion
 
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (orderVM.SelectedOrder != null)
+            {
+                orderVM.SelectedCustomer = orderVM.SelectedOrder.Customer;
+                orderVM.SelectedTour = orderVM.SelectedOrder.Tour;
+                orderVM.TotalPrice = orderVM.SelectedOrder.TotalSum;
+                orderVM.AdultCountNew = (int)orderVM.SelectedOrder.PersonCount;
+
+                
+            }
+        }
     }
 }

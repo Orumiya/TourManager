@@ -9,6 +9,7 @@ namespace HappyTourManager
     using BL;
     using DATA;
     using DATA.Interfaces;
+    using System.Collections.ObjectModel;
 
     public class OrderMainViewModel : Bindable, IContentPage
     {
@@ -31,9 +32,25 @@ namespace HappyTourManager
         private IList<Customer> customerList;
         private IList<Tour> tourList;
         private List<string> searchCategories;
+        private ObservableCollection<Order> resultList;
+        private decimal totalPrice;
         #endregion
 
         #region parameters
+        public ObservableCollection<Order> ResultList
+        {
+            get
+            {
+                return this.resultList;
+            }
+
+            set
+            {
+                this.resultList = value;
+                this.OnPropertyChanged(nameof(this.ResultList));
+            }
+        }
+
         public Order SelectedOrder
         {
             get
@@ -58,6 +75,7 @@ namespace HappyTourManager
             set
             {
                 this.adultCountNew = value;
+                this.TotalPrice = CalculateTotalPrice();
                 this.OnPropertyChanged(nameof(this.AdultCountNew));
             }
         }
@@ -72,6 +90,7 @@ namespace HappyTourManager
             set
             {
                 this.childCountNew = value;
+                this.TotalPrice = CalculateTotalPrice();
                 this.OnPropertyChanged(nameof(this.ChildCountNew));
             }
         }
@@ -207,6 +226,20 @@ namespace HappyTourManager
                 this.OnPropertyChanged(nameof(this.SelectedValue));
             }
         }
+
+        public decimal TotalPrice
+        {
+            get
+            {
+                return totalPrice;
+            }
+
+            set
+            {
+                totalPrice = CalculateTotalPrice();
+                this.OnPropertyChanged(nameof(this.TotalPrice));
+            }
+        }
         #endregion
 
         #region constructor
@@ -226,6 +259,8 @@ namespace HappyTourManager
             {
                 this.searchCategories.Add(item.ToString());
             }
+            GetAllCustomers();
+            GetAllTours();
         }
         #endregion
 
@@ -236,40 +271,43 @@ namespace HappyTourManager
         /// </summary>
         public void GetSearchResult()
         {
-            //if (this.SelectedCtegory == "ORDERDATE")
-            //{
-            //    DateTime[] dt = new DateTime[2];
-            //    dt[0] = this.SelectedDateFrom;
-            //    dt[1] = this.SelectedDateTo;
+            IList<Order> rL;
+            if (this.SelectedCtegory == "ORDERDATE")
+            {
+                DateTime[] dt = new DateTime[2];
+                dt[0] = this.SelectedDateFrom;
+                dt[1] = this.SelectedDateTo;
 
-            //    rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), dt);
-            //}
-            //else if (this.SelectedCtegory == "LOYALTYCARD")
-            //{
-            //    if (this.SelectedValue == "yes")
-            //    {
-            //        rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), "1");
-            //    }
-            //    else
-            //    {
-            //        rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), "0");
-            //    }
-            //}
-            //else
-            //{
-            //    rL = custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), this.SelectedValue);
-            //}
-            //ResultList = new ObservableCollection<Customer>(rL);
+                rL = orderBL.Search(Enum.Parse(typeof(OrderTerms), this.SelectedCtegory), dt);
+            }
+            else if (this.SelectedCtegory == "ISLOYALTY" || this.SelectedCtegory == "ISCANCELLED" || this.SelectedCtegory == "ISPAYED")
+            {
+                if (this.SelectedValue == "yes")
+                {
+                    rL = orderBL.Search(Enum.Parse(typeof(OrderTerms), this.SelectedCtegory), "1");
+                }
+                else
+                {
+                    
+                    
+                }
+                rL = orderBL.Search(Enum.Parse(typeof(OrderTerms), this.SelectedCtegory), "0");
+            }
+            else
+            {
+                rL = orderBL.Search(Enum.Parse(typeof(OrderTerms), this.SelectedCtegory), this.SelectedValue);
+            }
+            ResultList = new ObservableCollection<Order>(rL);
         }
 
-        public IList<Tour> GetAllTours()
+        public void GetAllTours()
         {
             var tglist = this.tourBL.GetAllTours();
 
             return tglist;
         }
 
-        public IList<Customer> GetAllCustomers()
+        public void GetAllCustomers()
         {
             IList<Customer> custList = this.customerBL.GetAllCustomers();
 
@@ -278,23 +316,63 @@ namespace HappyTourManager
 
         public bool Checkvalues()
         {
-            throw new NotImplementedException();
+            if (this.SelectedCustomer == null) return true;
+            if (this.SelectedTour == null) return true;
+            if (this.SelectedOrder != null)
+            {
+                this.SelectedOrder.CustomerID = this.SelectedCustomer.PersonID;
+                this.SelectedOrder.TourID = this.SelectedTour.TourID;
+                this.SelectedOrder.PersonCount = this.AdultCountNew;
+                this.selectedOrder.TotalSum = this.TotalPrice;
+
+                if (this.SelectedOrder.PersonCount == 0) return true;
+                if (this.SelectedOrder.TotalSum == 0) return true;
+            }
+
+
+
+            return false;
         }
 
         public void SaveInstance()
         {
-            throw new NotImplementedException();
+            if (this.ResultList != null && this.ResultList.Contains(this.SelectedOrder))
+            {
+                this.orderBL.Update();
+            }
+            else
+            {
+                this.orderBL.Save(this.SelectedOrder);
+            }
         }
 
         public void DeleteInstance()
         {
-            throw new NotImplementedException();
+            if (this.SelectedOrder != null)
+            {
+                this.orderBL.Delete(this.SelectedOrder);
+            }
         }
 
         #endregion
 
         #region private methods
+        private decimal CalculateTotalPrice()
+        {
+            if (this.SelectedTour != null && this.SelectedCustomer != null && this.SelectedOrder != null)
+            {
+                int sum = this.orderBL.CalculateOrderPriceBeforeLoyaltyCounted(this.AdultCountNew, Decimal.ToInt32(this.SelectedTour.AdultPrice),
+                                                        0, Decimal.ToInt32(this.SelectedTour.ChildPrice));
+                if (SelectedOrder.IsLoyalty == "1")
+                {
+                    return (decimal)this.orderBL.CalculateOrderPriceWithLoyaltyCounted(sum, true);
+                }
+                return (decimal)sum;
+                
+            }
+            return 0;
 
+        }
         #endregion
     }
 }

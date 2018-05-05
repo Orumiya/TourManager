@@ -47,7 +47,7 @@
             <Border Grid.Column="1" Background="{StaticResource DarkerBlueBrush}" ></Border>
             <Grid Grid.Column="0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListBox Width="300" ItemsSource="{Binding ResultList}" SelectedItem="{Binding SelectedOrder}" Background="Transparent" Margin="0">
+                    <ListBox Width="300" ItemsSource="{Binding ResultList}" SelectedItem="{Binding SelectedOrder}" Background="Transparent" Margin="0" SelectionChanged="ListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <local:OrderUC/>

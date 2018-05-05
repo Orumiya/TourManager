@@ -68,11 +68,11 @@
                             </DockPanel>
                             <DockPanel Margin="3">
                                 <TextBlock Text="Adult price: "/>
-                                <TextBlock Text="{Binding SelectedTour.AdultPrice, StringFormat='{}{0:#\;0:#;#}'}" />
+                                <TextBlock Text="{Binding AdultP, StringFormat='{}{0:#\;0:#;#}'}" />
                             </DockPanel>
                             <DockPanel Margin="3">
                                 <TextBlock Text="Child price: "/>
-                                <TextBlock Text="{Binding electedTour.ChildPrice, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                                <TextBlock Text="{Binding ChildP, StringFormat='{}{0:#\;0:#;#}'}" />
                             </DockPanel>
                             <TextBlock Text="Places" FontWeight="Bold" Margin="0,5,0,0"/>
                             <DockPanel Margin="3">

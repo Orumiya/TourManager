@@ -43,6 +43,8 @@ namespace HappyTourManager
 
         private List<string> searchCategories;
         private bool isEdit;
+        private decimal adultP;
+        private decimal childP;
 
         public IEnumerable<string> countryList;
         #endregion
@@ -301,6 +303,34 @@ namespace HappyTourManager
             }
         }
 
+        public decimal AdultP
+        {
+            get
+            {
+                return adultP;
+            }
+
+            set
+            {
+                adultP = value;
+                this.OnPropertyChanged(nameof(this.AdultP));
+            }
+        }
+
+        public decimal ChildP
+        {
+            get
+            {
+                return childP;
+            }
+
+            set
+            {
+                childP = value;
+                this.OnPropertyChanged(nameof(this.ChildP));
+            }
+        }
+
         #endregion
 
         #region constructor
@@ -429,8 +459,14 @@ namespace HappyTourManager
 
         public void SaveInstance(int tab)
         {
+            if (this.SelectedTour != null)
+            {
+                this.SelectedTour.AdultPrice = AdultP;
+                this.SelectedTour.ChildPrice = ChildP;
+            }
             switch (tab)
             {
+               
                 case 0:
                     if (this.ResultList != null && this.ResultList.Contains(this.SelectedTour))
                     {
@@ -588,8 +624,8 @@ namespace HappyTourManager
         {
             if (this.SelectedTour != null)
             {
-                this.SelectedTour.AdultPrice = this.tourBL.AdultPriceCalculator(this.SelectedTour.EndDate, this.SelectedTour.StartDate, this.pricePerNight);
-                this.SelectedTour.ChildPrice = this.tourBL.ChildPriceCalculator((int)this.SelectedTour.AdultPrice);
+                this.AdultP = this.tourBL.AdultPriceCalculator(this.SelectedTour.EndDate, this.SelectedTour.StartDate, this.pricePerNight);
+                this.ChildP = this.tourBL.ChildPriceCalculator((int)this.AdultP);
             }
         }
 

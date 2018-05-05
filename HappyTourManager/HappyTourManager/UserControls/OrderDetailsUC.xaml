@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HappyTourManager"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Border Background="{StaticResource LightBGBrush}" CornerRadius="5" Opacity="0.9">
         <Grid Background="{StaticResource LightBGBrush}" Margin="10">
             <Grid.Resources>
@@ -49,76 +49,25 @@
                         </ComboBox>
                     </DockPanel>
                     <DockPanel Margin="3">
-                        <TextBlock Text="Adults: "/>
+                        <TextBlock Text="Person Count: "/>
                         <ComboBox Name="cbAdults" SelectedItem="{Binding AdultCountNew}"/>
                         <Label Content="{Binding SelectedTour.AdultPrice}" Margin="5,0,0,0" ContentStringFormat="Adultprice: {0} HUF"/>
                     </DockPanel>
                     <DockPanel Margin="3">
-                        <TextBlock Text="Children: "/>
-                        <ComboBox Name="cbChilds" SelectedItem="{Binding ChildCountNew}"/>
-                        <Label Content="{Binding SelectedTour.AdultPrice}" Margin="5,0,0,0" ContentStringFormat="Childprice: {0} HUF"/>
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Birthdate: "/>
-                        <DatePicker SelectedDate="{Binding SelectedCustomer.Person.BirthDate}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Phonenumber: "/>
-                        <TextBox Text="{Binding SelectedCustomer.Person.Phone, StringFormat='{}{0:#\\%;0:#;#}'}" />
-                    </DockPanel>
-                    <TextBlock Text="Address" FontWeight="Bold" Margin="0,5,0,0"/>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Country: "/>
-                        <ComboBox Name="cboxCountry" SelectedItem="{Binding SelectedCustomer.Person.AddressCountry}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="City: "/>
-                        <TextBox Text="{Binding SelectedCustomer.Person.AddressCity}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="ZIP Code: "/>
-                        <TextBox Text="{Binding SelectedCustomer.Person.AddressZip}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Address: "/>
-                        <TextBox Text="{Binding SelectedCustomer.Person.AddressFree}" />
-                    </DockPanel>
-                    <TextBlock Text="ID Details" FontWeight="Bold" Margin="0,5,0,0"/>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="ID Type: "/>
-                        <ComboBox Name="cbIDtype" SelectedItem="{Binding SelectedCustomer.Person.IDType}"/>
-
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="ID number: "/>
-                        <TextBox Text="{Binding SelectedCustomer.Person.IDNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
-                    </DockPanel>
-                    <DockPanel Margin="3">
-                        <TextBlock Text="Valid to: "/>
-                        <DatePicker SelectedDate="{Binding SelectedCustomer.Person.ValidTo}" />
+                        <TextBlock Text="Total Price: "/>
+                        <Label Content="{Binding TotalPrice, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" ContentStringFormat=" {0} HUF"/>
                     </DockPanel>
                     <DockPanel Margin="3">
                         <TextBlock Text="Loyalty Card: "/>
-                        <CheckBox IsChecked="{Binding SelectedCustomer.LoyaltyCard, UpdateSourceTrigger=PropertyChanged ,Converter={StaticResource truefalse}}"/>
+                        <CheckBox IsChecked="{Binding SelectedOrder.IsLoyalty ,Converter={StaticResource truefalse}}"/>
                     </DockPanel>
-                    <TextBlock Text="Customer Orders:" FontWeight="Bold" Margin="0,5,0,0"/>
                     <DockPanel Margin="3">
-                        <Expander  Header="Orders">
-                            <ListBox Name="lbProgs" ItemsSource="{Binding SelectedCustomer.Orders}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <DockPanel Margin="3">
-                                            <TextBlock Text="{Binding OrderID}"/>
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding TotalSum}"/>
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding OrderDate}"/>
-                                        </DockPanel>
-
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </Expander>
+                        <TextBlock Text="Payed: "/>
+                        <CheckBox IsChecked="{Binding SelectedOrder.IsPayed ,Converter={StaticResource truefalse}}"/>
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock Text="Cancelled: "/>
+                        <CheckBox IsChecked="{Binding SelectedOrder.IsCancelled ,Converter={StaticResource truefalse}}"/>
                     </DockPanel>
                 </StackPanel>
             </ScrollViewer>
