@@ -107,6 +107,10 @@ namespace HappyTourManager.Pages
             {
                 MessageBox.Show("Wrong data type");
             }
+            catch (OverflowException)
+            {
+                MessageBox.Show("Given data is too long");
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

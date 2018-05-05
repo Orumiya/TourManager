@@ -205,6 +205,10 @@ namespace HappyTourManager
                     this.rL = this.custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), "0");
                 }
             }
+            else if (this.SelectedCtegory == "IDNUMBER")
+            {
+                this.rL = this.custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), int.Parse(this.SelectedValue));
+            }
             else
             {
                 this.rL = this.custBL.Search(Enum.Parse(typeof(CustomerTerms), this.SelectedCtegory), this.SelectedValue);
