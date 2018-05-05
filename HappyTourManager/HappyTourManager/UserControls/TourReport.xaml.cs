@@ -1,19 +1,12 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="TourReport.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
     using DATA;
     using LiveCharts;
     using LiveCharts.Wpf;
@@ -23,19 +16,26 @@
     /// </summary>
     public partial class TourReport : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TourReport"/> class.
+        /// Tourreport constructor
+        /// </summary>
+        /// <param name="datas">data serie</param>
         public TourReport(Dictionary<Tour, decimal> datas)
         {
             this.InitializeComponent();
 
             ChartValues<decimal> valuelist = new ChartValues<decimal>();
             List<string> labels = new List<string>();
-            foreach (var item in datas)
+            if (datas != null)
             {
-                valuelist.Add(item.Value);
-                labels.Add(item.Key.TravelName);
-            }
+                foreach (var item in datas)
+                {
+                    valuelist.Add(item.Value);
+                    labels.Add(item.Key.TravelName);
+                }
 
-            this.SeriesCollection = new SeriesCollection
+                this.SeriesCollection = new SeriesCollection
             {
                 new ColumnSeries
                 {
@@ -45,12 +45,12 @@
                 }
             };
 
-            this.Labels = labels;
-            this.Formatter = value => value.ToString("N");
-            this.CreationDay = DateTime.Today;
+                this.Labels = labels;
+                this.Formatter = value => value.ToString("N");
+                this.CreationDay = DateTime.Today;
+            }
 
             this.DataContext = this;
-
         }
 
         /// <summary>
