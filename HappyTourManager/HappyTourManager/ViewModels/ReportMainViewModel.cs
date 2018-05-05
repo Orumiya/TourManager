@@ -280,6 +280,7 @@ namespace HappyTourManager
 
         public void GenerateReport()
         {
+            
             this.reportBL.GenerateNewReport((ReportTypes)Enum.Parse(typeof(ReportTypes), this.SelectedType));
             if (this.SelectedType == "CUSTOMERREPORT")
             {

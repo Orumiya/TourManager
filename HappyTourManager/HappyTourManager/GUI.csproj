@@ -131,6 +131,9 @@
     <Compile Include="UserControls\OrderDetailsUC.xaml.cs">
       <DependentUpon>OrderDetailsUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\OrderReportUC.xaml.cs">
+      <DependentUpon>OrderReportUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\OrderUC.xaml.cs">
       <DependentUpon>OrderUC.xaml</DependentUpon>
     </Compile>
@@ -235,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\OrderDetailsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OrderReportUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
