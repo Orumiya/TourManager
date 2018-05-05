@@ -14,13 +14,6 @@ namespace HappyTourManager
     public class OrderMainViewModel : Bindable, IContentPage
     {
         #region private variables
-        private IRepository<Order> orderRepository;
-        private IRepository<Customer> customerRepository;
-        private IRepository<Tour> tourRepository;
-        private IRepository<Program> programRepository;
-        private IRepository<Place> placeRepository;
-        private IRepository<PLTCON> pltconRepository;
-        private IRepository<PRTCON> prtconRepository;
 
         private IList<Order> orderList;
         public OrderBL orderBL;
@@ -258,15 +251,9 @@ namespace HappyTourManager
             IRepository<PLTCON> pltconRepository,
             IRepository<PRTCON> prtconRepository)
         {
-            this.orderRepository = orderRepository;
-            this.customerRepository = customerRepository;
-            this.tourRepository = tourRepository;
-            this.programRepository = programRepository;
-            this.placeRepository = placeRepository;
-            this.pltconRepository = pltconRepository;
-            this.prtconRepository = prtconRepository;
             this.orderBL = new OrderBL(orderRepository, customerRepository, tourRepository);
-            
+            this.tourBL = new TourBL(tourRepository, programRepository, placeRepository, pltconRepository, prtconRepository);
+            this.customerBL = new CustomerBL(customerRepository);
             this.searchCategories = new List<string>();
             foreach (OrderTerms item in Enum.GetValues(typeof(OrderTerms)))
             {
@@ -315,16 +302,16 @@ namespace HappyTourManager
 
         public void GetAllTours()
         {
-            this.tourBL = new TourBL(this.tourRepository,this.programRepository,this.placeRepository,this.pltconRepository,this.prtconRepository);
-            this.TourList = this.tourBL.Search(TourTerms.DEFAULT, null);
+            var tglist = this.tourBL.GetAllTours();
 
+            return tglist;
         }
 
         public void GetAllCustomers()
         {
-            this.customerBL = new CustomerBL(this.customerRepository);
-            this.CustomerList = this.customerBL.Search(CustomerTerms.DEFAULT, null);
+            IList<Customer> custList = this.customerBL.GetAllCustomers();
 
+            return custList;
         }
 
         public bool Checkvalues()

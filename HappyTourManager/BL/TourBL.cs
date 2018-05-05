@@ -236,6 +236,16 @@ namespace BL
         }
 
         /// <summary>
+        /// returns all tours
+        /// </summary>
+        /// <returns>tourlist</returns>
+        public IList<Tour> GetAllTours()
+        {
+            var tours = this.tourRepository.GetAll();
+            return tours.ToList();
+        }
+
+        /// <summary>
         /// returns all places
         /// </summary>
         /// <returns>placelist</returns>

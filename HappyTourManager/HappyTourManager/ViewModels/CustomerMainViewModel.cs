@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using System;
     using System.Collections.Generic;
