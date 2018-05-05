@@ -42,14 +42,15 @@ namespace HappyTourManager
                     DataLabels = true
                 }
 
-                
-            };
 
+            };
+            CreationDay = DateTime.Today;
             DataContext = this;
 
         }
 
         public SeriesCollection SeriesCollection { get; set; }
+        public DateTime CreationDay {get; set;}
 
         private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
         {
