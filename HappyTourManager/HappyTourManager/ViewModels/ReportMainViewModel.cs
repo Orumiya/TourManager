@@ -9,33 +9,10 @@ namespace HappyTourManager
     using DATA.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     class ReportMainViewModel : Bindable
     {
-        private IRepository<Report> reportRepository;
-        private IRepository<Order> orderRepository;
-        private IRepository<Customer> customerRepository;
-        private IRepository<Tour> tourRepository;
-        private IRepository<Tourguide> tourguideRepository;
-        private IRepository<Language> languageRepository;
-        private IRepository<OnHoliday> onHolidayRepository;
-        private IRepository<Program> programRepository;
-        private IRepository<Place> placeRepository;
-        private IRepository<PLTCON> pltconRepository;
-        private IRepository<PRTCON> prtconRepository;
-
         private ReportBL reportBL;
-
-        private string selectedCtegory = "DEFAULT";
-        private string selectedValue;
-        private DateTime selectedDateFrom = DateTime.Today;
-        private DateTime selectedDateTo = DateTime.Today;
-        private ObservableCollection<Report> resultList;
-        private Report selectedReport;
         private List<string> searchCategories;
         private string selectedType;
         private List<string> typeCategories;
@@ -43,105 +20,9 @@ namespace HappyTourManager
         private int point2;
         private int point3;
 
-
-        public string SelectedCtegory
-        {
-            get
-            {
-                return selectedCtegory;
-            }
-
-            set
-            {
-                selectedCtegory = value;
-                this.OnPropertyChanged(nameof(SelectedCtegory));
-            }
-        }
-
-        public string SelectedValue
-        {
-            get
-            {
-                return selectedValue;
-            }
-
-            set
-            {
-                selectedValue = value;
-                this.OnPropertyChanged(nameof(SelectedValue));
-            }
-        }
-
-        public DateTime SelectedDateFrom
-        {
-            get
-            {
-                return selectedDateFrom;
-            }
-
-            set
-            {
-                selectedDateFrom = value;
-                this.OnPropertyChanged(nameof(SelectedDateFrom));
-            }
-        }
-
-        public DateTime SelectedDateTo
-        {
-            get
-            {
-                return selectedDateTo;
-            }
-
-            set
-            {
-                selectedDateTo = value;
-                this.OnPropertyChanged(nameof(SelectedDateTo));
-            }
-        }
-
-        public ObservableCollection<Report> ResultList
-        {
-            get
-            {
-                return resultList;
-            }
-
-            set
-            {
-                resultList = value;
-                this.OnPropertyChanged(nameof(ResultList));
-            }
-        }
-
-        public Report SelectedReport
-        {
-            get
-            {
-                return selectedReport;
-            }
-
-            set
-            {
-                selectedReport = value;
-                this.OnPropertyChanged(nameof(SelectedReport));
-            }
-        }
-
-        public List<string> SearchCategories
-        {
-            get
-            {
-                return searchCategories;
-            }
-
-            set
-            {
-                searchCategories = value;
-                this.OnPropertyChanged(nameof(SearchCategories));
-            }
-        }
-
+        /// <summary>
+        /// contains selected report type
+        /// </summary>
         public string SelectedType
         {
             get
@@ -156,6 +37,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Listof selectable report types
+        /// </summary>
         public List<string> TypeCategories
         {
             get
@@ -170,6 +54,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// report value 1
+        /// </summary>
         public int Point1
         {
             get
@@ -184,6 +71,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// report value 2
+        /// </summary>
         public int Point2
         {
             get
@@ -198,6 +88,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// report value 3
+        /// </summary>
         public int Point3
         {
             get
@@ -212,6 +105,20 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// constructor for Report viewmodel
+        /// </summary>
+        /// <param name="reportRepository"></param>
+        /// <param name="orderRepository"></param>
+        /// <param name="customerRepository"></param>
+        /// <param name="tourRepository"></param>
+        /// <param name="tourguideRepository"></param>
+        /// <param name="languageRepository"></param>
+        /// <param name="onHolidayRepository"></param>
+        /// <param name="programRepository"></param>
+        /// <param name="placeRepository"></param>
+        /// <param name="pltconRepository"></param>
+        /// <param name="prtconRepository"></param>
         public ReportMainViewModel(
             IRepository<Report> reportRepository,
             IRepository<Order> orderRepository,
@@ -226,18 +133,6 @@ namespace HappyTourManager
             IRepository<PRTCON> prtconRepository
             )
         {
-            this.reportRepository = reportRepository;
-            this.orderRepository = orderRepository;
-            this.customerRepository = customerRepository;
-            this.tourguideRepository = tourguideRepository;
-            this.tourRepository = tourRepository;
-            this.languageRepository = languageRepository;
-            this.onHolidayRepository = onHolidayRepository;
-            this.programRepository = programRepository;
-            this.placeRepository = placeRepository;
-            this.pltconRepository = pltconRepository;
-            this.prtconRepository = prtconRepository;
-
             this.reportBL = new ReportBL(reportRepository, orderRepository, customerRepository, tourRepository,
                                     tourguideRepository, languageRepository, onHolidayRepository, programRepository, 
                                             placeRepository, pltconRepository, prtconRepository);
@@ -256,28 +151,9 @@ namespace HappyTourManager
         }
 
 
-
         /// <summary>
-        /// Get the search result list
+        /// Generate report
         /// </summary>
-        public void GetSearchResult()
-        {
-            IList<Report> rL;
-            if (this.SelectedCtegory == "REPORTDATE")
-            {
-                DateTime[] dt = new DateTime[2];
-                dt[0] = this.SelectedDateFrom;
-                dt[1] = this.SelectedDateTo;
-
-                rL = this.reportBL.Search(Enum.Parse(typeof(ReportTerms), this.SelectedCtegory), dt);
-            }
-            else
-            {
-                rL = this.reportBL.Search(Enum.Parse(typeof(ReportTerms), this.SelectedCtegory), this.SelectedValue);
-            }
-            this.ResultList = new ObservableCollection<Report>(rL);
-        }
-
         public void GenerateReport()
         {
             
@@ -293,6 +169,8 @@ namespace HappyTourManager
                 Point2 = reportBL.OrderReportResult.Item2;
                 Point3 = reportBL.OrderReportResult.Item3;
             }
+
+            
 
         }
     }

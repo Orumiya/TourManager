@@ -1,22 +1,10 @@
 ﻿namespace HappyTourManager.Pages
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
     using DATA;
     using DATA.Interfaces;
-    using DATA.Repositoriees;
 
     /// <summary>
     /// Interaction logic for LoginPage.xaml
@@ -41,11 +29,28 @@
             {
                 this.win.SetPage("MainPage");
             }
+            else
+            {
+                MessageBox.Show("Incorrect username or password!");
+            }
         }
 
         private void btnSignUp_Click(object sender, RoutedEventArgs e)
         {
-            this.loginVM.SignUp();
+            try
+            {
+                this.loginVM.SignUp();
+            }
+            catch (InvalidOperationException ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            catch(NullReferenceException)
+            {
+                MessageBox.Show("Data is not valid!");
+            }
+            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

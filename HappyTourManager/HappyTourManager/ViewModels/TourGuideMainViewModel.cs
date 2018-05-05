@@ -9,15 +9,12 @@ namespace HappyTourManager
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using BL;
     using DATA;
     using DATA.Interfaces;
 
     class TourGuideMainViewModel: Bindable, IContentPage
     {
-        #region private variables
         private TourguideBL tgBL;
         private string selectedCtegory = "DEFAULT";
         private string selectedValue;
@@ -28,14 +25,13 @@ namespace HappyTourManager
         private string selectedLanguage;
         private DateTime selectedHolidayFrom;
         private DateTime selectedHolidayTill;
-
         private List<string> searchCategories;
-
         public IEnumerable<string> countryList;
         public List<string> languageList;
-        #endregion
 
-        #region parameters
+        /// <summary>
+        /// list of selectable search categories
+        /// </summary>
         public List<string> SearchCategories
         {
             get
@@ -50,6 +46,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected search category
+        /// </summary>
         public string SelectedCtegory
         {
             get
@@ -64,6 +63,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// date search value
+        /// </summary>
         public DateTime SelectedDateFrom
         {
             get
@@ -78,6 +80,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// date search value
+        /// </summary>
         public DateTime SelectedDateTo
         {
             get
@@ -92,6 +97,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// string search value
+        /// </summary>
         public string SelectedValue
         {
             get
@@ -106,6 +114,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// List of search result
+        /// </summary>
         public ObservableCollection<Tourguide> ResultList
         {
             get
@@ -120,6 +131,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Selected tourguide
+        /// </summary>
         public Tourguide SelectedTG
         {
             get
@@ -134,6 +148,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected language
+        /// </summary>
         public string SelectedLanguage
         {
             get
@@ -148,6 +165,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected holiday
+        /// </summary>
         public DateTime SelectedHolidayFrom
         {
             get
@@ -162,6 +182,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected holiday
+        /// </summary>
         public DateTime SelectedHolidayTill
         {
             get
@@ -175,14 +198,18 @@ namespace HappyTourManager
                 this.OnPropertyChanged(nameof(this.SelectedHolidayTill));
             }
         }
-        #endregion
+        
 
-        #region constructor
+        /// <summary>
+        /// constructor for Tourguide view model
+        /// </summary>
+        /// <param name="tourGuideRepo"></param>
+        /// <param name="languageRepo"></param>
+        /// <param name="holidayRepo"></param>
         public TourGuideMainViewModel(
             IRepository<Tourguide> tourGuideRepo,
                 IRepository<Language> languageRepo,
-                IRepository<OnHoliday> holidayRepo,
-                IRepository<Tour> tourRepo
+                IRepository<OnHoliday> holidayRepo
             )
         {
             this.tgBL = new TourguideBL(tourGuideRepo, languageRepo, holidayRepo);
@@ -205,9 +232,7 @@ namespace HappyTourManager
             }
         }
 
-        #endregion
 
-        #region public method
         /// <summary>
         /// Get the search result list
         /// </summary>
@@ -233,13 +258,16 @@ namespace HappyTourManager
             this.ResultList = new ObservableCollection<Tourguide>(rL);
         }
 
+        /// <summary>
+        /// check if form is filled in correctly
+        /// </summary>
+        /// <returns></returns>
         public bool Checkvalues()
         {
             bool isNull = false;
 
             foreach (var item in this.SelectedTG.Person.GetType().GetProperties())
             {
-                string s = item.Name;
                 if (item.Name != "BirthDate" && item.Name != "ValidTo" && item.Name != "PersonID"
                     && item.Name != "Customer" && item.Name != "Tourguide")
                 {
@@ -271,6 +299,9 @@ namespace HappyTourManager
             return isNull;
         }
 
+        /// <summary>
+        /// save item or update if it exists
+        /// </summary>
         public void SaveInstance()
         {
 
@@ -301,6 +332,9 @@ namespace HappyTourManager
 
         }
 
+        /// <summary>
+        /// delete item
+        /// </summary>
         public void DeleteInstance()
         {
             IList<Language> languages = this.tgBL.GetAllLanguages();
@@ -340,9 +374,7 @@ namespace HappyTourManager
             this.tgBL.Delete(this.SelectedTG);
         }
 
-        #endregion
 
-        #region private method
         private void CreateCountryList()
         {
             RegionInfo country = new RegionInfo(new CultureInfo("en-US", false).LCID);
@@ -356,6 +388,5 @@ namespace HappyTourManager
 
             this.countryList = countryNames.OrderBy(names => names).Distinct();
         }
-        #endregion
     }
 }

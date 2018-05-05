@@ -1,19 +1,9 @@
 ﻿namespace HappyTourManager.Pages
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
     using DATA;
     using DATA.Interfaces;
 
@@ -22,36 +12,32 @@
     /// </summary>
     public partial class TourGuideMainPage : Page
     {
-        #region private variables
+
         private IRepository<Tourguide> tourGuideRepo;
         private IRepository<Language> languageRepo;
         private IRepository<OnHoliday> holidayRepo;
-        private IRepository<Tour> tourRepo;
         private TourGuideMainViewModel tgVM;
         private TGDetailsUC tgDetails;
-        #endregion
 
-        #region constructor
+
+
         public TourGuideMainPage(
                 IRepository<Tourguide> tourGuideRepo,
                 IRepository<Language> languageRepo,
-                IRepository<OnHoliday> holidayRepo,
-                IRepository<Tour> tourRepo
+                IRepository<OnHoliday> holidayRepo
             )
         {
             this.tourGuideRepo = tourGuideRepo;
             this.languageRepo = languageRepo;
             this.holidayRepo = holidayRepo;
-            this.tourRepo = tourRepo;
             this.InitializeComponent();
 
         }
-        #endregion
 
-        #region event handlers
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            this.tgVM = new TourGuideMainViewModel(this.tourGuideRepo,this.languageRepo,this.holidayRepo,this.tourRepo);
+            this.tgVM = new TourGuideMainViewModel(this.tourGuideRepo,this.languageRepo,this.holidayRepo);
             this.DataContext = this.tgVM;
             this.searchCat.ItemsSource = this.tgVM.SearchCategories;
             this.searchCat.Visibility = Visibility.Visible;
@@ -135,13 +121,17 @@
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
             }
-            catch (InvalidCastException)
-            {
-                MessageBox.Show("The searchvalue has an incorrect datatype!");
-            }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Missing data");
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Wrong data type");
             }
 
         }
@@ -189,9 +179,13 @@
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (Exception ex)
+            catch (NullReferenceException)
             {
-                MessageBox.Show("Something went wrong :(");
+                MessageBox.Show("Missing data");
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Wrong data type");
             }
 
         }
@@ -239,10 +233,17 @@
                         MessageBox.Show("Tour Guide is deleted");
                         this.tgVM.ResultList.Remove(this.tgVM.SelectedTG);
                     }
-                    catch (Exception)
+                    catch (InvalidOperationException ex)
                     {
-
-                        MessageBox.Show("Tour Guide cannot be deleted!");
+                        MessageBox.Show(ex.Message);
+                    }
+                    catch (NullReferenceException)
+                    {
+                        MessageBox.Show("Missing data");
+                    }
+                    catch (InvalidCastException)
+                    {
+                        MessageBox.Show("Wrong data type");
                     }
                     finally
                     {
@@ -259,7 +260,6 @@
                 MessageBox.Show("Please select a Tour guide!");
             }
         }
-        #endregion
     }
 }
 

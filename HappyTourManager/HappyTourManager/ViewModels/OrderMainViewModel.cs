@@ -13,13 +13,11 @@ namespace HappyTourManager
 
     public class OrderMainViewModel : Bindable, IContentPage
     {
-        #region private variables
 
         private IList<Order> orderList;
-        public OrderBL orderBL;
+        private OrderBL orderBL;
         private TourBL tourBL;
         private CustomerBL customerBL;
-
         private string selectedCtegory = "DEFAULT";
         private DateTime selectedDateFrom = DateTime.Today;
         private DateTime selectedDateTo = DateTime.Today;
@@ -34,9 +32,10 @@ namespace HappyTourManager
         private List<string> searchCategories;
         private ObservableCollection<Order> resultList;
         private decimal totalPrice;
-        #endregion
 
-        #region parameters
+        /// <summary>
+        /// List for search results
+        /// </summary>
         public ObservableCollection<Order> ResultList
         {
             get
@@ -51,6 +50,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains selected order
+        /// </summary>
         public Order SelectedOrder
         {
             get
@@ -65,6 +67,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Contains selected adult peron count
+        /// </summary>
         public int AdultCountNew
         {
             get
@@ -80,6 +85,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Contains selected adult person count
+        /// </summary>
         public int ChildCountNew
         {
             get
@@ -95,6 +103,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains selected tour
+        /// </summary>
         public Tour SelectedTour
         {
             get
@@ -109,6 +120,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains selected customer
+        /// </summary>
         public Customer SelectedCustomer
         {
             get
@@ -123,6 +137,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains selected search category
+        /// </summary>
         public string SelectedCtegory
         {
             get
@@ -137,12 +154,18 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains orderlist
+        /// </summary>
         public IList<Order> OrderList
         {
             get { return this.orderList; }
             set { this.orderList = value; }
         }
 
+        /// <summary>
+        /// contains customerlist
+        /// </summary>
         public IList<Customer> CustomerList
         {
             get
@@ -157,6 +180,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains tourlist
+        /// </summary>
         public IList<Tour> TourList
         {
             get
@@ -171,6 +197,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains date format search value
+        /// </summary>
         public DateTime SelectedDateFrom
         {
             get
@@ -185,6 +214,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains date format search value
+        /// </summary>
         public DateTime SelectedDateTo
         {
             get
@@ -199,6 +231,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains all selectable search categories
+        /// </summary>
         public List<string> SearchCategories
         {
             get
@@ -213,6 +248,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// contains string format search value
+        /// </summary>
         public string SelectedValue
         {
             get
@@ -227,6 +265,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// containscalculated total price
+        /// </summary>
         public decimal TotalPrice
         {
             get
@@ -236,13 +277,22 @@ namespace HappyTourManager
 
             set
             {
+                totalPrice = value;
                 totalPrice = CalculateTotalPrice();
                 this.OnPropertyChanged(nameof(this.TotalPrice));
             }
         }
-        #endregion
 
-        #region constructor
+        /// <summary>
+        /// Constructor for order iew model
+        /// </summary>
+        /// <param name="orderRepository"></param>
+        /// <param name="customerRepository"></param>
+        /// <param name="tourRepository"></param>
+        /// <param name="programRepository"></param>
+        /// <param name="placeRepository"></param>
+        /// <param name="pltconRepository"></param>
+        /// <param name="prtconRepository"></param>
         public OrderMainViewModel(IRepository<Order> orderRepository,
             IRepository<Customer> customerRepository,
             IRepository<Tour> tourRepository,
@@ -262,9 +312,7 @@ namespace HappyTourManager
             GetAllCustomers();
             GetAllTours();
         }
-        #endregion
 
-        #region public methods
 
         /// <summary>
         /// Get the search result list
@@ -300,6 +348,9 @@ namespace HappyTourManager
             ResultList = new ObservableCollection<Order>(rL);
         }
 
+        /// <summary>
+        /// Get all tours
+        /// </summary>
         public void GetAllTours()
         {
             var tglist = this.tourBL.GetAllTours();
@@ -307,6 +358,9 @@ namespace HappyTourManager
             this.TourList = tglist;
         }
 
+        /// <summary>
+        /// Get all customers
+        /// </summary>
         public void GetAllCustomers()
         {
             IList<Customer> custList = this.customerBL.GetAllCustomers();
@@ -314,6 +368,10 @@ namespace HappyTourManager
             this.CustomerList = custList;
         }
 
+        /// <summary>
+        /// Check if form is filled in correctly
+        /// </summary>
+        /// <returns></returns>
         public bool Checkvalues()
         {
             if (this.SelectedCustomer == null) return true;
@@ -334,6 +392,9 @@ namespace HappyTourManager
             return false;
         }
 
+        /// <summary>
+        /// Save item or update, if exists
+        /// </summary>
         public void SaveInstance()
         {
             if (this.ResultList != null && this.ResultList.Contains(this.SelectedOrder))
@@ -346,6 +407,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Delete item
+        /// </summary>
         public void DeleteInstance()
         {
             if (this.SelectedOrder != null)
@@ -354,9 +418,10 @@ namespace HappyTourManager
             }
         }
 
-        #endregion
-
-        #region private methods
+        /// <summary>
+        /// Calculate total price
+        /// </summary>
+        /// <returns></returns>
         private decimal CalculateTotalPrice()
         {
             if (this.SelectedTour != null && this.SelectedCustomer != null && this.SelectedOrder != null)
@@ -373,6 +438,5 @@ namespace HappyTourManager
             return 0;
 
         }
-        #endregion
     }
 }

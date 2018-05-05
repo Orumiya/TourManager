@@ -9,21 +9,18 @@ namespace HappyTourManager
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows.Data;
     using BL;
     using DATA;
     using DATA.Interfaces;
-    using DATA.Repositoriees;
 
+
+    /// <summary>
+    /// View model for Customer page
+    /// </summary>
     class CustomerMainViewModel : Bindable, IContentPage
     {
 
-        #region private variables
-        private IRepository<Customer> custRepository;
         private CustomerBL custBL;
-
         private string selectedCtegory = "DEFAULT";
         private string selectedValue;
         private DateTime selectedDateFrom = DateTime.Today;
@@ -31,13 +28,12 @@ namespace HappyTourManager
         private IList<Customer> rL;
         private ObservableCollection<Customer> resultList;
         private Customer selectedCustomer;
-
         private List<string> searchCategories;
-
         public IEnumerable<string> countryList;
-        #endregion
 
-        #region Parameters
+        /// <summary>
+        /// List for all selectable search categories
+        /// </summary>
         public List<string> SearchCategories
         {
             get
@@ -52,6 +48,10 @@ namespace HappyTourManager
             }
         }
 
+
+        /// <summary>
+        /// Contains the selected category
+        /// </summary>
         public string SelectedCtegory
         {
             get
@@ -66,6 +66,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Cointain date search value
+        /// </summary>
         public DateTime SelectedDateFrom
         {
             get
@@ -80,6 +83,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Cointain date search value
+        /// </summary>
         public DateTime SelectedDateTo
         {
             get
@@ -94,6 +100,10 @@ namespace HappyTourManager
             }
         }
 
+
+        /// <summary>
+        /// Contains string searchvalue
+        /// </summary>
         public string SelectedValue
         {
             get
@@ -108,6 +118,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Contains the list of the search result
+        /// </summary>
         public ObservableCollection<Customer> ResultList
         {
             get
@@ -122,6 +135,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// Contains selected customer
+        /// </summary>
         public Customer SelectedCustomer
         {
             get
@@ -135,12 +151,14 @@ namespace HappyTourManager
                 this.OnPropertyChanged(nameof(this.SelectedCustomer));
             }
         }
-        #endregion
 
-        #region constructor
+
+        /// <summary>
+        /// Constructor for CustomerMainViewModel
+        /// </summary>
+        /// <param name="custRepository"></param>
         public CustomerMainViewModel(IRepository<Customer> custRepository)
         {
-            this.custRepository = custRepository;
             this.custBL = new CustomerBL(custRepository);
             this.CreateCountryList();
 
@@ -150,9 +168,8 @@ namespace HappyTourManager
                 this.searchCategories.Add(item.ToString());
             }
         }
-        #endregion
 
-        #region public methods
+
         /// <summary>
         /// Get the search result list
         /// </summary>
@@ -217,7 +234,6 @@ namespace HappyTourManager
 
             foreach (var item in this.SelectedCustomer.Person.GetType().GetProperties())
             {
-                string s = item.Name;
                 if (item.Name != "BirthDate" && item.Name != "ValidTo" && item.Name != "PersonID"
                     && item.Name != "Customer" && item.Name != "Tourguide")
                 {
@@ -236,9 +252,8 @@ namespace HappyTourManager
             }
             return isNull;
         }
-        #endregion
 
-        #region private methods
+
         private void CreateCountryList()
         {
             RegionInfo country = new RegionInfo(new CultureInfo("en-US", false).LCID);
@@ -252,7 +267,6 @@ namespace HappyTourManager
 
             this.countryList = countryNames.OrderBy(names => names).Distinct();
         }
-        #endregion
 
     }
 }
