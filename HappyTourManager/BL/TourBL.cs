@@ -291,7 +291,14 @@ namespace BL
         /// <param name="prtcon">input  obj</param>
         public void CreatePRTCON(PRTCON prtcon)
         {
-            this.prtconRepository.Create(prtcon);
+            try
+            {
+                this.prtconRepository.Create(prtcon);
+            }
+            finally
+            {
+                this.OnTourListChanged();
+            }
         }
 
         /// <summary>
@@ -300,37 +307,94 @@ namespace BL
         /// <param name="pltcon">input  obj</param>
         public void CreatePLTCON(PLTCON pltcon)
         {
-            this.pltconRepository.Create(pltcon);
+            try
+            {
+                this.pltconRepository.Create(pltcon);
+            }
+            finally
+            {
+                this.OnTourListChanged();
+            }
         }
 
+        /// <summary>
+        /// updates the placeRepo
+        /// </summary>
         public void PlaceRepoUpdate()
         {
             this.placeRepository.Update();
         }
 
+        /// <summary>
+        /// updates the programrepo
+        /// </summary>
         public void ProgramRepoUpdate()
         {
             this.programRepository.Update();
         }
 
+        /// <summary>
+        /// creates a place object
+        /// </summary>
+        /// <param name="place">input param</param>
         public void CreatePlace(Place place)
         {
-            this.placeRepository.Create(place);
+            try
+            {
+                this.placeRepository.Create(place);
+            }
+            finally
+            {
+                this.OnTourListChanged();
+            }
         }
 
+        /// <summary>
+        /// creates a program
+        /// </summary>
+        /// <param name="program">input param</param>
         public void CreateProgram(Program program)
         {
-            this.programRepository.Create(program);
+            try
+            {
+                this.programRepository.Create(program);
+            }
+            finally
+            {
+                this.OnTourListChanged();
+            }
         }
 
+        /// <summary>
+        /// deletes a pltcon object
+        /// </summary>
+        /// <param name="pltcon">input param</param>
         public void DeletePLTCON(PLTCON pltcon)
         {
-            this.pltconRepository.Delete(pltcon);
+            try
+            {
+                this.pltconRepository.Delete(pltcon);
+            }
+            finally
+            {
+                this.OnTourListChanged();
+            }
         }
 
+        /// <summary>
+        /// deletes a PRTCON object
+        /// </summary>
+        /// <param name="prtcon">input param</param>
         public void DeletePRTCON(PRTCON prtcon)
         {
-            this.prtconRepository.Delete(prtcon);
+            try
+            {
+                this.prtconRepository.Delete(prtcon);
+            }
+            finally
+            {
+                this.OnTourListChanged();
+            }
         }
 
         /// <summary>
