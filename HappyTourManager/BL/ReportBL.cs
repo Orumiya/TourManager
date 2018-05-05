@@ -49,6 +49,7 @@ namespace BL
         private readonly IRepository<PRTCON> prtconRepository;
         private Tuple<int, int> customerReportResult;
         private Tuple<int, int, int> orderReportResult;
+        private Dictionary<Tour, decimal> tourReportResult;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportBL"/> class.
@@ -112,6 +113,15 @@ namespace BL
         {
             get { return this.orderReportResult; }
             set { this.orderReportResult = value; }
+        }
+
+       /// <summary>
+       /// Gets or sets info for the Tour chart
+       /// </summary>
+        public Dictionary<Tour, decimal> TourReportResult
+        {
+            get { return this.tourReportResult; }
+            set { this.tourReportResult = value; }
         }
 
         /// <inheritdoc />
@@ -260,14 +270,6 @@ namespace BL
             return result;
         }
 
-        /// <summary>
-        /// creates a Tour report (each tour how much order has)
-        /// </summary>
-        private void GenerateTourReport()
-        {
-            CollectTourAndOrderInfo();
-        }
-
         public Dictionary<Tour, decimal> CollectTourAndOrderInfo()
         {
             var orders = this.orderRepository.GetAll();
@@ -292,6 +294,14 @@ namespace BL
         private void GenerateGuideReport()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// creates a Tour report (each tour how much order has)
+        /// </summary>
+        private void GenerateTourReport()
+        {
+            this.TourReportResult = this.CollectTourAndOrderInfo();
         }
 
         /// <summary>
