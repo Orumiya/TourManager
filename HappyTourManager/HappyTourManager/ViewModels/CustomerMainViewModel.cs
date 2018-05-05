@@ -17,7 +17,7 @@ namespace HappyTourManager
     /// <summary>
     /// View model for Customer page
     /// </summary>
-    class CustomerMainViewModel : Bindable, IContentPage
+    public class CustomerMainViewModel : Bindable, IContentPage
     {
 
         private CustomerBL custBL;
