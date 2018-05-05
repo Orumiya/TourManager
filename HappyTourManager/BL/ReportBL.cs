@@ -231,7 +231,8 @@ namespace BL
         {
             // basic column chart needed
             Tuple<int, int, int, IQueryable<Order>, IQueryable<Order>, IQueryable<Order>> info = this.CollectOrderInfoForReport();
-            this.CreateXMLOrderReport(info.Item4, info.Item5, info.Item6);
+
+            // this.CreateXMLOrderReport(info.Item4, info.Item5, info.Item6);
             this.OrderReportResult = new Tuple<int, int, int>(info.Item1, info.Item2, info.Item3);
         }
 
@@ -321,7 +322,8 @@ namespace BL
         {
             // pie or doughnut chart needed
             Tuple<int, int, IQueryable<Customer>, IQueryable<Customer>> info = this.CollectCustomerInfo();
-            this.CreateXMLCustomerReport(info.Item3, info.Item4);
+
+            // this.CreateXMLCustomerReport(info.Item3, info.Item4);
             this.CustomerReportResult = new Tuple<int, int>(info.Item1, info.Item2);
         }
 
