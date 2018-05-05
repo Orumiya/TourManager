@@ -145,6 +145,16 @@ namespace BL
         }
 
         /// <summary>
+        /// returns all customers
+        /// </summary>
+        /// <returns>customerlist</returns>
+        public IList<Customer> GetAllCustomers()
+        {
+            var cust = this.customerRepository.GetAll();
+            return cust.ToList();
+        }
+
+        /// <summary>
         /// notifies the outside about any collection change manually
         /// </summary>
         private void OnCustomerListChanged()
