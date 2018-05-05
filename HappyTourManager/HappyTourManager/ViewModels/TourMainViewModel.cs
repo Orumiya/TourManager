@@ -1,4 +1,4 @@
-﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+﻿// <copyright file="TourMainViewModel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -13,9 +13,11 @@ namespace HappyTourManager
     using DATA;
     using DATA.Interfaces;
 
-    class TourMainViewModel : Bindable
+    /// <summary>
+    /// Tour view model
+    /// </summary>
+    internal class TourMainViewModel : Bindable
     {
-
         private TourBL tourBL;
         private TourguideBL tourguideBL;
         private string selectedCtegory = "DEFAULT";
@@ -32,365 +34,26 @@ namespace HappyTourManager
         private ObservableCollection<Program> programListAll;
         private ObservableCollection<Program> tourProgramList;
         private Program selectedProgram;
-        int pricePerNight;
-        ObservableCollection<Tourguide> tourGuideList;
+        private int pricePerNight;
+        private ObservableCollection<Tourguide> tourGuideList;
         private List<string> searchCategories;
         private bool isEdit;
         private decimal adultP;
         private decimal childP;
-        public IEnumerable<string> countryList;
+        private IEnumerable<string> countryList;
 
         /// <summary>
-        /// list of selectable search categories
-        /// </summary>
-        public List<string> SearchCategories
-        {
-            get
-            {
-                return this.searchCategories;
-            }
-
-            set
-            {
-                this.searchCategories = value;
-                this.OnPropertyChanged(nameof(this.SearchCategories));
-            }
-        }
-
-        /// <summary>
-        /// selected search category
-        /// </summary>
-        public string SelectedCtegory
-        {
-            get
-            {
-                return this.selectedCtegory;
-            }
-
-            set
-            {
-                this.selectedCtegory = value;
-                this.OnPropertyChanged(nameof(this.SelectedCtegory));
-            }
-        }
-
-        /// <summary>
-        /// selected string value
-        /// </summary>
-        public string SelectedValue1
-        {
-            get
-            {
-                return this.selectedValue1;
-            }
-
-            set
-            {
-                this.selectedValue1 = value;
-                this.OnPropertyChanged(nameof(this.SelectedValue1));
-            }
-        }
-
-        /// <summary>
-        /// selected string value
-        /// </summary>
-        public string SelectedValue2
-        {
-            get
-            {
-                return this.selectedValue2;
-            }
-
-            set
-            {
-                this.selectedValue2 = value;
-                this.OnPropertyChanged(nameof(this.SelectedValue2));
-            }
-        }
-
-        /// <summary>
-        /// selected date value
-        /// </summary>
-        public DateTime SelectedDateFrom
-        {
-            get
-            {
-                return this.selectedDateFrom;
-            }
-
-            set
-            {
-                this.selectedDateFrom = value;
-                this.OnPropertyChanged(nameof(this.SelectedDateFrom));
-            }
-        }
-
-        /// <summary>
-        /// selected date value
-        /// </summary>
-        public DateTime SelectedDateTo
-        {
-            get
-            {
-                return this.selectedDateTo;
-            }
-
-            set
-            {
-                this.selectedDateTo = value;
-                this.OnPropertyChanged(nameof(this.SelectedDateTo));
-            }
-        }
-
-        /// <summary>
-        /// list of search result
-        /// </summary>
-        public ObservableCollection<Tour> ResultList
-        {
-            get
-            {
-                return this.resultList;
-            }
-
-            set
-            {
-                this.resultList = value;
-                this.OnPropertyChanged(nameof(this.ResultList));
-            }
-        }
-
-        /// <summary>
-        /// selected tour
-        /// </summary>
-        public Tour SelectedTour
-        {
-            get
-            {
-                return this.selectedTour;
-            }
-
-            set
-            {
-                this.selectedTour = value;
-                this.OnPropertyChanged(nameof(this.SelectedTour));
-            }
-        }
-
-        /// <summary>
-        /// List of all places
-        /// </summary>
-        public ObservableCollection<Place> PlaceListAll
-        {
-            get
-            {
-                return this.placeListAll;
-            }
-
-            set
-            {
-                this.placeListAll = value;
-                this.OnPropertyChanged(nameof(this.PlaceListAll));
-            }
-        }
-
-        /// <summary>
-        /// List of places of a selected tour
-        /// </summary>
-        public ObservableCollection<Place> TourPlaceList
-        {
-            get
-            {
-                return this.tourPlaceList;
-            }
-
-            set
-            {
-                this.tourPlaceList = value;
-                this.OnPropertyChanged(nameof(this.TourPlaceList));
-            }
-        }
-
-        /// <summary>
-        /// selected place
-        /// </summary>
-        public Place SelectedPlace
-        {
-            get
-            {
-                return this.selectedPlace;
-            }
-
-            set
-            {
-                this.selectedPlace = value;
-                this.OnPropertyChanged(nameof(this.SelectedPlace));
-            }
-        }
-
-        /// <summary>
-        /// list of all programs
-        /// </summary>
-        public ObservableCollection<Program> ProgramListAll
-        {
-            get
-            {
-                return this.programListAll;
-            }
-
-            set
-            {
-                this.programListAll = value;
-                this.OnPropertyChanged(nameof(this.ProgramListAll));
-            }
-        }
-
-        /// <summary>
-        /// list of programs of a selected tour
-        /// </summary>
-        public ObservableCollection<Program> TourProgramList
-        {
-            get
-            {
-                return this.tourProgramList;
-            }
-
-            set
-            {
-                this.tourProgramList = value;
-                this.OnPropertyChanged(nameof(this.TourProgramList));
-            }
-        }
-
-        /// <summary>
-        /// selectedprogram
-        /// </summary>
-        public Program SelectedProgram
-        {
-            get
-            {
-                return this.selectedProgram;
-            }
-
-            set
-            {
-                this.selectedProgram = value;
-                this.OnPropertyChanged(nameof(this.SelectedProgram));
-            }
-        }
-
-        /// <summary>
-        /// prie per night
-        /// </summary>
-        public int PricePerNight
-        {
-            get
-            {
-                return this.pricePerNight;
-            }
-
-            set
-            {
-                this.pricePerNight = value;
-                this.CalculatePrices();
-                this.OnPropertyChanged(nameof(this.PricePerNight));
-            }
-        }
-
-        /// <summary>
-        /// list of tourguides
-        /// </summary>
-        public ObservableCollection<Tourguide> TourGuideList
-        {
-            get
-            {
-                return this.tourGuideList;
-            }
-
-            set
-            {
-                this.tourGuideList = value;
-                this.OnPropertyChanged(nameof(this.TourGuideList));
-            }
-        }
-
-        /// <summary>
-        /// selected tour guide
-        /// </summary>
-        public Tourguide SelectedTourGuide
-        {
-            get
-            {
-                return this.selectedTourGuide;
-            }
-
-            set
-            {
-                this.selectedTourGuide = value;
-                this.OnPropertyChanged(nameof(this.SelectedTourGuide));
-            }
-        }
-
-        /// <summary>
-        /// edit mode
-        /// </summary>
-        public bool IsEdit
-        {
-            get
-            {
-                return this.isEdit;
-            }
-
-            set
-            {
-                this.isEdit = value;
-                this.OnPropertyChanged(nameof(this.IsEdit));
-            }
-        }
-
-        /// <summary>
-        /// adult price
-        /// </summary>
-        public decimal AdultP
-        {
-            get
-            {
-                return adultP;
-            }
-
-            set
-            {
-                adultP = value;
-                this.OnPropertyChanged(nameof(this.AdultP));
-            }
-        }
-
-        /// <summary>
-        /// childprice
-        /// </summary>
-        public decimal ChildP
-        {
-            get
-            {
-                return childP;
-            }
-
-            set
-            {
-                childP = value;
-                this.OnPropertyChanged(nameof(this.ChildP));
-            }
-        }
-
-        /// <summary>
+        /// Initializes a new instance of the <see cref="TourMainViewModel"/> class.
         /// constructor for tour viewmodel
         /// </summary>
-        /// <param name="tourRepo"></param>
-        /// <param name="placeRepo"></param>
-        /// <param name="pltconRepo"></param>
-        /// <param name="programRepo"></param>
-        /// <param name="prtconRepo"></param>
-        /// <param name="tourguideRepo"></param>
-        public TourMainViewModel(IRepository<Tour> tourRepo,
+        /// <param name="tourRepo"> tourrepository</param>
+        /// <param name="placeRepo">place repository</param>
+        /// <param name="pltconRepo">pltcon repository</param>
+        /// <param name="programRepo">propgram repository</param>
+        /// <param name="prtconRepo">prtcon repository</param>
+        /// <param name="tourguideRepo">tourguide repository</param>
+        public TourMainViewModel(
+            IRepository<Tour> tourRepo,
             IRepository<Place> placeRepo,
             IRepository<PLTCON> pltconRepo,
             IRepository<Program> programRepo,
@@ -417,6 +80,362 @@ namespace HappyTourManager
             this.GetAllTourGuides();
         }
 
+        /// <summary>
+        /// Gets or sets list of selectable search categories
+        /// </summary>
+        public List<string> SearchCategories
+        {
+            get
+            {
+                return this.searchCategories;
+            }
+
+            set
+            {
+                this.searchCategories = value;
+                this.OnPropertyChanged(nameof(this.SearchCategories));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selected search category
+        /// </summary>
+        public string SelectedCtegory
+        {
+            get
+            {
+                return this.selectedCtegory;
+            }
+
+            set
+            {
+                this.selectedCtegory = value;
+                this.OnPropertyChanged(nameof(this.SelectedCtegory));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selected string value
+        /// </summary>
+        public string SelectedValue1
+        {
+            get
+            {
+                return this.selectedValue1;
+            }
+
+            set
+            {
+                this.selectedValue1 = value;
+                this.OnPropertyChanged(nameof(this.SelectedValue1));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selected string value
+        /// </summary>
+        public string SelectedValue2
+        {
+            get
+            {
+                return this.selectedValue2;
+            }
+
+            set
+            {
+                this.selectedValue2 = value;
+                this.OnPropertyChanged(nameof(this.SelectedValue2));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selected date value
+        /// </summary>
+        public DateTime SelectedDateFrom
+        {
+            get
+            {
+                return this.selectedDateFrom;
+            }
+
+            set
+            {
+                this.selectedDateFrom = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateFrom));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selected date value
+        /// </summary>
+        public DateTime SelectedDateTo
+        {
+            get
+            {
+                return this.selectedDateTo;
+            }
+
+            set
+            {
+                this.selectedDateTo = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateTo));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets list of search result
+        /// </summary>
+        public ObservableCollection<Tour> ResultList
+        {
+            get
+            {
+                return this.resultList;
+            }
+
+            set
+            {
+                this.resultList = value;
+                this.OnPropertyChanged(nameof(this.ResultList));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selected tour
+        /// </summary>
+        public Tour SelectedTour
+        {
+            get
+            {
+                return this.selectedTour;
+            }
+
+            set
+            {
+                this.selectedTour = value;
+                this.OnPropertyChanged(nameof(this.SelectedTour));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets list of all places
+        /// </summary>
+        public ObservableCollection<Place> PlaceListAll
+        {
+            get
+            {
+                return this.placeListAll;
+            }
+
+            set
+            {
+                this.placeListAll = value;
+                this.OnPropertyChanged(nameof(this.PlaceListAll));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets list of places of a selected tour
+        /// </summary>
+        public ObservableCollection<Place> TourPlaceList
+        {
+            get
+            {
+                return this.tourPlaceList;
+            }
+
+            set
+            {
+                this.tourPlaceList = value;
+                this.OnPropertyChanged(nameof(this.TourPlaceList));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selected place
+        /// </summary>
+        public Place SelectedPlace
+        {
+            get
+            {
+                return this.selectedPlace;
+            }
+
+            set
+            {
+                this.selectedPlace = value;
+                this.OnPropertyChanged(nameof(this.SelectedPlace));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets list of all programs
+        /// </summary>
+        public ObservableCollection<Program> ProgramListAll
+        {
+            get
+            {
+                return this.programListAll;
+            }
+
+            set
+            {
+                this.programListAll = value;
+                this.OnPropertyChanged(nameof(this.ProgramListAll));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets list of programs of a selected tour
+        /// </summary>
+        public ObservableCollection<Program> TourProgramList
+        {
+            get
+            {
+                return this.tourProgramList;
+            }
+
+            set
+            {
+                this.tourProgramList = value;
+                this.OnPropertyChanged(nameof(this.TourProgramList));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selectedprogram
+        /// </summary>
+        public Program SelectedProgram
+        {
+            get
+            {
+                return this.selectedProgram;
+            }
+
+            set
+            {
+                this.selectedProgram = value;
+                this.OnPropertyChanged(nameof(this.SelectedProgram));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets prie per night
+        /// </summary>
+        public int PricePerNight
+        {
+            get
+            {
+                return this.pricePerNight;
+            }
+
+            set
+            {
+                this.pricePerNight = value;
+                this.CalculatePrices();
+                this.OnPropertyChanged(nameof(this.PricePerNight));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets list of tourguides
+        /// </summary>
+        public ObservableCollection<Tourguide> TourGuideList
+        {
+            get
+            {
+                return this.tourGuideList;
+            }
+
+            set
+            {
+                this.tourGuideList = value;
+                this.OnPropertyChanged(nameof(this.TourGuideList));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets selected tour guide
+        /// </summary>
+        public Tourguide SelectedTourGuide
+        {
+            get
+            {
+                return this.selectedTourGuide;
+            }
+
+            set
+            {
+                this.selectedTourGuide = value;
+                this.OnPropertyChanged(nameof(this.SelectedTourGuide));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether edit mode
+        /// </summary>
+        public bool IsEdit
+        {
+            get
+            {
+                return this.isEdit;
+            }
+
+            set
+            {
+                this.isEdit = value;
+                this.OnPropertyChanged(nameof(this.IsEdit));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets adult price
+        /// </summary>
+        public decimal AdultP
+        {
+            get
+            {
+                return this.adultP;
+            }
+
+            set
+            {
+                this.adultP = value;
+                this.OnPropertyChanged(nameof(this.AdultP));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets childprice
+        /// </summary>
+        public decimal ChildP
+        {
+            get
+            {
+                return this.childP;
+            }
+
+            set
+            {
+                this.childP = value;
+                this.OnPropertyChanged(nameof(this.ChildP));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets property
+        /// </summary>
+        public IEnumerable<string> CountryList
+        {
+            get
+            {
+                return this.countryList;
+            }
+
+            set
+            {
+                this.countryList = value;
+            }
+        }
 
         /// <summary>
         /// Get the search result list
@@ -435,8 +454,8 @@ namespace HappyTourManager
             else if (this.SelectedCtegory == "ADULTPRICE" || this.SelectedCtegory == "CHILDPRICE")
             {
                 int[] arr = new int[2];
-                arr[0] = Int32.Parse(this.SelectedValue1);
-                arr[1] = Int32.Parse(this.SelectedValue2);
+                arr[0] = int.Parse(this.SelectedValue1);
+                arr[1] = int.Parse(this.SelectedValue2);
 
                 rL = this.tourBL.Search(Enum.Parse(typeof(TourTerms), this.SelectedCtegory), arr);
             }
@@ -444,6 +463,7 @@ namespace HappyTourManager
             {
                 rL = this.tourBL.Search(Enum.Parse(typeof(TourTerms), this.SelectedCtegory), this.SelectedValue1);
             }
+
             this.ResultList = new ObservableCollection<Tour>(rL);
         }
 
@@ -464,7 +484,6 @@ namespace HappyTourManager
                     }
                 }
             }
-
         }
 
         /// <summary>
@@ -482,54 +501,71 @@ namespace HappyTourManager
                     {
                         this.TourProgramList.Add(item.Program);
                     }
-
                 }
-
             }
-
         }
 
         /// <summary>
         /// check if form is correctly filled in
         /// </summary>
-        /// <param name="tab"></param>
-        /// <returns></returns>
+        /// <param name="tab">tab</param>
+        /// <returns> true if values are ok</returns>
         public bool Checkvalues(int tab)
         {
             switch (tab)
             {
                 case 0:
-                    if (this.SelectedTour.TravelName == null) return true;
-                    if (this.SelectedTour.Transport == null) return true;
+                    if (this.SelectedTour.TravelName == null)
+                    {
+                        return true;
+                    }
+
+                    if (this.SelectedTour.Transport == null)
+                    {
+                        return true;
+                    }
+
                     break;
                 case 1:
-                    if (this.SelectedPlace.Country == null) return true;
-                    if (this.SelectedPlace.City == null) return true;
+                    if (this.SelectedPlace.Country == null)
+                    {
+                        return true;
+                    }
+
+                    if (this.SelectedPlace.City == null)
+                    {
+                        return true;
+                    }
+
                     break;
                 case 2:
-                    if (this.SelectedProgram.ProgramType == null) return true;
+                    if (this.SelectedProgram.ProgramType == null)
+                    {
+                        return true;
+                    }
+
                     break;
                 default:
                     break;
-
             }
+
             return false;
         }
 
         /// <summary>
         /// save item
         /// </summary>
-        /// <param name="tab"></param>
+        /// <param name="tab"> tab</param>
         public void SaveInstance(int tab)
         {
             if (this.SelectedTour != null)
             {
-                this.SelectedTour.AdultPrice = AdultP;
-                this.SelectedTour.ChildPrice = ChildP;
+                this.SelectedTour.AdultPrice = this.AdultP;
+                this.SelectedTour.ChildPrice = this.ChildP;
             }
+
             switch (tab)
             {
-               
                 case 0:
                     if (this.ResultList != null && this.ResultList.Contains(this.SelectedTour))
                     {
@@ -537,10 +573,12 @@ namespace HappyTourManager
                         {
                             this.tourBL.CreatePLTCON(new PLTCON() { TourID = this.SelectedTour.TourID, PlaceID = this.SelectedPlace.PlaceID });
                         }
+
                         if (this.SelectedProgram != null)
                         {
                             this.tourBL.CreatePRTCON(new PRTCON() { TourID = this.SelectedTour.TourID, ProgramID = this.SelectedProgram.ProgramID });
                         }
+
                         this.tourBL.Update();
                     }
                     else
@@ -550,11 +588,13 @@ namespace HappyTourManager
                         {
                             this.tourBL.CreatePLTCON(new PLTCON() { TourID = this.SelectedTour.TourID, PlaceID = this.SelectedPlace.PlaceID });
                         }
+
                         if (this.SelectedProgram != null)
                         {
                             this.tourBL.CreatePRTCON(new PRTCON() { TourID = this.SelectedTour.TourID, ProgramID = this.SelectedProgram.ProgramID });
                         }
                     }
+
                     break;
                 case 1:
                     if (this.PlaceListAll.Contains(this.SelectedPlace))
@@ -566,6 +606,7 @@ namespace HappyTourManager
                         this.tourBL.CreatePlace(this.SelectedPlace);
                         this.PlaceListAll.Add(this.SelectedPlace);
                     }
+
                     break;
                 case 2:
                     if (this.ProgramListAll.Contains(this.SelectedProgram))
@@ -577,10 +618,10 @@ namespace HappyTourManager
                         this.tourBL.CreateProgram(this.SelectedProgram);
                         this.ProgramListAll.Add(this.SelectedProgram);
                     }
+
                     break;
                 default:
                     break;
-
             }
         }
 
@@ -598,13 +639,16 @@ namespace HappyTourManager
                     pltList.Add(item);
                 }
             }
+
             foreach (var item in pltList)
             {
                 try
                 {
                     this.tourBL.DeletePLTCON(item);
                 }
-                finally { }
+                finally
+                {
+                }
             }
 
             IList<PRTCON> prts = this.tourBL.GetAllPRTCONs();
@@ -615,16 +659,19 @@ namespace HappyTourManager
                 {
                     prtList.Add(item);
                 }
-
             }
+
             foreach (var item in prtList)
             {
                 try
                 {
                     this.tourBL.DeletePRTCON(item);
                 }
-                finally { }
+                finally
+                {
+                }
             }
+
             this.tourBL.Delete(this.SelectedTour);
         }
 
@@ -639,7 +686,7 @@ namespace HappyTourManager
                 countryNames.Add(country.DisplayName.ToString());
             }
 
-            this.countryList = countryNames.OrderBy(names => names).Distinct();
+            this.CountryList = countryNames.OrderBy(names => names).Distinct();
         }
 
         /// <summary>
@@ -675,7 +722,7 @@ namespace HappyTourManager
         private void GetAllTourGuides()
         {
             IList<Tourguide> tg = this.tourguideBL.GetAllTourguides();
-            if (tg !=null)
+            if (tg != null)
             {
                 foreach (var item in tg)
                 {
@@ -692,6 +739,5 @@ namespace HappyTourManager
                 this.ChildP = this.tourBL.ChildPriceCalculator((int)this.AdultP);
             }
         }
-
     }
 }

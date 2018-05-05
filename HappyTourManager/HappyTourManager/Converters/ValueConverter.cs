@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="ValueConverter.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using System;
     using System.Globalization;
@@ -8,11 +12,13 @@
     /// <summary>
     /// Abstract converter class
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public abstract class ValueConverter<T> : MarkupExtension, IValueConverter where T: class, new()
+    /// <typeparam name="T"> T param</typeparam>
+    public abstract class ValueConverter<T> : MarkupExtension, IValueConverter
+        where T : class, new()
     {
         private static T converter = null;
 
+        /// <inheritdoc/>
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             if (converter != null)
@@ -26,8 +32,10 @@
             }
         }
 
+        /// <inheritdoc/>
         public abstract object Convert(object value, Type targetType, object parameter, CultureInfo culture);
 
+        /// <inheritdoc/>
         public abstract object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture);
     }
 }

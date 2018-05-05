@@ -110,7 +110,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AutoGUIBuilder.cs" />
     <Compile Include="Bindable.cs" />
     <Compile Include="Converters\TrueFalseConverter.cs" />
     <Compile Include="Converters\ValueConverter.cs" />

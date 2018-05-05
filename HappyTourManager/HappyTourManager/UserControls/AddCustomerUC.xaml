@@ -29,7 +29,7 @@
                 </DockPanel>
                 <DockPanel Margin="3">
                     <TextBlock Text="Phonenumber: "/>
-                        <TextBox Text="{Binding SelectedCustomer.Person.Phone, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                        <TextBox Text="{Binding SelectedCustomer.Person.Phone, StringFormat='{}{0:#\;0:#;#}'}" />
                 </DockPanel>
                 <TextBlock Text="Address" FontWeight="Bold" Margin="0,5,0,0"/>
                 <DockPanel Margin="3">
@@ -56,7 +56,7 @@
                     </DockPanel>
                 <DockPanel Margin="3">
                     <TextBlock Text="ID number: "/>
-                        <TextBox Text="{Binding SelectedCustomer.Person.IDNumber, StringFormat='{}{0:#\\%;0:#;#}'}" />
+                        <TextBox Text="{Binding SelectedCustomer.Person.IDNumber, StringFormat='{}{0:#\;0:#;#}'}" />
                 </DockPanel>
                 <DockPanel Margin="3">
                     <TextBlock Text="Valid to: "/>

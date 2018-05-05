@@ -1,4 +1,4 @@
-﻿// <copyright file="App.xaml.cs" company="PlaceholderCompany">
+﻿// <copyright file="LoginViewModel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -8,15 +8,29 @@ namespace HappyTourManager
     using DATA;
     using DATA.Interfaces;
 
-    class LoginViewModel : Bindable
+    /// <summary>
+    /// Login viewmodel
+    /// </summary>
+    internal class LoginViewModel : Bindable
     {
         private IRepository<User> userRepository;
         private string userName;
         private string password;
-        public LoginBL loginBL;
+        private LoginBL loginBL;
 
         /// <summary>
-        /// Contains given username
+        /// Initializes a new instance of the <see cref="LoginViewModel"/> class.
+        /// Constructor of Login view model
+        /// </summary>
+        /// <param name="userRepo">user repository</param>
+        public LoginViewModel(IRepository<User> userRepo)
+        {
+            this.userRepository = userRepo;
+            this.loginBL = new LoginBL(this.userRepository);
+        }
+
+        /// <summary>
+        /// Gets or sets contains given username
         /// </summary>
         public string Username
         {
@@ -30,11 +44,10 @@ namespace HappyTourManager
                 this.userName = value;
                 this.OnPropertyChanged(nameof(this.Username));
             }
-
         }
 
         /// <summary>
-        /// contains given password
+        /// Gets or sets contains given password
         /// </summary>
         public string Password
         {
@@ -48,17 +61,6 @@ namespace HappyTourManager
                 this.password = value;
                 this.OnPropertyChanged(nameof(this.Password));
             }
-
-        }
-
-        /// <summary>
-        /// Constructor of Login view model
-        /// </summary>
-        /// <param name="userRepo"></param>
-        public LoginViewModel(IRepository<User> userRepo)
-        {
-            this.userRepository = userRepo;
-            this.loginBL = new LoginBL(this.userRepository);
         }
 
         /// <summary>
@@ -78,6 +80,5 @@ namespace HappyTourManager
         {
             return this.loginBL.RegisterUser(this.Username, this.Password);
         }
-
     }
 }

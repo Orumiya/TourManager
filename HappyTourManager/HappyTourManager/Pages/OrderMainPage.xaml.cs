@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager.Pages
+﻿// <copyright file="OrderMainPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Pages
 {
     using System;
     using System.Windows;
@@ -22,7 +26,19 @@
         private OrderMainViewModel orderVM;
         private OrderDetailsUC orderDetail;
 
-        public OrderMainPage(IRepository<Order> orderRepository,
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderMainPage"/> class.
+        /// Order page
+        /// </summary>
+        /// <param name="orderRepository">orders</param>
+        /// <param name="customerRepository">customers</param>
+        /// <param name="tourRepository">tour</param>
+        /// <param name="programRepository">program</param>
+        /// <param name="placeRepository">place</param>
+        /// <param name="pltconRepository">plt</param>
+        /// <param name="prtconRepository">prt</param>
+        public OrderMainPage(
+            IRepository<Order> orderRepository,
             IRepository<Customer> customerRepository,
             IRepository<Tour> tourRepository,
             IRepository<Program> programRepository,
@@ -50,12 +66,11 @@
             this.searchCat.SelectedItem = "DEFAULT";
             this.DataContext = this.orderVM;
             this.orderDetail = new OrderDetailsUC();
-            this.contOrderDetails.Content = orderDetail;
+            this.contOrderDetails.Content = this.orderDetail;
             this.contOrderDetails.Visibility = Visibility.Hidden;
-
         }
 
-        private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SearchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.orderVM.SelectedCtegory == "ORDERDATE")
             {
@@ -69,7 +84,6 @@
                 Binding binding2 = new Binding("SelectedDateTo");
                 datePicker2.SetBinding(DatePicker.SelectedDateProperty, binding2);
                 this.contSearch2.Content = datePicker2;
-
             }
             else if (this.orderVM.SelectedCtegory == "DEFAULT")
             {
@@ -94,24 +108,24 @@
                 this.contSearch1.Content = null;
                 this.contSearch2.Content = null;
             }
-
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                orderVM.GetSearchResult();
-                if (orderVM.ResultList.Count > 0)
+                this.orderVM.GetSearchResult();
+                if (this.orderVM.ResultList.Count > 0)
                 {
-                    btnEdit.Visibility = Visibility.Visible;
-                    btnDelete.Visibility = Visibility.Visible;
+                    this.btnEdit.Visibility = Visibility.Visible;
+                    this.btnDelete.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    btnEdit.Visibility = Visibility.Hidden;
-                    btnDelete.Visibility = Visibility.Hidden;
+                    this.btnEdit.Visibility = Visibility.Hidden;
+                    this.btnDelete.Visibility = Visibility.Hidden;
                 }
+
                 this.contOrderDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
@@ -128,43 +142,41 @@
             {
                 MessageBox.Show("Wrong data type");
             }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            orderVM.SelectedOrder = new Order()
+            this.orderVM.SelectedOrder = new Order()
             {
                 OrderDate = DateTime.Today
             };
-            orderVM.TotalPrice = 0;
-            orderVM.AdultCountNew = 0;
-            orderVM.SelectedCustomer = null;
-            orderVM.SelectedTour = null;
+            this.orderVM.TotalPrice = 0;
+            this.orderVM.AdultCountNew = 0;
+            this.orderVM.SelectedCustomer = null;
+            this.orderVM.SelectedTour = null;
             this.contOrderDetails.Visibility = Visibility.Visible;
             this.btnSave.Visibility = Visibility.Visible;
             this.btnCancel.Visibility = Visibility.Visible;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-
-                if (orderVM.Checkvalues())
+                if (this.orderVM.Checkvalues())
                 {
                     MessageBox.Show("All values must be filled in!");
                 }
                 else
                 {
-                    orderVM.SaveInstance();
+                    this.orderVM.SaveInstance();
                     MessageBox.Show("Data is saved!");
                     this.contOrderDetails.Visibility = Visibility.Hidden;
-                    orderVM.SelectedOrder = null;
-                    orderVM.SelectedCustomer = null;
-                    orderVM.SelectedTour = null;
-                    orderVM.AdultCountNew = 0;
-                    orderVM.TotalPrice = 0;
+                    this.orderVM.SelectedOrder = null;
+                    this.orderVM.SelectedCustomer = null;
+                    this.orderVM.SelectedTour = null;
+                    this.orderVM.AdultCountNew = 0;
+                    this.orderVM.TotalPrice = 0;
                     this.btnSave.Visibility = Visibility.Hidden;
                     this.btnCancel.Visibility = Visibility.Hidden;
                 }
@@ -181,29 +193,28 @@
             {
                 MessageBox.Show("Wrong data type");
             }
-
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.contOrderDetails.Visibility = Visibility.Hidden;
-            orderVM.SelectedOrder = null;
-            orderVM.SelectedCustomer = null;
-            orderVM.SelectedTour = null;
-            orderVM.TotalPrice = 0;
-            orderVM.AdultCountNew = 0;
+            this.orderVM.SelectedOrder = null;
+            this.orderVM.SelectedCustomer = null;
+            this.orderVM.SelectedTour = null;
+            this.orderVM.TotalPrice = 0;
+            this.orderVM.AdultCountNew = 0;
             this.btnSave.Visibility = Visibility.Hidden;
             this.btnCancel.Visibility = Visibility.Hidden;
         }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (orderVM.ResultList.Count > 0 && orderVM.SelectedOrder != null)
+            if (this.orderVM.ResultList.Count > 0 && this.orderVM.SelectedOrder != null)
             {
-                orderVM.SelectedCustomer = orderVM.SelectedOrder.Customer;
-                orderVM.SelectedTour = orderVM.SelectedOrder.Tour;
-                orderVM.TotalPrice = orderVM.SelectedOrder.TotalSum;
-                orderVM.AdultCountNew = (int)orderVM.SelectedOrder.PersonCount;
+                this.orderVM.SelectedCustomer = this.orderVM.SelectedOrder.Customer;
+                this.orderVM.SelectedTour = this.orderVM.SelectedOrder.Tour;
+                this.orderVM.TotalPrice = this.orderVM.SelectedOrder.TotalSum;
+                this.orderVM.AdultCountNew = (int)this.orderVM.SelectedOrder.PersonCount;
                 this.contOrderDetails.Visibility = Visibility.Visible;
                 this.btnSave.Visibility = Visibility.Visible;
                 this.btnCancel.Visibility = Visibility.Visible;
@@ -213,25 +224,25 @@
                 this.contOrderDetails.Visibility = Visibility.Hidden;
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
-                orderVM.SelectedCustomer = null;
-                orderVM.SelectedTour = null;
-                orderVM.TotalPrice = 0;
-                orderVM.AdultCountNew = 0;
+                this.orderVM.SelectedCustomer = null;
+                this.orderVM.SelectedTour = null;
+                this.orderVM.TotalPrice = 0;
+                this.orderVM.AdultCountNew = 0;
                 MessageBox.Show("Please select an order!");
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (orderVM.SelectedOrder != null)
+            if (this.orderVM.SelectedOrder != null)
             {
                 if (MessageBox.Show("Do you want to delete order?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        orderVM.DeleteInstance();
+                        this.orderVM.DeleteInstance();
                         MessageBox.Show("Order is deleted");
-                        orderVM.ResultList.Remove(orderVM.SelectedOrder);
+                        this.orderVM.ResultList.Remove(this.orderVM.SelectedOrder);
                     }
                     catch (InvalidOperationException ex)
                     {
@@ -247,12 +258,11 @@
                     }
                     finally
                     {
-                        orderVM.SelectedCustomer = null;
-                        orderVM.SelectedTour = null;
-                        orderVM.TotalPrice = 0;
-                        orderVM.AdultCountNew = 0;
+                        this.orderVM.SelectedCustomer = null;
+                        this.orderVM.SelectedTour = null;
+                        this.orderVM.TotalPrice = 0;
+                        this.orderVM.AdultCountNew = 0;
                     }
-
                 }
             }
             else
@@ -263,14 +273,12 @@
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (orderVM.SelectedOrder != null)
+            if (this.orderVM.SelectedOrder != null)
             {
-                orderVM.SelectedCustomer = orderVM.SelectedOrder.Customer;
-                orderVM.SelectedTour = orderVM.SelectedOrder.Tour;
-                orderVM.TotalPrice = orderVM.SelectedOrder.TotalSum;
-                orderVM.AdultCountNew = (int)orderVM.SelectedOrder.PersonCount;
-
-                
+                this.orderVM.SelectedCustomer = this.orderVM.SelectedOrder.Customer;
+                this.orderVM.SelectedTour = this.orderVM.SelectedOrder.Tour;
+                this.orderVM.TotalPrice = this.orderVM.SelectedOrder.TotalSum;
+                this.orderVM.AdultCountNew = (int)this.orderVM.SelectedOrder.PersonCount;
             }
         }
     }

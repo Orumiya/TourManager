@@ -7,10 +7,10 @@ namespace HappyTourManager
     using System;
     using System.Windows;
     using DATA;
-    using DATA.Repositories;
     using DATA.Interfaces;
-    using Pages;
     using DATA.Repositoriees;
+    using DATA.Repositories;
+    using Pages;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,31 +22,38 @@ namespace HappyTourManager
         /// a főmenü page-t indítja
         /// </summary>
         ///
+        private LoginPage loginPage;
+        private MainPage mainPage;
+        private bool dispose = false;
 
-        LoginPage loginPage;
-        MainPage mainPage;
+        private HappyTourDatabaseEntities entities;
+        private IRepository<Customer> customerRepo;
+        private IRepository<Language> languageRepo;
+        private IRepository<OnHoliday> onHolidayRepo;
+        private IRepository<Order> orderRepo;
+        private IRepository<Place> placeRepo;
+        private IRepository<PLTCON> pltconRepo;
+        private IRepository<Program> programRepo;
+        private IRepository<PRTCON> prtconRepo;
+        private IRepository<Report> reportRepo;
+        private IRepository<Tourguide> tourguideRepo;
+        private IRepository<Tour> tourRepo;
+        private IRepository<User> userRepo;
+        private IRepository<Office> officeRepo;
 
-        HappyTourDatabaseEntities entities;
-        IRepository<Customer> customerRepo;
-        IRepository<Language> languageRepo;
-        IRepository<OnHoliday> onHolidayRepo;
-        IRepository<Order> orderRepo;
-        IRepository<Place> placeRepo;
-        IRepository<PLTCON> pltconRepo;
-        IRepository<Program> programRepo;
-        IRepository<PRTCON> prtconRepo;
-        IRepository<Report> reportRepo;
-        IRepository<Tourguide> tourguideRepo;
-        IRepository<Tour> tourRepo;
-        IRepository<User> userRepo;
-        IRepository<Office> officeRepo;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// Contructor of main window
+        /// </summary>
         public MainWindow()
         {
             this.InitializeComponent();
-
         }
 
+        /// <summary>
+        /// set main page
+        /// </summary>
+        /// <param name="pagetype">pagetype</param>
         public void SetPage(string pagetype)
         {
             if (pagetype == "LoginPage")
@@ -56,9 +63,47 @@ namespace HappyTourManager
             }
             else
             {
-                this.mainPage = new MainPage(this.customerRepo,this.languageRepo,this.onHolidayRepo,this.orderRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.reportRepo,
-                    this.tourguideRepo,this.tourRepo,this.userRepo, this.officeRepo,this);
+                this.mainPage = new MainPage(
+                    this.customerRepo,
+                    this.languageRepo,
+                    this.onHolidayRepo,
+                    this.orderRepo,
+                    this.placeRepo,
+                    this.pltconRepo,
+                    this.programRepo,
+                    this.prtconRepo,
+                    this.reportRepo,
+                    this.tourguideRepo,
+                    this.tourRepo,
+                    this.userRepo,
+                    this.officeRepo,
+                    this);
                 this.MainFrame.Content = this.mainPage;
+            }
+        }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose method
+        /// </summary>
+        /// <param name="disposing">true</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (this.dispose)
+            {
+                if (disposing)
+                {
+                    if (this.entities != null)
+                    {
+                        this.entities.Dispose();
+                    }
+                }
             }
         }
 
@@ -80,28 +125,7 @@ namespace HappyTourManager
             this.officeRepo = new OfficeRepository(this.entities);
 
             this.SetPage("LoginPage");
-            //this.resource;
             this.DataContext = new WindowViewModel(this);
-        }
-
-        bool dispose = false;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (dispose)
-            {
-                if (disposing)
-                {
-                    if (entities != null) entities.Dispose();
-                }
-            }
-
         }
     }
 }

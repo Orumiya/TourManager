@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager.Pages
+﻿// <copyright file="LoginPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Pages
 {
     using System;
     using System.Windows;
@@ -11,19 +15,24 @@
     /// </summary>
     public partial class LoginPage : Page
     {
-        LoginViewModel loginVM;
-        IRepository<User> userRepo;
-        MainWindow win;
+        private LoginViewModel loginVM;
+        private IRepository<User> userRepo;
+        private MainWindow win;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginPage"/> class.
+        /// Login page
+        /// </summary>
+        /// <param name="userRepo">user repository</param>
+        /// <param name="parentWin">parent window</param>
         public LoginPage(IRepository<User> userRepo, MainWindow parentWin)
         {
             this.InitializeComponent();
             this.win = parentWin;
             this.userRepo = userRepo;
-
         }
 
-        private void btnSignIn_Click(object sender, RoutedEventArgs e)
+        private void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
             if (this.loginVM.SignIn())
             {
@@ -35,7 +44,7 @@
             }
         }
 
-        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        private void BtnSignUp_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -43,14 +52,12 @@
             }
             catch (InvalidOperationException ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Data is not valid!");
             }
-            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

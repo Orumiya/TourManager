@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="Bindable.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using System.ComponentModel;
 
@@ -7,14 +11,16 @@
     /// </summary>
     public class Bindable : INotifyPropertyChanged
     {
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// On Propertychanged method
+        /// </summary>
+        /// <param name="propertyName">property name</param>
         protected void OnPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

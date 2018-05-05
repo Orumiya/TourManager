@@ -26,37 +26,37 @@
             </Grid.ColumnDefinitions>
 
             <!--Menu-->
-            <Button Name="btnCustomer" ToolTip="Customer" Style="{StaticResource Iconbtn}" Grid.Column="0" Click="btnCustomer_Click"  >
+            <Button Name="btnCustomer" ToolTip="Customer" Style="{StaticResource Iconbtn}" Grid.Column="0" Click="BtnCustomer_Click"  >
                 <StackPanel>
                     <Image Source="/Images/customer.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnTour" ToolTip="Tour" Style="{StaticResource Iconbtn}" Grid.Column="1" Click="btnTour_Click">
+            <Button Name="btnTour" ToolTip="Tour" Style="{StaticResource Iconbtn}" Grid.Column="1" Click="BtnTour_Click">
                 <StackPanel>
                     <Image Source="/Images/tours.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnOrder" ToolTip="Order" Style="{StaticResource Iconbtn}" Grid.Column="2" Click="btnOrder_Click">
+            <Button Name="btnOrder" ToolTip="Order" Style="{StaticResource Iconbtn}" Grid.Column="2" Click="BtnOrder_Click">
                 <StackPanel>
                     <Image Source="/Images/orders.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnTGuide" ToolTip="Tour Guide" Style="{StaticResource Iconbtn}" Grid.Column="3" Click="btnTGuide_Click">
+            <Button Name="btnTGuide" ToolTip="Tour Guide" Style="{StaticResource Iconbtn}" Grid.Column="3" Click="BtnTGuide_Click">
                 <StackPanel>
                     <Image Source="/Images/tourguide.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnOffice" ToolTip="Office" Style="{StaticResource Iconbtn}" Grid.Column="4" Click="btnOffice_Click">
+            <Button Name="btnOffice" ToolTip="Office" Style="{StaticResource Iconbtn}" Grid.Column="4" Click="BtnOffice_Click">
                 <StackPanel>
                     <Image Source="/Images/office.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button Name="btnReports" ToolTip="Reports" Style="{StaticResource Iconbtn}" Grid.Column="5" Click="btnReports_Click">
+            <Button Name="btnReports" ToolTip="Reports" Style="{StaticResource Iconbtn}" Grid.Column="5" Click="BtnReports_Click">
                 <StackPanel>
                     <Image Source="/Images/reports.png" Stretch="None"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btnExit" ToolTip="Sign out" Style="{StaticResource Iconbtn}" Grid.Column="6" Click="btnExit_Click">
+            <Button x:Name="btnExit" ToolTip="Sign out" Style="{StaticResource Iconbtn}" Grid.Column="6" Click="BtnExit_Click">
                 <StackPanel>
                     <Image Source="/Images/exit.png" Stretch="None"/>
                 </StackPanel>

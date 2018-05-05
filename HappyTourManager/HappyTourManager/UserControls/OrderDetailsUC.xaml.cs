@@ -1,4 +1,8 @@
-﻿namespace HappyTourManager
+﻿// <copyright file="OrderDetailsUC.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager
 {
     using System.Windows;
     using System.Windows.Controls;
@@ -8,6 +12,10 @@
     /// </summary>
     public partial class OrderDetailsUC : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderDetailsUC"/> class.
+        /// Order details
+        /// </summary>
         public OrderDetailsUC()
         {
             this.InitializeComponent();

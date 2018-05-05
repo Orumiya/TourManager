@@ -1,10 +1,14 @@
-﻿namespace HappyTourManager.Pages
+﻿// <copyright file="ReportMainPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Pages
 {
-    using DATA;
-    using DATA.Interfaces;
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using DATA;
+    using DATA.Interfaces;
 
     /// <summary>
     /// Interaction logic for ReportMainPage.xaml
@@ -25,7 +29,21 @@
 
         private ReportMainViewModel reportVM;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReportMainPage"/> class.
+        /// report page
+        /// </summary>
+        /// <param name="reportRepository">report</param>
+        /// <param name="orderRepository">order</param>
+        /// <param name="customerRepository">custmer</param>
+        /// <param name="tourRepository">tour</param>
+        /// <param name="tourguideRepository">tourguide</param>
+        /// <param name="languageRepository">language</param>
+        /// <param name="onHolidayRepository">onholiday</param>
+        /// <param name="programRepository">program</param>
+        /// <param name="placeRepository">place</param>
+        /// <param name="pltconRepository">plt</param>
+        /// <param name="prtconRepository">prt</param>
         public ReportMainPage(
             IRepository<Report> reportRepository,
             IRepository<Order> orderRepository,
@@ -37,8 +55,7 @@
             IRepository<Program> programRepository,
             IRepository<Place> placeRepository,
             IRepository<PLTCON> pltconRepository,
-            IRepository<PRTCON> prtconRepository
-            )
+            IRepository<PRTCON> prtconRepository)
         {
             this.reportRepository = reportRepository;
             this.orderRepository = orderRepository;
@@ -57,16 +74,24 @@
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            this.reportVM = new ReportMainViewModel(reportRepository, orderRepository, customerRepository, tourRepository, 
-                                                    tourguideRepository, languageRepository, onHolidayRepository, programRepository,
-                                                    placeRepository, pltconRepository, prtconRepository);
+            this.reportVM = new ReportMainViewModel(
+                this.reportRepository,
+                this.orderRepository,
+                this.customerRepository,
+                this.tourRepository,
+                this.tourguideRepository,
+                this.languageRepository,
+                this.onHolidayRepository,
+                this.programRepository,
+                this.placeRepository,
+                this.pltconRepository,
+                this.prtconRepository);
             this.DataContext = this.reportVM;
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (reportVM.SelectedType != null)
+            if (this.reportVM.SelectedType != null)
             {
                 try
                 {
@@ -84,28 +109,24 @@
                 {
                     MessageBox.Show("Wrong data type");
                 }
-                catch(NotImplementedException)
+                catch (NotImplementedException)
                 {
                     MessageBox.Show("Report is not implemented!");
                 }
 
-                if (reportVM.SelectedType == "CUSTOMERREPORT")
+                if (this.reportVM.SelectedType == "CUSTOMERREPORT")
                 {
-
-                    this.contReportDetails.Content = new PieChartUC(reportVM.Point1, reportVM.Point2);
+                    this.contReportDetails.Content = new PieChartUC(this.reportVM.Point1, this.reportVM.Point2);
                 }
-                else if (reportVM.SelectedType == "ORDERREPORT")
+                else if (this.reportVM.SelectedType == "ORDERREPORT")
                 {
-                    this.contReportDetails.Content = new OrderReportUC(reportVM.Point1, reportVM.Point2, reportVM.Point3);
+                    this.contReportDetails.Content = new OrderReportUC(this.reportVM.Point1, this.reportVM.Point2, this.reportVM.Point3);
                 }
             }
             else
             {
                 MessageBox.Show("Please select reporttype!");
             }
-            
-            
-            
         }
     }
 }

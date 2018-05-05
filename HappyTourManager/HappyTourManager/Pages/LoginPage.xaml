@@ -19,9 +19,9 @@
                         <TextBlock Text="Sign in" FontFamily="{StaticResource SugarcubesBold}" FontSize="40" FontWeight="ExtraBold" Foreground="{StaticResource BGBlueBrush}" Margin="0 0 0 20"/>
                         <TextBox Style="{StaticResource loginTB}" Tag="Username" Text="{Binding Username}"/>
                         <TextBox Style="{StaticResource loginTB}" Tag="Password" Text="{Binding Password}"/>
-                        <Button Name="btnSignIn" Content="Sign in" HorizontalAlignment="Center" Click="btnSignIn_Click"/>
+                        <Button Name="btnSignIn" Content="Sign in" HorizontalAlignment="Center" Click="BtnSignIn_Click"/>
 
-                        <Button Name="btnSignUp" Style="{StaticResource SignUpbtn}" Content="Sign Up" Click="btnSignUp_Click" />
+                        <Button Name="btnSignUp" Style="{StaticResource SignUpbtn}" Content="Sign Up" Click="BtnSignUp_Click" />
                     </StackPanel>
                 </Border>
             </StackPanel>

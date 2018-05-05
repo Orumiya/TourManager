@@ -1,10 +1,14 @@
-﻿namespace HappyTourManager.Pages
+﻿// <copyright file="OfficeMainPage.xaml.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HappyTourManager.Pages
 {
-    using DATA;
-    using DATA.Interfaces;
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using DATA;
+    using DATA.Interfaces;
 
     /// <summary>
     /// Interaction logic for OfficeMainPage.xaml
@@ -14,13 +18,18 @@
         private OfficeMainViewModel officeVM;
         private IRepository<Office> officeRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfficeMainPage"/> class.
+        /// Office page
+        /// </summary>
+        /// <param name="officeRepository">office</param>
         public OfficeMainPage(IRepository<Office> officeRepository)
         {
             this.officeRepository = officeRepository;
             this.InitializeComponent();
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -28,7 +37,6 @@
             }
             catch (NotImplementedException)
             {
-
                 MessageBox.Show("Under Construction");
             }
             catch (InvalidOperationException ex)
@@ -37,14 +45,14 @@
             }
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.officeVM.CurrentOffice = new DATA.Office();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            this.officeVM = new OfficeMainViewModel(officeRepository);
+            this.officeVM = new OfficeMainViewModel(this.officeRepository);
             this.officeVM.CurrentOffice = new DATA.Office();
             this.DataContext = this.officeVM;
         }

@@ -70,10 +70,6 @@
                                 <TextBlock Text="Adult price: "/>
                                 <TextBlock Text="{Binding AdultP, StringFormat='{}{0:#\;0:#;#}'}" />
                             </DockPanel>
-                            <DockPanel Margin="3">
-                                <TextBlock Text="Child price: "/>
-                                <TextBlock Text="{Binding ChildP, StringFormat='{}{0:#\;0:#;#}'}" />
-                            </DockPanel>
                             <TextBlock Text="Places" FontWeight="Bold" Margin="0,5,0,0"/>
                             <DockPanel Margin="3">
                                 <Expander Name="addedPlaces" Header="Places added">
