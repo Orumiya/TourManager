@@ -63,10 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IOffice.cs" />
     <Compile Include="Interfaces\IOrderList.cs" />
     <Compile Include="Interfaces\IReportList.cs" />
     <Compile Include="Interfaces\ITourList.cs" />
     <Compile Include="LoginBL.cs" />
+    <Compile Include="OfficeBL.cs" />
     <Compile Include="OrderBL.cs" />
     <Compile Include="ReportBL.cs" />
     <Compile Include="TourBL.cs" />
