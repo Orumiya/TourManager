@@ -1,15 +1,23 @@
 ﻿namespace HappyTourManager.Converters
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows.Data;
 
+    /// <summary>
+    /// TrueFalse Converter class
+    /// </summary>
     class TrueFalseConverter : IValueConverter
     {
+
+        /// <summary>
+        /// Convert from string to bool
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns>true if value "1"</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
@@ -19,6 +27,14 @@
             return false;
         }
 
+        /// <summary>
+        /// Convert from bool to string
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns>"1" if value true and "0" others</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool bValue = (bool)value;

@@ -1,23 +1,9 @@
 ﻿namespace HappyTourManager.Pages
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
     using DATA;
     using DATA.Interfaces;
-    using DATA.Repositoriees;
-    using DATA.Repositories;
 
     /// <summary>
     /// Interaction logic for CustomerMainPage.xaml
@@ -27,7 +13,6 @@
 
         IRepository<Customer> customerRepo;
         IRepository<Language> languageRepo;
-        IRepository<Office> officeRepo;
         IRepository<OnHoliday> onHolidayRepo;
         IRepository<Order> orderRepo;
         IRepository<Place> placeRepo;
@@ -42,7 +27,6 @@
 
         public MainPage(IRepository<Customer> customerRepo,
                 IRepository<Language> languageRepo,
-                IRepository<Office> officeRepo,
                 IRepository<OnHoliday> onHolidayRepo,
                 IRepository<Order> orderRepo,
                 IRepository<Place> placeRepo,
@@ -58,7 +42,6 @@
             this.InitializeComponent();
             this.customerRepo = customerRepo;
             this.languageRepo = languageRepo;
-            this.officeRepo = officeRepo;
             this.onHolidayRepo = onHolidayRepo;
             this.orderRepo = orderRepo;
             this.placeRepo = placeRepo;
@@ -90,7 +73,7 @@
 
         private void btnTGuide_Click(object sender, RoutedEventArgs e)
         {
-            this.mFrame.Content = new TourGuideMainPage(this.tourguideRepo,this.languageRepo,this.onHolidayRepo,this.tourRepo);
+            this.mFrame.Content = new TourGuideMainPage(this.tourguideRepo,this.languageRepo,this.onHolidayRepo);
         }
 
         private void btnOffice_Click(object sender, RoutedEventArgs e)

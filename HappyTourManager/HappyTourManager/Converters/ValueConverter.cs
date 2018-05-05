@@ -1,14 +1,14 @@
 ﻿namespace HappyTourManager
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows.Data;
     using System.Windows.Markup;
 
+    /// <summary>
+    /// Abstract converter class
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class ValueConverter<T> : MarkupExtension, IValueConverter where T: class, new()
     {
         private static T converter = null;

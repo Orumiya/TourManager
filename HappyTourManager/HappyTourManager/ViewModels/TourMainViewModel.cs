@@ -9,19 +9,15 @@ namespace HappyTourManager
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using BL;
     using DATA;
     using DATA.Interfaces;
 
     class TourMainViewModel : Bindable
     {
-        #region private variables
 
         private TourBL tourBL;
         private TourguideBL tourguideBL;
-
         private string selectedCtegory = "DEFAULT";
         private string selectedValue1;
         private string selectedValue2;
@@ -29,27 +25,24 @@ namespace HappyTourManager
         private DateTime selectedDateTo = DateTime.Today;
         private ObservableCollection<Tour> resultList;
         private Tour selectedTour;
-
         private ObservableCollection<Place> placeListAll;
         private ObservableCollection<Place> tourPlaceList;
         private Place selectedPlace;
         private Tourguide selectedTourGuide;
-
         private ObservableCollection<Program> programListAll;
         private ObservableCollection<Program> tourProgramList;
         private Program selectedProgram;
         int pricePerNight;
         ObservableCollection<Tourguide> tourGuideList;
-
         private List<string> searchCategories;
         private bool isEdit;
         private decimal adultP;
         private decimal childP;
-
         public IEnumerable<string> countryList;
-        #endregion
 
-        #region parameters
+        /// <summary>
+        /// list of selectable search categories
+        /// </summary>
         public List<string> SearchCategories
         {
             get
@@ -64,6 +57,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected search category
+        /// </summary>
         public string SelectedCtegory
         {
             get
@@ -78,6 +74,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected string value
+        /// </summary>
         public string SelectedValue1
         {
             get
@@ -92,6 +91,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected string value
+        /// </summary>
         public string SelectedValue2
         {
             get
@@ -106,6 +108,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected date value
+        /// </summary>
         public DateTime SelectedDateFrom
         {
             get
@@ -120,6 +125,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected date value
+        /// </summary>
         public DateTime SelectedDateTo
         {
             get
@@ -134,6 +142,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// list of search result
+        /// </summary>
         public ObservableCollection<Tour> ResultList
         {
             get
@@ -148,6 +159,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected tour
+        /// </summary>
         public Tour SelectedTour
         {
             get
@@ -162,6 +176,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// List of all places
+        /// </summary>
         public ObservableCollection<Place> PlaceListAll
         {
             get
@@ -176,6 +193,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// List of places of a selected tour
+        /// </summary>
         public ObservableCollection<Place> TourPlaceList
         {
             get
@@ -190,6 +210,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected place
+        /// </summary>
         public Place SelectedPlace
         {
             get
@@ -204,6 +227,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// list of all programs
+        /// </summary>
         public ObservableCollection<Program> ProgramListAll
         {
             get
@@ -218,6 +244,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// list of programs of a selected tour
+        /// </summary>
         public ObservableCollection<Program> TourProgramList
         {
             get
@@ -232,6 +261,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selectedprogram
+        /// </summary>
         public Program SelectedProgram
         {
             get
@@ -246,6 +278,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// prie per night
+        /// </summary>
         public int PricePerNight
         {
             get
@@ -261,6 +296,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// list of tourguides
+        /// </summary>
         public ObservableCollection<Tourguide> TourGuideList
         {
             get
@@ -275,6 +313,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// selected tour guide
+        /// </summary>
         public Tourguide SelectedTourGuide
         {
             get
@@ -289,6 +330,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// edit mode
+        /// </summary>
         public bool IsEdit
         {
             get
@@ -303,6 +347,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// adult price
+        /// </summary>
         public decimal AdultP
         {
             get
@@ -317,6 +364,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// childprice
+        /// </summary>
         public decimal ChildP
         {
             get
@@ -331,9 +381,15 @@ namespace HappyTourManager
             }
         }
 
-        #endregion
-
-        #region constructor
+        /// <summary>
+        /// constructor for tour viewmodel
+        /// </summary>
+        /// <param name="tourRepo"></param>
+        /// <param name="placeRepo"></param>
+        /// <param name="pltconRepo"></param>
+        /// <param name="programRepo"></param>
+        /// <param name="prtconRepo"></param>
+        /// <param name="tourguideRepo"></param>
         public TourMainViewModel(IRepository<Tour> tourRepo,
             IRepository<Place> placeRepo,
             IRepository<PLTCON> pltconRepo,
@@ -361,9 +417,7 @@ namespace HappyTourManager
             this.GetAllTourGuides();
         }
 
-        #endregion
 
-        #region Public methods
         /// <summary>
         /// Get the search result list
         /// </summary>
@@ -435,6 +489,11 @@ namespace HappyTourManager
 
         }
 
+        /// <summary>
+        /// check if form is correctly filled in
+        /// </summary>
+        /// <param name="tab"></param>
+        /// <returns></returns>
         public bool Checkvalues(int tab)
         {
             switch (tab)
@@ -457,6 +516,10 @@ namespace HappyTourManager
             return false;
         }
 
+        /// <summary>
+        /// save item
+        /// </summary>
+        /// <param name="tab"></param>
         public void SaveInstance(int tab)
         {
             if (this.SelectedTour != null)
@@ -521,6 +584,9 @@ namespace HappyTourManager
             }
         }
 
+        /// <summary>
+        /// delete item
+        /// </summary>
         public void DeleteInstance()
         {
             IList<PLTCON> plts = this.tourBL.GetAllPLTCONs();
@@ -561,9 +627,7 @@ namespace HappyTourManager
             }
             this.tourBL.Delete(this.SelectedTour);
         }
-        #endregion
 
-        #region Private methods
         private void CreateCountryList()
         {
             RegionInfo country = new RegionInfo(new CultureInfo("en-US", false).LCID);
@@ -628,8 +692,6 @@ namespace HappyTourManager
                 this.ChildP = this.tourBL.ChildPriceCalculator((int)this.AdultP);
             }
         }
-
-        #endregion
 
     }
 }

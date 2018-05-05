@@ -5,28 +5,12 @@
 namespace HappyTourManager
 {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
-    // using HappyTourManager.VM;
-    // using Helper;
     using DATA;
     using DATA.Repositories;
     using DATA.Interfaces;
     using Pages;
     using DATA.Repositoriees;
-    using System.Runtime.InteropServices;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -45,7 +29,6 @@ namespace HappyTourManager
         HappyTourDatabaseEntities entities;
         IRepository<Customer> customerRepo;
         IRepository<Language> languageRepo;
-        IRepository<Office> officeRepo;
         IRepository<OnHoliday> onHolidayRepo;
         IRepository<Order> orderRepo;
         IRepository<Place> placeRepo;
@@ -72,7 +55,7 @@ namespace HappyTourManager
             }
             else
             {
-                this.mainPage = new MainPage(this.customerRepo,this.languageRepo,this.officeRepo,this.onHolidayRepo,this.orderRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.reportRepo,
+                this.mainPage = new MainPage(this.customerRepo,this.languageRepo,this.onHolidayRepo,this.orderRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.reportRepo,
                     this.tourguideRepo,this.tourRepo,this.userRepo, this);
                 this.MainFrame.Content = this.mainPage;
             }
@@ -83,7 +66,6 @@ namespace HappyTourManager
             this.entities = new HappyTourDatabaseEntities();
             this.customerRepo = new CustomerRepository(this.entities);
             this.languageRepo = new LanguageRepository(this.entities);
-            this.officeRepo = new OfficeRepository(this.entities);
             this.onHolidayRepo = new OnholidayRepository(this.entities);
             this.orderRepo = new OrderRepository(this.entities);
             this.placeRepo = new PlaceRepository(this.entities);
@@ -95,7 +77,7 @@ namespace HappyTourManager
             this.tourRepo = new TourRepository(this.entities);
             this.userRepo = new UserRepository(this.entities);
 
-            this.SetPage("MainPage");
+            this.SetPage("LoginPage");
             //this.resource;
             this.DataContext = new WindowViewModel(this);
         }

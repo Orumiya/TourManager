@@ -1,19 +1,9 @@
 ﻿namespace HappyTourManager.Pages
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
     using DATA;
     using DATA.Interfaces;
 
@@ -29,12 +19,8 @@
         private IRepository<Place> placeRepository;
         private IRepository<PLTCON> pltconRepository;
         private IRepository<PRTCON> prtconRepository;
-
         private OrderMainViewModel orderVM;
         private OrderDetailsUC orderDetail;
-
-        IList<Tour> tourList = new List<Tour>();
-        IList<Customer> customerList = new List<Customer>();
 
         public OrderMainPage(IRepository<Order> orderRepository,
             IRepository<Customer> customerRepository,
@@ -55,7 +41,6 @@
             this.InitializeComponent();
         }
 
-        #region event handlers
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.orderVM = new OrderMainViewModel(this.orderRepository, this.customerRepository, this.tourRepository, this.programRepository, this.placeRepository, this.pltconRepository, this.prtconRepository);
@@ -131,12 +116,20 @@
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
         }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Missing data");
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Wrong data type");
+            }
 
-}
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -180,9 +173,13 @@
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (Exception)
+            catch (NullReferenceException)
             {
-                MessageBox.Show("Something went wrong :(");
+                MessageBox.Show("Missing data");
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Wrong data type");
             }
 
         }
@@ -236,10 +233,17 @@
                         MessageBox.Show("Order is deleted");
                         orderVM.ResultList.Remove(orderVM.SelectedOrder);
                     }
-                    catch (Exception)
+                    catch (InvalidOperationException ex)
                     {
-
-                        MessageBox.Show("Order cannot be deleted!");
+                        MessageBox.Show(ex.Message);
+                    }
+                    catch (NullReferenceException)
+                    {
+                        MessageBox.Show("Missing data");
+                    }
+                    catch (InvalidCastException)
+                    {
+                        MessageBox.Show("Wrong data type");
                     }
                     finally
                     {
@@ -256,7 +260,6 @@
                 MessageBox.Show("Please select a tour!");
             }
         }
-        #endregion
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

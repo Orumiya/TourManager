@@ -1,44 +1,33 @@
 ﻿namespace HappyTourManager.Pages
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
     using DATA;
     using DATA.Interfaces;
-    using DATA.Repositoriees;
 
     /// <summary>
     /// Interaction logic for CustomerMainPage.xaml
     /// </summary>
     public partial class CustomerMainPage : Page
     {
-        #region private variables
         private IRepository<Customer> custRepository;
-        CustomerMainViewModel custVM;
-        AddCustomerUC custDetail;
-        #endregion
+        private CustomerMainViewModel custVM;
+        private AddCustomerUC custDetail;
 
-        #region constructor
+        /// <summary>
+        /// Constructor of customer main page
+        /// </summary>
+        /// <param name="custRepository"></param>
         public CustomerMainPage(IRepository<Customer> custRepository)
         {
             this.InitializeComponent();
             this.custRepository = custRepository;
 
         }
-        #endregion
 
-        #region eventhandlers
+        // Sets UI elements based on the value of searchcategory
         private void searchCat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.custVM.SelectedCtegory == "VALIDTO")
@@ -107,9 +96,13 @@
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (Exception ex)
+            catch (NullReferenceException)
             {
-                MessageBox.Show("Something went wrong :(");
+                MessageBox.Show("Missing data");
+            }
+            catch(InvalidCastException)
+            {
+                MessageBox.Show("Wrong data type");
             }
 
         }
@@ -167,9 +160,13 @@
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (Exception ex)
+            catch (NullReferenceException)
             {
-                MessageBox.Show("Something went wrong :(");
+                MessageBox.Show("Missing data");
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Wrong data type");
             }
 
         }
@@ -215,6 +212,6 @@
                 MessageBox.Show("Please select a customer!");
             }
         }
-        #endregion
+
     }
 }

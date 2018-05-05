@@ -1,22 +1,11 @@
 ﻿namespace HappyTourManager.Pages
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
     using DATA;
     using DATA.Interfaces;
-    using DATA.Repositoriees;
 
     /// <summary>
     /// Interaction logic for TourMainPage.xaml
@@ -24,19 +13,17 @@
     ///
     public partial class TourMainPage : Page
     {
-        #region private variables
+
         private IRepository<Place> placeRepo;
         private IRepository<PLTCON> pltconRepo;
         private IRepository<Program> programRepo;
         private IRepository<PRTCON> prtconRepo;
         private IRepository<Tourguide> tourguideRepo;
         private IRepository<Tour> tourRepo;
-
         private TourMainViewModel tourVM;
         private TourDetailsUC tourDetail;
-        #endregion
 
-        #region constructor
+
         public TourMainPage(IRepository<Tour> tourRepo,
             IRepository<Place> placeRepo,
             IRepository<PLTCON> pltconRepo,
@@ -52,9 +39,9 @@
             this.prtconRepo = prtconRepo;
             this.tourguideRepo = tourguideRepo;
         }
-        #endregion
 
-        #region event handlers
+
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.tourVM = new TourMainViewModel(this.tourRepo,this.placeRepo,this.pltconRepo,this.programRepo,this.prtconRepo,this.tourguideRepo);
@@ -182,9 +169,17 @@
                 this.btnSave.Visibility = Visibility.Hidden;
                 this.btnCancel.Visibility = Visibility.Hidden;
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Missing data");
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Wrong data type");
             }
 
         }
@@ -232,9 +227,13 @@
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (Exception)
+            catch (NullReferenceException)
             {
-                MessageBox.Show("Something went wrong :(");
+                MessageBox.Show("Missing data");
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Wrong data type");
             }
 
         }
@@ -285,10 +284,17 @@
                         MessageBox.Show("Customer is deleted");
                         this.tourVM.ResultList.Remove(this.tourVM.SelectedTour);
                     }
-                    catch (Exception)
+                    catch (InvalidOperationException ex)
                     {
-
-                        MessageBox.Show("Tour cannot be deleted!");
+                        MessageBox.Show(ex.Message);
+                    }
+                    catch (NullReferenceException)
+                    {
+                        MessageBox.Show("Missing data");
+                    }
+                    catch (InvalidCastException)
+                    {
+                        MessageBox.Show("Wrong data type");
                     }
 
                 }
@@ -298,7 +304,6 @@
                 MessageBox.Show("Please select a tour!");
             }
         }
-        #endregion
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
