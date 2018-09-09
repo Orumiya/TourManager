@@ -66,19 +66,21 @@ namespace HappyTourManager
         /// <summary>
         /// Method for signing in user
         /// </summary>
+        /// <param name="password">password from the front end</param>
         /// <returns>true, if sign in was successful</returns>
-        public bool SignIn(string Password)
+        public bool SignIn(string password)
         {
-            return this.loginBL.Login(this.Username, Password);
+            return this.loginBL.Login(this.Username, password);
         }
 
         /// <summary>
         /// method for user signup
         /// </summary>
+        /// <param name="password">password from the front end</param>
         /// <returns>true, if sign up was successful</returns>
-        public bool SignUp(string Password)
+        public bool SignUp(string password)
         {
-            return this.loginBL.RegisterUser(this.Username, Password);
+            return this.loginBL.RegisterUser(this.Username, password);
         }
     }
 }
