@@ -34,7 +34,8 @@ namespace HappyTourManager.Pages
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
-            if (this.loginVM.SignIn())
+            string password = pwd.Password;
+            if (this.loginVM.SignIn(password))
             {
                 this.win.SetPage("MainPage");
             }
@@ -46,9 +47,11 @@ namespace HappyTourManager.Pages
 
         private void BtnSignUp_Click(object sender, RoutedEventArgs e)
         {
+            string password = pwd.Password;
             try
             {
-                this.loginVM.SignUp();
+                this.loginVM.SignUp(password);
+                MessageBox.Show("Sign up is successful");
             }
             catch (InvalidOperationException ex)
             {

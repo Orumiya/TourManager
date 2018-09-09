@@ -17,8 +17,9 @@
                 <Border Background="{StaticResource LightBGBrush}" Padding="10 30 10 10" Width="300" Margin="30 30 30 30" CornerRadius="5">
                     <StackPanel>
                         <TextBlock Text="Sign in" FontFamily="{StaticResource SugarcubesBold}" FontSize="40" FontWeight="ExtraBold" Foreground="{StaticResource BGBlueBrush}" Margin="0 0 0 20"/>
-                        <TextBox Style="{StaticResource loginTB}" Tag="Username" Text="{Binding Username}"/>
-                        <TextBox Style="{StaticResource loginTB}" Tag="Password" Text="{Binding Password}"/>
+                        <TextBox Style="{StaticResource loginTB}" Tag="Username" Text="{Binding Username}" FontSize="17"/>
+                        <Label  FontFamily="{StaticResource SugarcubesRegular}" Content="Password" FontSize="17" Foreground="#FFC7C1C1" HorizontalContentAlignment="Center" />
+                        <PasswordBox x:Name="pwd" Background="Transparent"  Width="260" Height="20" FontSize="18" Tag="Password" PasswordChar="*" BorderThickness="0,0,0,1" BorderBrush="#FFD5D5D6" />
                         <Button Name="btnSignIn" Content="Sign in" HorizontalAlignment="Center" Click="BtnSignIn_Click"/>
 
                         <Button Name="btnSignUp" Style="{StaticResource SignUpbtn}" Content="Sign Up" Click="BtnSignUp_Click" />
